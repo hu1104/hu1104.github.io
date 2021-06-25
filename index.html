@@ -102,7 +102,7 @@
 <p> <img src="update.png" alt="图片" title="打开后显示"><br> <img src="choose.png" alt="图片" title="打开后显示"><br> <img src="microsoft_login.png" alt="图片" title="打开后显示"></p>
 </li>
 <li><p>漫长的等待，等待过程中如果出现太久旋转没动静，可反复取消-选择账户，几次下来一般就可以了。随后使用加入Windows Insider Program时注册的账号密码，之后出现</p>
-<p> ！<a href="dev.png" title="打开后显示">图片</a><br> 选择dev渠道，然后立即重启。</p>
+<p> <img src="dev.png" alt="图片" title="打开后显示"><br> 选择dev渠道，然后立即重启。</p>
 </li>
 <li><p>前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 更新】，下载更新完window，<br>选择【检查更新】，然后耐心等待最新 Windows 10 预览版的下载和安装。</p>
 <p> <img src="update_wid.png" alt="图片" title="打开后显示"></p>
@@ -119,24 +119,16 @@
 </li>
 </ol>
 <h1 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h1><pre><code>按照官方说法，使用预览版会有简单操作，但我是在未使用预览版时安装的，所以仅供参考。
-
-1. 管理员身份运行power shell
-
-    如果出现以下问题：
-    ![图片](problem.png &quot;打开后显示&quot;)
-    则执行`set-ExecutionPolicy RemoteSigned`
-    成功结果为：
-    ![图片](success.png &quot;打开后显示&quot;)
-    如果没有出现上述问题，则执行`dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart`开启子系统
-    ![图片](subsystem.png &quot;打开后显示&quot;)
-    然后，执行`dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart`开启虚拟机
-    ![图片](vm.png &quot;打开后显示&quot;)
-    &lt;font color=red&gt;随后重启计算机！&lt;/font&gt;
-
-2. 安装WSL内核更新包[链接](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
-
-3. 将wsl2设置为默认版本：`1.set --set-default-version 2`
 </code></pre>
+<ol>
+<li><p>管理员身份运行power shell</p>
+<p> 如果出现以下问题：<br> <img src="problem.png" alt="图片" title="打开后显示"><br> 则执行<code>set-ExecutionPolicy RemoteSigned</code><br> 成功结果为：<br> <img src="success.png" alt="图片" title="打开后显示"><br> 如果没有出现上述问题，则执行<code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code>开启子系统<br> <img src="subsystem.png" alt="图片" title="打开后显示"><br> 然后，执行<code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code>开启虚拟机<br> <img src="vm.png" alt="图片" title="打开后显示"><br> <font color=red>随后重启计算机！</font></p>
+</li>
+<li><p>安装WSL内核更新包<a target="_blank" rel="noopener" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">链接</a></p>
+</li>
+<li><p>将wsl2设置为默认版本：<code>1.set --set-default-version 2</code></p>
+</li>
+</ol>
 
       
     </div>
