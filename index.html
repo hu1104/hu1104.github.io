@@ -118,8 +118,7 @@
 <li><p>下载完成后，正常win程序安装</p>
 </li>
 </ol>
-<h1 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h1><pre><code>按照官方说法，使用预览版会有简单操作，但我是在未使用预览版时安装的，所以仅供参考。
-</code></pre>
+<h1 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h1><p>按照官方说法，使用预览版会有简单操作，但我是在未使用预览版时安装的，所以仅供参考。</p>
 <ol>
 <li><p>管理员身份运行power shell</p>
 <p> 如果出现以下问题：<br> <img src="problem.png" alt="图片" title="打开后显示"><br> 则执行<code>set-ExecutionPolicy RemoteSigned</code><br> 成功结果为：<br> <img src="success.png" alt="图片" title="打开后显示"><br> 如果没有出现上述问题，则执行<code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code>开启子系统<br> <img src="subsystem.png" alt="图片" title="打开后显示"><br> 然后，执行<code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code>开启虚拟机<br> <img src="vm.png" alt="图片" title="打开后显示"><br> <font color=red>随后重启计算机！</font></p>
@@ -129,7 +128,18 @@
 <li><p>将wsl2设置为默认版本：<code>set --set-default-version 2</code></p>
 </li>
 </ol>
-<p>dfsdf<br>fdsfd</p>
+<h1 id="安装ubuntu18-04"><a href="#安装ubuntu18-04" class="headerlink" title="安装ubuntu18.04"></a>安装ubuntu18.04</h1><ol>
+<li><p>打开Microsoft store,搜索ubuntu18,点击获取，等待下载安装，安装完成后，点击右上角的启动按钮，会出现下面操作；设置好用户名及密码，子系统安装完成。<br><img src="ubuntu.png" alt="图片" title="打开后显示"></p>
+</li>
+<li><p>安装完成后，运行<code>wsl --list --verbose</code><br><img src="wsl_lv.png" alt="图片" title="打开后显示"></p>
+</li>
+<li><p>运行</p>
+<ul>
+<li>点击ubuntu图标<br>  <img src="run_1.png" alt="图片" title="打开后显示"></li>
+<li>在power shell中运行<code>wsl</code><br>  <img src="run_2.png" alt="图片" title="打开后显示"></li>
+</ul>
+</li>
+</ol>
 
       
     </div>
