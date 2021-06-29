@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2021/06/28/Hadoop_WSL2/base_ubuntu.png">
 <meta property="article:published_time" content="2021-06-28T04:12:35.000Z">
-<meta property="article:modified_time" content="2021-06-29T04:14:00.466Z">
+<meta property="article:modified_time" content="2021-06-29T04:17:16.529Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/06/28/Hadoop_WSL2/base_ubuntu.png">
@@ -109,6 +109,10 @@
 
 <p>在Dockerfile中输入以下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:latest</span><br><span class="line">MAINTAINER duanmu</span><br><span class="line">ADD jdk-8u291-linux-x64.tar.gz /usr/local/</span><br><span class="line">ENV JAVA_HOME /usr/local/jdk1.8.0_291</span><br><span class="line">ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line">ENV PATH $PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+
+<pre><code>编辑后保存，开始build镜像
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t jdk-20210127 .</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
