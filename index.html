@@ -216,11 +216,16 @@
 <h3 id="修改master中slaves文件"><a href="#修改master中slaves文件" class="headerlink" title="修改master中slaves文件"></a>修改master中slaves文件</h3><p>注意，在hadoop3.3.0版本中并不是修改slaves文件，而是修改workers文件。此处为3.3.0版本的一些变化。<br>老版本（自行查找hadoop版本中已存在文件是slaves还是iworkers）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $HADOOP_CONFIG_HOME/</span><br><span class="line">vim workers</span><br></pre></td></tr></table></figure>
 
+<p>将其他两个节点名称加入文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
 
 <h3 id="启动hadoop"><a href="#启动hadoop" class="headerlink" title="启动hadoop"></a>启动hadoop</h3><p>此时报错的话，可在每个节点运行</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-<p>将其他两个节点名称加入文件</p>
+
+
+
+
+
 <!--
 &emsp;&emsp;<font face="黑体" size=10>16. 我是黑体字</font>
 -->
