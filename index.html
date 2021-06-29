@@ -140,13 +140,16 @@
       
         <h1 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h1><ol>
 <li><p>拉取Ubuntu镜像</p>
-<p> 首先拉取一个Ubuntu最新的镜像作为基础镜像<code>docker pull ubuntu:latest</code>,结束后，运行<code>docker images</code>,可以看到<img src="base_ubuntu.png" alt="图片" title="打开后显示图片"></p>
+<p> 首先拉取一个Ubuntu最新的镜像作为基础镜像<code>docker pull ubuntu:latest</code>,结束后，运行<code>docker images</code>,可以看到<br> <img src="base_ubuntu.png" alt="图片" title="打开后显示图片"></p>
 </li>
 <li><p>使用Dockerfile构建包含jdk的ubuntu镜像</p>
 <p> 去jdk官网下载jdk包，此处下载的为jdk1.8 ** jdk-8u291-linux-x64.tar.gz**, 将下载好的jdk文件移至wsl2环境下，在此目录下新建Dockerfile文件，并进入编辑状态</p>
 </li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim Dockerfile</span><br></pre></td></tr></table></figure>
+
+<p>在Dockerfile中输入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:latest</span><br><span class="line">MAINTAINER duanmu</span><br><span class="line">ADD jdk-8u291-linux-x64.tar.gz /usr/local/</span><br><span class="line">ENV JAVA_HOME /usr/local/jdk1.8.0_291</span><br><span class="line">ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br><span class="line">ENV PATH $PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
