@@ -206,7 +206,7 @@
 
 <p>此时ubuntu_hadoop就是最终配置好的包含hadoop的镜像。</p>
 <h2 id="17-集群测试"><a href="#17-集群测试" class="headerlink" title="17. 集群测试"></a>17. 集群测试</h2><p>依次构建并启动三个以刚刚生成的镜像为基本镜像的容器，依次命名为master 、slave1、slave2，并将master做端口映射（提示：容器要处于运行状态，生成容器后使用ctrl+P+Q退出可以使容器保持后台运行。）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -it  -h master --name=master -p 9870:9870 -p 8088:8088 -9000:9000 ubuntu:hadoop </span><br><span class="line">docker run -it  -h slave1 --name=slave1 ubuntu:hadoop </span><br><span class="line">docker run -it  -h slave2 --name=slave2 ubuntu:hadoop </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -it  -h master --name=master -p 9870:9870 -p 8088:8088 -p 9000:9000 ubuntu:hadoop </span><br><span class="line">docker run -it  -h slave1 --name=slave1 ubuntu:hadoop </span><br><span class="line">docker run -it  -h slave2 --name=slave2 ubuntu:hadoop </span><br></pre></td></tr></table></figure>
 
 <p>修改每个容器的host文件<br>对matser、slave1、slave2里的host文件，分别加入其他两个容器的ip</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
