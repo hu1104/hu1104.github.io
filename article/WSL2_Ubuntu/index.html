@@ -18,42 +18,42 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
 
   <meta name="description" content="系统更新至预览版 加入Windows Insider Program  链接    注册加入完成后，前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 预览体验计划】，选择【开始】，然后点击【确认】。      漫长的等待，等待过程中如果出现太久旋转没动静，可反复取消-选择账户，几次下来一般就可以了。随后使用加入Windows Insider Program时注册的账号">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WSL2安装Ubuntu">
-<meta property="og:url" content="http://example.com/2021/06/25/WSL2_Ubuntu/index.html">
+<meta property="og:url" content="https://hu1104.github.io/article/WSL2_Ubuntu/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="系统更新至预览版 加入Windows Insider Program  链接    注册加入完成后，前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 预览体验计划】，选择【开始】，然后点击【确认】。      漫长的等待，等待过程中如果出现太久旋转没动静，可反复取消-选择账户，几次下来一般就可以了。随后使用加入Windows Insider Program时注册的账号">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/wip.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/update.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/choose.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/microsoft_login.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/dev.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/update_wid.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/version.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/driver.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/problem.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/success.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/subsystem.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/vm.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/ubuntu.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/wsl_lv.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/run_1.png">
-<meta property="og:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/run_2.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/wip.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/update.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/choose.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/microsoft_login.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/dev.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/update_wid.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/version.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/driver.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/problem.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/success.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/subsystem.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/vm.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/ubuntu.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/wsl_lv.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/run_1.png">
+<meta property="og:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/run_2.png">
 <meta property="article:published_time" content="2021-06-25T01:22:46.000Z">
 <meta property="article:modified_time" content="2021-07-08T10:05:50.643Z">
 <meta property="article:author" content="hzx">
 <meta property="article:tag" content="win10">
 <meta property="article:tag" content="ubuntu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/06/25/WSL2_Ubuntu/wip.png">
+<meta name="twitter:image" content="https://hu1104.github.io/article/WSL2_Ubuntu/wip.png">
 
-<link rel="canonical" href="http://example.com/2021/06/25/WSL2_Ubuntu/">
+<link rel="canonical" href="https://hu1104.github.io/article/WSL2_Ubuntu/">
 
 
 <script id="page-configurations">
@@ -181,7 +181,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/06/25/WSL2_Ubuntu/">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/WSL2_Ubuntu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -335,11 +335,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/06/21/hello-world/" rel="prev" title="Hello World">
+    <a href="/article/hello-world/" rel="prev" title="Hello World">
       <i class="fa fa-chevron-left"></i> Hello World
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/06/28/Hadoop_WSL2/" rel="next" title="Hadoop_WSL2">
+    <a href="/article/Hadoop_WSL2/" rel="next" title="Hadoop_WSL2">
       Hadoop_WSL2 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
