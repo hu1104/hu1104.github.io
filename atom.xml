@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-07-22T04:17:57.573Z</updated>
+  <updated>2021-06-21T08:18:08.000Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Hello World</title>
+    <link href="https://hu1104.github.io/article/hello-world/"/>
+    <id>https://hu1104.github.io/article/hello-world/</id>
+    <published>2021-07-27T02:47:22.152Z</published>
+    <updated>2021-06-21T08:18:08.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>hadoop_spark_hbase_hive</title>
     <link href="https://hu1104.github.io/article/hadoop-spark-hbase-hive/"/>
     <id>https://hu1104.github.io/article/hadoop-spark-hbase-hive/</id>
     <published>2021-07-14T03:25:56.000Z</published>
-    <updated>2021-07-22T04:17:57.573Z</updated>
+    <updated>2021-07-22T04:17:58.000Z</updated>
     
     
     <summary type="html">&lt;p&gt;hdfs-site.xml&lt;/p&gt;</summary>
@@ -36,7 +57,7 @@
     <link href="https://hu1104.github.io/article/result-record/"/>
     <id>https://hu1104.github.io/article/result-record/</id>
     <published>2021-07-12T09:05:19.000Z</published>
-    <updated>2021-07-22T04:17:55.396Z</updated>
+    <updated>2021-07-22T04:17:56.000Z</updated>
     
     
     <summary type="html">test结果记录</summary>
@@ -53,7 +74,7 @@
     <link href="https://hu1104.github.io/article/record_everyday/"/>
     <id>https://hu1104.github.io/article/record_everyday/</id>
     <published>2021-07-12T07:50:15.000Z</published>
-    <updated>2021-07-23T09:30:32.388Z</updated>
+    <updated>2021-07-23T09:30:34.000Z</updated>
     
     
     <summary type="html">Welcome to my blog, enter password to read.</summary>
@@ -70,7 +91,7 @@
     <link href="https://hu1104.github.io/article/theme/"/>
     <id>https://hu1104.github.io/article/theme/</id>
     <published>2021-07-06T07:46:54.000Z</published>
-    <updated>2021-07-06T08:16:04.658Z</updated>
+    <updated>2021-07-06T08:16:06.000Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;更改主题&quot;&gt;&lt;a href=&quot;#更改主题&quot; class=&quot;headerlink&quot; title=&quot;更改主题&quot;&gt;&lt;/a&gt;更改主题&lt;/h3&gt;&lt;p&gt;进入命令行，下载 NexT 主题，输入:&lt;/p&gt;
@@ -90,7 +111,7 @@
     <link href="https://hu1104.github.io/article/yolov5_real/"/>
     <id>https://hu1104.github.io/article/yolov5_real/</id>
     <published>2021-07-06T06:12:37.000Z</published>
-    <updated>2021-07-14T09:33:03.717Z</updated>
+    <updated>2021-07-14T09:33:04.000Z</updated>
     
     
     <summary type="html">Welcome to my blog, enter password to read.</summary>
@@ -107,7 +128,7 @@
     <link href="https://hu1104.github.io/article/Hadoop_WSL2/"/>
     <id>https://hu1104.github.io/article/Hadoop_WSL2/</id>
     <published>2021-06-28T04:12:35.000Z</published>
-    <updated>2021-07-06T09:09:43.830Z</updated>
+    <updated>2021-07-06T09:09:44.000Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;制作镜像&quot;&gt;&lt;a href=&quot;#制作镜像&quot; class=&quot;headerlink&quot; title=&quot;制作镜像&quot;&gt;&lt;/a&gt;制作镜像&lt;/h1&gt;&lt;h2 id=&quot;1-拉取Ubuntu镜像&quot;&gt;&lt;a href=&quot;#1-拉取Ubuntu镜像&quot; class=&quot;headerlink&quot; title=&quot;1. 拉取Ubuntu镜像&quot;&gt;&lt;/a&gt;1. 拉取Ubuntu镜像&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;首先拉取一个Ubuntu最新的镜像作为基础镜像`docker pull ubuntu:latest`,结束后，运行`docker images`,可以看到
@@ -127,7 +148,7 @@
     <link href="https://hu1104.github.io/article/WSL2_Ubuntu/"/>
     <id>https://hu1104.github.io/article/WSL2_Ubuntu/</id>
     <published>2021-06-25T01:22:46.000Z</published>
-    <updated>2021-07-08T10:05:50.643Z</updated>
+    <updated>2021-07-08T10:05:52.000Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;系统更新至预览版&quot;&gt;&lt;a href=&quot;#系统更新至预览版&quot; class=&quot;headerlink&quot; title=&quot;系统更新至预览版&quot;&gt;&lt;/a&gt;系统更新至预览版&lt;/h1&gt;&lt;ol&gt;
@@ -155,27 +176,6 @@
     <category term="win10" scheme="https://hu1104.github.io/tags/win10/"/>
     
     <category term="ubuntu" scheme="https://hu1104.github.io/tags/ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://hu1104.github.io/article/hello-world/"/>
-    <id>https://hu1104.github.io/article/hello-world/</id>
-    <published>2021-06-21T08:18:07.208Z</published>
-    <updated>2021-06-21T08:18:07.208Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
