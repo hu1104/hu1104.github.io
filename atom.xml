@@ -34,18 +34,22 @@
     <link href="https://hu1104.github.io/article/generator-and-iterator/"/>
     <id>https://hu1104.github.io/article/generator-and-iterator/</id>
     <published>2021-08-20T03:14:02.000Z</published>
-    <updated>2021-08-20T06:38:15.595Z</updated>
+    <updated>2021-08-20T07:11:19.202Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;!--toc--&gt;
 
-&lt;h1 id=&quot;列表表达式&quot;&gt;&lt;a href=&quot;#列表表达式&quot; class=&quot;headerlink&quot; title=&quot;列表表达式&quot;&gt;&lt;/a&gt;列表表达式&lt;a href=&quot;#列表表达式&quot;</summary>
-        
-      
+&lt;h1 id=&quot;列表表达式&quot;&gt;&lt;a href=&quot;#列表表达式&quot; class=&quot;headerlink&quot; title=&quot;列表表达式&quot;&gt;&lt;/a&gt;列表表达式&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;info = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a = [i+1 for i in range(10)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print(a)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;p&gt;多重循环&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;a = [(i,j) for i in range(4) for j in range(2)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print(a)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;p&gt;多重循环+判断语句&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ls = [(&amp;#x27;x&amp;#x27;,[&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;]),(&amp;#x27;y&amp;#x27;,[&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;,&amp;#x27;open0&amp;#x27;]),(&amp;#x27;z&amp;#x27;,[&amp;#x27;open0&amp;#x27;,&amp;#x27;open0&amp;#x27;,&amp;#x27;open1&amp;#x27;])]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def find(con):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return [j for i in con for j in i if j.isdigit()]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[w for w,con in ls if find(con)==[&amp;#x27;1&amp;#x27;,&amp;#x27;1&amp;#x27;,&amp;#x27;1&amp;#x27;]]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     

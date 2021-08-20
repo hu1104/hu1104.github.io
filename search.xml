@@ -359,7 +359,7 @@
 <p>多重循环+判断语句</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls = [(&#x27;x&#x27;,[&#x27;open1&#x27;,&#x27;open1&#x27;,&#x27;open1&#x27;]),(&#x27;y&#x27;,[&#x27;open1&#x27;,&#x27;open1&#x27;,&#x27;open0&#x27;]),(&#x27;z&#x27;,[&#x27;open0&#x27;,&#x27;open0&#x27;,&#x27;open1&#x27;])]</span><br><span class="line"></span><br><span class="line">def find(con):</span><br><span class="line">    return [j for i in con for j in i if j.isdigit()]</span><br><span class="line"> </span><br><span class="line">[w for w,con in ls if find(con)==[&#x27;1&#x27;,&#x27;1&#x27;,&#x27;1&#x27;]]</span><br></pre></td></tr></table></figure>
 
-
+<span id="more"></span>
 
 <h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器<a href="#生成器" class="header-anchor">#</a></h1><ol>
 <li><p>什么是生成器</p>
