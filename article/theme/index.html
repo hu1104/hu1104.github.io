@@ -264,7 +264,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3><span id="geng-gai-zhu-ti">更改主题</span><a href="#geng-gai-zhu-ti" class="header-anchor">#</a></h3><p>进入命令行，下载 NexT 主题，输入:</p>
+        <h3><span id="更改主题">更改主题</span><a href="#更改主题" class="header-anchor">#</a></h3><p>进入命令行，下载 NexT 主题，输入:</p>
 <p><code>git clone https://github.com/theme-next/hexo-theme-next themes/next</code></p>
 <p>修改站点配置文件<code>_config.yml</code>，找到如下代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: landscape</span><br></pre></td></tr></table></figure>
@@ -272,12 +272,12 @@
 <p>将 landscape 修改为 next 即可。</p>
 <span id="more"></span>
 
-<h3><span id="yin-cang-wang-ye-di-bu-powered-by-hexo-qiang-li-qu-dong">隐藏网页底部 powered By Hexo / 强力驱动</span><a href="#yin-cang-wang-ye-di-bu-powered-by-hexo-qiang-li-qu-dong" class="header-anchor">#</a></h3><p>打开 themes/next/layout/_partials/footer.swig</p>
+<h3><span id="隐藏网页底部-powered-by-hexo-强力驱动">隐藏网页底部 powered By Hexo / 强力驱动</span><a href="#隐藏网页底部-powered-by-hexo-强力驱动" class="header-anchor">#</a></h3><p>打开 themes/next/layout/_partials/footer.swig</p>
 <p>找到：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if theme.footer.powered.enable %&#125;</span><br><span class="line">&lt;div class=&quot;powered-by&quot;&gt;&#123;#</span><br><span class="line">#&#125;&#123;&#123; __(&#x27;footer.powered&#x27;, &#x27;&lt;a class=&quot;theme-link&quot; target=&quot;_blank&quot;&#x27; + nofollow + &#x27; href=&quot;https://hexo.io&quot;&gt;Hexo&lt;/a&gt;&#x27;) &#125;&#125;&#123;% if theme.footer.powered.version %&#125; v&#123;&#123; hexo_env(&#x27;version&#x27;) &#125;&#125;&#123;% endif %&#125;&#123;#</span><br><span class="line">#&#125;&lt;/div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line">&#123;% if theme.footer.powered.enable and theme.footer.theme.enable %&#125;</span><br><span class="line">&lt;span class=&quot;post-meta-divider&quot;&gt;|&lt;/span&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line">&#123;% if theme.footer.theme.enable %&#125;</span><br><span class="line">&lt;div class=&quot;theme-info&quot;&gt;&#123;#</span><br><span class="line">#&#125;&#123;&#123; __(&#x27;footer.theme&#x27;) &#125;&#125; – &#123;#</span><br><span class="line">#&#125;&lt;a class=&quot;theme-link&quot; target=&quot;_blank&quot;&#123;&#123; nofollow &#125;&#125; href=&quot;https://theme-next.org&quot;&gt;&#123;#</span><br><span class="line">#&#125;NexT.&#123;&#123; theme.scheme &#125;&#125;&#123;#</span><br><span class="line">#&#125;&lt;/a&gt;&#123;% if theme.footer.theme.version %&#125; v&#123;&#123; version &#125;&#125;&#123;% endif %&#125;&#123;#</span><br><span class="line">#&#125;&lt;/div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 
 <p>把这段代码首尾分别加上：<code>&lt;!--</code> 和<code>--&gt;</code>，或者直接删除。</p>
-<h3><span id="tong-ji-zi-shu-he-yue-du-shi-jian">统计字数和阅读时间</span><a href="#tong-ji-zi-shu-he-yue-du-shi-jian" class="header-anchor">#</a></h3><p>安装插件</p>
+<h3><span id="统计字数和阅读时间">统计字数和阅读时间</span><a href="#统计字数和阅读时间" class="header-anchor">#</a></h3><p>安装插件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-symbols-count-time --save</span><br></pre></td></tr></table></figure>
 
 <p>在站点配置文件_config.yml中添加如下代码：</p>
@@ -295,7 +295,7 @@
 
 
 
-<h3><span id="wen-dang-jia-mi">文档加密</span><a href="#wen-dang-jia-mi" class="header-anchor">#</a></h3><p>安装插件：</p>
+<h3><span id="文档加密">文档加密</span><a href="#文档加密" class="header-anchor">#</a></h3><p>安装插件：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-blog-encrypt</span><br></pre></td></tr></table></figure>
 
 <p>在站点配置文件中启用：</p>
@@ -306,7 +306,7 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">password: 是该博客加密使用的密码</span><br><span class="line">abstract: 是该博客的摘要，会显示在博客的列表页</span><br><span class="line">message: 这个是博客查看时，密码输入框上面的描述性文字</span><br></pre></td></tr></table></figure>
 
-<h3><span id="bu-fen-xian-shi">部分显示</span><a href="#bu-fen-xian-shi" class="header-anchor">#</a></h3><ol>
+<h3><span id="部分显示">部分显示</span><a href="#部分显示" class="header-anchor">#</a></h3><ol>
 <li><p>写概述</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 让首页显示部分内容</span><br><span class="line">date: 2020-02-23 22:55:10</span><br><span class="line">description: 这是显示在首页的概述，正文内容均会被隐藏。</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
 <li><p>文章截断</p>
