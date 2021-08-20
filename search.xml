@@ -231,7 +231,7 @@
 <h1 id="什么是装饰器"><a href="#什么是装饰器" class="headerlink" title="什么是装饰器"></a>什么是装饰器</h1><p>一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。<br>简单示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 未使用装饰器时</span><br><span class="line">def outer(some_func):</span><br><span class="line">	def inner():</span><br><span class="line">		print (&quot;before some_func&quot;)</span><br><span class="line">		ret = some_func() # 1</span><br><span class="line">		return ret + 1</span><br><span class="line">	return inner</span><br><span class="line">def foo():</span><br><span class="line">	return 1</span><br><span class="line">decorated = outer(foo)</span><br><span class="line">decorated()</span><br><span class="line"></span><br><span class="line">#使用装饰器时</span><br><span class="line">def outer(some_func):</span><br><span class="line">	def inner():</span><br><span class="line">		print (&quot;before some_func&quot;)</span><br><span class="line">		ret = some_func() # 1</span><br><span class="line">		return ret + 1</span><br><span class="line">	return inner</span><br><span class="line">@outer</span><br><span class="line">def foo():</span><br><span class="line">	return 1</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
 
-
+<span id="more"></span>
 
 <h1 id="简单装饰器"><a href="#简单装饰器" class="headerlink" title="简单装饰器"></a>简单装饰器</h1><p>引入装饰器会便于开发，便于代码复用</p>
 <p>简单示例：</p>

@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-08-20T02:37:36.225Z</updated>
+  <updated>2021-08-20T02:44:28.990Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -21,17 +21,12 @@
     <link href="https://hu1104.github.io/article/decorator/"/>
     <id>https://hu1104.github.io/article/decorator/</id>
     <published>2021-08-20T01:05:48.000Z</published>
-    <updated>2021-08-20T02:37:36.225Z</updated>
+    <updated>2021-08-20T02:44:28.990Z</updated>
     
     
-      
-      
-        
-        
     <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h1 id=&quot;什么是装饰器&quot;&gt;&lt;a href=&quot;#什么是装饰器&quot; class=&quot;headerlink&quot;</summary>
-        
-      
+&lt;h1 id=&quot;什么是装饰器&quot;&gt;&lt;a href=&quot;#什么是装饰器&quot; class=&quot;headerlink&quot; title=&quot;什么是装饰器&quot;&gt;&lt;/a&gt;什么是装饰器&lt;/h1&gt;&lt;p&gt;一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。&lt;br&gt;简单示例：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# 未使用装饰器时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def outer(some_func):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	def inner():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		print (&amp;quot;before some_func&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = some_func() # 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		return ret + 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return inner&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def foo():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;decorated = outer(foo)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;decorated()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#使用装饰器时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def outer(some_func):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	def inner():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		print (&amp;quot;before some_func&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = some_func() # 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		return ret + 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return inner&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@outer&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def foo():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
