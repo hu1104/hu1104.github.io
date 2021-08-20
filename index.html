@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-20 14:24:38" itemprop="dateModified" datetime="2021-08-20T14:24:38+08:00">2021-08-20</time>
+                <time title="修改时间：2021-08-20 14:38:15" itemprop="dateModified" datetime="2021-08-20T14:38:15+08:00">2021-08-20</time>
               </span>
 
           <br>
@@ -236,14 +236,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -285,9 +285,42 @@
 <p>可以把生成器看作是一种特殊的函数，它与一般函数最主要的区别就在于生成器函数中有关键字yield。比如，上述实例2，函数中只要有yield关键字，就是一个生成器函数。</p>
 </li>
 <li><p>生成器怎么用</p>
-<p>​</p>
+<p>​    (1). 生成器使用场景</p>
+<p>​            当你需要生成一个大型的序列，但又不想因此占用大量的存储空间，提高存储和计算效率。此时，可以考虑用生成器。</p>
+<p>​    (2). 生成器的构造</p>
+<p>​            主要有两种方式：一是生成器表达式；二是生成器函数。上面实例1就是生成器表达式；实例2其实就是生成器函数。</p>
+<p>​    (3). 生成器的使用</p>
+<p>​            ①采用for循环</p>
+<p>​            ②采用内置函数next()遍历生成器元素</p>
+<p>​            ③采用生成器自身方法<code>__next()__</code>循环生成下一个值。</p>
 </li>
 </ol>
+<h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器<a href="#迭代器" class="header-anchor">#</a></h1><ol>
+<li><p>什么是迭代器</p>
+<p>​    首先了解几个概念：</p>
+<p>​        (1). 可迭代对象。可以直接作用于for 循环的对象统称为可迭代对象：Iterable。可以使用isinstance()判断一个对象是否为可Iterable对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from collections import Iterable</span><br><span class="line">&gt;&gt;&gt; isinstance(fib(8), Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; b = [1,2,3,4]</span><br><span class="line">&gt;&gt;&gt; isinstance(b, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; c = 8</span><br><span class="line">&gt;&gt;&gt; isinstance(c, Iterable)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<p>Python中可直接采用for循环的对象有：一类是集合数据类型，如list，tuple，dict，set，str等；一类是generator，包括生成器表达式和带yield的生成器函数。</p>
+<p>​        (2). 迭代器。Python中一个实现了_iter_方法和_next_方法的类对象，就是迭代器。</p>
+<pre><code>    (3).迭代器协议：要构造一个迭代器，对象需要提供next()方法，它要么返回迭代中的下一项，要么就引起一个StopIteration异常，以终止迭代。
+</code></pre>
+</li>
+<li><p>迭代器的构造</p>
+<p>（1）自定义迭代器类</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Fib(object):</span><br><span class="line">    def __init__(self, max):</span><br><span class="line">        super(Fib, self).__init__()</span><br><span class="line">        self.max = max</span><br><span class="line">    def __iter__(self):</span><br><span class="line">        self.a = 0</span><br><span class="line">        self.b = 1</span><br><span class="line">        return self</span><br><span class="line">    def __next__(self):</span><br><span class="line">        fib = self.a</span><br><span class="line">        if fib &gt; self.max:</span><br><span class="line">            raise StopIteration</span><br><span class="line">        self.a, self.b = self.b, self.a + self.b</span><br><span class="line">        return fib</span><br><span class="line"># 定义一个main函数，循环遍历每一个菲波那切数</span><br><span class="line">def main():</span><br><span class="line">    # 20以内的数</span><br><span class="line">    fib = Fib(20)</span><br><span class="line">    for i in fib:</span><br><span class="line">        print(i)</span><br><span class="line"># 测试</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>​    （2）通过调用内置函数iter()构造迭代器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; g = iter(range(10))</span><br><span class="line">&gt;&gt;&gt; isinstance(g, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(range(10), Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(range(10), Iterator)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<p>注意，不少文章中写道，map、filter等内置函数返回的都是生成器，还有个别资料中说range返回的也是生成器。要检查一个对象是否为迭代器，也可以采用isinstance()判断，所以我们可以进行以下的判断：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from collections import Iterable， Iterator， Generator</span><br><span class="line">&gt;&gt;&gt; d= range(10)</span><br><span class="line">&gt;&gt;&gt; isinstance(d, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(d, Iterator)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; e = map(lambda x : x**2, [1,2,4,6,7,8,9])</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Generator)</span><br><span class="line">&gt;&gt;&gt; f = (x**2 for x in [1,2,4,6,7,8,9])</span><br><span class="line">&gt;&gt;&gt; isinstance(f, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(f, Generator)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/122537818">生成器和迭代器总结</a></p>
 
       
     </div>
@@ -1229,12 +1262,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">90k</span>
+    <span title="站点总字数">92k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:22</span>
+    <span title="站点阅读时长">1:23</span>
 </div>
 
         
