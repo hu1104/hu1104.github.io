@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-08-20T02:52:44.365Z</updated>
+  <updated>2021-08-20T06:23:14.002Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>generator_and_iterator</title>
+    <link href="https://hu1104.github.io/article/generator-and-iterator/"/>
+    <id>https://hu1104.github.io/article/generator-and-iterator/</id>
+    <published>2021-08-20T03:14:02.000Z</published>
+    <updated>2021-08-20T06:23:14.002Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;!--toc--&gt;
+
+&lt;h1 id=&quot;列表表达式&quot;&gt;&lt;a href=&quot;#列表表达式&quot; class=&quot;headerlink&quot; title=&quot;列表表达式&quot;&gt;&lt;/a&gt;列表表达式&lt;a href=&quot;#列表表达式&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>decorator</title>
     <link href="https://hu1104.github.io/article/decorator/"/>
     <id>https://hu1104.github.io/article/decorator/</id>
     <published>2021-08-20T01:05:48.000Z</published>
-    <updated>2021-08-20T02:52:44.365Z</updated>
+    <updated>2021-08-20T03:12:32.517Z</updated>
     
     
     <summary type="html">&lt;div class=&quot;tocStart&quot;&gt;&lt;/div&gt;
@@ -45,6 +68,7 @@
 &lt;li&gt;&lt;a href=&quot;#python%E5%86%85%E7%BD%AE%E7%B1%BB%E5%B1%9E%E6%80%A7&quot;&gt;python内置类属性&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99&quot;&gt;参考资料&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- tocstop --&gt;
 
@@ -129,7 +153,7 @@
     <link href="https://hu1104.github.io/article/record_everyday/"/>
     <id>https://hu1104.github.io/article/record_everyday/</id>
     <published>2021-07-12T07:50:15.000Z</published>
-    <updated>2021-08-18T08:32:02.717Z</updated>
+    <updated>2021-08-20T06:01:53.968Z</updated>
     
     
     <summary type="html">Welcome to my blog, enter password to read.</summary>
