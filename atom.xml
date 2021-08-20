@@ -58,7 +58,11 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;20210728&quot;&gt;&lt;a href=&quot;#20210728&quot; class=&quot;headerlink&quot; title=&quot;20210728&quot;&gt;&lt;/a&gt;20210728&lt;/h1&gt;&lt;p&gt;将backbone换成mobilenetv2&lt;a</summary>
+    <summary type="html">&lt;h1&gt;&lt;span id=&quot;20210728&quot;&gt;20210728&lt;/span&gt;&lt;/h1&gt;&lt;p&gt;将backbone换成mobilenetv2&lt;a href=&quot;#id=1&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div id=&quot;1&quot;&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;[1] </summary>
         
       
     

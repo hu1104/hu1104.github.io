@@ -292,7 +292,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="系统更新至预览版"><a href="#系统更新至预览版" class="headerlink" title="系统更新至预览版"></a>系统更新至预览版</h1><ol>
+        <h1><span id="系统更新至预览版">系统更新至预览版</span></h1><ol>
 <li><p>加入Windows Insider Program</p>
 <p> <a target="_blank" rel="noopener" href="https://insider.windows.com/en-us/getting-started">链接</a></p>
 <p> <img src="wip.png" alt="图片" title="打开后显示"></p>
@@ -310,24 +310,24 @@
 <p> win+R-&gt;winver:<br> <img src="version.png" alt="图片" title="打开后显示"><br> 确认这里的os内部版本和第四步下载的版本一致</p>
  <span id="more"></span></li>
 </ol>
-<h1 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h1><ol>
+<h1><span id="安装驱动">安装驱动</span></h1><ol>
 <li><p>前往<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda/wsl">链接</a></p>
 <p> <img src="driver.png" alt="图片" title="打开后显示"></p>
 </li>
 <li><p>下载完成后，正常win程序安装</p>
 </li>
 </ol>
-<h1 id="安装WSL2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2</h1><p>按照官方说法，使用预览版会有简单操作，但我是在未使用预览版时安装的，所以仅供参考。</p>
+<h1><span id="安装wsl2">安装WSL2</span></h1><p>按照官方说法，使用预览版会有简单操作，但我是在未使用预览版时安装的，所以仅供参考。</p>
 <ol>
 <li><p>管理员身份运行power shell</p>
-<p> 如果出现以下问题：<br> <img src="problem.png" alt="图片" title="打开后显示"><br> 则执行<code>set-ExecutionPolicy RemoteSigned</code><br> 成功结果为：<br> <img src="success.png" alt="图片" title="打开后显示"><br> 如果没有出现上述问题，则执行<code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code>开启子系统<br> <img src="subsystem.png" alt="图片" title="打开后显示"><br> 然后，执行<code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code>开启虚拟机<br> <img src="vm.png" alt="图片" title="打开后显示"><br> <font color=red>随后重启计算机！</font></p>
+<p> 如果出现以下问题：<br> <img src="problem.png" alt="图片" title="打开后显示"><br> 则执行<code>set-ExecutionPolicy RemoteSigned</code><br> 成功结果为：<br> <img src="success.png" alt="图片" title="打开后显示"><br> 如果没有出现上述问题，则执行<code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code>开启子系统<br> <img src="subsystem.png" alt="图片" title="打开后显示"><br> 然后，执行<code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code>开启虚拟机<br> <img src="vm.png" alt="图片" title="打开后显示"><br> <font color="red">随后重启计算机！</font></p>
 </li>
 <li><p>安装WSL内核更新包<a target="_blank" rel="noopener" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">链接</a></p>
 </li>
 <li><p>将wsl2设置为默认版本：<code>set --set-default-version 2</code></p>
 </li>
 </ol>
-<h1 id="安装ubuntu18-04"><a href="#安装ubuntu18-04" class="headerlink" title="安装ubuntu18.04"></a>安装ubuntu18.04</h1><ol>
+<h1><span id="安装ubuntu1804">安装ubuntu18.04</span></h1><ol>
 <li><p>打开Microsoft store,搜索ubuntu18,点击获取，等待下载安装，安装完成后，点击右上角的启动按钮，会出现下面操作；设置好用户名及密码，子系统安装完成。<br><img src="ubuntu.png" alt="图片" title="打开后显示"></p>
 </li>
 <li><p>安装完成后，运行<code>wsl --list --verbose</code><br><img src="wsl_lv.png" alt="图片" title="打开后显示"></p>
@@ -339,14 +339,14 @@
 </ul>
 </li>
 </ol>
-<h1 id="安装cuda-toolkit-在ubuntu环境下"><a href="#安装cuda-toolkit-在ubuntu环境下" class="headerlink" title="安装cuda toolkit(在ubuntu环境下)"></a>安装cuda toolkit(在ubuntu环境下)</h1><ol>
+<h1><span id="安装cuda-toolkit在ubuntu环境下">安装cuda toolkit(在ubuntu环境下)</span></h1><ol>
 <li><p>配置cuda网络仓库<br> 依次执行</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub</span><br><span class="line"></span><br><span class="line">sudo sh -c &#x27;echo &quot;deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /&quot; &gt; /etc/apt/sources.list.d/cuda.list&#x27;</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></li>
 <li><p>安装cuda</p>
 <p> 执行<code>sudo apt-get install -y cuda-toolkit-11-0</code></p>
 </li>
 </ol>
-<h1 id="安装docker和nvidia-docker"><a href="#安装docker和nvidia-docker" class="headerlink" title="安装docker和nvidia-docker"></a>安装docker和nvidia-docker</h1><ol>
+<h1><span id="安装docker和nvidia-docker">安装docker和nvidia-docker</span></h1><ol>
 <li><p>安装docker-ce:<code>curl https://get.docker.com | sh</code></p>
 </li>
 <li><p>安装nvidia-docker2:</p>
@@ -357,7 +357,7 @@
 <p> 然后执行</p>
  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">import tensorflow as tf</span><br><span class="line">print(tf.test.is_gpu_available()) ###输出True</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ol>
+<h1><span id="reference">Reference</span></h1><ol>
 <li><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/wsl-user-guide/index.html">CUDA on WSL :: CUDA Toolkit Documentation (nvidia.com)</a></li>
 </ol>
 
@@ -441,7 +441,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%9B%B4%E6%96%B0%E8%87%B3%E9%A2%84%E8%A7%88%E7%89%88"><span class="nav-number">1.</span> <span class="nav-text">系统更新至预览版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%A9%B1%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">安装驱动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85WSL2"><span class="nav-number">3.</span> <span class="nav-text">安装WSL2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85ubuntu18-04"><span class="nav-number">4.</span> <span class="nav-text">安装ubuntu18.04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85cuda-toolkit-%E5%9C%A8ubuntu%E7%8E%AF%E5%A2%83%E4%B8%8B"><span class="nav-number">5.</span> <span class="nav-text">安装cuda toolkit(在ubuntu环境下)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85docker%E5%92%8Cnvidia-docker"><span class="nav-number">6.</span> <span class="nav-text">安装docker和nvidia-docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">7.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">系统更新至预览版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">安装驱动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">安装WSL2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">安装ubuntu18.04</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">安装cuda toolkit(在ubuntu环境下)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">安装docker和nvidia-docker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">Reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
