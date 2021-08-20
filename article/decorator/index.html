@@ -22,30 +22,32 @@
   </script>
 
 
-  <meta name="description" content="代码千万行，注释第一行。编程不规范，同事两行泪。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zongxing">
-<meta property="og:url" content="https://hu1104.github.io/index.html">
+  <meta name="description" content="[TOC] 什么是装饰器一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。简单示例： 123456789101112131415161718192021222324# 未使用装饰器时def outer(some_func):	def inner():		print (&quot;before some_func&quot;)		ret &#x3D; some_func() # 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="decorator">
+<meta property="og:url" content="https://hu1104.github.io/article/decorator/index.html">
 <meta property="og:site_name" content="Zongxing">
-<meta property="og:description" content="代码千万行，注释第一行。编程不规范，同事两行泪。">
+<meta property="og:description" content="[TOC] 什么是装饰器一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。简单示例： 123456789101112131415161718192021222324# 未使用装饰器时def outer(some_func):	def inner():		print (&quot;before some_func&quot;)		ret &#x3D; some_func() # 1">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-20T01:05:48.000Z">
+<meta property="article:modified_time" content="2021-08-20T02:37:36.225Z">
 <meta property="article:author" content="hzx">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://hu1104.github.io/">
+<link rel="canonical" href="https://hu1104.github.io/article/decorator/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Zongxing</title>
+  <title>decorator | Zongxing</title>
   
 
 
@@ -190,9 +192,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -208,10 +211,9 @@
       <meta itemprop="name" content="Zongxing">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/decorator/" class="post-title-link" itemprop="url">decorator</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          decorator
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -230,7 +232,14 @@
                 <time title="修改时间：2021-08-20 10:37:36" itemprop="dateModified" datetime="2021-08-20T10:37:36+08:00">2021-08-20</time>
               </span>
 
-          <br>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -255,7 +264,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>[TOC]</p>
+        <p>[TOC]</p>
 <h1 id="什么是装饰器"><a href="#什么是装饰器" class="headerlink" title="什么是装饰器"></a>什么是装饰器</h1><p>一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。<br>简单示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 未使用装饰器时</span><br><span class="line">def outer(some_func):</span><br><span class="line">	def inner():</span><br><span class="line">		print (&quot;before some_func&quot;)</span><br><span class="line">		ret = some_func() # 1</span><br><span class="line">		return ret + 1</span><br><span class="line">	return inner</span><br><span class="line">def foo():</span><br><span class="line">	return 1</span><br><span class="line">decorated = outer(foo)</span><br><span class="line">decorated()</span><br><span class="line"></span><br><span class="line">#使用装饰器时</span><br><span class="line">def outer(some_func):</span><br><span class="line">	def inner():</span><br><span class="line">		print (&quot;before some_func&quot;)</span><br><span class="line">		ret = some_func() # 1</span><br><span class="line">		return ret + 1</span><br><span class="line">	return inner</span><br><span class="line">@outer</span><br><span class="line">def foo():</span><br><span class="line">	return 1</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
 
@@ -338,821 +347,30 @@
 </li>
 </ol>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/todo-list/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/todo-list/" class="post-title-link" itemprop="url">todo_list</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-12 10:08:45" itemprop="dateCreated datePublished" datetime="2021-08-12T10:08:45+08:00">2021-08-12</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/train-record/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/train-record/" class="post-title-link" itemprop="url">train_record</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-27 11:04:44" itemprop="dateCreated datePublished" datetime="2021-07-27T11:04:44+08:00">2021-07-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-11 17:52:26" itemprop="dateModified" datetime="2021-08-11T17:52:26+08:00">2021-08-11</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>305</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="20210728"><a href="#20210728" class="headerlink" title="20210728"></a>20210728</h1><p>将backbone换成mobilenetv2<a href="#id=1"><sup>1</sup></a></p>
-<div id="1"></div>
-
-<ul>
-<li>[1]  <a target="_blank" rel="noopener" href="https://blog.csdn.net/wa1tzy/article/details/114492726">修改结构</a></li>
-</ul>
-<p>faster-rcnn 尝试失败，mmdection报错，待后续解决</p>
-<p>问题：</p>
-<p>w和h加错， x-&gt;row, y-&gt;c</p>
-<h1 id="20210810"><a href="#20210810" class="headerlink" title="20210810"></a>20210810</h1><p>##WBF </p>
-<p>尝试在detect出来的640*640图片上使用，但没有起作用，可能是检测出的目标太少</p>
-<h1 id="20210811"><a href="#20210811" class="headerlink" title="20210811"></a>20210811</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41251963/article/details/112940253">mmdection</a></p>
-<p>myself/faster_rcnn_r50_fpn_1x_coco.py 修改data的ann_file配置</p>
-<p>dos2unix windows传至服务器换行符啥的有可能出错</p>
-<p>faster-rcnn 利用epoch_5.pth inference ， 结果保存在frcnn_result</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/hadoop-spark-hbase-hive/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/hadoop-spark-hbase-hive/" class="post-title-link" itemprop="url">hadoop_spark_hbase_hive</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-14 11:25:56" itemprop="dateCreated datePublished" datetime="2021-07-14T11:25:56+08:00">2021-07-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-22 12:17:58" itemprop="dateModified" datetime="2021-07-22T12:17:58+08:00">2021-07-22</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>38k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>34 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>hdfs-site.xml</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/hadoop-spark-hbase-hive/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/result-record/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/result-record/" class="post-title-link" itemprop="url">result_record</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-12 17:05:19" itemprop="dateCreated datePublished" datetime="2021-07-12T17:05:19+08:00">2021-07-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-06 15:22:36" itemprop="dateModified" datetime="2021-08-06T15:22:36+08:00">2021-08-06</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>512</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          test结果记录
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/result-record/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/todo-list/" rel="prev" title="todo_list">
+      <i class="fa fa-chevron-left"></i> todo_list
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/record_everyday/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/record_everyday/" class="post-title-link" itemprop="url">record_everyday</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-12 15:50:15" itemprop="dateCreated datePublished" datetime="2021-07-12T15:50:15+08:00">2021-07-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-18 16:32:02" itemprop="dateModified" datetime="2021-08-18T16:32:02+08:00">2021-08-18</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>23k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>21 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          Welcome to my blog, enter password to read.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/record_everyday/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/theme/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/theme/" class="post-title-link" itemprop="url">theme</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-06 15:46:54" itemprop="dateCreated datePublished" datetime="2021-07-06T15:46:54+08:00">2021-07-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-06 16:16:06" itemprop="dateModified" datetime="2021-07-06T16:16:06+08:00">2021-07-06</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="更改主题"><a href="#更改主题" class="headerlink" title="更改主题"></a>更改主题</h3><p>进入命令行，下载 NexT 主题，输入:</p>
-<p><code>git clone https://github.com/theme-next/hexo-theme-next themes/next</code></p>
-<p>修改站点配置文件<code>_config.yml</code>，找到如下代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: landscape</span><br></pre></td></tr></table></figure>
-
-<p>将 landscape 修改为 next 即可。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/theme/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/yolov5_real/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/yolov5_real/" class="post-title-link" itemprop="url">yolov5_real</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-06 14:12:37" itemprop="dateCreated datePublished" datetime="2021-07-06T14:12:37+08:00">2021-07-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-06 15:22:46" itemprop="dateModified" datetime="2021-08-06T15:22:46+08:00">2021-08-06</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          Welcome to my blog, enter password to read.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/yolov5_real/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/Hadoop_WSL2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/Hadoop_WSL2/" class="post-title-link" itemprop="url">Hadoop_WSL2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-28 12:12:35" itemprop="dateCreated datePublished" datetime="2021-06-28T12:12:35+08:00">2021-06-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-06 17:09:44" itemprop="dateModified" datetime="2021-07-06T17:09:44+08:00">2021-07-06</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h1><h2 id="1-拉取Ubuntu镜像"><a href="#1-拉取Ubuntu镜像" class="headerlink" title="1. 拉取Ubuntu镜像"></a>1. 拉取Ubuntu镜像</h2><pre><code>首先拉取一个Ubuntu最新的镜像作为基础镜像`docker pull ubuntu:latest`,结束后，运行`docker images`,可以看到
-</code></pre>
-<p><img src="base_ubuntu.png" alt="图片" title="打开后显示图片"></p>
-<h2 id="2-使用Dockerfile构建包含jdk的ubuntu镜像"><a href="#2-使用Dockerfile构建包含jdk的ubuntu镜像" class="headerlink" title="2. 使用Dockerfile构建包含jdk的ubuntu镜像"></a>2. 使用Dockerfile构建包含jdk的ubuntu镜像</h2><pre><code>去jdk官网下载jdk包，此处下载的为jdk1.8 ** jdk-8u291-linux-x64.tar.gz**, 将下载好的jdk文件移至wsl2环境下，在此目录下新建Dockerfile文件，并进入编辑状态
-</code></pre>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim Dockerfile</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/Hadoop_WSL2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/WSL2_Ubuntu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/WSL2_Ubuntu/" class="post-title-link" itemprop="url">WSL2安装Ubuntu</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-25 09:22:46" itemprop="dateCreated datePublished" datetime="2021-06-25T09:22:46+08:00">2021-06-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-08 18:05:52" itemprop="dateModified" datetime="2021-07-08T18:05:52+08:00">2021-07-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="系统更新至预览版"><a href="#系统更新至预览版" class="headerlink" title="系统更新至预览版"></a>系统更新至预览版</h1><ol>
-<li><p>加入Windows Insider Program</p>
-<p> <a target="_blank" rel="noopener" href="https://insider.windows.com/en-us/getting-started">链接</a></p>
-<p> <img src="wip.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>注册加入完成后，前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 预览体验计划】，选择【开始】，然后点击【确认】。</p>
-<p> <img src="update.png" alt="图片" title="打开后显示"><br> <img src="choose.png" alt="图片" title="打开后显示"><br> <img src="microsoft_login.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>漫长的等待，等待过程中如果出现太久旋转没动静，可反复取消-选择账户，几次下来一般就可以了。随后使用加入Windows Insider Program时注册的账号密码，之后出现</p>
-<p> <img src="dev.png" alt="图片" title="打开后显示"><br> 选择dev渠道，然后立即重启。</p>
-</li>
-<li><p>前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 更新】，下载更新完window，<br>选择【检查更新】，然后耐心等待最新 Windows 10 预览版的下载和安装。</p>
-<p> <img src="update_wid.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>检查系统更新成功与否</p>
-<p> win+R-&gt;winver:<br> <img src="version.png" alt="图片" title="打开后显示"><br> 确认这里的os内部版本和第四步下载的版本一致</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/WSL2_Ubuntu/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -1205,6 +423,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">什么是装饰器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">简单装饰器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">高级装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%87%BD%E6%95%B0%E7%9A%84%E5%B8%A6%E5%8F%82%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">基于函数的带参装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E4%B8%8D%E5%B8%A6%E5%8F%82%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">基于类的不带参装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%B8%A6%E5%8F%82%E6%95%B0%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">3.3.</span> <span class="nav-text">基于类的带参数装饰器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">内置装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#classmethod"><span class="nav-number">4.1.</span> <span class="nav-text">@classmethod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#staticmethod"><span class="nav-number">4.2.</span> <span class="nav-text">@staticmethod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#property"><span class="nav-number">4.3.</span> <span class="nav-text">@property</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wraps"><span class="nav-number">4.4.</span> <span class="nav-text">@wraps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python%E5%86%85%E7%BD%AE%E7%B1%BB%E5%B1%9E%E6%80%A7"><span class="nav-number">4.5.</span> <span class="nav-text">python内置类属性</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

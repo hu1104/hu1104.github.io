@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-08-12T02:08:45.878Z</updated>
+  <updated>2021-08-20T02:37:36.225Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>decorator</title>
+    <link href="https://hu1104.github.io/article/decorator/"/>
+    <id>https://hu1104.github.io/article/decorator/</id>
+    <published>2021-08-20T01:05:48.000Z</published>
+    <updated>2021-08-20T02:37:36.225Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h1 id=&quot;什么是装饰器&quot;&gt;&lt;a href=&quot;#什么是装饰器&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>todo_list</title>
