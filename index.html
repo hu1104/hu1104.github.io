@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">12</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,92 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/threading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/threading/" class="post-title-link" itemprop="url">threading</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-20 15:37:55" itemprop="dateCreated datePublished" datetime="2021-08-20T15:37:55+08:00">2021-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-20 15:47:39" itemprop="dateModified" datetime="2021-08-20T15:47:39+08:00">2021-08-20</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先，python的多线程是假的。</p>
+<p>看一个例子来看看python多线程的实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def say(name):</span><br><span class="line">        print(&#x27;你好%s at %s&#x27; %(name,time.ctime()))</span><br><span class="line">        time.sleep(2)</span><br><span class="line">        print(&quot;结束%s at %s&quot; %(name,time.ctime()))</span><br><span class="line"></span><br><span class="line">def listen(name):</span><br><span class="line">    print(&#x27;你好%s at %s&#x27; % (name,time.ctime()))</span><br><span class="line">    time.sleep(4)</span><br><span class="line">    print(&quot;结束%s at %s&quot; % (name,time.ctime()))</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    t1 = threading.Thread(target=say,args=(&#x27;tony&#x27;,))  #创建线程对象，Thread是一个类，实例化产生t1对象，这里就是创建了一个线程对象t1</span><br><span class="line">    t1.start() #启动线程，线程执行</span><br><span class="line">    t2 = threading.Thread(target=listen, args=(&#x27;simon&#x27;,)) #这里就是创建了一个线程对象t2</span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line">    print(&quot;程序结束=====================&quot;)</span><br><span class="line"># 输出结果为</span><br><span class="line">你好tony at Fri Aug 20 15:42:07 2021 --t1线程执行</span><br><span class="line">你好simon at Fri Aug 20 15:42:07 2021 --t2线程执行</span><br><span class="line">程序结束===================== --主线程执行</span><br><span class="line">结束tony at Fri Aug 20 15:42:09 2021 --sleep之后，t1线程执行</span><br><span class="line">结束simon at Fri Aug 20 15:42:11 2021 --sleep之后，t2线程执行</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到主线程的print并不是等t1,t2线程都执行完毕之后才打印的，这是因为主线程和t1,t2 线程是同时跑的。但是主进程要等非守护子线程结束之后，主线程才会退出。</p>
+<p>上面其实就是python多线程的最简单用法，但是，一般开发中，我们需要主线程的print打印是在最后面的，表明所有流程都结束了，也就是主线程结束了。这里就引入了一个join的概念。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def say(name):</span><br><span class="line">        print(&#x27;你好%s at %s&#x27; %(name,time.ctime()))</span><br><span class="line">        time.sleep(2)</span><br><span class="line">        print(&quot;结束%s at %s&quot; %(name,time.ctime()))</span><br><span class="line"></span><br><span class="line">def listen(name):</span><br><span class="line">    print(&#x27;你好%s at %s&#x27; % (name,time.ctime()))</span><br><span class="line">    time.sleep(4)</span><br><span class="line">    print(&quot;结束%s at %s&quot; % (name,time.ctime()))</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    t1 = threading.Thread(target=say,args=(&#x27;tony&#x27;,))  #Thread是一个类，实例化产生t1对象，这里就是创建了一个线程对象t1</span><br><span class="line">    t1.start() #线程执行</span><br><span class="line">    t2 = threading.Thread(target=listen, args=(&#x27;simon&#x27;,)) #这里就是创建了一个线程对象t2</span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line">    t1.join() #join等t1子线程结束，主线程打印并且结束</span><br><span class="line">    t2.join() #join等t2子线程结束，主线程打印并且结束</span><br><span class="line">    print(&quot;程序结束=====================&quot;)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -298,7 +384,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-20 15:11:19" itemprop="dateModified" datetime="2021-08-20T15:11:19+08:00">2021-08-20</time>
+                <time title="修改时间：2021-08-20 15:37:16" itemprop="dateModified" datetime="2021-08-20T15:37:16+08:00">2021-08-20</time>
               </span>
 
           <br>
@@ -396,7 +482,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-20 15:10:06" itemprop="dateModified" datetime="2021-08-20T15:10:06+08:00">2021-08-20</time>
+                <time title="修改时间：2021-08-20 15:37:07" itemprop="dateModified" datetime="2021-08-20T15:37:07+08:00">2021-08-20</time>
               </span>
 
           <br>
@@ -453,7 +539,8 @@
 
 
 
-<p><span style="margin: 0px;padding: 0px;color: inherit;line-height: inherit;font-size: inherit;">1. Python同步锁</span></p>
+
+
 <h1 id="什么是装饰器"><a href="#什么是装饰器" class="headerlink" title="什么是装饰器"></a>什么是装饰器</h1><p>一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。<br>简单示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 未使用装饰器时</span><br><span class="line">def outer(some_func):</span><br><span class="line">	def inner():</span><br><span class="line">		print (&quot;before some_func&quot;)</span><br><span class="line">		ret = some_func() # 1</span><br><span class="line">		return ret + 1</span><br><span class="line">	return inner</span><br><span class="line">def foo():</span><br><span class="line">	return 1</span><br><span class="line">decorated = outer(foo)</span><br><span class="line">decorated()</span><br><span class="line"></span><br><span class="line">#使用装饰器时</span><br><span class="line">def outer(some_func):</span><br><span class="line">	def inner():</span><br><span class="line">		print (&quot;before some_func&quot;)</span><br><span class="line">		ret = some_func() # 1</span><br><span class="line">		return ret + 1</span><br><span class="line">	return inner</span><br><span class="line">@outer</span><br><span class="line">def foo():</span><br><span class="line">	return 1</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -991,92 +1078,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/yolov5_real/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/yolov5_real/" class="post-title-link" itemprop="url">yolov5_real</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-06 14:12:37" itemprop="dateCreated datePublished" datetime="2021-07-06T14:12:37+08:00">2021-07-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-06 15:22:46" itemprop="dateModified" datetime="2021-08-06T15:22:46+08:00">2021-08-06</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          Welcome to my blog, enter password to read.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/yolov5_real/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1146,7 +1147,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1199,12 +1200,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">92k</span>
+    <span title="站点总字数">93k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:25</span>
 </div>
 
         

@@ -22,17 +22,19 @@
   </script>
 
 
-  <meta name="description" content="代码千万行，注释第一行。编程不规范，同事两行泪。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zongxing">
-<meta property="og:url" content="https://hu1104.github.io/archives/index.html">
+  <meta name="description" content="首先，python的多线程是假的。 看一个例子来看看python多线程的实现。 1234567891011121314151617181920212223242526import threadingimport timedef say(name):        print(&amp;#x27;你好%s at %s&amp;#x27; %(name,time.ctime()))        time.sleep">
+<meta property="og:type" content="article">
+<meta property="og:title" content="threading">
+<meta property="og:url" content="https://hu1104.github.io/article/threading/index.html">
 <meta property="og:site_name" content="Zongxing">
-<meta property="og:description" content="代码千万行，注释第一行。编程不规范，同事两行泪。">
+<meta property="og:description" content="首先，python的多线程是假的。 看一个例子来看看python多线程的实现。 1234567891011121314151617181920212223242526import threadingimport timedef say(name):        print(&amp;#x27;你好%s at %s&amp;#x27; %(name,time.ctime()))        time.sleep">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-20T07:37:55.000Z">
+<meta property="article:modified_time" content="2021-08-20T07:47:39.433Z">
 <meta property="article:author" content="hzx">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://hu1104.github.io/archives/">
+<link rel="canonical" href="https://hu1104.github.io/article/threading/">
 
 
 <script id="page-configurations">
@@ -40,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Zongxing</title>
+  <title>threading | Zongxing</title>
   
 
 
@@ -190,234 +192,112 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 13 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/threading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          threading
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-20 15:37:55" itemprop="dateCreated datePublished" datetime="2021-08-20T15:37:55+08:00">2021-08-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-20 15:47:39" itemprop="dateModified" datetime="2021-08-20T15:47:39+08:00">2021-08-20</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
+        <p>首先，python的多线程是假的。</p>
+<p>看一个例子来看看python多线程的实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def say(name):</span><br><span class="line">        print(&#x27;你好%s at %s&#x27; %(name,time.ctime()))</span><br><span class="line">        time.sleep(2)</span><br><span class="line">        print(&quot;结束%s at %s&quot; %(name,time.ctime()))</span><br><span class="line"></span><br><span class="line">def listen(name):</span><br><span class="line">    print(&#x27;你好%s at %s&#x27; % (name,time.ctime()))</span><br><span class="line">    time.sleep(4)</span><br><span class="line">    print(&quot;结束%s at %s&quot; % (name,time.ctime()))</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    t1 = threading.Thread(target=say,args=(&#x27;tony&#x27;,))  #创建线程对象，Thread是一个类，实例化产生t1对象，这里就是创建了一个线程对象t1</span><br><span class="line">    t1.start() #启动线程，线程执行</span><br><span class="line">    t2 = threading.Thread(target=listen, args=(&#x27;simon&#x27;,)) #这里就是创建了一个线程对象t2</span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line">    print(&quot;程序结束=====================&quot;)</span><br><span class="line"># 输出结果为</span><br><span class="line">你好tony at Fri Aug 20 15:42:07 2021 --t1线程执行</span><br><span class="line">你好simon at Fri Aug 20 15:42:07 2021 --t2线程执行</span><br><span class="line">程序结束===================== --主线程执行</span><br><span class="line">结束tony at Fri Aug 20 15:42:09 2021 --sleep之后，t1线程执行</span><br><span class="line">结束simon at Fri Aug 20 15:42:11 2021 --sleep之后，t2线程执行</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-20T15:37:55+08:00"
-              content="2021-08-20">
-          08-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/threading/" itemprop="url">
-            <span itemprop="name">threading</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-20T14:50:29+08:00"
-              content="2021-08-20">
-          08-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/multiprocessing/" itemprop="url">
-            <span itemprop="name">multiprocessing</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-20T11:14:02+08:00"
-              content="2021-08-20">
-          08-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/generator-and-iterator/" itemprop="url">
-            <span itemprop="name">generator_and_iterator</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-20T09:05:48+08:00"
-              content="2021-08-20">
-          08-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/decorator/" itemprop="url">
-            <span itemprop="name">decorator</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-08-12T10:08:45+08:00"
-              content="2021-08-12">
-          08-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/todo-list/" itemprop="url">
-            <span itemprop="name">todo_list</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-07-27T11:04:44+08:00"
-              content="2021-07-27">
-          07-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/train-record/" itemprop="url">
-            <span itemprop="name">train_record</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-07-14T11:25:56+08:00"
-              content="2021-07-14">
-          07-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/hadoop-spark-hbase-hive/" itemprop="url">
-            <span itemprop="name">hadoop_spark_hbase_hive</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-07-12T17:05:19+08:00"
-              content="2021-07-12">
-          07-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/result-record/" itemprop="url">
-            <span itemprop="name">result_record</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-07-12T15:50:15+08:00"
-              content="2021-07-12">
-          07-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/record_everyday/" itemprop="url">
-            <span itemprop="name">record_everyday</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-07-06T15:46:54+08:00"
-              content="2021-07-06">
-          07-06
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/article/theme/" itemprop="url">
-            <span itemprop="name">theme</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+<p>我们可以看到主线程的print并不是等t1,t2线程都执行完毕之后才打印的，这是因为主线程和t1,t2 线程是同时跑的。但是主进程要等非守护子线程结束之后，主线程才会退出。</p>
+<p>上面其实就是python多线程的最简单用法，但是，一般开发中，我们需要主线程的print打印是在最后面的，表明所有流程都结束了，也就是主线程结束了。这里就引入了一个join的概念。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def say(name):</span><br><span class="line">        print(&#x27;你好%s at %s&#x27; %(name,time.ctime()))</span><br><span class="line">        time.sleep(2)</span><br><span class="line">        print(&quot;结束%s at %s&quot; %(name,time.ctime()))</span><br><span class="line"></span><br><span class="line">def listen(name):</span><br><span class="line">    print(&#x27;你好%s at %s&#x27; % (name,time.ctime()))</span><br><span class="line">    time.sleep(4)</span><br><span class="line">    print(&quot;结束%s at %s&quot; % (name,time.ctime()))</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    t1 = threading.Thread(target=say,args=(&#x27;tony&#x27;,))  #Thread是一个类，实例化产生t1对象，这里就是创建了一个线程对象t1</span><br><span class="line">    t1.start() #线程执行</span><br><span class="line">    t2 = threading.Thread(target=listen, args=(&#x27;simon&#x27;,)) #这里就是创建了一个线程对象t2</span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line">    t1.join() #join等t1子线程结束，主线程打印并且结束</span><br><span class="line">    t2.join() #join等t2子线程结束，主线程打印并且结束</span><br><span class="line">    print(&quot;程序结束=====================&quot;)</span><br></pre></td></tr></table></figure>
 
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/multiprocessing/" rel="prev" title="multiprocessing">
+      <i class="fa fa-chevron-left"></i> multiprocessing
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+  
+  
 
 
 

@@ -256,7 +256,8 @@
 
 
 
-<p><span style="margin: 0px;padding: 0px;color: inherit;line-height: inherit;font-size: inherit;">1. Python同步锁</span></p>
+
+
 <h1 id="什么是装饰器"><a href="#什么是装饰器" class="headerlink" title="什么是装饰器"></a>什么是装饰器<a href="#什么是装饰器" class="header-anchor">#</a></h1><p>一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。<br>简单示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 未使用装饰器时</span><br><span class="line">def outer(some_func):</span><br><span class="line">	def inner():</span><br><span class="line">		print (&quot;before some_func&quot;)</span><br><span class="line">		ret = some_func() # 1</span><br><span class="line">		return ret + 1</span><br><span class="line">	return inner</span><br><span class="line">def foo():</span><br><span class="line">	return 1</span><br><span class="line">decorated = outer(foo)</span><br><span class="line">decorated()</span><br><span class="line"></span><br><span class="line">#使用装饰器时</span><br><span class="line">def outer(some_func):</span><br><span class="line">	def inner():</span><br><span class="line">		print (&quot;before some_func&quot;)</span><br><span class="line">		ret = some_func() # 1</span><br><span class="line">		return ret + 1</span><br><span class="line">	return inner</span><br><span class="line">@outer</span><br><span class="line">def foo():</span><br><span class="line">	return 1</span><br><span class="line"></span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
 
@@ -414,6 +415,11 @@
 ]]></content>
   </entry>
   <entry>
+    <title>multiprocessing</title>
+    <url>/article/multiprocessing/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>result_record</title>
     <url>/article/result-record/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -484,6 +490,19 @@
 <p>在需要的地方插入</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure></li>
 </ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>threading</title>
+    <url>/article/threading/</url>
+    <content><![CDATA[<p>首先，python的多线程是假的。</p>
+<p>看一个例子来看看python多线程的实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def say(name):</span><br><span class="line">        print(&#x27;你好%s at %s&#x27; %(name,time.ctime()))</span><br><span class="line">        time.sleep(2)</span><br><span class="line">        print(&quot;结束%s at %s&quot; %(name,time.ctime()))</span><br><span class="line"></span><br><span class="line">def listen(name):</span><br><span class="line">    print(&#x27;你好%s at %s&#x27; % (name,time.ctime()))</span><br><span class="line">    time.sleep(4)</span><br><span class="line">    print(&quot;结束%s at %s&quot; % (name,time.ctime()))</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    t1 = threading.Thread(target=say,args=(&#x27;tony&#x27;,))  #创建线程对象，Thread是一个类，实例化产生t1对象，这里就是创建了一个线程对象t1</span><br><span class="line">    t1.start() #启动线程，线程执行</span><br><span class="line">    t2 = threading.Thread(target=listen, args=(&#x27;simon&#x27;,)) #这里就是创建了一个线程对象t2</span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line">    print(&quot;程序结束=====================&quot;)</span><br><span class="line"># 输出结果为</span><br><span class="line">你好tony at Fri Aug 20 15:42:07 2021 --t1线程执行</span><br><span class="line">你好simon at Fri Aug 20 15:42:07 2021 --t2线程执行</span><br><span class="line">程序结束===================== --主线程执行</span><br><span class="line">结束tony at Fri Aug 20 15:42:09 2021 --sleep之后，t1线程执行</span><br><span class="line">结束simon at Fri Aug 20 15:42:11 2021 --sleep之后，t2线程执行</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到主线程的print并不是等t1,t2线程都执行完毕之后才打印的，这是因为主线程和t1,t2 线程是同时跑的。但是主进程要等非守护子线程结束之后，主线程才会退出。</p>
+<p>上面其实就是python多线程的最简单用法，但是，一般开发中，我们需要主线程的print打印是在最后面的，表明所有流程都结束了，也就是主线程结束了。这里就引入了一个join的概念。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def say(name):</span><br><span class="line">        print(&#x27;你好%s at %s&#x27; %(name,time.ctime()))</span><br><span class="line">        time.sleep(2)</span><br><span class="line">        print(&quot;结束%s at %s&quot; %(name,time.ctime()))</span><br><span class="line"></span><br><span class="line">def listen(name):</span><br><span class="line">    print(&#x27;你好%s at %s&#x27; % (name,time.ctime()))</span><br><span class="line">    time.sleep(4)</span><br><span class="line">    print(&quot;结束%s at %s&quot; % (name,time.ctime()))</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    t1 = threading.Thread(target=say,args=(&#x27;tony&#x27;,))  #Thread是一个类，实例化产生t1对象，这里就是创建了一个线程对象t1</span><br><span class="line">    t1.start() #线程执行</span><br><span class="line">    t2 = threading.Thread(target=listen, args=(&#x27;simon&#x27;,)) #这里就是创建了一个线程对象t2</span><br><span class="line">    t2.start()</span><br><span class="line"></span><br><span class="line">    t1.join() #join等t1子线程结束，主线程打印并且结束</span><br><span class="line">    t2.join() #join等t2子线程结束，主线程打印并且结束</span><br><span class="line">    print(&quot;程序结束=====================&quot;)</span><br></pre></td></tr></table></figure>
+
 ]]></content>
   </entry>
   <entry>
@@ -968,10 +987,5 @@
 </li>
 </ol>
 ]]></content>
-  </entry>
-  <entry>
-    <title>multiprocessing</title>
-    <url>/article/multiprocessing/</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
