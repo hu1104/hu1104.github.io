@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-08-23T01:20:50.817Z</updated>
+  <updated>2021-08-23T01:22:57.027Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://hu1104.github.io/article/threading/"/>
     <id>https://hu1104.github.io/article/threading/</id>
     <published>2021-08-20T07:37:55.000Z</published>
-    <updated>2021-08-23T01:20:50.817Z</updated>
+    <updated>2021-08-23T01:22:57.027Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;python-多线程实现&quot;&gt;&lt;a href=&quot;#python-多线程实现&quot; class=&quot;headerlink&quot; title=&quot;python 多线程实现&quot;&gt;&lt;/a&gt;python 多线程实现&lt;/h1&gt;&lt;p&gt;首先，python的多线程是假的。&lt;/p&gt;
