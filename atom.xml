@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-08-23T01:22:57.027Z</updated>
+  <updated>2021-08-23T09:31:20.326Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://hu1104.github.io/article/threading/"/>
     <id>https://hu1104.github.io/article/threading/</id>
     <published>2021-08-20T07:37:55.000Z</published>
-    <updated>2021-08-23T01:22:57.027Z</updated>
+    <updated>2021-08-23T09:31:20.326Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;python-多线程实现&quot;&gt;&lt;a href=&quot;#python-多线程实现&quot; class=&quot;headerlink&quot; title=&quot;python 多线程实现&quot;&gt;&lt;/a&gt;python 多线程实现&lt;/h1&gt;&lt;p&gt;首先，python的多线程是假的。&lt;/p&gt;
@@ -40,8 +40,17 @@
     <link href="https://hu1104.github.io/article/multiprocessing/"/>
     <id>https://hu1104.github.io/article/multiprocessing/</id>
     <published>2021-08-20T06:50:29.000Z</published>
-    <updated>2021-08-20T06:50:29.533Z</updated>
+    <updated>2021-08-23T09:51:37.563Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;由于python的GIL锁的存在，导致在多线程的时候，同一时间只能有一个线程在cpu上运行，而且是单个cpu上运行，不管cpu有多少核数。如果要充分利用多核cpu的资源，在python中大部分情况下需要使用多进程。&lt;/p&gt;
+&lt;h1 id=&quot;python多进程模块&quot;&gt;&lt;a</summary>
+        
+      
     
     
     
