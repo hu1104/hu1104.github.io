@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-08-23T09:31:20.326Z</updated>
+  <updated>2021-08-24T08:46:49.247Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python_进阶</title>
+    <link href="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/"/>
+    <id>https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/</id>
+    <published>2021-08-24T05:44:57.000Z</published>
+    <updated>2021-08-24T08:46:49.247Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;偏函数&quot;&gt;&lt;a href=&quot;#偏函数&quot; class=&quot;headerlink&quot; title=&quot;偏函数&quot;&gt;&lt;/a&gt;偏函数&lt;a href=&quot;#偏函数&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>threading</title>
@@ -89,7 +110,7 @@
     <link href="https://hu1104.github.io/article/decorator/"/>
     <id>https://hu1104.github.io/article/decorator/</id>
     <published>2021-08-20T01:05:48.000Z</published>
-    <updated>2021-08-20T07:37:07.603Z</updated>
+    <updated>2021-08-24T05:45:26.089Z</updated>
     
     
     <summary type="html">&lt;div class=&quot;tocStart&quot;&gt;&lt;/div&gt;
@@ -149,7 +170,7 @@
     <link href="https://hu1104.github.io/article/train-record/"/>
     <id>https://hu1104.github.io/article/train-record/</id>
     <published>2021-07-27T03:04:44.000Z</published>
-    <updated>2021-08-11T09:52:26.969Z</updated>
+    <updated>2021-08-24T07:01:47.925Z</updated>
     
     
       
