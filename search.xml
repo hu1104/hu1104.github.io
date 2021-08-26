@@ -570,7 +570,9 @@
     <content><![CDATA[<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用<a href="#基本使用" class="header-anchor">#</a></h1><ol>
 <li><p>迭代的形式</p>
 <p>使用<code>tqdm()</code>封装可迭代的对象：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from tqdm import tqdm</span><br><span class="line">from time import sleep</span><br><span class="line"></span><br><span class="line">text = &quot;&quot;</span><br><span class="line">for char in tqdm([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]):</span><br><span class="line">    sleep(0.25)</span><br><span class="line">    text = text + char</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from tqdm import tqdm</span><br><span class="line">from time import sleep</span><br><span class="line"></span><br><span class="line">text = &quot;&quot;</span><br><span class="line">for char in tqdm([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]):</span><br><span class="line">    sleep(0.25)</span><br><span class="line">    text = text + char</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span></li>
 <li><p>手动的形式</p>
 <p>除了迭代的形式，你可以手动控制进度，加一个tqdm上下文即可：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">with tqdm(total=100) as pbar:</span><br><span class="line">    for i in range(10):</span><br><span class="line">        sleep(0.1)</span><br><span class="line">        pbar.update(10)</span><br></pre></td></tr></table></figure>
@@ -613,6 +615,7 @@
 <li><p>alive-process 花式进度条</p>
 </li>
 </ol>
+<p><a href="https://jishuin.proginn.com/p/763bfbd55bf8">酷炫的 Python 进度条开源库：alive-progress-技术圈 (proginn.com)</a></p>
 ]]></content>
   </entry>
   <entry>

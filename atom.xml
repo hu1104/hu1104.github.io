@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-08-26T01:40:58.240Z</updated>
+  <updated>2021-08-26T01:49:51.231Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -21,16 +21,13 @@
     <link href="https://hu1104.github.io/article/tqdm%E4%BD%BF%E7%94%A8/"/>
     <id>https://hu1104.github.io/article/tqdm%E4%BD%BF%E7%94%A8/</id>
     <published>2021-08-25T08:22:26.000Z</published>
-    <updated>2021-08-26T01:40:58.240Z</updated>
+    <updated>2021-08-26T01:49:51.231Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;基本使用&quot;&gt;&lt;a href=&quot;#基本使用&quot; class=&quot;headerlink&quot; title=&quot;基本使用&quot;&gt;&lt;/a&gt;基本使用&lt;a href=&quot;#基本使用&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;基本使用&quot;&gt;&lt;a href=&quot;#基本使用&quot; class=&quot;headerlink&quot; title=&quot;基本使用&quot;&gt;&lt;/a&gt;基本使用&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;迭代的形式&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;tqdm()&lt;/code&gt;封装可迭代的对象：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from tqdm import tqdm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from time import sleep&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;text = &amp;quot;&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for char in tqdm([&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;]):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    sleep(0.25)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    text = text + char&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
