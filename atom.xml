@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-08-26T01:49:51.231Z</updated>
+  <updated>2021-08-31T06:03:56.290Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,11 +17,133 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>deeplearning</title>
+    <link href="https://hu1104.github.io/article/deeplearning/"/>
+    <id>https://hu1104.github.io/article/deeplearning/</id>
+    <published>2021-08-31T05:55:09.000Z</published>
+    <updated>2021-08-31T06:03:56.290Z</updated>
+    
+    
+    <summary type="html">Welcome to my blog, enter password to read.</summary>
+    
+    
+    
+    
+    <category term="加密" scheme="https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mmdetection</title>
+    <link href="https://hu1104.github.io/article/mmdetection/"/>
+    <id>https://hu1104.github.io/article/mmdetection/</id>
+    <published>2021-08-30T07:33:17.000Z</published>
+    <updated>2021-08-30T07:59:05.195Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;a href=&quot;#参考资料&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>yolox训练自定义数据集</title>
+    <link href="https://hu1104.github.io/article/yolox%E8%AE%AD%E7%BB%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86/"/>
+    <id>https://hu1104.github.io/article/yolox%E8%AE%AD%E7%BB%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86/</id>
+    <published>2021-08-30T06:13:04.000Z</published>
+    <updated>2021-08-30T07:19:45.545Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;环境配置&quot;&gt;&lt;a href=&quot;#环境配置&quot; class=&quot;headerlink&quot; title=&quot;环境配置&quot;&gt;&lt;/a&gt;环境配置&lt;a href=&quot;#环境配置&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>python_base</title>
+    <link href="https://hu1104.github.io/article/python-base/"/>
+    <id>https://hu1104.github.io/article/python-base/</id>
+    <published>2021-08-30T02:18:47.000Z</published>
+    <updated>2021-08-30T07:20:16.023Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;initpy&quot;&gt;&lt;a href=&quot;#init-py&quot; class=&quot;headerlink&quot; title=&quot;init.py&quot;&gt;&lt;/a&gt;&lt;strong&gt;init&lt;/strong&gt;.py&lt;a href=&quot;#initpy&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>logging</title>
+    <link href="https://hu1104.github.io/article/logging/"/>
+    <id>https://hu1104.github.io/article/logging/</id>
+    <published>2021-08-27T05:33:03.000Z</published>
+    <updated>2021-08-30T07:19:53.691Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;按天生成日志&quot;&gt;&lt;a href=&quot;#按天生成日志&quot; class=&quot;headerlink&quot; title=&quot;按天生成日志&quot;&gt;&lt;/a&gt;按天生成日志&lt;a href=&quot;#按天生成日志&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;&lt;figure</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>distributed_torch</title>
+    <link href="https://hu1104.github.io/article/distributed-torch/"/>
+    <id>https://hu1104.github.io/article/distributed-torch/</id>
+    <published>2021-08-26T08:11:12.000Z</published>
+    <updated>2021-08-30T07:20:06.981Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;多gpu分配&quot;&gt;&lt;a href=&quot;#多GPU分配&quot; class=&quot;headerlink&quot; title=&quot;多GPU分配&quot;&gt;&lt;/a&gt;多GPU分配&lt;a href=&quot;#多gpu分配&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>tqdm使用</title>
     <link href="https://hu1104.github.io/article/tqdm%E4%BD%BF%E7%94%A8/"/>
     <id>https://hu1104.github.io/article/tqdm%E4%BD%BF%E7%94%A8/</id>
     <published>2021-08-25T08:22:26.000Z</published>
-    <updated>2021-08-26T01:49:51.231Z</updated>
+    <updated>2021-08-30T02:05:10.037Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;基本使用&quot;&gt;&lt;a href=&quot;#基本使用&quot; class=&quot;headerlink&quot; title=&quot;基本使用&quot;&gt;&lt;/a&gt;基本使用&lt;/h1&gt;&lt;ol&gt;
@@ -39,7 +161,7 @@
     <link href="https://hu1104.github.io/article/coroutine/"/>
     <id>https://hu1104.github.io/article/coroutine/</id>
     <published>2021-08-24T08:49:44.000Z</published>
-    <updated>2021-08-25T06:59:07.052Z</updated>
+    <updated>2021-08-30T02:05:13.716Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;asyncio-yield-from&quot;&gt;&lt;a href=&quot;#asyncio-yield-from&quot; class=&quot;headerlink&quot; title=&quot;asyncio + yield from&quot;&gt;&lt;/a&gt;asyncio + yield from&lt;/h3&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#-*- coding:utf8 -*-&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;import asyncio&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@asyncio.coroutine&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def test(i):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;#x27;test_1&amp;#x27;, i)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    r = yield from asyncio.sleep(1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;#x27;test_2&amp;#x27;, i)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if __name__ == &amp;#x27;__main__&amp;#x27;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    loop = asyncio.get_event_loop()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    tasks = [test(i) for i in range(3)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    loop.run_until_complete(asyncio.wait(tasks))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    loop.close()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -56,7 +178,7 @@
     <link href="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/"/>
     <id>https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/</id>
     <published>2021-08-24T05:44:57.000Z</published>
-    <updated>2021-08-25T06:58:49.617Z</updated>
+    <updated>2021-08-30T02:05:07.280Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;偏函数&quot;&gt;&lt;a href=&quot;#偏函数&quot; class=&quot;headerlink&quot; title=&quot;偏函数&quot;&gt;&lt;/a&gt;偏函数&lt;/h1&gt;&lt;p&gt;定义：偏函数的第二个部分(可变参数)，按原有函数的参数顺序进行补充，参数将作用在原函数上，最后偏函数返回一个新函数（类似于，装饰器decorator，对于函数进行二次包装，产生特殊效果；但又不同于装饰器，偏函数产生了一个新函数，而装饰器，可改变被装饰函数的函数入口地址也可以不影响原函数）&lt;/p&gt;
@@ -76,7 +198,7 @@
     <link href="https://hu1104.github.io/article/threading/"/>
     <id>https://hu1104.github.io/article/threading/</id>
     <published>2021-08-20T07:37:55.000Z</published>
-    <updated>2021-08-25T06:56:34.109Z</updated>
+    <updated>2021-08-30T02:05:09.031Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;python-多线程实现&quot;&gt;&lt;a href=&quot;#python-多线程实现&quot; class=&quot;headerlink&quot; title=&quot;python 多线程实现&quot;&gt;&lt;/a&gt;python 多线程实现&lt;/h1&gt;&lt;p&gt;首先，python的多线程是假的。&lt;/p&gt;
@@ -95,7 +217,7 @@
     <link href="https://hu1104.github.io/article/multiprocessing/"/>
     <id>https://hu1104.github.io/article/multiprocessing/</id>
     <published>2021-08-20T06:50:29.000Z</published>
-    <updated>2021-08-25T06:59:23.271Z</updated>
+    <updated>2021-08-30T07:16:49.200Z</updated>
     
     
     <summary type="html">&lt;p&gt;由于python的GIL锁的存在，导致在多线程的时候，同一时间只能有一个线程在cpu上运行，而且是单个cpu上运行，不管cpu有多少核数。如果要充分利用多核cpu的资源，在python中大部分情况下需要使用多进程。&lt;/p&gt;
@@ -198,19 +320,15 @@
     <link href="https://hu1104.github.io/article/train-record/"/>
     <id>https://hu1104.github.io/article/train-record/</id>
     <published>2021-07-27T03:04:44.000Z</published>
-    <updated>2021-08-24T07:01:47.925Z</updated>
+    <updated>2021-08-31T06:04:14.851Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;20210728&quot;&gt;&lt;a href=&quot;#20210728&quot; class=&quot;headerlink&quot; title=&quot;20210728&quot;&gt;&lt;/a&gt;20210728&lt;a href=&quot;#20210728&quot;</summary>
-        
-      
+    <summary type="html">Welcome to my blog, enter password to read.</summary>
     
     
     
+    
+    <category term="加密" scheme="https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
     
   </entry>
   
@@ -251,7 +369,7 @@
     <link href="https://hu1104.github.io/article/record_everyday/"/>
     <id>https://hu1104.github.io/article/record_everyday/</id>
     <published>2021-07-12T07:50:15.000Z</published>
-    <updated>2021-08-25T07:00:23.362Z</updated>
+    <updated>2021-08-30T07:29:40.312Z</updated>
     
     
     <summary type="html">Welcome to my blog, enter password to read.</summary>
@@ -288,7 +406,7 @@
     <link href="https://hu1104.github.io/article/yolov5_real/"/>
     <id>https://hu1104.github.io/article/yolov5_real/</id>
     <published>2021-07-06T06:12:37.000Z</published>
-    <updated>2021-08-06T07:22:46.204Z</updated>
+    <updated>2021-08-30T02:04:58.882Z</updated>
     
     
     <summary type="html">Welcome to my blog, enter password to read.</summary>
@@ -297,62 +415,6 @@
     
     
     <category term="加密" scheme="https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hadoop_WSL2</title>
-    <link href="https://hu1104.github.io/article/Hadoop_WSL2/"/>
-    <id>https://hu1104.github.io/article/Hadoop_WSL2/</id>
-    <published>2021-06-28T04:12:35.000Z</published>
-    <updated>2021-07-06T09:09:44.000Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;制作镜像&quot;&gt;&lt;a href=&quot;#制作镜像&quot; class=&quot;headerlink&quot; title=&quot;制作镜像&quot;&gt;&lt;/a&gt;制作镜像&lt;/h1&gt;&lt;h2 id=&quot;1-拉取Ubuntu镜像&quot;&gt;&lt;a href=&quot;#1-拉取Ubuntu镜像&quot; class=&quot;headerlink&quot; title=&quot;1. 拉取Ubuntu镜像&quot;&gt;&lt;/a&gt;1. 拉取Ubuntu镜像&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;首先拉取一个Ubuntu最新的镜像作为基础镜像`docker pull ubuntu:latest`,结束后，运行`docker images`,可以看到
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;base_ubuntu.png&quot; alt=&quot;图片&quot; title=&quot;打开后显示图片&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;2-使用Dockerfile构建包含jdk的ubuntu镜像&quot;&gt;&lt;a href=&quot;#2-使用Dockerfile构建包含jdk的ubuntu镜像&quot; class=&quot;headerlink&quot; title=&quot;2. 使用Dockerfile构建包含jdk的ubuntu镜像&quot;&gt;&lt;/a&gt;2. 使用Dockerfile构建包含jdk的ubuntu镜像&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;去jdk官网下载jdk包，此处下载的为jdk1.8 ** jdk-8u291-linux-x64.tar.gz**, 将下载好的jdk文件移至wsl2环境下，在此目录下新建Dockerfile文件，并进入编辑状态
-&lt;/code&gt;&lt;/pre&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vim Dockerfile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>WSL2安装Ubuntu</title>
-    <link href="https://hu1104.github.io/article/WSL2_Ubuntu/"/>
-    <id>https://hu1104.github.io/article/WSL2_Ubuntu/</id>
-    <published>2021-06-25T01:22:46.000Z</published>
-    <updated>2021-07-08T10:05:52.000Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;系统更新至预览版&quot;&gt;&lt;a href=&quot;#系统更新至预览版&quot; class=&quot;headerlink&quot; title=&quot;系统更新至预览版&quot;&gt;&lt;/a&gt;系统更新至预览版&lt;/h1&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;加入Windows Insider Program&lt;/p&gt;
-&lt;p&gt; &lt;a href=&quot;https://insider.windows.com/en-us/getting-started&quot;&gt;链接&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt; &lt;img src=&quot;wip.png&quot; alt=&quot;图片&quot; title=&quot;打开后显示&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;注册加入完成后，前往【开始】菜单&amp;gt;【设置】&amp;gt;【更新和安全】&amp;gt;【Windows 预览体验计划】，选择【开始】，然后点击【确认】。&lt;/p&gt;
-&lt;p&gt; &lt;img src=&quot;update.png&quot; alt=&quot;图片&quot; title=&quot;打开后显示&quot;&gt;&lt;br&gt; &lt;img src=&quot;choose.png&quot; alt=&quot;图片&quot; title=&quot;打开后显示&quot;&gt;&lt;br&gt; &lt;img src=&quot;microsoft_login.png&quot; alt=&quot;图片&quot; title=&quot;打开后显示&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;漫长的等待，等待过程中如果出现太久旋转没动静，可反复取消-选择账户，几次下来一般就可以了。随后使用加入Windows Insider Program时注册的账号密码，之后出现&lt;/p&gt;
-&lt;p&gt; &lt;img src=&quot;dev.png&quot; alt=&quot;图片&quot; title=&quot;打开后显示&quot;&gt;&lt;br&gt; 选择dev渠道，然后立即重启。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;前往【开始】菜单&amp;gt;【设置】&amp;gt;【更新和安全】&amp;gt;【Windows 更新】，下载更新完window，&lt;br&gt;选择【检查更新】，然后耐心等待最新 Windows 10 预览版的下载和安装。&lt;/p&gt;
-&lt;p&gt; &lt;img src=&quot;update_wid.png&quot; alt=&quot;图片&quot; title=&quot;打开后显示&quot;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;检查系统更新成功与否&lt;/p&gt;
-&lt;p&gt; win+R-&amp;gt;winver:&lt;br&gt; &lt;img src=&quot;version.png&quot; alt=&quot;图片&quot; title=&quot;打开后显示&quot;&gt;&lt;br&gt; 确认这里的os内部版本和第四步下载的版本一致&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="教程" scheme="https://hu1104.github.io/categories/%E6%95%99%E7%A8%8B/"/>
-    
-    
-    <category term="win10" scheme="https://hu1104.github.io/tags/win10/"/>
-    
-    <category term="ubuntu" scheme="https://hu1104.github.io/tags/ubuntu/"/>
     
   </entry>
   
