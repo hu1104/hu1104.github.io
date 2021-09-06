@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-09-03T01:40:40.178Z</updated>
+  <updated>2021-09-06T08:23:56.433Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,12 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>上采样方法</title>
+    <link href="https://hu1104.github.io/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/"/>
+    <id>https://hu1104.github.io/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/</id>
+    <published>2021-09-06T07:48:43.000Z</published>
+    <updated>2021-09-06T08:23:56.433Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;pixelshuffle&quot;&gt;&lt;a href=&quot;#pixelshuffle&quot; class=&quot;headerlink&quot; title=&quot;pixelshuffle&quot;&gt;&lt;/a&gt;pixelshuffle&lt;a href=&quot;#pixelshuffle&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>LN_BN</title>
     <link href="https://hu1104.github.io/article/LN-BN/"/>
     <id>https://hu1104.github.io/article/LN-BN/</id>
     <published>2021-09-03T01:40:40.000Z</published>
-    <updated>2021-09-03T01:40:40.178Z</updated>
+    <updated>2021-09-06T08:04:42.162Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。&lt;/p&gt;
+&lt;p&gt;BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
     
     
     
@@ -34,8 +65,16 @@
     <link href="https://hu1104.github.io/article/all-CN/"/>
     <id>https://hu1104.github.io/article/all-CN/</id>
     <published>2021-09-03T01:40:26.000Z</published>
-    <updated>2021-09-03T01:40:26.526Z</updated>
+    <updated>2021-09-06T07:47:55.408Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;深度可分离卷积&quot;&gt;&lt;a href=&quot;#深度可分离卷积&quot; class=&quot;headerlink&quot; title=&quot;深度可分离卷积&quot;&gt;&lt;/a&gt;深度可分离卷积&lt;a href=&quot;#深度可分离卷积&quot;</summary>
+        
+      
     
     
     
@@ -382,23 +421,6 @@
     
     
     <summary type="html">test结果记录</summary>
-    
-    
-    
-    
-    <category term="加密" scheme="https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>record_everyday</title>
-    <link href="https://hu1104.github.io/article/record_everyday/"/>
-    <id>https://hu1104.github.io/article/record_everyday/</id>
-    <published>2021-07-12T07:50:15.000Z</published>
-    <updated>2021-09-03T10:00:20.821Z</updated>
-    
-    
-    <summary type="html">Welcome to my blog, enter password to read.</summary>
     
     
     

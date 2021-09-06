@@ -22,17 +22,22 @@
   </script>
 
 
-  <meta name="description" content="代码千万行，注释第一行。编程不规范，同事两行泪。">
+  <meta name="description" content="LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。 BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。  优点：Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：  加大搜索的步长">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LN_BN">
 <meta property="og:url" content="https://hu1104.github.io/article/LN-BN/index.html">
 <meta property="og:site_name" content="Zongxing">
-<meta property="og:description" content="代码千万行，注释第一行。编程不规范，同事两行泪。">
+<meta property="og:description" content="LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。 BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。  优点：Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：  加大搜索的步长">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/LN-BN/LN-BN/image-20210906155404860.png">
+<meta property="og:image" content="https://hu1104.github.io/article/LN-BN/LN-BN/image-20210906155830408.png">
+<meta property="og:image" content="https://hu1104.github.io/article/LN-BN/LN-BN/image-20210906155845338.png">
+<meta property="og:image" content="https://hu1104.github.io/article/LN-BN/LN-BN/image-20210906160001983.png">
 <meta property="article:published_time" content="2021-09-03T01:40:40.000Z">
-<meta property="article:modified_time" content="2021-09-03T01:40:40.178Z">
+<meta property="article:modified_time" content="2021-09-06T08:04:42.162Z">
 <meta property="article:author" content="hzx">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/LN-BN/LN-BN/image-20210906155404860.png">
 
 <link rel="canonical" href="https://hu1104.github.io/article/LN-BN/">
 
@@ -140,7 +145,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">24</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -224,6 +229,13 @@
 
               <time title="创建时间：2021-09-03 09:40:40" itemprop="dateCreated datePublished" datetime="2021-09-03T09:40:40+08:00">2021-09-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-06 16:04:42" itemprop="dateModified" datetime="2021-09-06T16:04:42+08:00">2021-09-06</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -238,7 +250,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>825</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -257,7 +269,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。</p>
+<p>BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。</p>
+<p><img src="LN-BN/image-20210906155404860.png" alt="image-20210906155404860"></p>
+<p><strong>优点：</strong>Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：</p>
+<ul>
+<li>加大搜索的步长，加快收敛的速度；</li>
+<li>更容易跳出局部最小值；</li>
+<li>破坏原来的数据分布，一定程度上缓解了过拟合</li>
+</ul>
+<p><strong>缺陷如下：</strong></p>
+<p>1、BN是在batch size样本上各个维度做标准化的，所以size越大肯定越能得出合理的μ和σ来做标准化，因此BN比较依赖size的大小。<br>2、在训练的时候，是分批量进行填入模型的，但是在预测的时候，如果只有一个样本或者很少量的样本来做inference，这个时候用BN显然偏差很大，例如在线学习场景。<br>3、RNN是一个动态的网络，也就是size是变化的，可大可小，造成多样本维度都没法对齐，所以不适合用BN。</p>
+<p><strong>LN带来的优势：</strong></p>
+<p>1、Layer Normalization是每个样本内部做标准化，跟size没关系，不受其影响。<br>2、RNN中LN也不受影响，内部自己做标准化，所以LN的应用面更广。</p>
+<ul>
+<li>BatchNorm：batch方向做归一化，计算N<em>H</em>W的均值</li>
+<li>LayerNorm：channel方向做归一化，计算C<em>H</em>W的均值</li>
+<li>InstanceNorm：一个channel内做归一化，计算H*W的均值</li>
+<li>GroupNorm：先将channel方向分group，然后每个group内做归一化，计算(C//G)<em>H</em>W的均值</li>
+</ul>
+<h1 id="wn"><a href="#WN" class="headerlink" title="WN"></a>WN<a href="#wn" class="header-anchor">#</a></h1><p><img src="LN-BN/image-20210906155830408.png" alt="image-20210906155830408"></p>
+<p><img src="LN-BN/image-20210906155845338.png" alt="image-20210906155845338"></p>
+<h1 id="归一化操作"><a href="#归一化操作" class="headerlink" title="归一化操作"></a>归一化操作<a href="#归一化操作" class="header-anchor">#</a></h1><p><img src="LN-BN/image-20210906160001983.png" alt="image-20210906160001983"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gczr/p/12597344.html">https://www.cnblogs.com/gczr/p/12597344.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33173246">详解深度学习中的Normalization，BN/LN/WN - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shine-lee/p/11779514.html">为什么要做特征归一化/标准化？ - shine-lee - 博客园 (cnblogs.com)</a></p>
+
     </div>
 
     
@@ -275,7 +312,10 @@
     <a href="/article/all-CN/" rel="prev" title="all_CN">
       <i class="fa fa-chevron-left"></i> all_CN
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/" rel="next" title="上采样方法">
+      上采样方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -334,6 +374,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#wn"><span class="nav-number">1.</span> <span class="nav-text">WN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">归一化操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -347,7 +388,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -400,12 +441,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">138k</span>
+    <span title="站点总字数">142k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:06</span>
+    <span title="站点阅读时长">2:09</span>
 </div>
 
         

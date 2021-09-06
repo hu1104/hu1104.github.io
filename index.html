@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">24</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">上采样方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-06 15:48:43" itemprop="dateCreated datePublished" datetime="2021-09-06T15:48:43+08:00">2021-09-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-06 16:23:56" itemprop="dateModified" datetime="2021-09-06T16:23:56+08:00">2021-09-06</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>613</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="pixelshuffle"><a href="#pixelshuffle" class="headerlink" title="pixelshuffle"></a>pixelshuffle<a href="#pixelshuffle" class="header-anchor">#</a></h1><p>上采样可以理解为在同一个位置，原来只是以1:1的比例提取信息，而现在以1:4的比例提取信息，提取信息的频率更高了，所以能反映的细节也就更多。对于tensor来说，在同一个位置多提取信息，也就是通过卷积生成通道数更多的tensor。具体过程为（以一个（n,64,64,64）的特征图为例）</p>
+<ol>
+<li>通过卷积，得到通道数倍增的特征图（n,64,64,256）</li>
+<li>将特征图切割成若干份，对每一份（n,64,64,4）的像素点进行重新排列,reshape成(n,64,64,2,2），再reshape成（n,64,2,64,2），最后reshape成（n,128,128,1），再把这么多份拼接起来，得（n,128,128,64）的特征图</li>
+</ol>
+<p><img src="%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/image-20210906161758378.png" alt="image-20210906161758378"></p>
+<p><img src="%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/image-20210906161922868.png" alt="image-20210906161922868"></p>
+<h1 id="upsample"><a href="#upsample" class="headerlink" title="upsample"></a>upsample<a href="#upsample" class="header-anchor">#</a></h1><p>插值方法</p>
+<h1 id="转置卷积convtranspose2d"><a href="#转置卷积-ConvTranspose2d" class="headerlink" title="转置卷积(ConvTranspose2d)"></a>转置卷积(ConvTranspose2d)<a href="#转置卷积convtranspose2d" class="header-anchor">#</a></h1><p>填充0后做卷积</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_14845119/article/details/107557449">(19条消息) 上采样方法大PK（Upsample，Interpolate，resize，Transposed convolution，deconv，Unpool，Pixelshuffle）_年轻即出发，-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/oliyoung/p/upsample.html">上采样，上池化，反卷积 - OliYoung - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.pianshen.com/article/46871443097/">PixelShuffler原理学习笔记 - 程序员大本营 (pianshen.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiangkejie/p/12919155.html">pytorch中的上采样（上采样，转置卷积，上池化，PixelShuffle） - 那抹阳光1994 - 博客园 (cnblogs.com)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/LN-BN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -222,6 +313,13 @@
 
               <time title="创建时间：2021-09-03 09:40:40" itemprop="dateCreated datePublished" datetime="2021-09-03T09:40:40+08:00">2021-09-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-06 16:04:42" itemprop="dateModified" datetime="2021-09-06T16:04:42+08:00">2021-09-06</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -229,7 +327,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>825</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -248,7 +346,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <p>LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。</p>
+<p>BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。</p>
+<p><img src="LN-BN/image-20210906155404860.png" alt="image-20210906155404860"></p>
+<p><strong>优点：</strong>Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：</p>
+<ul>
+<li>加大搜索的步长，加快收敛的速度；</li>
+<li>更容易跳出局部最小值；</li>
+<li>破坏原来的数据分布，一定程度上缓解了过拟合</li>
+</ul>
+<p><strong>缺陷如下：</strong></p>
+<p>1、BN是在batch size样本上各个维度做标准化的，所以size越大肯定越能得出合理的μ和σ来做标准化，因此BN比较依赖size的大小。<br>2、在训练的时候，是分批量进行填入模型的，但是在预测的时候，如果只有一个样本或者很少量的样本来做inference，这个时候用BN显然偏差很大，例如在线学习场景。<br>3、RNN是一个动态的网络，也就是size是变化的，可大可小，造成多样本维度都没法对齐，所以不适合用BN。</p>
+<p><strong>LN带来的优势：</strong></p>
+<p>1、Layer Normalization是每个样本内部做标准化，跟size没关系，不受其影响。<br>2、RNN中LN也不受影响，内部自己做标准化，所以LN的应用面更广。</p>
+<ul>
+<li>BatchNorm：batch方向做归一化，计算N<em>H</em>W的均值</li>
+<li>LayerNorm：channel方向做归一化，计算C<em>H</em>W的均值</li>
+<li>InstanceNorm：一个channel内做归一化，计算H*W的均值</li>
+<li>GroupNorm：先将channel方向分group，然后每个group内做归一化，计算(C//G)<em>H</em>W的均值</li>
+</ul>
+<h1 id="wn"><a href="#WN" class="headerlink" title="WN"></a>WN<a href="#wn" class="header-anchor">#</a></h1><p><img src="LN-BN/image-20210906155830408.png" alt="image-20210906155830408"></p>
+<p><img src="LN-BN/image-20210906155845338.png" alt="image-20210906155845338"></p>
+<h1 id="归一化操作"><a href="#归一化操作" class="headerlink" title="归一化操作"></a>归一化操作<a href="#归一化操作" class="header-anchor">#</a></h1><p><img src="LN-BN/image-20210906160001983.png" alt="image-20210906160001983"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gczr/p/12597344.html">https://www.cnblogs.com/gczr/p/12597344.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33173246">详解深度学习中的Normalization，BN/LN/WN - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shine-lee/p/11779514.html">为什么要做特征归一化/标准化？ - shine-lee - 博客园 (cnblogs.com)</a></p>
+
       
     </div>
 
@@ -293,6 +416,13 @@
 
               <time title="创建时间：2021-09-03 09:40:26" itemprop="dateCreated datePublished" datetime="2021-09-03T09:40:26+08:00">2021-09-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-06 15:47:55" itemprop="dateModified" datetime="2021-09-06T15:47:55+08:00">2021-09-06</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -300,14 +430,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -319,7 +449,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="深度可分离卷积"><a href="#深度可分离卷积" class="headerlink" title="深度可分离卷积"></a>深度可分离卷积<a href="#深度可分离卷积" class="header-anchor">#</a></h1><p>假设输入是$D_{f^i} * D_{f^i} * M$ ,输出图大小是$D_{f^o}*D_{f^o}<em>N$, 卷积核大小是$D_k</em>D_k$</p>
+<h2 id="普通卷积操作"><a href="#普通卷积操作" class="headerlink" title="普通卷积操作"></a>普通卷积操作<a href="#普通卷积操作" class="header-anchor">#</a></h2><p>输入图在经过卷积核（$D_k<em>D_k</em>M$）后输出为目标输出大小，但此时仅为$D_{f^o}*D_{f^o} * 1$ ,需要$N$个这样的操作才能得到目标特征图。</p>
+<p>此时所需要的计算量有$D_{f^o}<em>D_{f^o}<em>D_k</em>D_k</em>M*N$。</p>
+<h2 id="深度可分离卷积"><a href="#深度可分离卷积-1" class="headerlink" title="深度可分离卷积"></a>深度可分离卷积<a href="#深度可分离卷积" class="header-anchor">#</a></h2><p>输入图首先经过$M$个$D_k<em>D_k</em>1$的卷积核，这样可以得到$D_{f^o}*D_{f^o}*M$的特征图，其中$M$是堆叠出来的，此步骤叫做<code>depthwise convolution</code> 。</p>
+<p>再经过$N$个$1<em>1</em>M$的卷积核，就可以得到$D_{f^o}*D_{f^o} *N$的特征图。此操作为<code>pointwise convolution</code>。</p>
+<p>可以看出，深度可分离卷积可分为逐层卷积和逐点卷积两个步骤，</p>
+<p>逐层卷积：</p>
+<p><img src="all-CN/image-20210906145026434.png" alt="image-20210906145026434"></p>
+<p>逐点卷积：</p>
+<p><img src="all-CN/image-20210906145039602.png" alt="image-20210906145039602"></p>
+<p><img src="all-CN/image-20210906145050415.png" alt="image-20210906145050415"></p>
+<p>计算量分步骤计算分别为$D_k<em>D_k</em>M<em>D_{f^o}<em>D_{f^o}$和$N</em>1</em>1<em>M</em>D_{f^o}*D_{f^o}$。</p>
+<p>则相比较与常规卷积$\frac {D_k<em>D_k</em>M<em>D_{f^o}<em>D_{f^o}+N</em>M</em>D_{f^o}<em>D_{f^o}}{D_{f^o}<em>D_{f^o}<em>D_k</em>D_k</em>M</em>N} = \frac {1}{N} + \frac {1}{D_k^2}$</p>
+<p>针对一般$D_k=3$和$N$远大于9的情况，可知压缩比略小于9。</p>
+<h2 id="速度思考"><a href="#速度思考" class="headerlink" title="速度思考"></a>速度思考<a href="#速度思考" class="header-anchor">#</a></h2><p>在速度方面，经过大量实验，我发现在算力足够的GPU平台上，MobileNet不会带来任何速度上的提升（有时甚至是下降的），然而在计算能力有限的平台上，MobileNet能让速度提升三倍以上。</p>
+<p><strong>深度可分离卷积将一个标准卷积分割成了两个卷积（逐深度，逐点），因此减小了参数量，对应也减小了总计算量。</strong></p>
+<p>好的，在上面的话中，我们可以发现一个有趣的事实：深度可分离卷积的<strong>总计算量变小了</strong>，但深度可分离卷积的<strong>层数变多了</strong>。</p>
+<p>而结合我们对GPU和CPU的认识：GPU是并行处理大规模数据（矩阵内积）的运算平台，而CPU则倾向于对数据串行计算（一个一个算）。</p>
+<p>因此，若GPU的显存足够大（干脆假设无限大好了），因为每层的计算都可以并行一次处理，则此时<strong>总运算时间的主导因素是网络的层数。</strong></p>
+<p>而对于缺乏并行能力的CPU，总的运算时间的主导因素则是<strong>总计算量有关。</strong></p>
+<h2 id="pytorch实现"><a href="#pytorch实现" class="headerlink" title="pytorch实现"></a>pytorch实现<a href="#pytorch实现" class="header-anchor">#</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import torch.nn.functional as F</span><br><span class="line"></span><br><span class="line">class Block(nn.Module):</span><br><span class="line">    &quot;Depthwise conv + Pointwise conv&quot;</span><br><span class="line">    def __init__(self, in_channels, out_channels, stride=1):</span><br><span class="line">        super(Block, self).__init__()</span><br><span class="line">        self.conv1 = nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=2, padding=1, groups=in_channels, bias=False)</span><br><span class="line">        self.bn1 = nn.BatchNorm2d(in_channels)</span><br><span class="line">        self.conv2 = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=1, padding=0, bias=False)</span><br><span class="line">        self.bn2 = nn.BatchNorm2d(out_channels)</span><br><span class="line"></span><br><span class="line">    def forward(self, x):</span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.bn1(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        x = self.conv2(x)</span><br><span class="line">        x = self.bn2(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        return x</span><br><span class="line"></span><br><span class="line">input = torch.randn(32, 3, 224, 224)</span><br><span class="line">block = Block(3, 64)</span><br><span class="line">out = block(input)</span><br><span class="line">print(out.size())</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="分组卷积"><a href="#分组卷积" class="headerlink" title="分组卷积"></a>分组卷积<a href="#分组卷积" class="header-anchor">#</a></h1><p><img src="all-CN/image-20210906151614062.png" alt="image-20210906151614062"></p>
+<p><strong>Group Convolution</strong>顾名思义，则是对输入feature map进行分组，然后每组分别卷积。假设输入feature map的尺寸仍为$C∗H∗W$，输出feature map的数量为$N$个，如果设定要分成$G$个groups，则每组的输入feature map数量为$\frac {C}{G}$，每组的输出feature map数量为$\frac {N}{G}$，每个卷积核的尺寸为$\frac CG∗K∗K$，卷积核的总数仍为$N$个，每组的卷积核数量为$\frac NG$，卷积核只与其同组的输入map进行卷积，卷积核的总参数量为$N∗\frac CG∗K∗K$，可见，<strong>总参数量减少为原来的</strong> $\frac 1G$，其连接方式如上图右所示，group1输出map数为2，有2个卷积核，每个卷积核的channel数为4，与group1的输入map的channel数相同，卷积核只与同组的输入map卷积，而不与其他组的输入map卷积。</p>
+<h2 id="分组卷积的用途"><a href="#分组卷积的用途" class="headerlink" title="分组卷积的用途"></a>分组卷积的用途<a href="#分组卷积的用途" class="header-anchor">#</a></h2><ol>
+<li>减少参数量， 分成$G$组，则该层的参数量减少为原来的$\frac 1G$</li>
+<li>可看成structured sparse，每个卷积核的尺寸由$C<em>K</em>K$变为$\frac CG<em>K</em>K$，可以看作将其余$(C-\frac CG)<em>K</em>K$的参数视为0，有时可以取得不错的效果(正则化)。</li>
+<li>当分组数量等于输入map数量，输出map数量也等于输入map数量，相当于<code>depthwise convolution</code></li>
+<li>如果满足3的同时，卷积核大小与输入尺寸相同，则输出$C<em>1</em>1$的向量，此时为<code>global depthwise convolution</code>，可视为全局加权池化，与GAP( global average pooling)的不同之处在于，GDC给每个位置赋予可学习的权重，而GAP是权重相同取个平均。</li>
+</ol>
+<h1 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积<a href="#转置卷积" class="header-anchor">#</a></h1><h1 id="空洞卷积"><a href="#空洞卷积" class="headerlink" title="空洞卷积"></a>空洞卷积<a href="#空洞卷积" class="header-anchor">#</a></h1><p>作用：</p>
+<ol>
+<li>增大感受野</li>
+<li>捕获多尺度上下文信息</li>
+</ol>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/BDlYXOjaNuBsLkfbQKRGLA">一文读懂 12种卷积方法（含1x1卷积、转置卷积和深度可分离卷积等） (qq.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shine-lee/p/10243114.html">Group Convolution分组卷积，以及Depthwise Convolution和Global Depthwise Convolution - shine-lee - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/208519425">通过分组卷积的思想，巧妙的代码实现动态卷积(Dynamic Convolution) - 知乎 (zhihu.com)</a></p>
+
       
     </div>
 
@@ -984,94 +1154,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/coroutine/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/coroutine/" class="post-title-link" itemprop="url">coroutine</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-24 16:49:44" itemprop="dateCreated datePublished" datetime="2021-08-24T16:49:44+08:00">2021-08-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-03 09:36:33" itemprop="dateModified" datetime="2021-09-03T09:36:33+08:00">2021-09-03</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="asyncio-yield-from"><a href="#asyncio-yield-from" class="headerlink" title="asyncio + yield from"></a>asyncio + yield from</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#-*- coding:utf8 -*-</span><br><span class="line">import asyncio</span><br><span class="line"></span><br><span class="line">@asyncio.coroutine</span><br><span class="line">def test(i):</span><br><span class="line">    print(&#x27;test_1&#x27;, i)</span><br><span class="line">    r = yield from asyncio.sleep(1)</span><br><span class="line">    print(&#x27;test_2&#x27;, i)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    tasks = [test(i) for i in range(3)]</span><br><span class="line">    loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">    loop.close()</span><br></pre></td></tr></table></figure>
-
-<p><code>@asyncio.coroutine</code>把一个generator标记为coroutine类型，然后就把这个coroutine扔到EventLoop中执行。test()会首先打印出test_1，然后<code>yield from</code>语法可以让我们方便地调用另一个generator。由于<code>asyncio.sleep()</code>也是一个coroutine，所以线程不会等待<code>asyncio.sleep()</code>，而是直接中断并执行下一个消息循环。当<code>asyncio.sleep()</code>返回时，线程就可以从<code>yield from</code>拿到返回值（此处是None），然后接着执行下一行语句。把<code>asyncio.sleep(1)</code>看成是一个耗时1秒的IO操作，在此期间主线程并未等待，而是去执行EventLoop中其他可以执行的coroutine了，因此可以实现并发执行。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/coroutine/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1141,7 +1223,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1194,12 +1276,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">138k</span>
+    <span title="站点总字数">142k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:06</span>
+    <span title="站点阅读时长">2:09</span>
 </div>
 
         

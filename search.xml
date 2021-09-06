@@ -147,7 +147,32 @@
   <entry>
     <title>LN_BN</title>
     <url>/article/LN-BN/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。</p>
+<p>BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。</p>
+<p><img src="LN-BN/image-20210906155404860.png" alt="image-20210906155404860"></p>
+<p><strong>优点：</strong>Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：</p>
+<ul>
+<li>加大搜索的步长，加快收敛的速度；</li>
+<li>更容易跳出局部最小值；</li>
+<li>破坏原来的数据分布，一定程度上缓解了过拟合</li>
+</ul>
+<p><strong>缺陷如下：</strong></p>
+<p>1、BN是在batch size样本上各个维度做标准化的，所以size越大肯定越能得出合理的μ和σ来做标准化，因此BN比较依赖size的大小。<br>2、在训练的时候，是分批量进行填入模型的，但是在预测的时候，如果只有一个样本或者很少量的样本来做inference，这个时候用BN显然偏差很大，例如在线学习场景。<br>3、RNN是一个动态的网络，也就是size是变化的，可大可小，造成多样本维度都没法对齐，所以不适合用BN。</p>
+<p><strong>LN带来的优势：</strong></p>
+<p>1、Layer Normalization是每个样本内部做标准化，跟size没关系，不受其影响。<br>2、RNN中LN也不受影响，内部自己做标准化，所以LN的应用面更广。</p>
+<ul>
+<li>BatchNorm：batch方向做归一化，计算N<em>H</em>W的均值</li>
+<li>LayerNorm：channel方向做归一化，计算C<em>H</em>W的均值</li>
+<li>InstanceNorm：一个channel内做归一化，计算H*W的均值</li>
+<li>GroupNorm：先将channel方向分group，然后每个group内做归一化，计算(C//G)<em>H</em>W的均值</li>
+</ul>
+<h1 id="wn"><a href="#WN" class="headerlink" title="WN"></a>WN<a href="#wn" class="header-anchor">#</a></h1><p><img src="LN-BN/image-20210906155830408.png" alt="image-20210906155830408"></p>
+<p><img src="LN-BN/image-20210906155845338.png" alt="image-20210906155845338"></p>
+<h1 id="归一化操作"><a href="#归一化操作" class="headerlink" title="归一化操作"></a>归一化操作<a href="#归一化操作" class="header-anchor">#</a></h1><p><img src="LN-BN/image-20210906160001983.png" alt="image-20210906160001983"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.cnblogs.com/gczr/p/12597344.html">https://www.cnblogs.com/gczr/p/12597344.html</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/33173246">详解深度学习中的Normalization，BN/LN/WN - 知乎 (zhihu.com)</a></p>
+<p><a href="https://www.cnblogs.com/shine-lee/p/11779514.html">为什么要做特征归一化/标准化？ - shine-lee - 博客园 (cnblogs.com)</a></p>
+]]></content>
   </entry>
   <entry>
     <title>WSL2安装Ubuntu</title>
@@ -232,7 +257,47 @@
   <entry>
     <title>all_CN</title>
     <url>/article/all-CN/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h1 id="深度可分离卷积"><a href="#深度可分离卷积" class="headerlink" title="深度可分离卷积"></a>深度可分离卷积<a href="#深度可分离卷积" class="header-anchor">#</a></h1><p>假设输入是$D_{f^i} * D_{f^i} * M$ ,输出图大小是$D_{f^o}*D_{f^o}<em>N$, 卷积核大小是$D_k</em>D_k$</p>
+<h2 id="普通卷积操作"><a href="#普通卷积操作" class="headerlink" title="普通卷积操作"></a>普通卷积操作<a href="#普通卷积操作" class="header-anchor">#</a></h2><p>输入图在经过卷积核（$D_k<em>D_k</em>M$）后输出为目标输出大小，但此时仅为$D_{f^o}*D_{f^o} * 1$ ,需要$N$个这样的操作才能得到目标特征图。</p>
+<p>此时所需要的计算量有$D_{f^o}<em>D_{f^o}<em>D_k</em>D_k</em>M*N$。</p>
+<h2 id="深度可分离卷积"><a href="#深度可分离卷积-1" class="headerlink" title="深度可分离卷积"></a>深度可分离卷积<a href="#深度可分离卷积" class="header-anchor">#</a></h2><p>输入图首先经过$M$个$D_k<em>D_k</em>1$的卷积核，这样可以得到$D_{f^o}*D_{f^o}*M$的特征图，其中$M$是堆叠出来的，此步骤叫做<code>depthwise convolution</code> 。</p>
+<p>再经过$N$个$1<em>1</em>M$的卷积核，就可以得到$D_{f^o}*D_{f^o} *N$的特征图。此操作为<code>pointwise convolution</code>。</p>
+<p>可以看出，深度可分离卷积可分为逐层卷积和逐点卷积两个步骤，</p>
+<p>逐层卷积：</p>
+<p><img src="all-CN/image-20210906145026434.png" alt="image-20210906145026434"></p>
+<p>逐点卷积：</p>
+<p><img src="all-CN/image-20210906145039602.png" alt="image-20210906145039602"></p>
+<p><img src="all-CN/image-20210906145050415.png" alt="image-20210906145050415"></p>
+<p>计算量分步骤计算分别为$D_k<em>D_k</em>M<em>D_{f^o}<em>D_{f^o}$和$N</em>1</em>1<em>M</em>D_{f^o}*D_{f^o}$。</p>
+<p>则相比较与常规卷积$\frac {D_k<em>D_k</em>M<em>D_{f^o}<em>D_{f^o}+N</em>M</em>D_{f^o}<em>D_{f^o}}{D_{f^o}<em>D_{f^o}<em>D_k</em>D_k</em>M</em>N} = \frac {1}{N} + \frac {1}{D_k^2}$</p>
+<p>针对一般$D_k=3$和$N$远大于9的情况，可知压缩比略小于9。</p>
+<h2 id="速度思考"><a href="#速度思考" class="headerlink" title="速度思考"></a>速度思考<a href="#速度思考" class="header-anchor">#</a></h2><p>在速度方面，经过大量实验，我发现在算力足够的GPU平台上，MobileNet不会带来任何速度上的提升（有时甚至是下降的），然而在计算能力有限的平台上，MobileNet能让速度提升三倍以上。</p>
+<p><strong>深度可分离卷积将一个标准卷积分割成了两个卷积（逐深度，逐点），因此减小了参数量，对应也减小了总计算量。</strong></p>
+<p>好的，在上面的话中，我们可以发现一个有趣的事实：深度可分离卷积的<strong>总计算量变小了</strong>，但深度可分离卷积的<strong>层数变多了</strong>。</p>
+<p>而结合我们对GPU和CPU的认识：GPU是并行处理大规模数据（矩阵内积）的运算平台，而CPU则倾向于对数据串行计算（一个一个算）。</p>
+<p>因此，若GPU的显存足够大（干脆假设无限大好了），因为每层的计算都可以并行一次处理，则此时<strong>总运算时间的主导因素是网络的层数。</strong></p>
+<p>而对于缺乏并行能力的CPU，总的运算时间的主导因素则是<strong>总计算量有关。</strong></p>
+<h2 id="pytorch实现"><a href="#pytorch实现" class="headerlink" title="pytorch实现"></a>pytorch实现<a href="#pytorch实现" class="header-anchor">#</a></h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import torch.nn.functional as F</span><br><span class="line"></span><br><span class="line">class Block(nn.Module):</span><br><span class="line">    &quot;Depthwise conv + Pointwise conv&quot;</span><br><span class="line">    def __init__(self, in_channels, out_channels, stride=1):</span><br><span class="line">        super(Block, self).__init__()</span><br><span class="line">        self.conv1 = nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=2, padding=1, groups=in_channels, bias=False)</span><br><span class="line">        self.bn1 = nn.BatchNorm2d(in_channels)</span><br><span class="line">        self.conv2 = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=1, padding=0, bias=False)</span><br><span class="line">        self.bn2 = nn.BatchNorm2d(out_channels)</span><br><span class="line"></span><br><span class="line">    def forward(self, x):</span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.bn1(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        x = self.conv2(x)</span><br><span class="line">        x = self.bn2(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        return x</span><br><span class="line"></span><br><span class="line">input = torch.randn(32, 3, 224, 224)</span><br><span class="line">block = Block(3, 64)</span><br><span class="line">out = block(input)</span><br><span class="line">print(out.size())</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="分组卷积"><a href="#分组卷积" class="headerlink" title="分组卷积"></a>分组卷积<a href="#分组卷积" class="header-anchor">#</a></h1><p><img src="all-CN/image-20210906151614062.png" alt="image-20210906151614062"></p>
+<p><strong>Group Convolution</strong>顾名思义，则是对输入feature map进行分组，然后每组分别卷积。假设输入feature map的尺寸仍为$C∗H∗W$，输出feature map的数量为$N$个，如果设定要分成$G$个groups，则每组的输入feature map数量为$\frac {C}{G}$，每组的输出feature map数量为$\frac {N}{G}$，每个卷积核的尺寸为$\frac CG∗K∗K$，卷积核的总数仍为$N$个，每组的卷积核数量为$\frac NG$，卷积核只与其同组的输入map进行卷积，卷积核的总参数量为$N∗\frac CG∗K∗K$，可见，<strong>总参数量减少为原来的</strong> $\frac 1G$，其连接方式如上图右所示，group1输出map数为2，有2个卷积核，每个卷积核的channel数为4，与group1的输入map的channel数相同，卷积核只与同组的输入map卷积，而不与其他组的输入map卷积。</p>
+<h2 id="分组卷积的用途"><a href="#分组卷积的用途" class="headerlink" title="分组卷积的用途"></a>分组卷积的用途<a href="#分组卷积的用途" class="header-anchor">#</a></h2><ol>
+<li>减少参数量， 分成$G$组，则该层的参数量减少为原来的$\frac 1G$</li>
+<li>可看成structured sparse，每个卷积核的尺寸由$C<em>K</em>K$变为$\frac CG<em>K</em>K$，可以看作将其余$(C-\frac CG)<em>K</em>K$的参数视为0，有时可以取得不错的效果(正则化)。</li>
+<li>当分组数量等于输入map数量，输出map数量也等于输入map数量，相当于<code>depthwise convolution</code></li>
+<li>如果满足3的同时，卷积核大小与输入尺寸相同，则输出$C<em>1</em>1$的向量，此时为<code>global depthwise convolution</code>，可视为全局加权池化，与GAP( global average pooling)的不同之处在于，GDC给每个位置赋予可学习的权重，而GAP是权重相同取个平均。</li>
+</ol>
+<h1 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积<a href="#转置卷积" class="header-anchor">#</a></h1><h1 id="空洞卷积"><a href="#空洞卷积" class="headerlink" title="空洞卷积"></a>空洞卷积<a href="#空洞卷积" class="header-anchor">#</a></h1><p>作用：</p>
+<ol>
+<li>增大感受野</li>
+<li>捕获多尺度上下文信息</li>
+</ol>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://mp.weixin.qq.com/s/BDlYXOjaNuBsLkfbQKRGLA">一文读懂 12种卷积方法（含1x1卷积、转置卷积和深度可分离卷积等） (qq.com)</a></p>
+<p><a href="https://www.cnblogs.com/shine-lee/p/10243114.html">Group Convolution分组卷积，以及Depthwise Convolution和Global Depthwise Convolution - shine-lee - 博客园 (cnblogs.com)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/208519425">通过分组卷积的思想，巧妙的代码实现动态卷积(Dynamic Convolution) - 知乎 (zhihu.com)</a></p>
+]]></content>
   </entry>
   <entry>
     <title>coroutine</title>
@@ -272,6 +337,77 @@
 <p><a href="https://blog.csdn.net/weixin_36338224/article/details/109288327?spm=1001.2014.3001.5501">(21条消息) 实战异步IO框架：asyncio 下篇_王炳明-CSDN博客</a></p>
 <p><a href="https://blog.csdn.net/weixin_36338224/article/details/109282596?spm=1001.2014.3001.5501">(21条消息) 深入异步IO框架：asyncio 中篇_王炳明-CSDN博客</a></p>
 <p><a href="https://blog.csdn.net/weixin_36338224/article/details/109282563?spm=1001.2014.3001.5501">(21条消息) 初识异步IO框架：asyncio 上篇_王炳明-CSDN博客_异步io框架</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>generator_and_iterator</title>
+    <url>/article/generator-and-iterator/</url>
+    <content><![CDATA[<!--toc-->
+
+<h1 id="列表表达式"><a href="#列表表达式" class="headerlink" title="列表表达式"></a>列表表达式<a href="#列表表达式" class="header-anchor">#</a></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">info = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span><br><span class="line">a = [i+1 for i in range(10)]</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>多重循环</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a = [(i,j) for i in range(4) for j in range(2)]</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>多重循环+判断语句</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls = [(&#x27;x&#x27;,[&#x27;open1&#x27;,&#x27;open1&#x27;,&#x27;open1&#x27;]),(&#x27;y&#x27;,[&#x27;open1&#x27;,&#x27;open1&#x27;,&#x27;open0&#x27;]),(&#x27;z&#x27;,[&#x27;open0&#x27;,&#x27;open0&#x27;,&#x27;open1&#x27;])]</span><br><span class="line"></span><br><span class="line">def find(con):</span><br><span class="line">    return [j for i in con for j in i if j.isdigit()]</span><br><span class="line"> </span><br><span class="line">[w for w,con in ls if find(con)==[&#x27;1&#x27;,&#x27;1&#x27;,&#x27;1&#x27;]]</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器<a href="#生成器" class="header-anchor">#</a></h1><ol>
+<li><p>什么是生成器</p>
+<p>生成器是一种特殊的迭代器，生成器的出现是为了简化迭代器应用。</p>
+<p>生成器的主要思想：对于可以公式自动生成的数字序列，由计算机不断迭代，每次只生成一个数字，从而通过循环遍历生成序列中的所有元素。所以说，生成器产生的不是一个静态的值（比如类似字符串、元组和列表等，都是一次性生成所有值），而是一个动态的数据流。</p>
+<p>示例1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a = (x**2 for x in range(1,9))</span><br><span class="line">print(type(a))</span><br><span class="line">next(a)</span><br></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def gen(x):</span><br><span class="line">	x += 1</span><br><span class="line">	yield x**2</span><br><span class="line">b = gen(0)</span><br><span class="line">print(type(b))</span><br><span class="line">next(b)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，变量a和b都是生成器，我们不能直接使用a、b，因为它们实际上保存的是一个公式，使用时可以调用内置函数next()，由next(a)、next(b)来动态生成序列中的下一个值。采用生成器的好处是：节省内存空间，特别是对于数据量大的序列，一次性生成所有值将会耗费大量内存，而采用生成器可以极大地节省存储空间。同时，生成器还可以处理无限长的序列。比如，上述实例中，变量b就是一个无限序列，理论上可以永远next(b)，而且每次都是按顺序生成其中的一个值。</p>
+<p>可以把生成器看作是一种特殊的函数，它与一般函数最主要的区别就在于生成器函数中有关键字yield。比如，上述实例2，函数中只要有yield关键字，就是一个生成器函数。</p>
+</li>
+<li><p>生成器怎么用</p>
+<p>​    (1). 生成器使用场景</p>
+<p>​            当你需要生成一个大型的序列，但又不想因此占用大量的存储空间，提高存储和计算效率。此时，可以考虑用生成器。</p>
+<p>​    (2). 生成器的构造</p>
+<p>​            主要有两种方式：一是生成器表达式；二是生成器函数。上面实例1就是生成器表达式；实例2其实就是生成器函数。</p>
+<p>​    (3). 生成器的使用</p>
+<p>​            ①采用for循环</p>
+<p>​            ②采用内置函数next()遍历生成器元素</p>
+<p>​            ③采用生成器自身方法<code>__next()__</code>循环生成下一个值。</p>
+</li>
+</ol>
+<h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器<a href="#迭代器" class="header-anchor">#</a></h1><ol>
+<li><p>什么是迭代器</p>
+<p>​    首先了解几个概念：</p>
+<p>​        (1). 可迭代对象。可以直接作用于for 循环的对象统称为可迭代对象：Iterable。可以使用isinstance()判断一个对象是否为可Iterable对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; from collections import Iterable</span><br><span class="line">&gt;&gt;&gt; isinstance(fib(8), Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; b = [1,2,3,4]</span><br><span class="line">&gt;&gt;&gt; isinstance(b, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; c = 8</span><br><span class="line">&gt;&gt;&gt; isinstance(c, Iterable)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<p>Python中可直接采用for循环的对象有：一类是集合数据类型，如list，tuple，dict，set，str等；一类是generator，包括生成器表达式和带yield的生成器函数。</p>
+<p>​        (2). 迭代器。Python中一个实现了_iter_方法和_next_方法的类对象，就是迭代器。</p>
+<pre><code>    (3).迭代器协议：要构造一个迭代器，对象需要提供next()方法，它要么返回迭代中的下一项，要么就引起一个StopIteration异常，以终止迭代。
+</code></pre>
+</li>
+<li><p>迭代器的构造</p>
+<p>（1）自定义迭代器类</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Fib(object):</span><br><span class="line">    def __init__(self, max):</span><br><span class="line">        super(Fib, self).__init__()</span><br><span class="line">        self.max = max</span><br><span class="line">    def __iter__(self):</span><br><span class="line">        self.a = 0</span><br><span class="line">        self.b = 1</span><br><span class="line">        return self</span><br><span class="line">    def __next__(self):</span><br><span class="line">        fib = self.a</span><br><span class="line">        if fib &gt; self.max:</span><br><span class="line">            raise StopIteration</span><br><span class="line">        self.a, self.b = self.b, self.a + self.b</span><br><span class="line">        return fib</span><br><span class="line"># 定义一个main函数，循环遍历每一个菲波那切数</span><br><span class="line">def main():</span><br><span class="line">    # 20以内的数</span><br><span class="line">    fib = Fib(20)</span><br><span class="line">    for i in fib:</span><br><span class="line">        print(i)</span><br><span class="line"># 测试</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>​    （2）通过调用内置函数iter()构造迭代器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; g = iter(range(10))</span><br><span class="line">&gt;&gt;&gt; isinstance(g, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(range(10), Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(range(10), Iterator)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<p>注意，不少文章中写道，map、filter等内置函数返回的都是生成器，还有个别资料中说range返回的也是生成器。要检查一个对象是否为迭代器，也可以采用isinstance()判断，所以我们可以进行以下的判断：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; from collections import Iterable， Iterator， Generator</span><br><span class="line">&gt;&gt;&gt; d= range(10)</span><br><span class="line">&gt;&gt;&gt; isinstance(d, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(d, Iterator)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; e = map(lambda x : x**2, [1,2,4,6,7,8,9])</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Generator)</span><br><span class="line">&gt;&gt;&gt; f = (x**2 for x in [1,2,4,6,7,8,9])</span><br><span class="line">&gt;&gt;&gt; isinstance(f, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(f, Generator)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://zhuanlan.zhihu.com/p/122537818">生成器和迭代器总结</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -438,77 +574,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>generator_and_iterator</title>
-    <url>/article/generator-and-iterator/</url>
-    <content><![CDATA[<!--toc-->
-
-<h1 id="列表表达式"><a href="#列表表达式" class="headerlink" title="列表表达式"></a>列表表达式<a href="#列表表达式" class="header-anchor">#</a></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">info = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span><br><span class="line">a = [i+1 for i in range(10)]</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>多重循环</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a = [(i,j) for i in range(4) for j in range(2)]</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>多重循环+判断语句</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls = [(&#x27;x&#x27;,[&#x27;open1&#x27;,&#x27;open1&#x27;,&#x27;open1&#x27;]),(&#x27;y&#x27;,[&#x27;open1&#x27;,&#x27;open1&#x27;,&#x27;open0&#x27;]),(&#x27;z&#x27;,[&#x27;open0&#x27;,&#x27;open0&#x27;,&#x27;open1&#x27;])]</span><br><span class="line"></span><br><span class="line">def find(con):</span><br><span class="line">    return [j for i in con for j in i if j.isdigit()]</span><br><span class="line"> </span><br><span class="line">[w for w,con in ls if find(con)==[&#x27;1&#x27;,&#x27;1&#x27;,&#x27;1&#x27;]]</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器<a href="#生成器" class="header-anchor">#</a></h1><ol>
-<li><p>什么是生成器</p>
-<p>生成器是一种特殊的迭代器，生成器的出现是为了简化迭代器应用。</p>
-<p>生成器的主要思想：对于可以公式自动生成的数字序列，由计算机不断迭代，每次只生成一个数字，从而通过循环遍历生成序列中的所有元素。所以说，生成器产生的不是一个静态的值（比如类似字符串、元组和列表等，都是一次性生成所有值），而是一个动态的数据流。</p>
-<p>示例1：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a = (x**2 for x in range(1,9))</span><br><span class="line">print(type(a))</span><br><span class="line">next(a)</span><br></pre></td></tr></table></figure>
-
-<p>示例2：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def gen(x):</span><br><span class="line">	x += 1</span><br><span class="line">	yield x**2</span><br><span class="line">b = gen(0)</span><br><span class="line">print(type(b))</span><br><span class="line">next(b)</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，变量a和b都是生成器，我们不能直接使用a、b，因为它们实际上保存的是一个公式，使用时可以调用内置函数next()，由next(a)、next(b)来动态生成序列中的下一个值。采用生成器的好处是：节省内存空间，特别是对于数据量大的序列，一次性生成所有值将会耗费大量内存，而采用生成器可以极大地节省存储空间。同时，生成器还可以处理无限长的序列。比如，上述实例中，变量b就是一个无限序列，理论上可以永远next(b)，而且每次都是按顺序生成其中的一个值。</p>
-<p>可以把生成器看作是一种特殊的函数，它与一般函数最主要的区别就在于生成器函数中有关键字yield。比如，上述实例2，函数中只要有yield关键字，就是一个生成器函数。</p>
-</li>
-<li><p>生成器怎么用</p>
-<p>​    (1). 生成器使用场景</p>
-<p>​            当你需要生成一个大型的序列，但又不想因此占用大量的存储空间，提高存储和计算效率。此时，可以考虑用生成器。</p>
-<p>​    (2). 生成器的构造</p>
-<p>​            主要有两种方式：一是生成器表达式；二是生成器函数。上面实例1就是生成器表达式；实例2其实就是生成器函数。</p>
-<p>​    (3). 生成器的使用</p>
-<p>​            ①采用for循环</p>
-<p>​            ②采用内置函数next()遍历生成器元素</p>
-<p>​            ③采用生成器自身方法<code>__next()__</code>循环生成下一个值。</p>
-</li>
-</ol>
-<h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器<a href="#迭代器" class="header-anchor">#</a></h1><ol>
-<li><p>什么是迭代器</p>
-<p>​    首先了解几个概念：</p>
-<p>​        (1). 可迭代对象。可以直接作用于for 循环的对象统称为可迭代对象：Iterable。可以使用isinstance()判断一个对象是否为可Iterable对象。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; from collections import Iterable</span><br><span class="line">&gt;&gt;&gt; isinstance(fib(8), Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; b = [1,2,3,4]</span><br><span class="line">&gt;&gt;&gt; isinstance(b, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; c = 8</span><br><span class="line">&gt;&gt;&gt; isinstance(c, Iterable)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
-
-<p>Python中可直接采用for循环的对象有：一类是集合数据类型，如list，tuple，dict，set，str等；一类是generator，包括生成器表达式和带yield的生成器函数。</p>
-<p>​        (2). 迭代器。Python中一个实现了_iter_方法和_next_方法的类对象，就是迭代器。</p>
-<pre><code>    (3).迭代器协议：要构造一个迭代器，对象需要提供next()方法，它要么返回迭代中的下一项，要么就引起一个StopIteration异常，以终止迭代。
-</code></pre>
-</li>
-<li><p>迭代器的构造</p>
-<p>（1）自定义迭代器类</p>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Fib(object):</span><br><span class="line">    def __init__(self, max):</span><br><span class="line">        super(Fib, self).__init__()</span><br><span class="line">        self.max = max</span><br><span class="line">    def __iter__(self):</span><br><span class="line">        self.a = 0</span><br><span class="line">        self.b = 1</span><br><span class="line">        return self</span><br><span class="line">    def __next__(self):</span><br><span class="line">        fib = self.a</span><br><span class="line">        if fib &gt; self.max:</span><br><span class="line">            raise StopIteration</span><br><span class="line">        self.a, self.b = self.b, self.a + self.b</span><br><span class="line">        return fib</span><br><span class="line"># 定义一个main函数，循环遍历每一个菲波那切数</span><br><span class="line">def main():</span><br><span class="line">    # 20以内的数</span><br><span class="line">    fib = Fib(20)</span><br><span class="line">    for i in fib:</span><br><span class="line">        print(i)</span><br><span class="line"># 测试</span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<p>​    （2）通过调用内置函数iter()构造迭代器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; g = iter(range(10))</span><br><span class="line">&gt;&gt;&gt; isinstance(g, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(range(10), Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(range(10), Iterator)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
-
-<p>注意，不少文章中写道，map、filter等内置函数返回的都是生成器，还有个别资料中说range返回的也是生成器。要检查一个对象是否为迭代器，也可以采用isinstance()判断，所以我们可以进行以下的判断：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; from collections import Iterable， Iterator， Generator</span><br><span class="line">&gt;&gt;&gt; d= range(10)</span><br><span class="line">&gt;&gt;&gt; isinstance(d, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(d, Iterator)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; e = map(lambda x : x**2, [1,2,4,6,7,8,9])</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Iterable)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(e, Generator)</span><br><span class="line">&gt;&gt;&gt; f = (x**2 for x in [1,2,4,6,7,8,9])</span><br><span class="line">&gt;&gt;&gt; isinstance(f, Iterator)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; isinstance(f, Generator)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://zhuanlan.zhihu.com/p/122537818">生成器和迭代器总结</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>logging</title>
     <url>/article/logging/</url>
     <content><![CDATA[<h1 id="按天生成日志"><a href="#按天生成日志" class="headerlink" title="按天生成日志"></a>按天生成日志<a href="#按天生成日志" class="header-anchor">#</a></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># #coding=utf-8</span><br><span class="line">import logging,os  # 引入logging模块</span><br><span class="line">from com_tools import setting</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from logging import handlers</span><br><span class="line"></span><br><span class="line">class Logger(object):</span><br><span class="line">    level_relations = &#123;</span><br><span class="line">        &#x27;debug&#x27;:logging.DEBUG,</span><br><span class="line">        &#x27;info&#x27;:logging.INFO,</span><br><span class="line">        &#x27;warning&#x27;:logging.WARNING,</span><br><span class="line">        &#x27;error&#x27;:logging.ERROR,</span><br><span class="line">        &#x27;crit&#x27;:logging.CRITICAL</span><br><span class="line">    &#125;#日志级别关系映射</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def __init__(self,filename,level=&#x27;info&#x27;,when=&#x27;MIDNIGHT&#x27;,backCount=7,fmt=&#x27;%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s&#x27;):</span><br><span class="line">        self.logger = logging.getLogger(filename)</span><br><span class="line">        format_str = logging.Formatter(fmt)#设置日志格式</span><br><span class="line">        self.logger.setLevel(self.level_relations.get(level))#设置日志级别</span><br><span class="line">        sh = logging.StreamHandler()#往控制台输出</span><br><span class="line">        sh.setFormatter(format_str) #设置控制台上显示的格式</span><br><span class="line">        th = handlers.TimedRotatingFileHandler(filename=filename,interval=1,when=when,backupCount=backCount,encoding=&#x27;utf-8&#x27;)#往文件里写入#指定间隔时间自动生成文件的处理器</span><br><span class="line">        #实例化TimedRotatingFileHandler</span><br><span class="line">        #interval是时间间隔，backupCount是备份文件的个数，如果超过这个个数，就会自动删除，when是间隔的时间单位，单位有以下几种：</span><br><span class="line">        # S 秒</span><br><span class="line">        # M 分</span><br><span class="line">        # H 小时、</span><br><span class="line">        # D 天、</span><br><span class="line">        # W 每星期（interval==0时代表星期一）</span><br><span class="line">        # midnight 每天凌晨</span><br><span class="line">        th.suffix = &quot;%Y-%m-%d.log&quot; #设置文件后缀</span><br><span class="line">        th.setFormatter(format_str)#设置文件里写入的格式</span><br><span class="line">        self.logger.addHandler(sh) #把对象加到logger里</span><br><span class="line">        self.logger.addHandler(th)</span><br><span class="line">logfile = os.path.join(setting.logs_path, &quot;daodianmockapi.txt&quot;) # 这个文件的名称就是当天的日志文件，过往的日志文件，会在后面追加文件后缀 th.suffix</span><br><span class="line">logger = Logger(logfile,level=&#x27;debug&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #logger = Logger(&#x27;all.log&#x27;,level=&#x27;debug&#x27;)</span><br><span class="line">    # filename = setting.now_time+ &quot;.txt&quot;</span><br><span class="line">    # logfile = os.path.join(setting.logs_path,filename)</span><br><span class="line">    # logger = Logger(logfile,level=&#x27;debug&#x27;)</span><br><span class="line">    logger.logger.debug(&#x27;debug&#x27;) # 括号内的内容即为日志的文本内容</span><br><span class="line">    logger.logger.info(&#x27;info&#x27;)</span><br><span class="line">    logger.logger.warning(&#x27;警告&#x27;)</span><br><span class="line">    logger.logger.error(&#x27;报错&#x27;)</span><br><span class="line">    logger.logger.critical(&#x27;严重&#x27;)</span><br><span class="line">    #Logger(&#x27;error.log&#x27;, level=&#x27;error&#x27;).logger.error(&#x27;error&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -517,19 +582,6 @@
 
 <h1 id="loguru"><a href="#loguru" class="headerlink" title="loguru"></a>loguru<a href="#loguru" class="header-anchor">#</a></h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://zhuanlan.zhihu.com/p/144506204">python定时任务最强框架APScheduler详细教程 </a></p>
 <p><a href="https://pythondict.com/life-intelligent/tools/loguru/">Loguru — 最强大的 Python 日志记录器</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>mmdetection</title>
-    <url>/article/mmdetection/</url>
-    <content><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.jianshu.com/p/38f4525246e1">MMDetection 2.5 目标检测（3）：配置修改 - 简书 (jianshu.com)</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/137454940">mmdetection源码分析faster-rcnn，读懂mmdetection - 知乎 (zhihu.com)</a></p>
-<p><a href="https://www.jianshu.com/p/924db4d52213">将自己数据集转化成voc数据集格式并用mmdetection训练 - 简书 (jianshu.com)</a></p>
-<p><a href="https://blog.csdn.net/qq_33897832/article/details/103995636">(29条消息) （详细教程）mmdetection训练自己的模型，测试，评估_若风的博客-CSDN博客</a></p>
-<p><a href="https://blog.csdn.net/qq_41251963/article/details/112940253">(29条消息) 【MMDetection-学习记录】 训练自己的VOC数据集_乐亦亦乐的博客-CSDN博客</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/162730118">MMDetection v2.0 训练自己的数据集 - 知乎 (zhihu.com)</a></p>
-<p><a href="https://www.aiuai.cn/aifarm1218.html">mmdetection 模型训练</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/128697076">mmdetection源码解读（一） - 知乎 (zhihu.com)</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -580,6 +632,40 @@
 <p><a href="https://blog.csdn.net/ubuntu64fan/article/details/51898740">python 如何优雅地退出子进程</a></p>
 <p><a href="https://blog.csdn.net/qq_43475705/article/details/115518463"> python多进程多线程,多个程序同时运行</a></p>
 <p><a href="https://blog.csdn.net/qq_17127427/article/details/116532097">pytorch多模型异步推理</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>mmdetection</title>
+    <url>/article/mmdetection/</url>
+    <content><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.jianshu.com/p/38f4525246e1">MMDetection 2.5 目标检测（3）：配置修改 - 简书 (jianshu.com)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/137454940">mmdetection源码分析faster-rcnn，读懂mmdetection - 知乎 (zhihu.com)</a></p>
+<p><a href="https://www.jianshu.com/p/924db4d52213">将自己数据集转化成voc数据集格式并用mmdetection训练 - 简书 (jianshu.com)</a></p>
+<p><a href="https://blog.csdn.net/qq_33897832/article/details/103995636">(29条消息) （详细教程）mmdetection训练自己的模型，测试，评估_若风的博客-CSDN博客</a></p>
+<p><a href="https://blog.csdn.net/qq_41251963/article/details/112940253">(29条消息) 【MMDetection-学习记录】 训练自己的VOC数据集_乐亦亦乐的博客-CSDN博客</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/162730118">MMDetection v2.0 训练自己的数据集 - 知乎 (zhihu.com)</a></p>
+<p><a href="https://www.aiuai.cn/aifarm1218.html">mmdetection 模型训练</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/128697076">mmdetection源码解读（一） - 知乎 (zhihu.com)</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>python_base</title>
+    <url>/article/python-base/</url>
+    <content><![CDATA[<h1 id="initpy"><a href="#init-py" class="headerlink" title="init.py"></a><strong>init</strong>.py<a href="#initpy" class="header-anchor">#</a></h1><p>首先，module其实就是一个.py文件，中文名为模块，其内置有各种函数和类与变量等。而package就是一个包含很多subpackage或者module(.py文件)的一个包。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/16486710-40ddf50fd0d6b105.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="img"></p>
+<p>一个directories 只有包含__init__.py文件才会被python识别成package。只有在import package时，才会执行package目录下的__init__.py文件。</p>
+<p>若文件结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mypackage</span><br><span class="line">    ——__init__.py</span><br><span class="line">    ——subpackage_1</span><br><span class="line">        ——__init__.py</span><br><span class="line">        ——test11.py</span><br><span class="line">        ——test12.py</span><br><span class="line">    ——subpackage_2</span><br><span class="line">        ——__init__.py</span><br><span class="line">        ——test21.py</span><br><span class="line">        ——test22.py</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="pickle-json"><a href="#pickle-json" class="headerlink" title="pickle, json"></a>pickle, json<a href="#pickle-json" class="header-anchor">#</a></h1><p>都是四个函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pickle.dumps()：将 Python 中的对象序列化成二进制对象，并返回；</span><br><span class="line">pickle.loads()：读取给定的二进制对象数据，并将其转换为 Python 对象；</span><br><span class="line">pickle.dump()：将 Python 中的对象序列化成二进制对象，并写入文件；</span><br><span class="line">pickle.load()：读取指定的序列化数据文件，并返回对象。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">json.load()从文件中读取json字符串</span><br><span class="line">json.loads()将json字符串转换为字典类型</span><br><span class="line">json.dumps()将python中的字典类型转换为字符串类型</span><br><span class="line">json.dump()将json格式字符串写到文件中</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.jianshu.com/p/eaae9678a779"><strong>init</strong>.py文件与__all__变量</a></p>
+<p><a href="https://blog.csdn.net/yucicheung/article/details/79445350">python模块中__init__.py的作用</a></p>
+<p><a href="https://www.cnblogs.com/qi-yuan-008/p/12827918.html">Python：<strong>init</strong>.py文件和、<strong>all__、import、__name__、__doc</strong> </a></p>
 ]]></content>
   </entry>
   <entry>
@@ -656,32 +742,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>todo_list</title>
-    <url>/article/todo-list/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>python_base</title>
-    <url>/article/python-base/</url>
-    <content><![CDATA[<h1 id="initpy"><a href="#init-py" class="headerlink" title="init.py"></a><strong>init</strong>.py<a href="#initpy" class="header-anchor">#</a></h1><p>首先，module其实就是一个.py文件，中文名为模块，其内置有各种函数和类与变量等。而package就是一个包含很多subpackage或者module(.py文件)的一个包。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/16486710-40ddf50fd0d6b105.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="img"></p>
-<p>一个directories 只有包含__init__.py文件才会被python识别成package。只有在import package时，才会执行package目录下的__init__.py文件。</p>
-<p>若文件结构如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mypackage</span><br><span class="line">    ——__init__.py</span><br><span class="line">    ——subpackage_1</span><br><span class="line">        ——__init__.py</span><br><span class="line">        ——test11.py</span><br><span class="line">        ——test12.py</span><br><span class="line">    ——subpackage_2</span><br><span class="line">        ——__init__.py</span><br><span class="line">        ——test21.py</span><br><span class="line">        ——test22.py</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="pickle-json"><a href="#pickle-json" class="headerlink" title="pickle, json"></a>pickle, json<a href="#pickle-json" class="header-anchor">#</a></h1><p>都是四个函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pickle.dumps()：将 Python 中的对象序列化成二进制对象，并返回；</span><br><span class="line">pickle.loads()：读取给定的二进制对象数据，并将其转换为 Python 对象；</span><br><span class="line">pickle.dump()：将 Python 中的对象序列化成二进制对象，并写入文件；</span><br><span class="line">pickle.load()：读取指定的序列化数据文件，并返回对象。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">json.load()从文件中读取json字符串</span><br><span class="line">json.loads()将json字符串转换为字典类型</span><br><span class="line">json.dumps()将python中的字典类型转换为字符串类型</span><br><span class="line">json.dump()将json格式字符串写到文件中</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.jianshu.com/p/eaae9678a779"><strong>init</strong>.py文件与__all__变量</a></p>
-<p><a href="https://blog.csdn.net/yucicheung/article/details/79445350">python模块中__init__.py的作用</a></p>
-<p><a href="https://www.cnblogs.com/qi-yuan-008/p/12827918.html">Python：<strong>init</strong>.py文件和、<strong>all__、import、__name__、__doc</strong> </a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>tqdm使用</title>
     <url>/article/tqdm%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用<a href="#基本使用" class="header-anchor">#</a></h1><ol>
@@ -736,6 +796,11 @@
 ]]></content>
   </entry>
   <entry>
+    <title>todo_list</title>
+    <url>/article/todo-list/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>train_record</title>
     <url>/article/train-record/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -772,6 +837,24 @@
       <tags>
         <tag>加密</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>上采样方法</title>
+    <url>/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="pixelshuffle"><a href="#pixelshuffle" class="headerlink" title="pixelshuffle"></a>pixelshuffle<a href="#pixelshuffle" class="header-anchor">#</a></h1><p>上采样可以理解为在同一个位置，原来只是以1:1的比例提取信息，而现在以1:4的比例提取信息，提取信息的频率更高了，所以能反映的细节也就更多。对于tensor来说，在同一个位置多提取信息，也就是通过卷积生成通道数更多的tensor。具体过程为（以一个（n,64,64,64）的特征图为例）</p>
+<ol>
+<li>通过卷积，得到通道数倍增的特征图（n,64,64,256）</li>
+<li>将特征图切割成若干份，对每一份（n,64,64,4）的像素点进行重新排列,reshape成(n,64,64,2,2），再reshape成（n,64,2,64,2），最后reshape成（n,128,128,1），再把这么多份拼接起来，得（n,128,128,64）的特征图</li>
+</ol>
+<p><img src="%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/image-20210906161758378.png" alt="image-20210906161758378"></p>
+<p><img src="%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/image-20210906161922868.png" alt="image-20210906161922868"></p>
+<h1 id="upsample"><a href="#upsample" class="headerlink" title="upsample"></a>upsample<a href="#upsample" class="header-anchor">#</a></h1><p>插值方法</p>
+<h1 id="转置卷积convtranspose2d"><a href="#转置卷积-ConvTranspose2d" class="headerlink" title="转置卷积(ConvTranspose2d)"></a>转置卷积(ConvTranspose2d)<a href="#转置卷积convtranspose2d" class="header-anchor">#</a></h1><p>填充0后做卷积</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://blog.csdn.net/qq_14845119/article/details/107557449">(19条消息) 上采样方法大PK（Upsample，Interpolate，resize，Transposed convolution，deconv，Unpool，Pixelshuffle）_年轻即出发，-CSDN博客</a></p>
+<p><a href="https://www.cnblogs.com/oliyoung/p/upsample.html">上采样，上池化，反卷积 - OliYoung - 博客园 (cnblogs.com)</a></p>
+<p><a href="https://www.pianshen.com/article/46871443097/">PixelShuffler原理学习笔记 - 程序员大本营 (pianshen.com)</a></p>
+<p><a href="https://www.cnblogs.com/jiangkejie/p/12919155.html">pytorch中的上采样（上采样，转置卷积，上池化，PixelShuffle） - 那抹阳光1994 - 博客园 (cnblogs.com)</a></p>
+]]></content>
   </entry>
   <entry>
     <title>yolox训练自定义数据集</title>
