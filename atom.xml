@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-09-06T08:23:56.433Z</updated>
+  <updated>2021-09-10T10:04:55.148Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git_learn</title>
+    <link href="https://hu1104.github.io/article/git-learn/"/>
+    <id>https://hu1104.github.io/article/git-learn/</id>
+    <published>2021-09-09T08:41:08.000Z</published>
+    <updated>2021-09-10T10:04:55.148Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;git-learn/image-20210909164119386.png&quot; alt=&quot;image-20210909164119386&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;git-learn/image-20210909165936257.png&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>anchor_free_or_anchor_based</title>
+    <link href="https://hu1104.github.io/article/anchor-free-or-anchor-based/"/>
+    <id>https://hu1104.github.io/article/anchor-free-or-anchor-based/</id>
+    <published>2021-09-07T07:52:54.000Z</published>
+    <updated>2021-09-07T07:52:54.784Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>algorithm</title>
+    <link href="https://hu1104.github.io/article/algorithm/"/>
+    <id>https://hu1104.github.io/article/algorithm/</id>
+    <published>2021-09-07T01:42:30.000Z</published>
+    <updated>2021-09-07T01:42:30.249Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>上采样方法</title>
@@ -243,7 +291,7 @@
     <link href="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/"/>
     <id>https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/</id>
     <published>2021-08-24T05:44:57.000Z</published>
-    <updated>2021-08-30T02:05:07.280Z</updated>
+    <updated>2021-09-09T01:19:51.397Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;偏函数&quot;&gt;&lt;a href=&quot;#偏函数&quot; class=&quot;headerlink&quot; title=&quot;偏函数&quot;&gt;&lt;/a&gt;偏函数&lt;/h1&gt;&lt;p&gt;定义：偏函数的第二个部分(可变参数)，按原有函数的参数顺序进行补充，参数将作用在原函数上，最后偏函数返回一个新函数（类似于，装饰器decorator，对于函数进行二次包装，产生特殊效果；但又不同于装饰器，偏函数产生了一个新函数，而装饰器，可改变被装饰函数的函数入口地址也可以不影响原函数）&lt;/p&gt;
@@ -282,7 +330,7 @@
     <link href="https://hu1104.github.io/article/multiprocessing/"/>
     <id>https://hu1104.github.io/article/multiprocessing/</id>
     <published>2021-08-20T06:50:29.000Z</published>
-    <updated>2021-08-30T07:16:49.200Z</updated>
+    <updated>2021-09-08T01:54:08.447Z</updated>
     
     
     <summary type="html">&lt;p&gt;由于python的GIL锁的存在，导致在多线程的时候，同一时间只能有一个线程在cpu上运行，而且是单个cpu上运行，不管cpu有多少核数。如果要充分利用多核cpu的资源，在python中大部分情况下需要使用多进程。&lt;/p&gt;
@@ -377,55 +425,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>train_record</title>
-    <link href="https://hu1104.github.io/article/train-record/"/>
-    <id>https://hu1104.github.io/article/train-record/</id>
-    <published>2021-07-27T03:04:44.000Z</published>
-    <updated>2021-09-06T09:25:03.915Z</updated>
-    
-    
-    <summary type="html">Welcome to my blog, enter password to read.</summary>
-    
-    
-    
-    
-    <category term="加密" scheme="https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hadoop_spark_hbase_hive</title>
-    <link href="https://hu1104.github.io/article/hadoop-spark-hbase-hive/"/>
-    <id>https://hu1104.github.io/article/hadoop-spark-hbase-hive/</id>
-    <published>2021-07-14T03:25:56.000Z</published>
-    <updated>2021-07-22T04:17:58.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;hdfs-site.xml&lt;/p&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>result_record</title>
-    <link href="https://hu1104.github.io/article/result-record/"/>
-    <id>https://hu1104.github.io/article/result-record/</id>
-    <published>2021-07-12T09:05:19.000Z</published>
-    <updated>2021-08-06T07:22:36.102Z</updated>
-    
-    
-    <summary type="html">test结果记录</summary>
-    
-    
-    
-    
-    <category term="加密" scheme="https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
     
   </entry>
   

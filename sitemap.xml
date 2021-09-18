@@ -2,9 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hu1104.github.io/article/record_everyday/</loc>
+    
+    <lastmod>2021-09-18</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hu1104.github.io/article/yolov5_real/</loc>
+    
+    <lastmod>2021-09-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hu1104.github.io/article/git-learn/</loc>
+    
+    <lastmod>2021-09-10</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hu1104.github.io/article/train-record/</loc>
     
-    <lastmod>2021-09-06</lastmod>
+    <lastmod>2021-09-10</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/</loc>
+    
+    <lastmod>2021-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hu1104.github.io/article/multiprocessing/</loc>
+    
+    <lastmod>2021-09-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hu1104.github.io/article/anchor-free-or-anchor-based/</loc>
+    
+    <lastmod>2021-09-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hu1104.github.io/article/algorithm/</loc>
+    
+    <lastmod>2021-09-07</lastmod>
     
   </url>
   
@@ -26,13 +75,6 @@
     <loc>https://hu1104.github.io/article/all-CN/</loc>
     
     <lastmod>2021-09-06</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hu1104.github.io/article/record_everyday/</loc>
-    
-    <lastmod>2021-09-03</lastmod>
     
   </url>
   
@@ -86,13 +128,6 @@
   </url>
   
   <url>
-    <loc>https://hu1104.github.io/article/multiprocessing/</loc>
-    
-    <lastmod>2021-08-30</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hu1104.github.io/article/tqdm%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2021-08-30</lastmod>
@@ -101,20 +136,6 @@
   
   <url>
     <loc>https://hu1104.github.io/article/threading/</loc>
-    
-    <lastmod>2021-08-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/</loc>
-    
-    <lastmod>2021-08-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hu1104.github.io/article/yolov5_real/</loc>
     
     <lastmod>2021-08-30</lastmod>
     
@@ -193,7 +214,7 @@
 
   <url>
     <loc>https://hu1104.github.io/</loc>
-    <lastmod>2021-09-06</lastmod>
+    <lastmod>2021-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -201,21 +222,21 @@
   
   <url>
     <loc>https://hu1104.github.io/tags/win10/</loc>
-    <lastmod>2021-09-06</lastmod>
+    <lastmod>2021-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hu1104.github.io/tags/ubuntu/</loc>
-    <lastmod>2021-09-06</lastmod>
+    <lastmod>2021-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/</loc>
-    <lastmod>2021-09-06</lastmod>
+    <lastmod>2021-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -224,7 +245,7 @@
   
   <url>
     <loc>https://hu1104.github.io/categories/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2021-09-06</lastmod>
+    <lastmod>2021-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
