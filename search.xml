@@ -1645,7 +1645,6 @@
     <url>/article/git_learn/</url>
     <content><![CDATA[<p><img src="image-20210909164119386.png" alt="image-20210909164119386"></p>
 <p><img src="image-20210909165936257.png" alt="image-20210909165936257"></p>
-<p><img src="git-learn/image-20210909164119386.png" alt="image-20210909164119386"></p>
 <p>gitlab 是origin main而不是master,绝了！</p>
 <p>git reset –hard </p>
 <p><a href="https://www.cnblogs.com/jeremylee/p/5715289.html">error: src refspec master does not match any. 错误处理办法 - JeremyLee87 - 博客园 (cnblogs.com)</a></p>
