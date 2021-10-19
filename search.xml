@@ -1643,7 +1643,7 @@
   <entry>
     <title>git_learn</title>
     <url>/article/git_learn/</url>
-    <content><![CDATA[<p><img src="image-20210909164119386.png" alt="image-20210909164119386"></p>
+    <content><![CDATA[<p><img src="image-20210909164119386.png" alt="image-20210909164119386" title="dsfsdf"></p>
 <p><img src="image-20210909165936257.png" alt="image-20210909165936257"></p>
 <p>gitlab 是origin main而不是master,绝了！</p>
 <p>git reset –hard </p>
