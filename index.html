@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">28</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">29</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,120 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/RS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/RS/" class="post-title-link" itemprop="url">RS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-18 13:37:56" itemprop="dateCreated datePublished" datetime="2021-10-18T13:37:56+08:00">2021-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-18 17:58:19" itemprop="dateModified" datetime="2021-10-18T17:58:19+08:00">2021-10-18</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">rs发展历程1</a><br><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png">rs发展历程2</a></p>
+<h1 id="推荐系统简介"><a href="#推荐系统简介" class="headerlink" title="推荐系统简介"></a>推荐系统简介<a href="#推荐系统简介" class="header-anchor">#</a></h1><ol>
+<li>做什么<ul>
+<li>用户：帮助用户快速发现有用信息</li>
+<li>企业：增加产品与潜在用户接触、购买等行为概率的工具</li>
+</ul>
+</li>
+<li>为什么<ul>
+<li>用户：在需求不明确的时候进行信息过滤，利用用户的各类历史信息猜测其可能喜欢的内容</li>
+<li>使产品最大限度的吸引用户，留存客户，增长用户黏性，提高用户转化率</li>
+</ul>
+</li>
+<li>为了谁<ul>
+<li>用户和企业，在此基础上，展开想想什么样的人需要推荐系统，及什么样的企业需要推荐系统</li>
+</ul>
+</li>
+</ol>
+<h1 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标<a href="#评价指标" class="header-anchor">#</a></h1><ol>
+<li><p>用户满意度<br> &emsp;&emsp;用户满意度直接决定推荐系统的好坏，但是无法离线计算。因此需要购满率来度量客户满意度，与此类似的还有用户停留时间和转化率等指标。</p>
+</li>
+<li><p>预测精准度<br> 预测准确度是用来度量用户的实际行为与推荐系统预测结果的准确度，是最重要的离线评价指标。</p>
+<ul>
+<li><p>评分预测<br>  预测用户对物品的评分行为称为评分预测。评分预测模型通过对用户的历史物品评分记录进行建模，进而得到用户的兴趣模型，然后使用模型预测用户对未见过商品的评分。评分预测的准确度一般通过均方根误差（RMSE）或者平均绝对误差（MAE）计算。对于测试集中的一个用户$u$和物品$i$,令$r_{ui}$是用户$u$对物品$i$的实际评分,而$\hat{r_{ui}}$是推荐模型预测出的评分,那么RMSE可以定义为: $$ RMSE = \sqrt{\frac{\sum_{u,i \in T}(r_{ui} - \hat{r}<em>{ui})^2}{|T|}} $$ MAE定义为: $$ MAE = \frac{\sum{u,i \in T}|r</em>{ui} - \hat{r}_{ui}|}{|T|} $$ RMSE由于存在平方项，使得使得用户真实评分与推荐系统预测评分相差较大的用户加大了惩罚，即该评测指标对系统要求更加的苛刻</p>
+</li>
+<li><p>TopN推荐<br>   推荐系统在给用户推荐物品的时候,往往会给用户一个列表的推荐物品,这种场景下的推荐成为是TopN推荐,该推荐方式最常用的预测准确率指标一般是精确率(precision)和召回率(recall),令$R(u)$为通过推荐模型得到的推荐列表,$T(u)$为用户在实际场景中(测试集)的行为列表.</p>
+<ul>
+<li><p>精确率(precision): 分类正确的正样本个数占分类器判定为正样本的样本个数比例(这里$R(u)$相当于是模型判定的正样本) $$ Precision= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|R(u)|} $$</p>
+</li>
+<li><p>召回率(recall): 分类正确的正样本个数占真正的正样本个数的比例(这里的$T(u)$相当于真正的正样本集合)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>$$ Recall= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|T(u)|} $$<br>  有时候为了更加全面的评估TopN推荐,通常会选取不同的推荐列表长度计算多组精确率与召回率然后分别绘制出精确率曲线和召回率曲线,需要注意的是这里并不是PR曲线,感兴趣的可以了解一下PR曲线相关的知识.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1017,100 +1131,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/python-base/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/python-base/" class="post-title-link" itemprop="url">python_base</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-30 10:18:47" itemprop="dateCreated datePublished" datetime="2021-08-30T10:18:47+08:00">2021-08-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-30 15:20:16" itemprop="dateModified" datetime="2021-08-30T15:20:16+08:00">2021-08-30</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>719</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="initpy"><a href="#init-py" class="headerlink" title="init.py"></a><strong>init</strong>.py<a href="#initpy" class="header-anchor">#</a></h1><p>首先，module其实就是一个.py文件，中文名为模块，其内置有各种函数和类与变量等。而package就是一个包含很多subpackage或者module(.py文件)的一个包。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/16486710-40ddf50fd0d6b105.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="img"></p>
-<p>一个directories 只有包含__init__.py文件才会被python识别成package。只有在import package时，才会执行package目录下的__init__.py文件。</p>
-<p>若文件结构如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mypackage</span><br><span class="line">    ——__init__.py</span><br><span class="line">    ——subpackage_1</span><br><span class="line">        ——__init__.py</span><br><span class="line">        ——test11.py</span><br><span class="line">        ——test12.py</span><br><span class="line">    ——subpackage_2</span><br><span class="line">        ——__init__.py</span><br><span class="line">        ——test21.py</span><br><span class="line">        ——test22.py</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="pickle-json"><a href="#pickle-json" class="headerlink" title="pickle, json"></a>pickle, json<a href="#pickle-json" class="header-anchor">#</a></h1><p>都是四个函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pickle.dumps()：将 Python 中的对象序列化成二进制对象，并返回；</span><br><span class="line">pickle.loads()：读取给定的二进制对象数据，并将其转换为 Python 对象；</span><br><span class="line">pickle.dump()：将 Python 中的对象序列化成二进制对象，并写入文件；</span><br><span class="line">pickle.load()：读取指定的序列化数据文件，并返回对象。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">json.load()从文件中读取json字符串</span><br><span class="line">json.loads()将json字符串转换为字典类型</span><br><span class="line">json.dumps()将python中的字典类型转换为字符串类型</span><br><span class="line">json.dump()将json格式字符串写到文件中</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/eaae9678a779"><strong>init</strong>.py文件与__all__变量</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yucicheung/article/details/79445350">python模块中__init__.py的作用</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qi-yuan-008/p/12827918.html">Python：<strong>init</strong>.py文件和、<strong>all__、import、__name__、__doc</strong> </a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1180,7 +1200,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1233,12 +1253,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">146k</span>
+    <span title="站点总字数">149k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:12</span>
+    <span title="站点阅读时长">2:15</span>
 </div>
 
         

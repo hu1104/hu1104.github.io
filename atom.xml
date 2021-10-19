@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-09-10T10:04:55.148Z</updated>
+  <updated>2021-10-18T09:58:19.698Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RS</title>
+    <link href="https://hu1104.github.io/article/RS/"/>
+    <id>https://hu1104.github.io/article/RS/</id>
+    <published>2021-10-18T05:37:56.000Z</published>
+    <updated>2021-10-18T09:58:19.698Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png&quot;&gt;rs发展历程1&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png&quot;&gt;rs发展历程2&lt;/a&gt;&lt;/p&gt;
+&lt;h1</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>git_learn</title>
@@ -330,7 +352,7 @@
     <link href="https://hu1104.github.io/article/multiprocessing/"/>
     <id>https://hu1104.github.io/article/multiprocessing/</id>
     <published>2021-08-20T06:50:29.000Z</published>
-    <updated>2021-09-08T01:54:08.447Z</updated>
+    <updated>2021-10-19T02:51:15.857Z</updated>
     
     
     <summary type="html">&lt;p&gt;由于python的GIL锁的存在，导致在多线程的时候，同一时间只能有一个线程在cpu上运行，而且是单个cpu上运行，不管cpu有多少核数。如果要充分利用多核cpu的资源，在python中大部分情况下需要使用多进程。&lt;/p&gt;
@@ -409,19 +431,6 @@
 
 &lt;h1 id=&quot;什么是装饰器&quot;&gt;&lt;a href=&quot;#什么是装饰器&quot; class=&quot;headerlink&quot; title=&quot;什么是装饰器&quot;&gt;&lt;/a&gt;什么是装饰器&lt;/h1&gt;&lt;p&gt;一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。&lt;br&gt;简单示例：&lt;/p&gt;
 &lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# 未使用装饰器时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def outer(some_func):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	def inner():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		print (&amp;quot;before some_func&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = some_func() # 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		return ret + 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return inner&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def foo():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;decorated = outer(foo)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;decorated()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#使用装饰器时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def outer(some_func):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	def inner():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		print (&amp;quot;before some_func&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = some_func() # 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		return ret + 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return inner&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@outer&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def foo():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>todo_list</title>
-    <link href="https://hu1104.github.io/article/todo-list/"/>
-    <id>https://hu1104.github.io/article/todo-list/</id>
-    <published>2021-08-12T02:08:45.000Z</published>
-    <updated>2021-08-12T02:08:45.878Z</updated>
-    
     
     
     
