@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-18T09:58:19.698Z</updated>
+  <updated>2021-10-19T02:51:59.689Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -21,17 +21,10 @@
     <link href="https://hu1104.github.io/article/RS/"/>
     <id>https://hu1104.github.io/article/RS/</id>
     <published>2021-10-18T05:37:56.000Z</published>
-    <updated>2021-10-18T09:58:19.698Z</updated>
+    <updated>2021-10-19T02:51:59.689Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png&quot;&gt;rs发展历程1&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png&quot;&gt;rs发展历程2&lt;/a&gt;&lt;/p&gt;
-&lt;h1</summary>
-        
-      
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png&quot;&gt;rs发展历程1&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png&quot;&gt;rs发展历程2&lt;/a&gt;&lt;/p&gt;</summary>
     
     
     
@@ -43,15 +36,15 @@
     <link href="https://hu1104.github.io/article/git-learn/"/>
     <id>https://hu1104.github.io/article/git-learn/</id>
     <published>2021-09-09T08:41:08.000Z</published>
-    <updated>2021-09-10T10:04:55.148Z</updated>
+    <updated>2021-10-19T02:53:38.840Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;git-learn/image-20210909164119386.png&quot; alt=&quot;image-20210909164119386&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;git-learn/image-20210909165936257.png&quot;</summary>
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;image-20210909164119386.png&quot; alt=&quot;image-20210909164119386&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;image-20210909165936257.png&quot;</summary>
         
       
     
@@ -91,7 +84,7 @@
     <link href="https://hu1104.github.io/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/"/>
     <id>https://hu1104.github.io/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/</id>
     <published>2021-09-06T07:48:43.000Z</published>
-    <updated>2021-09-06T08:23:56.433Z</updated>
+    <updated>2021-10-19T02:54:08.395Z</updated>
     
     
       
@@ -112,7 +105,7 @@
     <link href="https://hu1104.github.io/article/LN-BN/"/>
     <id>https://hu1104.github.io/article/LN-BN/</id>
     <published>2021-09-03T01:40:40.000Z</published>
-    <updated>2021-09-06T08:04:42.162Z</updated>
+    <updated>2021-10-19T02:54:59.423Z</updated>
     
     
       
@@ -135,16 +128,12 @@
     <link href="https://hu1104.github.io/article/all-CN/"/>
     <id>https://hu1104.github.io/article/all-CN/</id>
     <published>2021-09-03T01:40:26.000Z</published>
-    <updated>2021-09-06T07:47:55.408Z</updated>
+    <updated>2021-10-19T02:56:11.000Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;深度可分离卷积&quot;&gt;&lt;a href=&quot;#深度可分离卷积&quot; class=&quot;headerlink&quot; title=&quot;深度可分离卷积&quot;&gt;&lt;/a&gt;深度可分离卷积&lt;a href=&quot;#深度可分离卷积&quot;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;深度可分离卷积&quot;&gt;&lt;a href=&quot;#深度可分离卷积&quot; class=&quot;headerlink&quot; title=&quot;深度可分离卷积&quot;&gt;&lt;/a&gt;深度可分离卷积&lt;/h1&gt;&lt;p&gt;假设输入是$D_{f^i} * D_{f^i} * M$ ,输出图大小是$D_{f^o}*D_{f^o}&lt;em&gt;N$, 卷积核大小是$D_k&lt;/em&gt;D_k$&lt;/p&gt;
+&lt;h2 id=&quot;普通卷积操作&quot;&gt;&lt;a href=&quot;#普通卷积操作&quot; class=&quot;headerlink&quot; title=&quot;普通卷积操作&quot;&gt;&lt;/a&gt;普通卷积操作&lt;/h2&gt;&lt;p&gt;输入图在经过卷积核（$D_k&lt;em&gt;D_k&lt;/em&gt;M$）后输出为目标输出大小，但此时仅为$D_{f^o}*D_{f^o} * 1$ ,需要$N$个这样的操作才能得到目标特征图。&lt;/p&gt;
+&lt;p&gt;此时所需要的计算量有$D_{f^o}&lt;em&gt;D_{f^o}&lt;em&gt;D_k&lt;/em&gt;D_k&lt;/em&gt;M*N$。&lt;/p&gt;</summary>
     
     
     
@@ -194,16 +183,11 @@
     <link href="https://hu1104.github.io/article/yolox%E8%AE%AD%E7%BB%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86/"/>
     <id>https://hu1104.github.io/article/yolox%E8%AE%AD%E7%BB%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86/</id>
     <published>2021-08-30T06:13:04.000Z</published>
-    <updated>2021-08-30T07:19:45.545Z</updated>
+    <updated>2021-10-19T02:57:16.478Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;环境配置&quot;&gt;&lt;a href=&quot;#环境配置&quot; class=&quot;headerlink&quot; title=&quot;环境配置&quot;&gt;&lt;/a&gt;环境配置&lt;a href=&quot;#环境配置&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;</summary>
-        
-      
+    <summary type="html">&lt;h1 id=&quot;环境配置&quot;&gt;&lt;a href=&quot;#环境配置&quot; class=&quot;headerlink&quot; title=&quot;环境配置&quot;&gt;&lt;/a&gt;环境配置&lt;/h1&gt;&lt;p&gt; 第一步：安装YOLOX&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git clone git@github.com:Megvii-BaseDetection/YOLOX.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd YOLOX&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pip3 install -U pip &amp;amp;&amp;amp; pip3 install -r requirements.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pip3 install -v -e .  # or  python3 setup.py develop&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     

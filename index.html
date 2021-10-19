@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-18 17:58:19" itemprop="dateModified" datetime="2021-10-18T17:58:19+08:00">2021-10-18</time>
+                <time title="修改时间：2021-10-19 10:51:59" itemprop="dateModified" datetime="2021-10-19T10:51:59+08:00">2021-10-19</time>
               </span>
 
           <br>
@@ -256,42 +256,14 @@
 
       
           <p><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">rs发展历程1</a><br><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png">rs发展历程2</a></p>
-<h1 id="推荐系统简介"><a href="#推荐系统简介" class="headerlink" title="推荐系统简介"></a>推荐系统简介<a href="#推荐系统简介" class="header-anchor">#</a></h1><ol>
-<li>做什么<ul>
-<li>用户：帮助用户快速发现有用信息</li>
-<li>企业：增加产品与潜在用户接触、购买等行为概率的工具</li>
-</ul>
-</li>
-<li>为什么<ul>
-<li>用户：在需求不明确的时候进行信息过滤，利用用户的各类历史信息猜测其可能喜欢的内容</li>
-<li>使产品最大限度的吸引用户，留存客户，增长用户黏性，提高用户转化率</li>
-</ul>
-</li>
-<li>为了谁<ul>
-<li>用户和企业，在此基础上，展开想想什么样的人需要推荐系统，及什么样的企业需要推荐系统</li>
-</ul>
-</li>
-</ol>
-<h1 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标<a href="#评价指标" class="header-anchor">#</a></h1><ol>
-<li><p>用户满意度<br> &emsp;&emsp;用户满意度直接决定推荐系统的好坏，但是无法离线计算。因此需要购满率来度量客户满意度，与此类似的还有用户停留时间和转化率等指标。</p>
-</li>
-<li><p>预测精准度<br> 预测准确度是用来度量用户的实际行为与推荐系统预测结果的准确度，是最重要的离线评价指标。</p>
-<ul>
-<li><p>评分预测<br>  预测用户对物品的评分行为称为评分预测。评分预测模型通过对用户的历史物品评分记录进行建模，进而得到用户的兴趣模型，然后使用模型预测用户对未见过商品的评分。评分预测的准确度一般通过均方根误差（RMSE）或者平均绝对误差（MAE）计算。对于测试集中的一个用户$u$和物品$i$,令$r_{ui}$是用户$u$对物品$i$的实际评分,而$\hat{r_{ui}}$是推荐模型预测出的评分,那么RMSE可以定义为: $$ RMSE = \sqrt{\frac{\sum_{u,i \in T}(r_{ui} - \hat{r}<em>{ui})^2}{|T|}} $$ MAE定义为: $$ MAE = \frac{\sum{u,i \in T}|r</em>{ui} - \hat{r}_{ui}|}{|T|} $$ RMSE由于存在平方项，使得使得用户真实评分与推荐系统预测评分相差较大的用户加大了惩罚，即该评测指标对系统要求更加的苛刻</p>
-</li>
-<li><p>TopN推荐<br>   推荐系统在给用户推荐物品的时候,往往会给用户一个列表的推荐物品,这种场景下的推荐成为是TopN推荐,该推荐方式最常用的预测准确率指标一般是精确率(precision)和召回率(recall),令$R(u)$为通过推荐模型得到的推荐列表,$T(u)$为用户在实际场景中(测试集)的行为列表.</p>
-<ul>
-<li><p>精确率(precision): 分类正确的正样本个数占分类器判定为正样本的样本个数比例(这里$R(u)$相当于是模型判定的正样本) $$ Precision= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|R(u)|} $$</p>
-</li>
-<li><p>召回率(recall): 分类正确的正样本个数占真正的正样本个数的比例(这里的$T(u)$相当于真正的正样本集合)</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p>$$ Recall= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|T(u)|} $$<br>  有时候为了更加全面的评估TopN推荐,通常会选取不同的推荐列表长度计算多组精确率与召回率然后分别绘制出精确率曲线和召回率曲线,需要注意的是这里并不是PR曲线,感兴趣的可以了解一下PR曲线相关的知识.</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/article/RS/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -341,7 +313,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-10 18:04:55" itemprop="dateModified" datetime="2021-09-10T18:04:55+08:00">2021-09-10</time>
+                <time title="修改时间：2021-10-19 10:53:38" itemprop="dateModified" datetime="2021-10-19T10:53:38+08:00">2021-10-19</time>
               </span>
 
           <br>
@@ -369,13 +341,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="git-learn/image-20210909164119386.png" alt="image-20210909164119386"></p>
-<p><img src="git-learn/image-20210909165936257.png" alt="image-20210909165936257"></p>
+          <p><img src="image-20210909164119386.png" alt="image-20210909164119386"></p>
+<p><img src="image-20210909165936257.png" alt="image-20210909165936257"></p>
 <p>gitlab 是origin main而不是master,绝了！</p>
 <p>git reset –hard </p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jeremylee/p/5715289.html">error: src refspec master does not match any. 错误处理办法 - JeremyLee87 - 博客园 (cnblogs.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013059664">Git 多人协作开发流程 - SegmentFault 思否</a></p>
-<p><img src="git-learn/image-20210910093541121.png" alt="image-20210910093541121"></p>
+<p><img src="image-20210910093541121.png" alt="image-20210910093541121"></p>
 
       
     </div>
@@ -568,7 +540,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-06 16:23:56" itemprop="dateModified" datetime="2021-09-06T16:23:56+08:00">2021-09-06</time>
+                <time title="修改时间：2021-10-19 10:54:08" itemprop="dateModified" datetime="2021-10-19T10:54:08+08:00">2021-10-19</time>
               </span>
 
           <br>
@@ -601,8 +573,8 @@
 <li>通过卷积，得到通道数倍增的特征图（n,64,64,256）</li>
 <li>将特征图切割成若干份，对每一份（n,64,64,4）的像素点进行重新排列,reshape成(n,64,64,2,2），再reshape成（n,64,2,64,2），最后reshape成（n,128,128,1），再把这么多份拼接起来，得（n,128,128,64）的特征图</li>
 </ol>
-<p><img src="%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/image-20210906161758378.png" alt="image-20210906161758378"></p>
-<p><img src="%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/image-20210906161922868.png" alt="image-20210906161922868"></p>
+<p><img src="image-20210906161758378.png" alt="image-20210906161758378"></p>
+<p><img src="image-20210906161922868.png" alt="image-20210906161922868"></p>
 <h1 id="upsample"><a href="#upsample" class="headerlink" title="upsample"></a>upsample<a href="#upsample" class="header-anchor">#</a></h1><p>插值方法</p>
 <h1 id="转置卷积convtranspose2d"><a href="#转置卷积-ConvTranspose2d" class="headerlink" title="转置卷积(ConvTranspose2d)"></a>转置卷积(ConvTranspose2d)<a href="#转置卷积convtranspose2d" class="header-anchor">#</a></h1><p>填充0后做卷积</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_14845119/article/details/107557449">(19条消息) 上采样方法大PK（Upsample，Interpolate，resize，Transposed convolution，deconv，Unpool，Pixelshuffle）_年轻即出发，-CSDN博客</a></p>
@@ -659,7 +631,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-06 16:04:42" itemprop="dateModified" datetime="2021-09-06T16:04:42+08:00">2021-09-06</time>
+                <time title="修改时间：2021-10-19 10:54:59" itemprop="dateModified" datetime="2021-10-19T10:54:59+08:00">2021-10-19</time>
               </span>
 
           <br>
@@ -689,7 +661,7 @@
       
           <p>LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。</p>
 <p>BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。</p>
-<p><img src="LN-BN/image-20210906155404860.png" alt="image-20210906155404860"></p>
+<p><img src="image-20210906155404860.png" alt="image-20210906155404860"></p>
 <p><strong>优点：</strong>Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：</p>
 <ul>
 <li>加大搜索的步长，加快收敛的速度；</li>
@@ -706,9 +678,9 @@
 <li>InstanceNorm：一个channel内做归一化，计算H*W的均值</li>
 <li>GroupNorm：先将channel方向分group，然后每个group内做归一化，计算(C//G)<em>H</em>W的均值</li>
 </ul>
-<h1 id="wn"><a href="#WN" class="headerlink" title="WN"></a>WN<a href="#wn" class="header-anchor">#</a></h1><p><img src="LN-BN/image-20210906155830408.png" alt="image-20210906155830408"></p>
+<h1 id="wn"><a href="#WN" class="headerlink" title="WN"></a>WN<a href="#wn" class="header-anchor">#</a></h1><p><img src="image-20210906155830408.png" alt="image-20210906155830408"></p>
 <p><img src="LN-BN/image-20210906155845338.png" alt="image-20210906155845338"></p>
-<h1 id="归一化操作"><a href="#归一化操作" class="headerlink" title="归一化操作"></a>归一化操作<a href="#归一化操作" class="header-anchor">#</a></h1><p><img src="LN-BN/image-20210906160001983.png" alt="image-20210906160001983"></p>
+<h1 id="归一化操作"><a href="#归一化操作" class="headerlink" title="归一化操作"></a>归一化操作<a href="#归一化操作" class="header-anchor">#</a></h1><p><img src="image-20210906160001983.png" alt="image-20210906160001983"></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gczr/p/12597344.html">https://www.cnblogs.com/gczr/p/12597344.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33173246">详解深度学习中的Normalization，BN/LN/WN - 知乎 (zhihu.com)</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shine-lee/p/11779514.html">为什么要做特征归一化/标准化？ - shine-lee - 博客园 (cnblogs.com)</a></p>
@@ -762,7 +734,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-06 15:47:55" itemprop="dateModified" datetime="2021-09-06T15:47:55+08:00">2021-09-06</time>
+                <time title="修改时间：2021-10-19 10:56:11" itemprop="dateModified" datetime="2021-10-19T10:56:11+08:00">2021-10-19</time>
               </span>
 
           <br>
@@ -790,47 +762,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="深度可分离卷积"><a href="#深度可分离卷积" class="headerlink" title="深度可分离卷积"></a>深度可分离卷积<a href="#深度可分离卷积" class="header-anchor">#</a></h1><p>假设输入是$D_{f^i} * D_{f^i} * M$ ,输出图大小是$D_{f^o}*D_{f^o}<em>N$, 卷积核大小是$D_k</em>D_k$</p>
-<h2 id="普通卷积操作"><a href="#普通卷积操作" class="headerlink" title="普通卷积操作"></a>普通卷积操作<a href="#普通卷积操作" class="header-anchor">#</a></h2><p>输入图在经过卷积核（$D_k<em>D_k</em>M$）后输出为目标输出大小，但此时仅为$D_{f^o}*D_{f^o} * 1$ ,需要$N$个这样的操作才能得到目标特征图。</p>
+          <h1 id="深度可分离卷积"><a href="#深度可分离卷积" class="headerlink" title="深度可分离卷积"></a>深度可分离卷积</h1><p>假设输入是$D_{f^i} * D_{f^i} * M$ ,输出图大小是$D_{f^o}*D_{f^o}<em>N$, 卷积核大小是$D_k</em>D_k$</p>
+<h2 id="普通卷积操作"><a href="#普通卷积操作" class="headerlink" title="普通卷积操作"></a>普通卷积操作</h2><p>输入图在经过卷积核（$D_k<em>D_k</em>M$）后输出为目标输出大小，但此时仅为$D_{f^o}*D_{f^o} * 1$ ,需要$N$个这样的操作才能得到目标特征图。</p>
 <p>此时所需要的计算量有$D_{f^o}<em>D_{f^o}<em>D_k</em>D_k</em>M*N$。</p>
-<h2 id="深度可分离卷积"><a href="#深度可分离卷积-1" class="headerlink" title="深度可分离卷积"></a>深度可分离卷积<a href="#深度可分离卷积" class="header-anchor">#</a></h2><p>输入图首先经过$M$个$D_k<em>D_k</em>1$的卷积核，这样可以得到$D_{f^o}*D_{f^o}*M$的特征图，其中$M$是堆叠出来的，此步骤叫做<code>depthwise convolution</code> 。</p>
-<p>再经过$N$个$1<em>1</em>M$的卷积核，就可以得到$D_{f^o}*D_{f^o} *N$的特征图。此操作为<code>pointwise convolution</code>。</p>
-<p>可以看出，深度可分离卷积可分为逐层卷积和逐点卷积两个步骤，</p>
-<p>逐层卷积：</p>
-<p><img src="all-CN/image-20210906145026434.png" alt="image-20210906145026434"></p>
-<p>逐点卷积：</p>
-<p><img src="all-CN/image-20210906145039602.png" alt="image-20210906145039602"></p>
-<p><img src="all-CN/image-20210906145050415.png" alt="image-20210906145050415"></p>
-<p>计算量分步骤计算分别为$D_k<em>D_k</em>M<em>D_{f^o}<em>D_{f^o}$和$N</em>1</em>1<em>M</em>D_{f^o}*D_{f^o}$。</p>
-<p>则相比较与常规卷积$\frac {D_k<em>D_k</em>M<em>D_{f^o}<em>D_{f^o}+N</em>M</em>D_{f^o}<em>D_{f^o}}{D_{f^o}<em>D_{f^o}<em>D_k</em>D_k</em>M</em>N} = \frac {1}{N} + \frac {1}{D_k^2}$</p>
-<p>针对一般$D_k=3$和$N$远大于9的情况，可知压缩比略小于9。</p>
-<h2 id="速度思考"><a href="#速度思考" class="headerlink" title="速度思考"></a>速度思考<a href="#速度思考" class="header-anchor">#</a></h2><p>在速度方面，经过大量实验，我发现在算力足够的GPU平台上，MobileNet不会带来任何速度上的提升（有时甚至是下降的），然而在计算能力有限的平台上，MobileNet能让速度提升三倍以上。</p>
-<p><strong>深度可分离卷积将一个标准卷积分割成了两个卷积（逐深度，逐点），因此减小了参数量，对应也减小了总计算量。</strong></p>
-<p>好的，在上面的话中，我们可以发现一个有趣的事实：深度可分离卷积的<strong>总计算量变小了</strong>，但深度可分离卷积的<strong>层数变多了</strong>。</p>
-<p>而结合我们对GPU和CPU的认识：GPU是并行处理大规模数据（矩阵内积）的运算平台，而CPU则倾向于对数据串行计算（一个一个算）。</p>
-<p>因此，若GPU的显存足够大（干脆假设无限大好了），因为每层的计算都可以并行一次处理，则此时<strong>总运算时间的主导因素是网络的层数。</strong></p>
-<p>而对于缺乏并行能力的CPU，总的运算时间的主导因素则是<strong>总计算量有关。</strong></p>
-<h2 id="pytorch实现"><a href="#pytorch实现" class="headerlink" title="pytorch实现"></a>pytorch实现<a href="#pytorch实现" class="header-anchor">#</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import torch.nn.functional as F</span><br><span class="line"></span><br><span class="line">class Block(nn.Module):</span><br><span class="line">    &quot;Depthwise conv + Pointwise conv&quot;</span><br><span class="line">    def __init__(self, in_channels, out_channels, stride=1):</span><br><span class="line">        super(Block, self).__init__()</span><br><span class="line">        self.conv1 = nn.Conv2d(in_channels, in_channels, kernel_size=3, stride=2, padding=1, groups=in_channels, bias=False)</span><br><span class="line">        self.bn1 = nn.BatchNorm2d(in_channels)</span><br><span class="line">        self.conv2 = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=1, padding=0, bias=False)</span><br><span class="line">        self.bn2 = nn.BatchNorm2d(out_channels)</span><br><span class="line"></span><br><span class="line">    def forward(self, x):</span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.bn1(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        x = self.conv2(x)</span><br><span class="line">        x = self.bn2(x)</span><br><span class="line">        x = F.relu(x)</span><br><span class="line">        return x</span><br><span class="line"></span><br><span class="line">input = torch.randn(32, 3, 224, 224)</span><br><span class="line">block = Block(3, 64)</span><br><span class="line">out = block(input)</span><br><span class="line">print(out.size())</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="分组卷积"><a href="#分组卷积" class="headerlink" title="分组卷积"></a>分组卷积<a href="#分组卷积" class="header-anchor">#</a></h1><p><img src="all-CN/image-20210906151614062.png" alt="image-20210906151614062"></p>
-<p><strong>Group Convolution</strong>顾名思义，则是对输入feature map进行分组，然后每组分别卷积。假设输入feature map的尺寸仍为$C∗H∗W$，输出feature map的数量为$N$个，如果设定要分成$G$个groups，则每组的输入feature map数量为$\frac {C}{G}$，每组的输出feature map数量为$\frac {N}{G}$，每个卷积核的尺寸为$\frac CG∗K∗K$，卷积核的总数仍为$N$个，每组的卷积核数量为$\frac NG$，卷积核只与其同组的输入map进行卷积，卷积核的总参数量为$N∗\frac CG∗K∗K$，可见，<strong>总参数量减少为原来的</strong> $\frac 1G$，其连接方式如上图右所示，group1输出map数为2，有2个卷积核，每个卷积核的channel数为4，与group1的输入map的channel数相同，卷积核只与同组的输入map卷积，而不与其他组的输入map卷积。</p>
-<h2 id="分组卷积的用途"><a href="#分组卷积的用途" class="headerlink" title="分组卷积的用途"></a>分组卷积的用途<a href="#分组卷积的用途" class="header-anchor">#</a></h2><ol>
-<li>减少参数量， 分成$G$组，则该层的参数量减少为原来的$\frac 1G$</li>
-<li>可看成structured sparse，每个卷积核的尺寸由$C<em>K</em>K$变为$\frac CG<em>K</em>K$，可以看作将其余$(C-\frac CG)<em>K</em>K$的参数视为0，有时可以取得不错的效果(正则化)。</li>
-<li>当分组数量等于输入map数量，输出map数量也等于输入map数量，相当于<code>depthwise convolution</code></li>
-<li>如果满足3的同时，卷积核大小与输入尺寸相同，则输出$C<em>1</em>1$的向量，此时为<code>global depthwise convolution</code>，可视为全局加权池化，与GAP( global average pooling)的不同之处在于，GDC给每个位置赋予可学习的权重，而GAP是权重相同取个平均。</li>
-</ol>
-<h1 id="转置卷积"><a href="#转置卷积" class="headerlink" title="转置卷积"></a>转置卷积<a href="#转置卷积" class="header-anchor">#</a></h1><h1 id="空洞卷积"><a href="#空洞卷积" class="headerlink" title="空洞卷积"></a>空洞卷积<a href="#空洞卷积" class="header-anchor">#</a></h1><p>作用：</p>
-<ol>
-<li>增大感受野</li>
-<li>捕获多尺度上下文信息</li>
-</ol>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/BDlYXOjaNuBsLkfbQKRGLA">一文读懂 12种卷积方法（含1x1卷积、转置卷积和深度可分离卷积等） (qq.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shine-lee/p/10243114.html">Group Convolution分组卷积，以及Depthwise Convolution和Global Depthwise Convolution - shine-lee - 博客园 (cnblogs.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/208519425">通过分组卷积的思想，巧妙的代码实现动态卷积(Dynamic Convolution) - 知乎 (zhihu.com)</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/article/all-CN/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1052,7 +994,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-30 15:19:45" itemprop="dateModified" datetime="2021-08-30T15:19:45+08:00">2021-08-30</time>
+                <time title="修改时间：2021-10-19 10:57:16" itemprop="dateModified" datetime="2021-10-19T10:57:16+08:00">2021-10-19</time>
               </span>
 
           <br>
@@ -1080,43 +1022,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置<a href="#环境配置" class="header-anchor">#</a></h1><p> 第一步：安装YOLOX</p>
+          <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p> 第一步：安装YOLOX</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:Megvii-BaseDetection/YOLOX.git</span><br><span class="line">cd YOLOX</span><br><span class="line">pip3 install -U pip &amp;&amp; pip3 install -r requirements.txt</span><br><span class="line">pip3 install -v -e .  # or  python3 setup.py develop</span><br></pre></td></tr></table></figure>
-
-
-
-<p>第二步：安装apex</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 如果不想训练模型，可跳过这步。</span><br><span class="line">git clone https://github.com/NVIDIA/apex</span><br><span class="line">cd apex</span><br><span class="line">pip3 install -v --disable-pip-version-check --no-cache-dir --global-option=&quot;--cpp_ext&quot; --global-option=&quot;--cuda_ext&quot; ./</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>此处需要torch的cuda版本和外部环境的cuda版本一致，比如我们的服务器是10.2，那么torch的也要是10.2</p>
-<p>可通过<code>torch.version.cuda</code>确认，最好是选择docker来配置。Windows也不推荐，即使是wsl。</p>
-<p>第三步： 安装 <a target="_blank" rel="noopener" href="https://github.com/cocodataset/cocoapi">pycocotools</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install cython; pip3 install &#x27;git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI&#x27;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置<a href="#修改配置" class="header-anchor">#</a></h1><p>修改<code>exps/example/yolox_voc/yolox_voc_s.py</code>, 主要涉及类别和文件路径</p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/fb863c7fbfa25392b426aa319026887b.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/b52f331bb2f1f35a057136c8e5b77656.png" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/febec4ac7bf5e614f383ea5932007ffe.png" alt="在这里插入图片描述"></p>
-<p>修改<code>yolox/data/datasets/__init__.py</code></p>
-<p><img src="https://img-blog.csdnimg.cn/img_convert/e4575a30f261ae0371fd460684d41763.png" alt="img"></p>
-<p>修改<code>yolox/data/datasets/voc_classes.py</code></p>
-<p><img src="yolox%E8%AE%AD%E7%BB%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86/image-20210830143808609.png" alt="image-20210830143808609"></p>
-<h1 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练<a href="#开始训练" class="header-anchor">#</a></h1><p><code>python tools/train.py -f exps/example/yolox_voc/yolox_voc_s.py -d 1 -b 16 --fp16 -o -c yolox_s.pth</code></p>
-<ul>
-<li>-d 使用多少张显卡训练</li>
-<li>-b 批次大小</li>
-<li>–fp16 是否开启半精度训练</li>
-</ul>
-<h1 id="批量推理"><a href="#批量推理" class="headerlink" title="批量推理"></a>批量推理<a href="#批量推理" class="header-anchor">#</a></h1><p>非官方实现，其实也就是for循环实现的。</p>
-<p><code>tools/test_imgs.py</code>:</p>
-<p><img src="yolox%E8%AE%AD%E7%BB%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86/image-20210830144401995.png" alt="image-20210830144401995"></p>
-<p><img src="yolox%E8%AE%AD%E7%BB%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86/image-20210830144449907.png" alt="image-20210830144449907"></p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/397499216">深入浅出Yolox之自有数据集训练超详细教程 </a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39056987/article/details/119002910">YOLOX自定义数据集训练</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/DataXujing/YOLOX-">DataXujing/YOLOX-: YOLOX 训练自己的数据集 TensorRT加速 详细教程</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/article/yolox%E8%AE%AD%E7%BB%83%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
