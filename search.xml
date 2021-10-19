@@ -629,19 +629,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>git_learn</title>
-    <url>/article/git-learn/</url>
-    <content><![CDATA[<p><img src="image-20210909164119386.png" alt="image-20210909164119386"></p>
-<p><img src="image-20210909165936257.png" alt="image-20210909165936257"></p>
-<p><img src="git-learn/image-20210909164119386.png" alt="image-20210909164119386"></p>
-<p>gitlab 是origin main而不是master,绝了！</p>
-<p>git reset –hard </p>
-<p><a href="https://www.cnblogs.com/jeremylee/p/5715289.html">error: src refspec master does not match any. 错误处理办法 - JeremyLee87 - 博客园 (cnblogs.com)</a></p>
-<p><a href="https://segmentfault.com/a/1190000013059664">Git 多人协作开发流程 - SegmentFault 思否</a></p>
-<p><img src="image-20210910093541121.png" alt="image-20210910093541121"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>logging</title>
     <url>/article/logging/</url>
     <content><![CDATA[<h1 id="按天生成日志"><a href="#按天生成日志" class="headerlink" title="按天生成日志"></a>按天生成日志<a href="#按天生成日志" class="header-anchor">#</a></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># #coding=utf-8</span><br><span class="line">import logging,os  # 引入logging模块</span><br><span class="line">from com_tools import setting</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from logging import handlers</span><br><span class="line"></span><br><span class="line">class Logger(object):</span><br><span class="line">    level_relations = &#123;</span><br><span class="line">        &#x27;debug&#x27;:logging.DEBUG,</span><br><span class="line">        &#x27;info&#x27;:logging.INFO,</span><br><span class="line">        &#x27;warning&#x27;:logging.WARNING,</span><br><span class="line">        &#x27;error&#x27;:logging.ERROR,</span><br><span class="line">        &#x27;crit&#x27;:logging.CRITICAL</span><br><span class="line">    &#125;#日志级别关系映射</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def __init__(self,filename,level=&#x27;info&#x27;,when=&#x27;MIDNIGHT&#x27;,backCount=7,fmt=&#x27;%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s&#x27;):</span><br><span class="line">        self.logger = logging.getLogger(filename)</span><br><span class="line">        format_str = logging.Formatter(fmt)#设置日志格式</span><br><span class="line">        self.logger.setLevel(self.level_relations.get(level))#设置日志级别</span><br><span class="line">        sh = logging.StreamHandler()#往控制台输出</span><br><span class="line">        sh.setFormatter(format_str) #设置控制台上显示的格式</span><br><span class="line">        th = handlers.TimedRotatingFileHandler(filename=filename,interval=1,when=when,backupCount=backCount,encoding=&#x27;utf-8&#x27;)#往文件里写入#指定间隔时间自动生成文件的处理器</span><br><span class="line">        #实例化TimedRotatingFileHandler</span><br><span class="line">        #interval是时间间隔，backupCount是备份文件的个数，如果超过这个个数，就会自动删除，when是间隔的时间单位，单位有以下几种：</span><br><span class="line">        # S 秒</span><br><span class="line">        # M 分</span><br><span class="line">        # H 小时、</span><br><span class="line">        # D 天、</span><br><span class="line">        # W 每星期（interval==0时代表星期一）</span><br><span class="line">        # midnight 每天凌晨</span><br><span class="line">        th.suffix = &quot;%Y-%m-%d.log&quot; #设置文件后缀</span><br><span class="line">        th.setFormatter(format_str)#设置文件里写入的格式</span><br><span class="line">        self.logger.addHandler(sh) #把对象加到logger里</span><br><span class="line">        self.logger.addHandler(th)</span><br><span class="line">logfile = os.path.join(setting.logs_path, &quot;daodianmockapi.txt&quot;) # 这个文件的名称就是当天的日志文件，过往的日志文件，会在后面追加文件后缀 th.suffix</span><br><span class="line">logger = Logger(logfile,level=&#x27;debug&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #logger = Logger(&#x27;all.log&#x27;,level=&#x27;debug&#x27;)</span><br><span class="line">    # filename = setting.now_time+ &quot;.txt&quot;</span><br><span class="line">    # logfile = os.path.join(setting.logs_path,filename)</span><br><span class="line">    # logger = Logger(logfile,level=&#x27;debug&#x27;)</span><br><span class="line">    logger.logger.debug(&#x27;debug&#x27;) # 括号内的内容即为日志的文本内容</span><br><span class="line">    logger.logger.info(&#x27;info&#x27;)</span><br><span class="line">    logger.logger.warning(&#x27;警告&#x27;)</span><br><span class="line">    logger.logger.error(&#x27;报错&#x27;)</span><br><span class="line">    logger.logger.critical(&#x27;严重&#x27;)</span><br><span class="line">    #Logger(&#x27;error.log&#x27;, level=&#x27;error&#x27;).logger.error(&#x27;error&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1652,5 +1639,18 @@
       <tags>
         <tag>加密</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>git_learn</title>
+    <url>/article/git_learn/</url>
+    <content><![CDATA[<p><img src="image-20210909164119386.png" alt="image-20210909164119386"></p>
+<p><img src="image-20210909165936257.png" alt="image-20210909165936257"></p>
+<p><img src="git-learn/image-20210909164119386.png" alt="image-20210909164119386"></p>
+<p>gitlab 是origin main而不是master,绝了！</p>
+<p>git reset –hard </p>
+<p><a href="https://www.cnblogs.com/jeremylee/p/5715289.html">error: src refspec master does not match any. 错误处理办法 - JeremyLee87 - 博客园 (cnblogs.com)</a></p>
+<p><a href="https://segmentfault.com/a/1190000013059664">Git 多人协作开发流程 - SegmentFault 思否</a></p>
+<p><img src="image-20210910093541121.png" alt="image-20210910093541121"></p>
+]]></content>
   </entry>
 </search>
