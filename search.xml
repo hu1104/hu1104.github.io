@@ -1,121 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>WSL2安装Ubuntu</title>
-    <url>/article/WSL2_Ubuntu/</url>
-    <content><![CDATA[<h1 id="系统更新至预览版"><a href="#系统更新至预览版" class="headerlink" title="系统更新至预览版"></a>系统更新至预览版<a href="#系统更新至预览版" class="header-anchor">#</a></h1><ol>
-<li><p>加入Windows Insider Program</p>
-<p> <a href="https://insider.windows.com/en-us/getting-started">链接</a></p>
-<p> <img src="wip.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>注册加入完成后，前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 预览体验计划】，选择【开始】，然后点击【确认】。</p>
-<p> <img src="update.png" alt="图片" title="打开后显示"><br> <img src="choose.png" alt="图片" title="打开后显示"><br> <img src="microsoft_login.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>漫长的等待，等待过程中如果出现太久旋转没动静，可反复取消-选择账户，几次下来一般就可以了。随后使用加入Windows Insider Program时注册的账号密码，之后出现</p>
-<p> <img src="dev.png" alt="图片" title="打开后显示"><br> 选择dev渠道，然后立即重启。</p>
-</li>
-<li><p>前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 更新】，下载更新完window，<br>选择【检查更新】，然后耐心等待最新 Windows 10 预览版的下载和安装。</p>
-<p> <img src="update_wid.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>检查系统更新成功与否</p>
-<p> win+R-&gt;winver:<br> <img src="version.png" alt="图片" title="打开后显示"><br> 确认这里的os内部版本和第四步下载的版本一致</p>
- <span id="more"></span></li>
-</ol>
-<h1 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动<a href="#安装驱动" class="header-anchor">#</a></h1><ol>
-<li><p>前往<a href="https://developer.nvidia.com/cuda/wsl">链接</a></p>
-<p> <img src="driver.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>下载完成后，正常win程序安装</p>
-</li>
-</ol>
-<h1 id="安装wsl2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2<a href="#安装wsl2" class="header-anchor">#</a></h1><p>按照官方说法，使用预览版会有简单操作，但我是在未使用预览版时安装的，所以仅供参考。</p>
-<ol>
-<li><p>管理员身份运行power shell</p>
-<p> 如果出现以下问题：<br> <img src="problem.png" alt="图片" title="打开后显示"><br> 则执行<code>set-ExecutionPolicy RemoteSigned</code><br> 成功结果为：<br> <img src="success.png" alt="图片" title="打开后显示"><br> 如果没有出现上述问题，则执行<code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code>开启子系统<br> <img src="subsystem.png" alt="图片" title="打开后显示"><br> 然后，执行<code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code>开启虚拟机<br> <img src="vm.png" alt="图片" title="打开后显示"><br> <font color="red">随后重启计算机！</font></p>
-</li>
-<li><p>安装WSL内核更新包<a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">链接</a></p>
-</li>
-<li><p>将wsl2设置为默认版本：<code>set --set-default-version 2</code></p>
-</li>
-</ol>
-<h1 id="安装ubuntu1804"><a href="#安装ubuntu18-04" class="headerlink" title="安装ubuntu18.04"></a>安装ubuntu18.04<a href="#安装ubuntu1804" class="header-anchor">#</a></h1><ol>
-<li><p>打开Microsoft store,搜索ubuntu18,点击获取，等待下载安装，安装完成后，点击右上角的启动按钮，会出现下面操作；设置好用户名及密码，子系统安装完成。<br><img src="ubuntu.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>安装完成后，运行<code>wsl --list --verbose</code><br><img src="wsl_lv.png" alt="图片" title="打开后显示"></p>
-</li>
-<li><p>运行</p>
-<ul>
-<li>点击ubuntu图标<br>  <img src="run_1.png" alt="图片" title="打开后显示"></li>
-<li>在power shell中运行<code>wsl</code><br>  <img src="run_2.png" alt="图片" title="打开后显示"></li>
-</ul>
-</li>
-</ol>
-<h1 id="安装cuda-toolkit在ubuntu环境下"><a href="#安装cuda-toolkit-在ubuntu环境下" class="headerlink" title="安装cuda toolkit(在ubuntu环境下)"></a>安装cuda toolkit(在ubuntu环境下)<a href="#安装cuda-toolkit在ubuntu环境下" class="header-anchor">#</a></h1><ol>
-<li><p>配置cuda网络仓库<br> 依次执行</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub</span><br><span class="line"></span><br><span class="line">sudo sh -c &#x27;echo &quot;deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /&quot; &gt; /etc/apt/sources.list.d/cuda.list&#x27;</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></li>
-<li><p>安装cuda</p>
-<p> 执行<code>sudo apt-get install -y cuda-toolkit-11-0</code></p>
-</li>
-</ol>
-<h1 id="安装docker和nvidia-docker"><a href="#安装docker和nvidia-docker" class="headerlink" title="安装docker和nvidia-docker"></a>安装docker和nvidia-docker<a href="#安装docker和nvidia-docker" class="header-anchor">#</a></h1><ol>
-<li><p>安装docker-ce:<code>curl https://get.docker.com | sh</code></p>
-</li>
-<li><p>安装nvidia-docker2:</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">distribution=$(. /etc/os-release;echo $ID$VERSION_ID)</span><br><span class="line"></span><br><span class="line">curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list</span><br><span class="line"></span><br><span class="line">curl -s -L https://nvidia.github.io/libnvidia-container/experimental/$distribution/libnvidia-container-experimental.list | sudo tee /etc/apt/sources.list.d/libnvidia-container-experimental.list</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install -y nvidia-docker2</span><br><span class="line"></span><br><span class="line">sudo gpasswd -a username docker ###username 为设置的Ubuntu用户名</span><br><span class="line"></span><br><span class="line">newgrp docker</span><br></pre></td></tr></table></figure></li>
-<li><p>完成安装</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo service docker stop</span><br><span class="line"></span><br><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure></li>
-<li><p>验证安装<br> 执行<code>docker run --runtime=nvidia  --rm -it --name tensorflow-1.14.0 tensorflow/tensorflow:1.14.0-gpu-py3</code></p>
-<p> 然后执行</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python</span><br><span class="line">import tensorflow as tf</span><br><span class="line">print(tf.test.is_gpu_available()) ###输出True</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference<a href="#reference" class="header-anchor">#</a></h1><ol>
-<li><a href="https://docs.nvidia.com/cuda/wsl-user-guide/index.html">CUDA on WSL :: CUDA Toolkit Documentation (nvidia.com)</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>win10</tag>
-        <tag>ubuntu</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>algorithm</title>
-    <url>/article/algorithm/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>LN_BN</title>
-    <url>/article/LN-BN/</url>
-    <content><![CDATA[<p>LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。</p>
-<p>BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。</p>
-<p><img src="image-20210906155404860.png" alt="image-20210906155404860"></p>
-<p><strong>优点：</strong>Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：</p>
-<ul>
-<li>加大搜索的步长，加快收敛的速度；</li>
-<li>更容易跳出局部最小值；</li>
-<li>破坏原来的数据分布，一定程度上缓解了过拟合</li>
-</ul>
-<p><strong>缺陷如下：</strong></p>
-<p>1、BN是在batch size样本上各个维度做标准化的，所以size越大肯定越能得出合理的μ和σ来做标准化，因此BN比较依赖size的大小。<br>2、在训练的时候，是分批量进行填入模型的，但是在预测的时候，如果只有一个样本或者很少量的样本来做inference，这个时候用BN显然偏差很大，例如在线学习场景。<br>3、RNN是一个动态的网络，也就是size是变化的，可大可小，造成多样本维度都没法对齐，所以不适合用BN。</p>
-<p><strong>LN带来的优势：</strong></p>
-<p>1、Layer Normalization是每个样本内部做标准化，跟size没关系，不受其影响。<br>2、RNN中LN也不受影响，内部自己做标准化，所以LN的应用面更广。</p>
-<ul>
-<li>BatchNorm：batch方向做归一化，计算N<em>H</em>W的均值</li>
-<li>LayerNorm：channel方向做归一化，计算C<em>H</em>W的均值</li>
-<li>InstanceNorm：一个channel内做归一化，计算H*W的均值</li>
-<li>GroupNorm：先将channel方向分group，然后每个group内做归一化，计算(C//G)<em>H</em>W的均值</li>
-</ul>
-<h1 id="wn"><a href="#WN" class="headerlink" title="WN"></a>WN<a href="#wn" class="header-anchor">#</a></h1><p><img src="image-20210906155830408.png" alt="image-20210906155830408"></p>
-<p><img src="LN-BN/image-20210906155845338.png" alt="image-20210906155845338"></p>
-<h1 id="归一化操作"><a href="#归一化操作" class="headerlink" title="归一化操作"></a>归一化操作<a href="#归一化操作" class="header-anchor">#</a></h1><p><img src="image-20210906160001983.png" alt="image-20210906160001983"></p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.cnblogs.com/gczr/p/12597344.html">https://www.cnblogs.com/gczr/p/12597344.html</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/33173246">详解深度学习中的Normalization，BN/LN/WN - 知乎 (zhihu.com)</a></p>
-<p><a href="https://www.cnblogs.com/shine-lee/p/11779514.html">为什么要做特征归一化/标准化？ - shine-lee - 博客园 (cnblogs.com)</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Hadoop_WSL2</title>
     <url>/article/Hadoop_WSL2/</url>
     <content><![CDATA[<h1 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像<a href="#制作镜像" class="header-anchor">#</a></h1><h2 id="1-拉取ubuntu镜像"><a href="#1-拉取Ubuntu镜像" class="headerlink" title="1. 拉取Ubuntu镜像"></a>1. 拉取Ubuntu镜像<a href="#1-拉取ubuntu镜像" class="header-anchor">#</a></h2><pre><code>首先拉取一个Ubuntu最新的镜像作为基础镜像`docker pull ubuntu:latest`,结束后，运行`docker images`,可以看到
@@ -260,6 +145,164 @@
 <div style="display:none">这是一段注释</div>]]></content>
   </entry>
   <entry>
+    <title>LN_BN</title>
+    <url>/article/LN-BN/</url>
+    <content><![CDATA[<p>LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。</p>
+<p>BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。</p>
+<p><img src="image-20210906155404860.png" alt="image-20210906155404860"></p>
+<p><strong>优点：</strong>Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：</p>
+<ul>
+<li>加大搜索的步长，加快收敛的速度；</li>
+<li>更容易跳出局部最小值；</li>
+<li>破坏原来的数据分布，一定程度上缓解了过拟合</li>
+</ul>
+<p><strong>缺陷如下：</strong></p>
+<p>1、BN是在batch size样本上各个维度做标准化的，所以size越大肯定越能得出合理的μ和σ来做标准化，因此BN比较依赖size的大小。<br>2、在训练的时候，是分批量进行填入模型的，但是在预测的时候，如果只有一个样本或者很少量的样本来做inference，这个时候用BN显然偏差很大，例如在线学习场景。<br>3、RNN是一个动态的网络，也就是size是变化的，可大可小，造成多样本维度都没法对齐，所以不适合用BN。</p>
+<p><strong>LN带来的优势：</strong></p>
+<p>1、Layer Normalization是每个样本内部做标准化，跟size没关系，不受其影响。<br>2、RNN中LN也不受影响，内部自己做标准化，所以LN的应用面更广。</p>
+<ul>
+<li>BatchNorm：batch方向做归一化，计算N<em>H</em>W的均值</li>
+<li>LayerNorm：channel方向做归一化，计算C<em>H</em>W的均值</li>
+<li>InstanceNorm：一个channel内做归一化，计算H*W的均值</li>
+<li>GroupNorm：先将channel方向分group，然后每个group内做归一化，计算(C//G)<em>H</em>W的均值</li>
+</ul>
+<h1 id="wn"><a href="#WN" class="headerlink" title="WN"></a>WN<a href="#wn" class="header-anchor">#</a></h1><p><img src="image-20210906155830408.png" alt="image-20210906155830408"></p>
+<p><img src="LN-BN/image-20210906155845338.png" alt="image-20210906155845338"></p>
+<h1 id="归一化操作"><a href="#归一化操作" class="headerlink" title="归一化操作"></a>归一化操作<a href="#归一化操作" class="header-anchor">#</a></h1><p><img src="image-20210906160001983.png" alt="image-20210906160001983"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.cnblogs.com/gczr/p/12597344.html">https://www.cnblogs.com/gczr/p/12597344.html</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/33173246">详解深度学习中的Normalization，BN/LN/WN - 知乎 (zhihu.com)</a></p>
+<p><a href="https://www.cnblogs.com/shine-lee/p/11779514.html">为什么要做特征归一化/标准化？ - shine-lee - 博客园 (cnblogs.com)</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>RS</title>
+    <url>/article/RS/</url>
+    <content><![CDATA[<p><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">rs发展历程1</a><br><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png">rs发展历程2</a></p>
+<span id="more"></span>
+
+<h1 id="推荐系统简介"><a href="#推荐系统简介" class="headerlink" title="推荐系统简介"></a>推荐系统简介<a href="#推荐系统简介" class="header-anchor">#</a></h1><ol>
+<li>做什么<ul>
+<li>用户：帮助用户快速发现有用信息</li>
+<li>企业：增加产品与潜在用户接触、购买等行为概率的工具</li>
+</ul>
+</li>
+<li>为什么<ul>
+<li>用户：在需求不明确的时候进行信息过滤，利用用户的各类历史信息猜测其可能喜欢的内容</li>
+<li>使产品最大限度的吸引用户，留存客户，增长用户黏性，提高用户转化率</li>
+</ul>
+</li>
+<li>为了谁<ul>
+<li>用户和企业，在此基础上，展开想想什么样的人需要推荐系统，及什么样的企业需要推荐系统</li>
+</ul>
+</li>
+</ol>
+<h1 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标<a href="#评价指标" class="header-anchor">#</a></h1><ol>
+<li><p>用户满意度<br> &emsp;&emsp;用户满意度直接决定推荐系统的好坏，但是无法离线计算。因此需要购满率来度量客户满意度，与此类似的还有用户停留时间和转化率等指标。</p>
+</li>
+<li><p>预测精准度<br> 预测准确度是用来度量用户的实际行为与推荐系统预测结果的准确度，是最重要的离线评价指标。</p>
+<ul>
+<li><p>评分预测<br>  预测用户对物品的评分行为称为评分预测。评分预测模型通过对用户的历史物品评分记录进行建模，进而得到用户的兴趣模型，然后使用模型预测用户对未见过商品的评分。评分预测的准确度一般通过均方根误差（RMSE）或者平均绝对误差（MAE）计算。对于测试集中的一个用户$u$和物品$i$,令$r_{ui}$是用户$u$对物品$i$的实际评分,而$\hat{r_{ui}}$是推荐模型预测出的评分,那么RMSE可以定义为: $$ RMSE = \sqrt{\frac{\sum_{u,i \in T}(r_{ui} - \hat{r}<em>{ui})^2}{|T|}} $$ MAE定义为: $$ MAE = \frac{\sum{u,i \in T}|r</em>{ui} - \hat{r}_{ui}|}{|T|} $$ RMSE由于存在平方项，使得使得用户真实评分与推荐系统预测评分相差较大的用户加大了惩罚，即该评测指标对系统要求更加的苛刻</p>
+</li>
+<li><p>TopN推荐<br>   推荐系统在给用户推荐物品的时候,往往会给用户一个列表的推荐物品,这种场景下的推荐成为是TopN推荐,该推荐方式最常用的预测准确率指标一般是精确率(precision)和召回率(recall),令$R(u)$为通过推荐模型得到的推荐列表,$T(u)$为用户在实际场景中(测试集)的行为列表.</p>
+<ul>
+<li><p>精确率(precision): 分类正确的正样本个数占分类器判定为正样本的样本个数比例(这里$R(u)$相当于是模型判定的正样本) $$ Precision= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|R(u)|} $$</p>
+</li>
+<li><p>召回率(recall): 分类正确的正样本个数占真正的正样本个数的比例(这里的$T(u)$相当于真正的正样本集合)</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>$$ Recall= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|T(u)|} $$<br>  有时候为了更加全面的评估TopN推荐,通常会选取不同的推荐列表长度计算多组精确率与召回率然后分别绘制出精确率曲线和召回率曲线,需要注意的是这里并不是PR曲线,感兴趣的可以了解一下PR曲线相关的知识.</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>WSL2安装Ubuntu</title>
+    <url>/article/WSL2_Ubuntu/</url>
+    <content><![CDATA[<h1 id="系统更新至预览版"><a href="#系统更新至预览版" class="headerlink" title="系统更新至预览版"></a>系统更新至预览版<a href="#系统更新至预览版" class="header-anchor">#</a></h1><ol>
+<li><p>加入Windows Insider Program</p>
+<p> <a href="https://insider.windows.com/en-us/getting-started">链接</a></p>
+<p> <img src="wip.png" alt="图片" title="打开后显示"></p>
+</li>
+<li><p>注册加入完成后，前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 预览体验计划】，选择【开始】，然后点击【确认】。</p>
+<p> <img src="update.png" alt="图片" title="打开后显示"><br> <img src="choose.png" alt="图片" title="打开后显示"><br> <img src="microsoft_login.png" alt="图片" title="打开后显示"></p>
+</li>
+<li><p>漫长的等待，等待过程中如果出现太久旋转没动静，可反复取消-选择账户，几次下来一般就可以了。随后使用加入Windows Insider Program时注册的账号密码，之后出现</p>
+<p> <img src="dev.png" alt="图片" title="打开后显示"><br> 选择dev渠道，然后立即重启。</p>
+</li>
+<li><p>前往【开始】菜单&gt;【设置】&gt;【更新和安全】&gt;【Windows 更新】，下载更新完window，<br>选择【检查更新】，然后耐心等待最新 Windows 10 预览版的下载和安装。</p>
+<p> <img src="update_wid.png" alt="图片" title="打开后显示"></p>
+</li>
+<li><p>检查系统更新成功与否</p>
+<p> win+R-&gt;winver:<br> <img src="version.png" alt="图片" title="打开后显示"><br> 确认这里的os内部版本和第四步下载的版本一致</p>
+ <span id="more"></span></li>
+</ol>
+<h1 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动<a href="#安装驱动" class="header-anchor">#</a></h1><ol>
+<li><p>前往<a href="https://developer.nvidia.com/cuda/wsl">链接</a></p>
+<p> <img src="driver.png" alt="图片" title="打开后显示"></p>
+</li>
+<li><p>下载完成后，正常win程序安装</p>
+</li>
+</ol>
+<h1 id="安装wsl2"><a href="#安装WSL2" class="headerlink" title="安装WSL2"></a>安装WSL2<a href="#安装wsl2" class="header-anchor">#</a></h1><p>按照官方说法，使用预览版会有简单操作，但我是在未使用预览版时安装的，所以仅供参考。</p>
+<ol>
+<li><p>管理员身份运行power shell</p>
+<p> 如果出现以下问题：<br> <img src="problem.png" alt="图片" title="打开后显示"><br> 则执行<code>set-ExecutionPolicy RemoteSigned</code><br> 成功结果为：<br> <img src="success.png" alt="图片" title="打开后显示"><br> 如果没有出现上述问题，则执行<code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code>开启子系统<br> <img src="subsystem.png" alt="图片" title="打开后显示"><br> 然后，执行<code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code>开启虚拟机<br> <img src="vm.png" alt="图片" title="打开后显示"><br> <font color="red">随后重启计算机！</font></p>
+</li>
+<li><p>安装WSL内核更新包<a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">链接</a></p>
+</li>
+<li><p>将wsl2设置为默认版本：<code>set --set-default-version 2</code></p>
+</li>
+</ol>
+<h1 id="安装ubuntu1804"><a href="#安装ubuntu18-04" class="headerlink" title="安装ubuntu18.04"></a>安装ubuntu18.04<a href="#安装ubuntu1804" class="header-anchor">#</a></h1><ol>
+<li><p>打开Microsoft store,搜索ubuntu18,点击获取，等待下载安装，安装完成后，点击右上角的启动按钮，会出现下面操作；设置好用户名及密码，子系统安装完成。<br><img src="ubuntu.png" alt="图片" title="打开后显示"></p>
+</li>
+<li><p>安装完成后，运行<code>wsl --list --verbose</code><br><img src="wsl_lv.png" alt="图片" title="打开后显示"></p>
+</li>
+<li><p>运行</p>
+<ul>
+<li>点击ubuntu图标<br>  <img src="run_1.png" alt="图片" title="打开后显示"></li>
+<li>在power shell中运行<code>wsl</code><br>  <img src="run_2.png" alt="图片" title="打开后显示"></li>
+</ul>
+</li>
+</ol>
+<h1 id="安装cuda-toolkit在ubuntu环境下"><a href="#安装cuda-toolkit-在ubuntu环境下" class="headerlink" title="安装cuda toolkit(在ubuntu环境下)"></a>安装cuda toolkit(在ubuntu环境下)<a href="#安装cuda-toolkit在ubuntu环境下" class="header-anchor">#</a></h1><ol>
+<li><p>配置cuda网络仓库<br> 依次执行</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub</span><br><span class="line"></span><br><span class="line">sudo sh -c &#x27;echo &quot;deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /&quot; &gt; /etc/apt/sources.list.d/cuda.list&#x27;</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></li>
+<li><p>安装cuda</p>
+<p> 执行<code>sudo apt-get install -y cuda-toolkit-11-0</code></p>
+</li>
+</ol>
+<h1 id="安装docker和nvidia-docker"><a href="#安装docker和nvidia-docker" class="headerlink" title="安装docker和nvidia-docker"></a>安装docker和nvidia-docker<a href="#安装docker和nvidia-docker" class="header-anchor">#</a></h1><ol>
+<li><p>安装docker-ce:<code>curl https://get.docker.com | sh</code></p>
+</li>
+<li><p>安装nvidia-docker2:</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">distribution=$(. /etc/os-release;echo $ID$VERSION_ID)</span><br><span class="line"></span><br><span class="line">curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list</span><br><span class="line"></span><br><span class="line">curl -s -L https://nvidia.github.io/libnvidia-container/experimental/$distribution/libnvidia-container-experimental.list | sudo tee /etc/apt/sources.list.d/libnvidia-container-experimental.list</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install -y nvidia-docker2</span><br><span class="line"></span><br><span class="line">sudo gpasswd -a username docker ###username 为设置的Ubuntu用户名</span><br><span class="line"></span><br><span class="line">newgrp docker</span><br></pre></td></tr></table></figure></li>
+<li><p>完成安装</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo service docker stop</span><br><span class="line"></span><br><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure></li>
+<li><p>验证安装<br> 执行<code>docker run --runtime=nvidia  --rm -it --name tensorflow-1.14.0 tensorflow/tensorflow:1.14.0-gpu-py3</code></p>
+<p> 然后执行</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python</span><br><span class="line">import tensorflow as tf</span><br><span class="line">print(tf.test.is_gpu_available()) ###输出True</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference<a href="#reference" class="header-anchor">#</a></h1><ol>
+<li><a href="https://docs.nvidia.com/cuda/wsl-user-guide/index.html">CUDA on WSL :: CUDA Toolkit Documentation (nvidia.com)</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>win10</tag>
+        <tag>ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>algorithm</title>
+    <url>/article/algorithm/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>all_CN</title>
     <url>/article/all-CN/</url>
     <content><![CDATA[<h1 id="深度可分离卷积"><a href="#深度可分离卷积" class="headerlink" title="深度可分离卷积"></a>深度可分离卷积<a href="#深度可分离卷积" class="header-anchor">#</a></h1><p>假设输入是$D_{f^i} * D_{f^i} * M$ ,输出图大小是$D_{f^o}*D_{f^o}<em>N$, 卷积核大小是$D_k</em>D_k$</p>
@@ -350,49 +393,6 @@
 <p><a href="https://blog.csdn.net/weixin_36338224/article/details/109282596?spm=1001.2014.3001.5501">(21条消息) 深入异步IO框架：asyncio 中篇_王炳明-CSDN博客</a></p>
 <p><a href="https://blog.csdn.net/weixin_36338224/article/details/109282563?spm=1001.2014.3001.5501">(21条消息) 初识异步IO框架：asyncio 上篇_王炳明-CSDN博客_异步io框架</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>distributed_torch</title>
-    <url>/article/distributed-torch/</url>
-    <content><![CDATA[<h1 id="多gpu分配"><a href="#多GPU分配" class="headerlink" title="多GPU分配"></a>多GPU分配<a href="#多gpu分配" class="header-anchor">#</a></h1><p>实现逻辑：寻找（可用显存 / 总显存）最大的的GPU，并优先安排任务</p>
-<p>nvidia-smi可以很方便的获得GPU的各种详细信息。</p>
-<p>首先获得可用的GPU数目，nvidia-smi -L | grep GPU |wc -l</p>
-<p>然后获得GPU各自的总显存，nvidia-smi -q -d Memory | grep -A4 GPU | grep Total | grep -o ‘[0-9]+‘</p>
-<p>最后获得GPU各自的可用显存，nvidia-smi -q -d Memory | grep -A4 GPU | grep Free | grep -o ‘[0-9]+‘</p>
-<p>将（可用显存 / 总显存）另存为numpy数组，并使用np.argmax返回值即为可用GPU</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def available_GPU(self):</span><br><span class="line">    import subprocess</span><br><span class="line">    import numpy as np</span><br><span class="line">    nDevice = int(subprocess.getoutput(&quot;nvidia-smi -L | grep GPU |wc -l&quot;))</span><br><span class="line">    total_GPU_str = subprocess.getoutput(&quot;nvidia-smi -q -d Memory | grep -A4 GPU | grep Total | grep -o &#x27;[0-9]\+&#x27;&quot;)</span><br><span class="line">    total_GPU = total_GPU_str.split(&#x27;\n&#x27;)</span><br><span class="line">    total_GPU = np.array([int(device_i) for device_i in total_GPU])</span><br><span class="line">    avail_GPU_str = subprocess.getoutput(&quot;nvidia-smi -q -d Memory | grep -A4 GPU | grep Free | grep -o &#x27;[0-9]\+&#x27;&quot;)</span><br><span class="line">    avail_GPU = avail_GPU_str.split(&#x27;\n&#x27;)</span><br><span class="line">    avail_GPU = np.array([int(device_i) for device_i in avail_GPU])</span><br><span class="line">    avail_GPU = avail_GPU / total_GPU</span><br><span class="line">    return np.argmax(avail_GPU)</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.cnblogs.com/yh-blog/p/12877922.html">pytorch(分布式)数据并行个人实践总结——DataParallel/DistributedDataParallel </a></p>
-<p><a href="https://blog.csdn.net/junqing_wu/article/details/112732338">torch 多进程训练(详细例程)</a></p>
-<p><a href="https://blog.csdn.net/qq_34914551/article/details/110576421">PyTorch多进程分布式训练最简单最好用的实施办法</a></p>
-<p><a href="https://blog.csdn.net/ZAQ1018472917/article/details/84626040">python并行编程 - GPU篇</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/107230545">Pytorch 分布式、多进程模块测试 </a></p>
-<p><a href="https://blog.csdn.net/baidu_36669549/article/details/95094464">多进程GPU调用问题</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/77307505">GPU加速02:超详细Python Cuda零基础入门教程，没有显卡也能学</a></p>
-<p><a href="https://blog.csdn.net/sh39o/article/details/90382101">使用python多GPU任务分配</a></p>
-<p><a href="https://blog.csdn.net/github_37320188/article/details/100519346">Deep Learning:PyTorch 基于docker 容器的分布式训练实践</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>deeplearning</title>
-    <url>/article/deeplearning/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="b31157566198a7e21362b0ec90d5f165701dea308ca35047da2c02452e8594af">1e0e73741e06b0129e61c2ad316ca7f7e5461bce2236a74a72b61150c72cf901</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Welcome to my blog, enter password to read.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <tags>
-        <tag>加密</tag>
-      </tags>
   </entry>
   <entry>
     <title>decorator</title>
@@ -586,6 +586,49 @@
 ]]></content>
   </entry>
   <entry>
+    <title>distributed_torch</title>
+    <url>/article/distributed-torch/</url>
+    <content><![CDATA[<h1 id="多gpu分配"><a href="#多GPU分配" class="headerlink" title="多GPU分配"></a>多GPU分配<a href="#多gpu分配" class="header-anchor">#</a></h1><p>实现逻辑：寻找（可用显存 / 总显存）最大的的GPU，并优先安排任务</p>
+<p>nvidia-smi可以很方便的获得GPU的各种详细信息。</p>
+<p>首先获得可用的GPU数目，nvidia-smi -L | grep GPU |wc -l</p>
+<p>然后获得GPU各自的总显存，nvidia-smi -q -d Memory | grep -A4 GPU | grep Total | grep -o ‘[0-9]+‘</p>
+<p>最后获得GPU各自的可用显存，nvidia-smi -q -d Memory | grep -A4 GPU | grep Free | grep -o ‘[0-9]+‘</p>
+<p>将（可用显存 / 总显存）另存为numpy数组，并使用np.argmax返回值即为可用GPU</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def available_GPU(self):</span><br><span class="line">    import subprocess</span><br><span class="line">    import numpy as np</span><br><span class="line">    nDevice = int(subprocess.getoutput(&quot;nvidia-smi -L | grep GPU |wc -l&quot;))</span><br><span class="line">    total_GPU_str = subprocess.getoutput(&quot;nvidia-smi -q -d Memory | grep -A4 GPU | grep Total | grep -o &#x27;[0-9]\+&#x27;&quot;)</span><br><span class="line">    total_GPU = total_GPU_str.split(&#x27;\n&#x27;)</span><br><span class="line">    total_GPU = np.array([int(device_i) for device_i in total_GPU])</span><br><span class="line">    avail_GPU_str = subprocess.getoutput(&quot;nvidia-smi -q -d Memory | grep -A4 GPU | grep Free | grep -o &#x27;[0-9]\+&#x27;&quot;)</span><br><span class="line">    avail_GPU = avail_GPU_str.split(&#x27;\n&#x27;)</span><br><span class="line">    avail_GPU = np.array([int(device_i) for device_i in avail_GPU])</span><br><span class="line">    avail_GPU = avail_GPU / total_GPU</span><br><span class="line">    return np.argmax(avail_GPU)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://www.cnblogs.com/yh-blog/p/12877922.html">pytorch(分布式)数据并行个人实践总结——DataParallel/DistributedDataParallel </a></p>
+<p><a href="https://blog.csdn.net/junqing_wu/article/details/112732338">torch 多进程训练(详细例程)</a></p>
+<p><a href="https://blog.csdn.net/qq_34914551/article/details/110576421">PyTorch多进程分布式训练最简单最好用的实施办法</a></p>
+<p><a href="https://blog.csdn.net/ZAQ1018472917/article/details/84626040">python并行编程 - GPU篇</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/107230545">Pytorch 分布式、多进程模块测试 </a></p>
+<p><a href="https://blog.csdn.net/baidu_36669549/article/details/95094464">多进程GPU调用问题</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/77307505">GPU加速02:超详细Python Cuda零基础入门教程，没有显卡也能学</a></p>
+<p><a href="https://blog.csdn.net/sh39o/article/details/90382101">使用python多GPU任务分配</a></p>
+<p><a href="https://blog.csdn.net/github_37320188/article/details/100519346">Deep Learning:PyTorch 基于docker 容器的分布式训练实践</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>deeplearning</title>
+    <url>/article/deeplearning/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="b31157566198a7e21362b0ec90d5f165701dea308ca35047da2c02452e8594af">1e0e73741e06b0129e61c2ad316ca7f7e5461bce2236a74a72b61150c72cf901</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Welcome to my blog, enter password to read.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <tags>
+        <tag>加密</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git_learn</title>
     <url>/article/git-learn/</url>
     <content><![CDATA[<p><img src="image-20210909164119386.png" alt="image-20210909164119386"></p>
@@ -595,6 +638,17 @@
 <p><a href="https://www.cnblogs.com/jeremylee/p/5715289.html">error: src refspec master does not match any. 错误处理办法 - JeremyLee87 - 博客园 (cnblogs.com)</a></p>
 <p><a href="https://segmentfault.com/a/1190000013059664">Git 多人协作开发流程 - SegmentFault 思否</a></p>
 <p><img src="image-20210910093541121.png" alt="image-20210910093541121"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>logging</title>
+    <url>/article/logging/</url>
+    <content><![CDATA[<h1 id="按天生成日志"><a href="#按天生成日志" class="headerlink" title="按天生成日志"></a>按天生成日志<a href="#按天生成日志" class="header-anchor">#</a></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># #coding=utf-8</span><br><span class="line">import logging,os  # 引入logging模块</span><br><span class="line">from com_tools import setting</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from logging import handlers</span><br><span class="line"></span><br><span class="line">class Logger(object):</span><br><span class="line">    level_relations = &#123;</span><br><span class="line">        &#x27;debug&#x27;:logging.DEBUG,</span><br><span class="line">        &#x27;info&#x27;:logging.INFO,</span><br><span class="line">        &#x27;warning&#x27;:logging.WARNING,</span><br><span class="line">        &#x27;error&#x27;:logging.ERROR,</span><br><span class="line">        &#x27;crit&#x27;:logging.CRITICAL</span><br><span class="line">    &#125;#日志级别关系映射</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def __init__(self,filename,level=&#x27;info&#x27;,when=&#x27;MIDNIGHT&#x27;,backCount=7,fmt=&#x27;%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s&#x27;):</span><br><span class="line">        self.logger = logging.getLogger(filename)</span><br><span class="line">        format_str = logging.Formatter(fmt)#设置日志格式</span><br><span class="line">        self.logger.setLevel(self.level_relations.get(level))#设置日志级别</span><br><span class="line">        sh = logging.StreamHandler()#往控制台输出</span><br><span class="line">        sh.setFormatter(format_str) #设置控制台上显示的格式</span><br><span class="line">        th = handlers.TimedRotatingFileHandler(filename=filename,interval=1,when=when,backupCount=backCount,encoding=&#x27;utf-8&#x27;)#往文件里写入#指定间隔时间自动生成文件的处理器</span><br><span class="line">        #实例化TimedRotatingFileHandler</span><br><span class="line">        #interval是时间间隔，backupCount是备份文件的个数，如果超过这个个数，就会自动删除，when是间隔的时间单位，单位有以下几种：</span><br><span class="line">        # S 秒</span><br><span class="line">        # M 分</span><br><span class="line">        # H 小时、</span><br><span class="line">        # D 天、</span><br><span class="line">        # W 每星期（interval==0时代表星期一）</span><br><span class="line">        # midnight 每天凌晨</span><br><span class="line">        th.suffix = &quot;%Y-%m-%d.log&quot; #设置文件后缀</span><br><span class="line">        th.setFormatter(format_str)#设置文件里写入的格式</span><br><span class="line">        self.logger.addHandler(sh) #把对象加到logger里</span><br><span class="line">        self.logger.addHandler(th)</span><br><span class="line">logfile = os.path.join(setting.logs_path, &quot;daodianmockapi.txt&quot;) # 这个文件的名称就是当天的日志文件，过往的日志文件，会在后面追加文件后缀 th.suffix</span><br><span class="line">logger = Logger(logfile,level=&#x27;debug&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #logger = Logger(&#x27;all.log&#x27;,level=&#x27;debug&#x27;)</span><br><span class="line">    # filename = setting.now_time+ &quot;.txt&quot;</span><br><span class="line">    # logfile = os.path.join(setting.logs_path,filename)</span><br><span class="line">    # logger = Logger(logfile,level=&#x27;debug&#x27;)</span><br><span class="line">    logger.logger.debug(&#x27;debug&#x27;) # 括号内的内容即为日志的文本内容</span><br><span class="line">    logger.logger.info(&#x27;info&#x27;)</span><br><span class="line">    logger.logger.warning(&#x27;警告&#x27;)</span><br><span class="line">    logger.logger.error(&#x27;报错&#x27;)</span><br><span class="line">    logger.logger.critical(&#x27;严重&#x27;)</span><br><span class="line">    #Logger(&#x27;error.log&#x27;, level=&#x27;error&#x27;).logger.error(&#x27;error&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="loguru"><a href="#loguru" class="headerlink" title="loguru"></a>loguru<a href="#loguru" class="header-anchor">#</a></h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://zhuanlan.zhihu.com/p/144506204">python定时任务最强框架APScheduler详细教程 </a></p>
+<p><a href="https://pythondict.com/life-intelligent/tools/loguru/">Loguru — 最强大的 Python 日志记录器</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -608,17 +662,6 @@
 <p><a href="https://zhuanlan.zhihu.com/p/162730118">MMDetection v2.0 训练自己的数据集 - 知乎 (zhihu.com)</a></p>
 <p><a href="https://www.aiuai.cn/aifarm1218.html">mmdetection 模型训练</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/128697076">mmdetection源码解读（一） - 知乎 (zhihu.com)</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>logging</title>
-    <url>/article/logging/</url>
-    <content><![CDATA[<h1 id="按天生成日志"><a href="#按天生成日志" class="headerlink" title="按天生成日志"></a>按天生成日志<a href="#按天生成日志" class="header-anchor">#</a></h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># #coding=utf-8</span><br><span class="line">import logging,os  # 引入logging模块</span><br><span class="line">from com_tools import setting</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from logging import handlers</span><br><span class="line"></span><br><span class="line">class Logger(object):</span><br><span class="line">    level_relations = &#123;</span><br><span class="line">        &#x27;debug&#x27;:logging.DEBUG,</span><br><span class="line">        &#x27;info&#x27;:logging.INFO,</span><br><span class="line">        &#x27;warning&#x27;:logging.WARNING,</span><br><span class="line">        &#x27;error&#x27;:logging.ERROR,</span><br><span class="line">        &#x27;crit&#x27;:logging.CRITICAL</span><br><span class="line">    &#125;#日志级别关系映射</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def __init__(self,filename,level=&#x27;info&#x27;,when=&#x27;MIDNIGHT&#x27;,backCount=7,fmt=&#x27;%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s&#x27;):</span><br><span class="line">        self.logger = logging.getLogger(filename)</span><br><span class="line">        format_str = logging.Formatter(fmt)#设置日志格式</span><br><span class="line">        self.logger.setLevel(self.level_relations.get(level))#设置日志级别</span><br><span class="line">        sh = logging.StreamHandler()#往控制台输出</span><br><span class="line">        sh.setFormatter(format_str) #设置控制台上显示的格式</span><br><span class="line">        th = handlers.TimedRotatingFileHandler(filename=filename,interval=1,when=when,backupCount=backCount,encoding=&#x27;utf-8&#x27;)#往文件里写入#指定间隔时间自动生成文件的处理器</span><br><span class="line">        #实例化TimedRotatingFileHandler</span><br><span class="line">        #interval是时间间隔，backupCount是备份文件的个数，如果超过这个个数，就会自动删除，when是间隔的时间单位，单位有以下几种：</span><br><span class="line">        # S 秒</span><br><span class="line">        # M 分</span><br><span class="line">        # H 小时、</span><br><span class="line">        # D 天、</span><br><span class="line">        # W 每星期（interval==0时代表星期一）</span><br><span class="line">        # midnight 每天凌晨</span><br><span class="line">        th.suffix = &quot;%Y-%m-%d.log&quot; #设置文件后缀</span><br><span class="line">        th.setFormatter(format_str)#设置文件里写入的格式</span><br><span class="line">        self.logger.addHandler(sh) #把对象加到logger里</span><br><span class="line">        self.logger.addHandler(th)</span><br><span class="line">logfile = os.path.join(setting.logs_path, &quot;daodianmockapi.txt&quot;) # 这个文件的名称就是当天的日志文件，过往的日志文件，会在后面追加文件后缀 th.suffix</span><br><span class="line">logger = Logger(logfile,level=&#x27;debug&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    #logger = Logger(&#x27;all.log&#x27;,level=&#x27;debug&#x27;)</span><br><span class="line">    # filename = setting.now_time+ &quot;.txt&quot;</span><br><span class="line">    # logfile = os.path.join(setting.logs_path,filename)</span><br><span class="line">    # logger = Logger(logfile,level=&#x27;debug&#x27;)</span><br><span class="line">    logger.logger.debug(&#x27;debug&#x27;) # 括号内的内容即为日志的文本内容</span><br><span class="line">    logger.logger.info(&#x27;info&#x27;)</span><br><span class="line">    logger.logger.warning(&#x27;警告&#x27;)</span><br><span class="line">    logger.logger.error(&#x27;报错&#x27;)</span><br><span class="line">    logger.logger.critical(&#x27;严重&#x27;)</span><br><span class="line">    #Logger(&#x27;error.log&#x27;, level=&#x27;error&#x27;).logger.error(&#x27;error&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="loguru"><a href="#loguru" class="headerlink" title="loguru"></a>loguru<a href="#loguru" class="header-anchor">#</a></h1><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a href="https://zhuanlan.zhihu.com/p/144506204">python定时任务最强框架APScheduler详细教程 </a></p>
-<p><a href="https://pythondict.com/life-intelligent/tools/loguru/">Loguru — 最强大的 Python 日志记录器</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -720,6 +763,11 @@
       </tags>
   </entry>
   <entry>
+    <title>todo_list</title>
+    <url>/article/todo-list/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>theme</title>
     <url>/article/theme/</url>
     <content><![CDATA[<h3 id="更改主题"><a href="#更改主题" class="headerlink" title="更改主题"></a>更改主题<a href="#更改主题" class="header-anchor">#</a></h3><p>进入命令行，下载 NexT 主题，输入:</p>
@@ -772,11 +820,6 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure></li>
 </ol>
 ]]></content>
-  </entry>
-  <entry>
-    <title>todo_list</title>
-    <url>/article/todo-list/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>tqdm使用</title>
@@ -1608,48 +1651,5 @@
       <tags>
         <tag>加密</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>RS</title>
-    <url>/article/RS/</url>
-    <content><![CDATA[<p><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">rs发展历程1</a><br><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png">rs发展历程2</a></p>
-<span id="more"></span>
-
-<h1 id="推荐系统简介"><a href="#推荐系统简介" class="headerlink" title="推荐系统简介"></a>推荐系统简介<a href="#推荐系统简介" class="header-anchor">#</a></h1><ol>
-<li>做什么<ul>
-<li>用户：帮助用户快速发现有用信息</li>
-<li>企业：增加产品与潜在用户接触、购买等行为概率的工具</li>
-</ul>
-</li>
-<li>为什么<ul>
-<li>用户：在需求不明确的时候进行信息过滤，利用用户的各类历史信息猜测其可能喜欢的内容</li>
-<li>使产品最大限度的吸引用户，留存客户，增长用户黏性，提高用户转化率</li>
-</ul>
-</li>
-<li>为了谁<ul>
-<li>用户和企业，在此基础上，展开想想什么样的人需要推荐系统，及什么样的企业需要推荐系统</li>
-</ul>
-</li>
-</ol>
-<h1 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标<a href="#评价指标" class="header-anchor">#</a></h1><ol>
-<li><p>用户满意度<br> &emsp;&emsp;用户满意度直接决定推荐系统的好坏，但是无法离线计算。因此需要购满率来度量客户满意度，与此类似的还有用户停留时间和转化率等指标。</p>
-</li>
-<li><p>预测精准度<br> 预测准确度是用来度量用户的实际行为与推荐系统预测结果的准确度，是最重要的离线评价指标。</p>
-<ul>
-<li><p>评分预测<br>  预测用户对物品的评分行为称为评分预测。评分预测模型通过对用户的历史物品评分记录进行建模，进而得到用户的兴趣模型，然后使用模型预测用户对未见过商品的评分。评分预测的准确度一般通过均方根误差（RMSE）或者平均绝对误差（MAE）计算。对于测试集中的一个用户$u$和物品$i$,令$r_{ui}$是用户$u$对物品$i$的实际评分,而$\hat{r_{ui}}$是推荐模型预测出的评分,那么RMSE可以定义为: $$ RMSE = \sqrt{\frac{\sum_{u,i \in T}(r_{ui} - \hat{r}<em>{ui})^2}{|T|}} $$ MAE定义为: $$ MAE = \frac{\sum{u,i \in T}|r</em>{ui} - \hat{r}_{ui}|}{|T|} $$ RMSE由于存在平方项，使得使得用户真实评分与推荐系统预测评分相差较大的用户加大了惩罚，即该评测指标对系统要求更加的苛刻</p>
-</li>
-<li><p>TopN推荐<br>   推荐系统在给用户推荐物品的时候,往往会给用户一个列表的推荐物品,这种场景下的推荐成为是TopN推荐,该推荐方式最常用的预测准确率指标一般是精确率(precision)和召回率(recall),令$R(u)$为通过推荐模型得到的推荐列表,$T(u)$为用户在实际场景中(测试集)的行为列表.</p>
-<ul>
-<li><p>精确率(precision): 分类正确的正样本个数占分类器判定为正样本的样本个数比例(这里$R(u)$相当于是模型判定的正样本) $$ Precision= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|R(u)|} $$</p>
-</li>
-<li><p>召回率(recall): 分类正确的正样本个数占真正的正样本个数的比例(这里的$T(u)$相当于真正的正样本集合)</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<p>$$ Recall= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|T(u)|} $$<br>  有时候为了更加全面的评估TopN推荐,通常会选取不同的推荐列表长度计算多组精确率与召回率然后分别绘制出精确率曲线和召回率曲线,需要注意的是这里并不是PR曲线,感兴趣的可以了解一下PR曲线相关的知识.</p>
-]]></content>
   </entry>
 </search>
