@@ -22,17 +22,21 @@
   </script>
 
 
-  <meta name="description" content="rs发展历程1rs发展历程2">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="article">
 <meta property="og:title" content="RS">
 <meta property="og:url" content="https://hu1104.github.io/article/RS/index.html">
 <meta property="og:site_name" content="Zongxing">
-<meta property="og:description" content="rs发展历程1rs发展历程2">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/RS/ROC.png">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/RS/%E5%A4%9A%E8%B7%AF%E5%8F%AC%E5%9B%9E.png">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/RS/Embedding.jpg">
 <meta property="article:published_time" content="2021-10-18T05:37:56.000Z">
-<meta property="article:modified_time" content="2021-10-19T02:51:59.689Z">
+<meta property="article:modified_time" content="2021-10-20T02:35:49.794Z">
 <meta property="article:author" content="hzx">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/RS/RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">
 
 <link rel="canonical" href="https://hu1104.github.io/article/RS/">
 
@@ -140,7 +144,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">29</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">30</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -229,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-19 10:51:59" itemprop="dateModified" datetime="2021-10-19T10:51:59+08:00">2021-10-19</time>
+                <time title="修改时间：2021-10-20 10:35:49" itemprop="dateModified" datetime="2021-10-20T10:35:49+08:00">2021-10-20</time>
               </span>
 
           
@@ -245,14 +249,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -264,9 +268,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">rs发展历程1</a><br><a href="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png">rs发展历程2</a></p>
+        <p><img src="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png" alt="rs发展历程1"><br><img src="./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png" alt="rs发展历程2"></p>
 <span id="more"></span>
-
 <h1 id="推荐系统简介"><a href="#推荐系统简介" class="headerlink" title="推荐系统简介"></a>推荐系统简介<a href="#推荐系统简介" class="header-anchor">#</a></h1><ol>
 <li>做什么<ul>
 <li>用户：帮助用户快速发现有用信息</li>
@@ -295,13 +298,64 @@
 <li><p>精确率(precision): 分类正确的正样本个数占分类器判定为正样本的样本个数比例(这里$R(u)$相当于是模型判定的正样本) $$ Precision= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|R(u)|} $$</p>
 </li>
 <li><p>召回率(recall): 分类正确的正样本个数占真正的正样本个数的比例(这里的$T(u)$相当于真正的正样本集合)</p>
+<p>  $$ Recall= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|T(u)|} $$<br>有时候为了更加全面的评估TopN推荐,通常会选取不同的推荐列表长度计算多组精确率与召回率然后分别绘制出精确率曲线和召回率曲线,需要注意的是这里并不是PR曲线,感兴趣的可以了解一下PR曲线相关的知识.</p>
 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li><p>覆盖率<br> 覆盖率是用来描述一个推荐系统对物品长尾的发掘能力,一个简单的定义可以是:推荐系统所有推荐出来的商品集合数占总物品集合数的比例.<br> 信息熵定义覆盖率: 其中$p(i)$是物品$i$的流行度除以所有物品流行度之和 $$ H = -\sum_{i=1}^n p(i) logp(i) $$ 基尼系数定义覆盖率: 其中$i_j$是按照物品流行度p从小到大排序的物品列表中第$j$个物品 $$ G=\frac{1}{n-1} \sum_{j=1}^{n}(2j-n-1)p(i_{j}) $$</p>
+</li>
+<li><p>多样性<br> 人的兴趣爱好通常是比较广泛的,所以一个好的推荐系统得到的推荐列表中应该尽可能多的包含用户的兴趣,只有这样才能增加用户找到感兴趣物品的概率.度量推荐列表中物品的多样性换句话说就是度量推荐列表中所有物品之间的不相似性,可以通过不同的相似性函数来度量推荐列表中商品的相似性,比如商品基于内容的相似,基于协同过滤的相似,这样就可以得到不同角度的多样性.令函数$s(i,j)$为物品$i$和物品$j$的相似性,那么用户推荐列表的多样性可以定义为: $$ Diversity(R(u))=1-\frac{\sum_{i,j \in R(u)}s(i,j)}{\frac{1}{2}|R(u)|(|R(u)|-1)} $$ 推荐系统整体的多样性可以定义为所有用户推荐列表多样性的平均值: $$ Diversity = \frac{1}{U} \sum_{u\in U}Diversity(R(u)) $$</p>
+</li>
+<li><p>新颖性<br> 满足推荐的新颖性最简单的方法就是给用户推荐他们之前没有看过的物品,但是每个用户没见过的物品数量是非常庞大的,所以一般会计算推荐物品的平均流行度,流行度越低的物品越有可能让用户觉得新颖,因此,如果推荐结果中的物品平均热门程度比较低说明推荐的结果就可能比较新颖.</p>
+</li>
+<li><p>AUC曲线<br> AUC（Area Under Curve），ROC曲线下与坐标轴围成的面积<br> TP：真的真了（真实值是真的，预测也是真）<br> FN：真的假了（真实值是真的，预测为假了）<br> FP：假的真了（真实值是假的，预测为真了）<br> TN：假的假了（真实值是假的，预测也是假）<br>  $$ Recall = \frac{TP}{TP+FN}\ Precise=\frac{TP}{TP+FP} $$ ROC(Receiver Operating Characteristic Curve)曲线：<br>  <img src="./RS/ROC.png" alt="ROC曲线图"><br>  ROC曲线的横坐标为假阳性率（False Positive Rate, FPR），N是真实负样本的个数， FP是N个负样本中被分类器预测为正样本的个数。</p>
+<p> 纵坐标为真阳性率（True Positive Rate, TPR），P是真实正样本的个数，TP是P个正样本中被分类器预测为正样本的个数。</p>
+</li>
+</ol>
+<h1 id="召回"><a href="#召回" class="headerlink" title="召回"></a>召回<a href="#召回" class="header-anchor">#</a></h1><ol>
+<li><p>召回层在推荐系统架构中的位置及作用</p>
+<p> &nbsp;<br> 在推荐系统架构中召回层与排序层是推荐系统的核心算法层，而将推荐过程分成召回层与排序层主要是基于工程上的考虑，其中召回阶段负责将海量的候选集快速缩小为几万到几千的规模；而排序层则负责对缩小后的候选集进行精准排序。所以在召回阶段往往会利用少量的特征和简单的模型对大规模的数据集进行快速的筛选，而在排序层一般会使用更多的特征和更加复杂的模型进行精准的排序。<br> &nbsp;<br> <strong>下面是召回层与排序层的特点</strong></p>
+<ul>
+<li><strong>召回层</strong>:待计算的候选集合大、计算速度快、模型简单、特征较少，尽量让用户感兴趣的物品在这个阶段能够被快速召回，即保证相关物品的召回率</li>
+<li><strong>排序层</strong>:首要目标是得到精准的排序结果。需要处理的物品数量少，可以利用较多的特征，使用比较复杂的模型。</li>
 </ul>
 </li>
 </ol>
-<p>$$ Recall= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|T(u)|} $$<br>  有时候为了更加全面的评估TopN推荐,通常会选取不同的推荐列表长度计算多组精确率与召回率然后分别绘制出精确率曲线和召回率曲线,需要注意的是这里并不是PR曲线,感兴趣的可以了解一下PR曲线相关的知识.</p>
+<p>在设计召回层时，“计算速度”和“召回率”其实是矛盾的两个指标，为提高“计算速度”，需要使召回策略尽量简单一些；而为了提高“召回率”，要求召回策略尽量选出排序模型所需要的候选集，这也就要求召回策略不能过于简单。在权衡计算速度和召回率后，目前工业界主流的召回方法是采用多个简单策略叠加的“多路召回策略”</p>
+<ol start="2">
+<li><p>多路召回策略<br>所谓的“多路召回”策略，就是指采用不同的策略、特征或简单模型，分别召回一部分候选集，然后把候选集混合在一起供后续排序模型使用，可以明显的看出，“多路召回策略”是在“计算速度”和“召回率”之间进行权衡的结果。其中，各种简单策略保证候选集的快速召回，从不同角度设计的策略保证召回率接近理想的状态，不至于损伤排序效果。<br><img src="RS/%E5%A4%9A%E8%B7%AF%E5%8F%AC%E5%9B%9E.png" alt="多路召回"><br>具体使用哪些召回策略其实是与业务强相关的，针对不同的任务就会有对于该业务真实场景下需要考虑的召回规则。例如视频推荐，召回规则可以是“热门视频”、“导演召回”、“演员召回”、“最近上映“、”流行趋势“、”类型召回“等等。<br>&nbsp;<br><strong>多路召回存在的问题</strong><br>&nbsp;<br>虽然多路召回权衡了计算速度和召回率的问题，可以使得用于排序的候选商品更加的丰富，但是实际的多路召回仍然存在一些问题。如上图所示，对于每一路召回都会从商品集合中拉回K个商品，这里的K是一个超参数，对于K的选择一般需要通过离线评估加线上的A/B测试来确定合理的K值。除此之外，对于不同的任务具体策略的选择也是人工基于经验的选择，选择的策略之间的信息是割裂的，无法总和考虑不同策略对一个物品的影响。</p>
+</li>
+<li><p>Embedding召回</p>
+</li>
+</ol>
+<br>
+
+<p><strong>embedding 是什么</strong></p>
+<p>Embedding其实是一种思想，主要目的是将稀疏的向量(如one-hot编码)表示转换成稠密的向量，下图直观的显示了one-hot编码和Embedding表示的区别于联系，即Embedding相当于是对one-hot做了平滑，而onehot相当于是对Embedding做了max pooling。<br><img src="RS/Embedding.jpg" alt="embdding"></p>
+<p><strong>常见的Embedding技术有哪些？</strong></p>
+<p>目前主要三大类：</p>
+<ul>
+<li>text embedding</li>
+<li>image embedding</li>
+<li>graph embedding</li>
+</ul>
+<p>在推荐系统领域，text embedding技术是目前使用最多的embedding技术，对于文本特征可以直接使用该技术，对于非文本的id类特征，可以先将其转化成id序列再使用text embedding的技术获取id的embedding再做召回。</p>
+<p>常见的text Embedding的技术有：</p>
+<ul>
+<li>静态向量：word2vec, fasttext, glove</li>
+<li>动态向量：ELMO, GPT, BERT</li>
+</ul>
+<p>对于image embedding其实主要是对于有图或者视频的特征，目前计算机视觉模型已经发展的比较成熟了，对于图像与视频的识别都有效果比较好的模型，大部分都是卷积模块通过各种连接技巧搭建的高效模型，可以使用现有的预训练模型提取图像或者视频的向量特征，然后用于召回。</p>
+<p>对于社交网络相关的推荐，进行推荐的用户与用于之间或者商品之间天然的存在某种复杂的图结构的关系，如何利用图中节点与节点之间的关系对其进行向量化是非常关键的，在这种场景下基于序列的text embedding和基于卷积模型的image embedding都显得力不从心，在这样的背景下Graph Embedding逐渐在推荐系统中流行起来。经典的Graph Embedding模型有, Deep Walk, Node2Vec，LINE以及比较新的阿里巴巴2018年公布的EGES graph Embedding模型。</p>
+<ol start="4">
+<li>参考文献：</li>
+</ol>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143763320">推荐系统 embedding 技术实践总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/luanfenlian0992/article/details/107416438">推荐系统召回策略之多路召回与Embedding召回</a></li>
+</ul>
 
     </div>
 
@@ -320,7 +374,10 @@
     <a href="/article/git_learn/" rel="prev" title="git_learn">
       <i class="fa fa-chevron-left"></i> git_learn
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/article/CF/" rel="next" title="CF">
+      CF <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -379,7 +436,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">推荐系统简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">评价指标</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">推荐系统简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">评价指标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AC%E5%9B%9E"><span class="nav-number">3.</span> <span class="nav-text">召回</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -393,7 +450,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -446,12 +503,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">149k</span>
+    <span title="站点总字数">152k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:15</span>
+    <span title="站点阅读时长">2:18</span>
 </div>
 
         

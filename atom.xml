@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-19T02:51:59.689Z</updated>
+  <updated>2021-10-20T02:36:47.383Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,14 +17,27 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CF</title>
+    <link href="https://hu1104.github.io/article/CF/"/>
+    <id>https://hu1104.github.io/article/CF/</id>
+    <published>2021-10-20T02:36:47.000Z</published>
+    <updated>2021-10-20T02:36:47.383Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>RS</title>
     <link href="https://hu1104.github.io/article/RS/"/>
     <id>https://hu1104.github.io/article/RS/</id>
     <published>2021-10-18T05:37:56.000Z</published>
-    <updated>2021-10-19T02:51:59.689Z</updated>
+    <updated>2021-10-20T02:35:49.794Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png&quot;&gt;rs发展历程1&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png&quot;&gt;rs发展历程2&lt;/a&gt;&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png&quot; alt=&quot;rs发展历程1&quot;&gt;&lt;br&gt;&lt;img src=&quot;./RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png&quot; alt=&quot;rs发展历程2&quot;&gt;&lt;/p&gt;</summary>
     
     
     
@@ -368,53 +381,6 @@
 
 &lt;p&gt;多重循环+判断语句&lt;/p&gt;
 &lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ls = [(&amp;#x27;x&amp;#x27;,[&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;]),(&amp;#x27;y&amp;#x27;,[&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;,&amp;#x27;open0&amp;#x27;]),(&amp;#x27;z&amp;#x27;,[&amp;#x27;open0&amp;#x27;,&amp;#x27;open0&amp;#x27;,&amp;#x27;open1&amp;#x27;])]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def find(con):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return [j for i in con for j in i if j.isdigit()]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[w for w,con in ls if find(con)==[&amp;#x27;1&amp;#x27;,&amp;#x27;1&amp;#x27;,&amp;#x27;1&amp;#x27;]]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>decorator</title>
-    <link href="https://hu1104.github.io/article/decorator/"/>
-    <id>https://hu1104.github.io/article/decorator/</id>
-    <published>2021-08-20T01:05:48.000Z</published>
-    <updated>2021-08-24T05:45:26.089Z</updated>
-    
-    
-    <summary type="html">&lt;div class=&quot;tocStart&quot;&gt;&lt;/div&gt;
-
-&lt;!-- toc --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A3%85%E9%A5%B0%E5%99%A8&quot;&gt;什么是装饰器&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#%E7%AE%80%E5%8D%95%E8%A3%85%E9%A5%B0%E5%99%A8&quot;&gt;简单装饰器&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#%E9%AB%98%E7%BA%A7%E8%A3%85%E9%A5%B0%E5%99%A8&quot;&gt;高级装饰器&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#%E5%9F%BA%E4%BA%8E%E5%87%BD%E6%95%B0%E7%9A%84%E5%B8%A6%E5%8F%82%E8%A3%85%E9%A5%B0%E5%99%A8&quot;&gt;基于函数的带参装饰器&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E4%B8%8D%E5%B8%A6%E5%8F%82%E8%A3%85%E9%A5%B0%E5%99%A8&quot;&gt;基于类的不带参装饰器&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#%E5%9F%BA%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%B8%A6%E5%8F%82%E6%95%B0%E8%A3%85%E9%A5%B0%E5%99%A8&quot;&gt;基于类的带参数装饰器&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#%E5%86%85%E7%BD%AE%E8%A3%85%E9%A5%B0%E5%99%A8&quot;&gt;内置装饰器&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#classmethod&quot;&gt;@classmethod&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#staticmethod&quot;&gt;@staticmethod&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#property&quot;&gt;@property&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#wraps&quot;&gt;@wraps&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#python%E5%86%85%E7%BD%AE%E7%B1%BB%E5%B1%9E%E6%80%A7&quot;&gt;python内置类属性&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99&quot;&gt;参考资料&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- tocstop --&gt;
-
-&lt;div class=&quot;tocEnd&quot;&gt;&lt;/div&gt;
-
-
-
-
-
-&lt;h1 id=&quot;什么是装饰器&quot;&gt;&lt;a href=&quot;#什么是装饰器&quot; class=&quot;headerlink&quot; title=&quot;什么是装饰器&quot;&gt;&lt;/a&gt;什么是装饰器&lt;/h1&gt;&lt;p&gt;一个decorator只是一个带有一个函数作为参数并返回一个替换函数的闭包。&lt;br&gt;简单示例：&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# 未使用装饰器时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def outer(some_func):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	def inner():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		print (&amp;quot;before some_func&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = some_func() # 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		return ret + 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return inner&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def foo():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;decorated = outer(foo)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;decorated()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#使用装饰器时&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def outer(some_func):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	def inner():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		print (&amp;quot;before some_func&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		ret = some_func() # 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		return ret + 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return inner&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@outer&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def foo():&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	return 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;foo()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     

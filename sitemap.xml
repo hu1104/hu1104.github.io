@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hu1104.github.io/article/CF/</loc>
+    
+    <lastmod>2021-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hu1104.github.io/article/RS/</loc>
+    
+    <lastmod>2021-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hu1104.github.io/article/record_everyday/</loc>
+    
+    <lastmod>2021-10-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hu1104.github.io/article/git_learn/</loc>
     
     <lastmod>2021-10-19</lastmod>
@@ -37,23 +58,9 @@
   </url>
   
   <url>
-    <loc>https://hu1104.github.io/article/RS/</loc>
-    
-    <lastmod>2021-10-19</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://hu1104.github.io/article/multiprocessing/</loc>
     
     <lastmod>2021-10-19</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hu1104.github.io/article/record_everyday/</loc>
-    
-    <lastmod>2021-10-18</lastmod>
     
   </url>
   
@@ -221,7 +228,7 @@
 
   <url>
     <loc>https://hu1104.github.io/</loc>
-    <lastmod>2021-10-19</lastmod>
+    <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -229,21 +236,21 @@
   
   <url>
     <loc>https://hu1104.github.io/tags/win10/</loc>
-    <lastmod>2021-10-19</lastmod>
+    <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hu1104.github.io/tags/ubuntu/</loc>
-    <lastmod>2021-10-19</lastmod>
+    <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/</loc>
-    <lastmod>2021-10-19</lastmod>
+    <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -252,7 +259,7 @@
   
   <url>
     <loc>https://hu1104.github.io/categories/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2021-10-19</lastmod>
+    <lastmod>2021-10-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
