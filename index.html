@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">30</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/CF/">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/MF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -210,7 +210,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/article/CF/" class="post-title-link" itemprop="url">CF</a>
+            <a href="/article/MF/" class="post-title-link" itemprop="url">MF</a>
         </h2>
 
         <div class="post-meta">
@@ -220,7 +220,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-10-20 10:36:47" itemprop="dateCreated datePublished" datetime="2021-10-20T10:36:47+08:00">2021-10-20</time>
+              <time title="创建时间：2021-10-21 11:07:19" itemprop="dateCreated datePublished" datetime="2021-10-21T11:07:19+08:00">2021-10-21</time>
             </span>
 
           <br>
@@ -249,6 +249,97 @@
 
       
           
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/CF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/CF/" class="post-title-link" itemprop="url">CF</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-20 10:36:47" itemprop="dateCreated datePublished" datetime="2021-10-20T10:36:47+08:00">2021-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-21 11:07:46" itemprop="dateModified" datetime="2021-10-21T11:07:46+08:00">2021-10-21</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-协调过滤算法"><a href="#1-协调过滤算法" class="headerlink" title="1. 协调过滤算法"></a>1. 协调过滤算法</h3><p>所谓协同过滤， 基本思想是根据用户之前的喜好以及其他兴趣相近的用户的选择来给用户推荐物品(基于对用户历史行为数据的挖掘发现用户的喜好偏向， 并预测用户可能喜好的产品进行推荐)，一般是仅仅基于用户的行为数据（评价、购买、下载等）, 而不依赖于项的任何附加信息（物品自身特征）或者用户的任何附加信息（年龄， 性别等）。<br><br><br>目前应用比较广泛的协同过滤算法是基于邻域的方法， 而这种方法主要有下面两种算法：</p>
+<ul>
+<li>基于用户的协同过滤算法(UserCF): 给用户推荐和他兴趣相似的其他用户喜欢的产品</li>
+<li>基于物品的协同过滤算法(ItemCF): 给用户推荐和他之前喜欢的物品相似的物品</li>
+</ul>
+<p>不管是UserCF还是ItemCF算法， 非常重要的步骤之一就是计算用户和用户或者物品和物品之间的相似度， 所以下面先整理常用的相似性度量方法， 然后再对每个算法的具体细节进行展开。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/article/CF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -944,96 +1035,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/mmdetection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/mmdetection/" class="post-title-link" itemprop="url">mmdetection</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-30 15:33:17" itemprop="dateCreated datePublished" datetime="2021-08-30T15:33:17+08:00">2021-08-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-30 15:59:05" itemprop="dateModified" datetime="2021-08-30T15:59:05+08:00">2021-08-30</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>333</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/38f4525246e1">MMDetection 2.5 目标检测（3）：配置修改 - 简书 (jianshu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/137454940">mmdetection源码分析faster-rcnn，读懂mmdetection - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/924db4d52213">将自己数据集转化成voc数据集格式并用mmdetection训练 - 简书 (jianshu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33897832/article/details/103995636">(29条消息) （详细教程）mmdetection训练自己的模型，测试，评估_若风的博客-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41251963/article/details/112940253">(29条消息) 【MMDetection-学习记录】 训练自己的VOC数据集_乐亦亦乐的博客-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/162730118">MMDetection v2.0 训练自己的数据集 - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.aiuai.cn/aifarm1218.html">mmdetection 模型训练</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/128697076">mmdetection源码解读（一） - 知乎 (zhihu.com)</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1099,7 +1104,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1152,12 +1157,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">152k</span>
+    <span title="站点总字数">158k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:18</span>
+    <span title="站点阅读时长">2:23</span>
 </div>
 
         

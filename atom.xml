@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-20T02:36:47.383Z</updated>
+  <updated>2021-10-21T03:07:19.419Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,12 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>MF</title>
+    <link href="https://hu1104.github.io/article/MF/"/>
+    <id>https://hu1104.github.io/article/MF/</id>
+    <published>2021-10-21T03:07:19.000Z</published>
+    <updated>2021-10-21T03:07:19.419Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>CF</title>
     <link href="https://hu1104.github.io/article/CF/"/>
     <id>https://hu1104.github.io/article/CF/</id>
     <published>2021-10-20T02:36:47.000Z</published>
-    <updated>2021-10-20T02:36:47.383Z</updated>
+    <updated>2021-10-21T03:07:46.928Z</updated>
     
+    
+    <summary type="html">&lt;h3 id=&quot;1-协调过滤算法&quot;&gt;&lt;a href=&quot;#1-协调过滤算法&quot; class=&quot;headerlink&quot; title=&quot;1. 协调过滤算法&quot;&gt;&lt;/a&gt;1. 协调过滤算法&lt;/h3&gt;&lt;p&gt;所谓协同过滤， 基本思想是根据用户之前的喜好以及其他兴趣相近的用户的选择来给用户推荐物品(基于对用户历史行为数据的挖掘发现用户的喜好偏向， 并预测用户可能喜好的产品进行推荐)，一般是仅仅基于用户的行为数据（评价、购买、下载等）, 而不依赖于项的任何附加信息（物品自身特征）或者用户的任何附加信息（年龄， 性别等）。&lt;br&gt;&lt;br&gt;&lt;br&gt;目前应用比较广泛的协同过滤算法是基于邻域的方法， 而这种方法主要有下面两种算法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基于用户的协同过滤算法(UserCF): 给用户推荐和他兴趣相似的其他用户喜欢的产品&lt;/li&gt;
+&lt;li&gt;基于物品的协同过滤算法(ItemCF): 给用户推荐和他之前喜欢的物品相似的物品&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不管是UserCF还是ItemCF算法， 非常重要的步骤之一就是计算用户和用户或者物品和物品之间的相似度， 所以下面先整理常用的相似性度量方法， 然后再对每个算法的具体细节进行展开。&lt;/p&gt;</summary>
     
     
     
@@ -354,33 +374,6 @@
     
     <summary type="html">&lt;p&gt;由于python的GIL锁的存在，导致在多线程的时候，同一时间只能有一个线程在cpu上运行，而且是单个cpu上运行，不管cpu有多少核数。如果要充分利用多核cpu的资源，在python中大部分情况下需要使用多进程。&lt;/p&gt;
 &lt;h1 id=&quot;python多进程模块&quot;&gt;&lt;a href=&quot;#python多进程模块&quot; class=&quot;headerlink&quot; title=&quot;python多进程模块&quot;&gt;&lt;/a&gt;python多进程模块&lt;/h1&gt;&lt;p&gt;Python中的多进程是通过multiprocessing包来实现的，和多线程的threading.Thread差不多，它可以利用multiprocessing.Process对象来创建一个进程对象。这个进程对象的方法和线程对象的方法差不多也有start(), run(), join()等方法，其中有一个方法不同Thread线程对象中的守护线程方法是setDeamon，而Process进程对象的守护进程是通过设置daemon属性来完成的。&lt;/p&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>generator_and_iterator</title>
-    <link href="https://hu1104.github.io/article/generator-and-iterator/"/>
-    <id>https://hu1104.github.io/article/generator-and-iterator/</id>
-    <published>2021-08-20T03:14:02.000Z</published>
-    <updated>2021-08-20T07:37:16.640Z</updated>
-    
-    
-    <summary type="html">&lt;!--toc--&gt;
-
-&lt;h1 id=&quot;列表表达式&quot;&gt;&lt;a href=&quot;#列表表达式&quot; class=&quot;headerlink&quot; title=&quot;列表表达式&quot;&gt;&lt;/a&gt;列表表达式&lt;/h1&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;info = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a = [i+1 for i in range(10)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print(a)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-
-
-&lt;p&gt;多重循环&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;a = [(i,j) for i in range(4) for j in range(2)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print(a)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-
-
-&lt;p&gt;多重循环+判断语句&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ls = [(&amp;#x27;x&amp;#x27;,[&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;]),(&amp;#x27;y&amp;#x27;,[&amp;#x27;open1&amp;#x27;,&amp;#x27;open1&amp;#x27;,&amp;#x27;open0&amp;#x27;]),(&amp;#x27;z&amp;#x27;,[&amp;#x27;open0&amp;#x27;,&amp;#x27;open0&amp;#x27;,&amp;#x27;open1&amp;#x27;])]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def find(con):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return [j for i in con for j in i if j.isdigit()]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[w for w,con in ls if find(con)==[&amp;#x27;1&amp;#x27;,&amp;#x27;1&amp;#x27;,&amp;#x27;1&amp;#x27;]]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
