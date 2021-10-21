@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-21T07:01:28.317Z</updated>
+  <updated>2021-10-21T07:32:07.477Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,11 +17,24 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>FM</title>
+    <link href="https://hu1104.github.io/article/FM/"/>
+    <id>https://hu1104.github.io/article/FM/</id>
+    <published>2021-10-21T07:32:07.000Z</published>
+    <updated>2021-10-21T07:32:07.477Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>MF</title>
     <link href="https://hu1104.github.io/article/MF/"/>
     <id>https://hu1104.github.io/article/MF/</id>
     <published>2021-10-21T03:07:19.000Z</published>
-    <updated>2021-10-21T07:01:28.317Z</updated>
+    <updated>2021-10-21T07:32:18.012Z</updated>
     
     
       
@@ -366,22 +379,6 @@
 &lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;import threading&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;import time&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def say(name):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        print(&amp;#x27;你好%s at %s&amp;#x27; %(name,time.ctime()))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        time.sleep(2)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        print(&amp;quot;结束%s at %s&amp;quot; %(name,time.ctime()))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def listen(name):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;#x27;你好%s at %s&amp;#x27; % (name,time.ctime()))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    time.sleep(4)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;quot;结束%s at %s&amp;quot; % (name,time.ctime()))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if __name__ == &amp;#x27;__main__&amp;#x27;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    t1 = threading.Thread(target=say,args=(&amp;#x27;tony&amp;#x27;,))  #创建线程对象，Thread是一个类，实例化产生t1对象，这里就是创建了一个线程对象t1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    t1.start() #启动线程，线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    t2 = threading.Thread(target=listen, args=(&amp;#x27;simon&amp;#x27;,)) #这里就是创建了一个线程对象t2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    t2.start()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;quot;程序结束=====================&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 输出结果为&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;你好tony at Fri Aug 20 15:42:07 2021 --t1线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;你好simon at Fri Aug 20 15:42:07 2021 --t2线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;程序结束===================== --主线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结束tony at Fri Aug 20 15:42:09 2021 --sleep之后，t1线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结束simon at Fri Aug 20 15:42:11 2021 --sleep之后，t2线程执行&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
 &lt;p&gt;我们可以看到主线程的print并不是等t1,t2线程都执行完毕之后才打印的，这是因为主线程和t1,t2 线程是同时跑的。但是主进程要等非守护子线程结束之后，主线程才会退出。&lt;/p&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>multiprocessing</title>
-    <link href="https://hu1104.github.io/article/multiprocessing/"/>
-    <id>https://hu1104.github.io/article/multiprocessing/</id>
-    <published>2021-08-20T06:50:29.000Z</published>
-    <updated>2021-10-19T02:51:15.857Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;由于python的GIL锁的存在，导致在多线程的时候，同一时间只能有一个线程在cpu上运行，而且是单个cpu上运行，不管cpu有多少核数。如果要充分利用多核cpu的资源，在python中大部分情况下需要使用多进程。&lt;/p&gt;
-&lt;h1 id=&quot;python多进程模块&quot;&gt;&lt;a href=&quot;#python多进程模块&quot; class=&quot;headerlink&quot; title=&quot;python多进程模块&quot;&gt;&lt;/a&gt;python多进程模块&lt;/h1&gt;&lt;p&gt;Python中的多进程是通过multiprocessing包来实现的，和多线程的threading.Thread差不多，它可以利用multiprocessing.Process对象来创建一个进程对象。这个进程对象的方法和线程对象的方法差不多也有start(), run(), join()等方法，其中有一个方法不同Thread线程对象中的守护线程方法是setDeamon，而Process进程对象的守护进程是通过设置daemon属性来完成的。&lt;/p&gt;</summary>
     
     
     

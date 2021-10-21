@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">31</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">32</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,77 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/FM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/FM/" class="post-title-link" itemprop="url">FM</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-21 15:32:07" itemprop="dateCreated datePublished" datetime="2021-10-21T15:32:07+08:00">2021-10-21</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/MF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,7 +298,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-21 15:01:28" itemprop="dateModified" datetime="2021-10-21T15:01:28+08:00">2021-10-21</time>
+                <time title="修改时间：2021-10-21 15:32:18" itemprop="dateModified" datetime="2021-10-21T15:32:18+08:00">2021-10-21</time>
               </span>
 
           <br>
@@ -236,14 +307,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.5k</span>
+              <span>9.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -297,6 +368,25 @@
 <p>但在实际中， 单纯的$\hat{r}<em>{u i}=p</em>{u}^{T} q_{i}$也是不够的， 还要考虑其他的一些因素， 比如一个评分系统， 有些固有的属性和用户物品无关， 而用户也有些属性和物品无关， 物品也有些属性和用户无关。 因此， Netfix Prize中提出了另一种LFM， 在原来的基础上加了偏置项， 来消除用户和物品打分的偏差， 即预测公式如下： $$ \hat{r}<em>{u i}=\mu+b</em>{u}+b_{i}+p_{u}^{T} \cdot q_{i} $$ 这个预测公式加入了3项偏置$\mu,b_u,b_i$, 作用如下：</p>
 <p>$\mu$: 训练集中所有记录的评分的全局平均数。 在不同网站中， 因为网站定位和销售物品不同， 网站的整体评分分布也会显示差异。 比如有的网站中用户就喜欢打高分， 有的网站中用户就喜欢打低分。 而全局平均数可以表示网站本身对用户评分的影响。<br>$b_u$: 用户偏差系数， 可以使用用户$u$给出的所有评分的均值， 也可以当做训练参数。 这一项表示了用户的评分习惯中和物品没有关系的那种因素。 比如有些用户比较苛刻， 对什么东西要求很高， 那么他评分就会偏低， 而有些用户比较宽容， 对什么东西都觉得不错， 那么评分就偏高<br>$b_i$: 物品偏差系数， 可以使用物品$i$收到的所有评分的均值， 也可以当做训练参数。 这一项表示了物品接受的评分中和用户没有关系的因素。 比如有些物品本身质量就很高， 因此获得的评分相对比较高， 有的物品本身质量很差， 因此获得的评分相对较低。<br>加了用户和物品的打分偏差之后， 矩阵分解得到的隐向量更能反映不同用户对不同物品的“真实”态度差异， 也就更容易捕捉评价数据中有价值的信息， 从而避免推荐结果有偏。 注意此时的$SSE$会发生变化：<br>$$ \begin{array}{l} \operatorname{SSE}=\frac{1}{2} \sum_{u, i} e_{u i}^{2}+\frac{1}{2} \lambda \sum_{u}\left|\boldsymbol{p}<em>{u}\right|^{2}+\frac{1}{2} \lambda \sum</em>{i}\left|\boldsymbol{q}<em>{i}\right|^{2}+\frac{1}{2} \lambda \sum</em>{u} \boldsymbol{b}<em>{u}^{2}+\frac{1}{2} \lambda \sum</em>{i} \boldsymbol{b}<em>{i}^{2} \ =\frac{1}{2} \sum{u, i}\left(\boldsymbol{r}</em>{u i}-\boldsymbol{\mu}-\boldsymbol{b}<em>{u}-\boldsymbol{b}</em>{i}-\sum_{k=1}^{K} \boldsymbol{p}<em>{u k} \boldsymbol{q}</em>{k i}\right)^{2}+\frac{1}{2} \lambda \sum_{u}\left|\boldsymbol{p}<em>{u}\right|^{2}+\frac{1}{2} \lambda \sum</em>{i}\left|\boldsymbol{q}<em>{i}\right|^{2}+\frac{\mathbf{1}}{2} \lambda \sum</em>{u} {\boldsymbol{b}}<em>{u}^{2}+\frac{1}{2} \lambda \sum</em>{i} \boldsymbol{b}_{i}^{2} \end{array} $$ 此时如果把$b_u$和$b_i$当做训练参数的话， 那么它俩的梯度是：</p>
 <p>$$ \frac{\partial}{\partial b_{u}} S S E=-e_{u i}+\lambda b_{u} \ \frac{\partial}{\partial b_{i}} S S E=-e_{u i}+\lambda b_{i} $$ 更新公式为： $$ \begin{aligned} \boldsymbol{b}{u}&amp;=\boldsymbol{b}{\boldsymbol{u}}+\boldsymbol{\eta}\left(\boldsymbol{e}{u i}-\lambda \boldsymbol{b}{\boldsymbol{u}}\right) \ \boldsymbol{b}{\boldsymbol{i}} &amp;=\boldsymbol{b}{\boldsymbol{i}}+\boldsymbol{\eta}\left(\boldsymbol{e}{\boldsymbol{u} i}-\lambda \boldsymbol{b}{\boldsymbol{i}}\right) \end{aligned} $$ 而对于$p_{u,k}$和$p_{k,i}$， 导数没有变化， 更新公式也没有变化。</p>
+<h3 id="5-编程实现"><a href="#5-编程实现" class="headerlink" title="5. 编程实现"></a>5. 编程实现<a href="#5-编程实现" class="header-anchor">#</a></h3><p>我们这里用代码实现一下上面的算法来预测上一篇文章里面的那个预测Alice对物品5的评分， 看看矩阵分解到底是怎么进行预测或者是推荐的。 我把之前的例子拿过来：<br><img src="MF/%E5%8D%8F%E5%90%8C%E7%9F%A9%E9%98%B5.png" alt="协同矩阵"><br>任务就是根据这个评分矩阵， 猜测Alice对物品5的打分。</p>
+<p>在实现SVD之前， 先来回忆一下ItemCF和UserCF对于这个问题的做法， 首先ItemCF的做法， 根据已有的用户打分计算物品之间的相似度， 得到物品的相似度矩阵， 根据这个相似度矩阵， 选择出前K个与物品5最相似的物品， 然后基于Alice对这K个物品的得分， 猜测Alice对物品5的得分， 有一个加权的计算公式。 UserCF的做法是根据用户对其他物品的打分， 计算用户之间的相似度， 选择出与Alice最相近的K个用户， 然后基于那K个用户对物品5的打分计算出Alice对物品5的打分。 但是， 这两种方式有个问题， 就是如果矩阵非常稀疏的话， 当然这个例子是个特例， 一般矩阵都是非常稀疏的， 那么预测效果就不好， 因为两个相似用户对同一物品打分的概率以及Alice同时对两个相似物品打分的概率可能都比较小。 另外， 这两种方法显然没有考虑到全局的物品或者用户， 只是基于了最相似的例子， 很可能有偏。</p>
+<p>那么SVD在解决这个问题上是这么做的：</p>
+<ol>
+<li>首先， 它会先初始化用户矩阵P和物品矩阵Q， P的维度是[users_num, F], Q的维度是[item_nums, F]， 这个F是隐向量的维度。 也就是把通过隐向量的方式把用户的兴趣和F的特点关联了起来。 初始化这两个矩阵的方式很多， 但根据经验， 随机数需要和1/sqrt(F)成正比。 下面代码中会发现。</li>
+<li>有了两个矩阵之后， 我就可以根据用户已经打分的数据去更新参数， 这就是训练模型的过程， 方法很简单， 就是遍历用户， 对于每个用户， 遍历它打分的物品， 这样就拿到了该用户和物品的隐向量， 然后两者相乘加上偏置就是预测的评分， 这时候与真实评分有个差距， 根据上面的梯度下降就可以进行参数的更新</li>
+</ol>
+<p>这样训练完之后， 我们就可以得到用户Alice和物品5的隐向量， 根据这个就可以预测Alice对物品5的打分。 下面的代码的逻辑就是上面这两步， 这里使用带有偏置项和正则项的那个SVD算法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">class SVD():</span><br><span class="line">    def __init__(self, rating_data, F=5, alpha=0.1, lmbda=0.1, max_iter=100):</span><br><span class="line">        self.F = F           # 这个表示隐向量的维度</span><br><span class="line">        self.P = dict()          #  用户矩阵P  大小是[users_num, F]</span><br><span class="line">        self.Q = dict()     # 物品矩阵Q  大小是[item_nums, F]</span><br><span class="line">        self.bu = dict()   # 用户偏差系数</span><br><span class="line">        self.bi = dict()    # 物品偏差系数</span><br><span class="line">        self.mu = 1.0        # 全局偏差系数</span><br><span class="line">        self.alpha = alpha   # 学习率</span><br><span class="line">        self.lmbda = lmbda    # 正则项系数</span><br><span class="line">        self.max_iter = max_iter    # 最大迭代次数</span><br><span class="line">        self.rating_data = rating_data # 评分矩阵</span><br><span class="line">        </span><br><span class="line">        # 初始化矩阵P和Q, 方法很多， 一般用随机数填充， 但随机数大小有讲究， 根据经验， 随机数需要和1/sqrt(F)成正比</span><br><span class="line">        cnt = 0    # 统计总的打分数， 初始化mu用</span><br><span class="line">        for user, items in self.rating_data.items():</span><br><span class="line">            self.P[user] = [random.random() / math.sqrt(self.F)  for x in range(0, F)]</span><br><span class="line">            self.bu[user] = 0</span><br><span class="line">            cnt += len(items) </span><br><span class="line">            for item, rating in items.items():</span><br><span class="line">                if item not in self.Q:</span><br><span class="line">                    self.Q[item] = [random.random() / math.sqrt(self.F) for x in range(0, F)]</span><br><span class="line">                    self.bi[item] = 0</span><br><span class="line">        self.mu /= cnt</span><br><span class="line">        </span><br><span class="line">    # 有了矩阵之后， 就可以进行训练, 这里使用随机梯度下降的方式训练参数P和Q</span><br><span class="line">    def train(self):</span><br><span class="line">        for step in range(self.max_iter):</span><br><span class="line">            for user, items in self.rating_data.items():</span><br><span class="line">                for item, rui in items.items():</span><br><span class="line">                    rhat_ui = self.predict(user, item)   # 得到预测评分</span><br><span class="line">                    # 计算误差</span><br><span class="line">                    e_ui = rui - rhat_ui</span><br><span class="line">                    </span><br><span class="line">                    self.bu[user] += self.alpha * (e_ui - self.lmbda * self.bu[user])</span><br><span class="line">                    self.bi[item] += self.alpha * (e_ui - self.lmbda * self.bi[item])</span><br><span class="line">                    # 随机梯度下降更新梯度</span><br><span class="line">                    for k in range(0, self.F):</span><br><span class="line">                        self.P[user][k] += self.alpha * (e_ui*self.Q[item][k] - self.lmbda * self.P[user][k])</span><br><span class="line">                        self.Q[item][k] += self.alpha * (e_ui*self.P[user][k] - self.lmbda * self.Q[item][k])</span><br><span class="line">                    </span><br><span class="line">            self.alpha *= 0.1    # 每次迭代步长要逐步缩小</span><br><span class="line">    </span><br><span class="line">    # 预测user对item的评分， 这里没有使用向量的形式</span><br><span class="line">    def predict(self, user, item):</span><br><span class="line">        return sum(self.P[user][f] * self.Q[item][f] for f in range(0, self.F)) + self.bu[user] + self.bi[item] + self.mu   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-优缺点"><a href="#6-优缺点" class="headerlink" title="6. 优缺点"></a>6. 优缺点<a href="#6-优缺点" class="header-anchor">#</a></h3><ul>
+<li>优点：<ul>
+<li>泛化能力强： 一定程度上解决了稀疏问题</li>
+<li>空间复杂度低： 由于用户和物品都用隐向量的形式存放， 少了用户和物品相似度矩阵， 空间复杂度由$n^2$降到了$(n+m)*f$</li>
+<li>更好的扩展性和灵活性：矩阵分解的最终产物是用户和物品隐向量， 这个深度学习的embedding思想不谋而合， 因此矩阵分解的结果非常便于与其他特征进行组合和拼接， 并可以与深度学习无缝结合。</li>
+</ul>
+</li>
+</ul>
+<p>但是， 矩阵分解算法依然是只用到了评分矩阵， 没有考虑到用户特征， 物品特征和上下文特征， 这使得矩阵分解丧失了利用很多有效信息的机会， 同时在缺乏用户历史行为的时候， 无法进行有效的推荐。 所以为了解决这个问题， 逻辑回归模型及后续的因子分解机模型， 凭借其天然的融合不同特征的能力， 逐渐在推荐系统领域得到了更广泛的应用。</p>
 
       
     </div>
@@ -998,92 +1088,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/deeplearning/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/deeplearning/" class="post-title-link" itemprop="url">deeplearning</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-31 13:55:09" itemprop="dateCreated datePublished" datetime="2021-08-31T13:55:09+08:00">2021-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-31 16:43:15" itemprop="dateModified" datetime="2021-08-31T16:43:15+08:00">2021-08-31</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          Welcome to my blog, enter password to read.
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/deeplearning/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1153,7 +1157,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1206,12 +1210,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">171k</span>
+    <span title="站点总字数">173k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:35</span>
+    <span title="站点阅读时长">2:38</span>
 </div>
 
         
