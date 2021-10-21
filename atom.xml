@@ -34,16 +34,10 @@
     <link href="https://hu1104.github.io/article/MF/"/>
     <id>https://hu1104.github.io/article/MF/</id>
     <published>2021-10-21T03:07:19.000Z</published>
-    <updated>2021-10-21T07:32:18.012Z</updated>
+    <updated>2021-10-21T07:33:00.312Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;1-隐语义模型与矩阵分解&quot;&gt;&lt;a href=&quot;#1-隐语义模型与矩阵分解&quot; class=&quot;headerlink&quot; title=&quot;1. 隐语义模型与矩阵分解&quot;&gt;&lt;/a&gt;1. 隐语义模型与矩阵分解&lt;a href=&quot;#1-隐语义模型与矩阵分解&quot;</summary>
-        
-      
+    <summary type="html">&lt;h3 id=&quot;1-隐语义模型与矩阵分解&quot;&gt;&lt;a href=&quot;#1-隐语义模型与矩阵分解&quot; class=&quot;headerlink&quot; title=&quot;1. 隐语义模型与矩阵分解&quot;&gt;&lt;/a&gt;1. 隐语义模型与矩阵分解&lt;/h3&gt;&lt;p&gt;协同过滤算法的特点就是完全没有利用到物品本身或者是用户自身的属性， 仅仅利用了用户与物品的交互信息就可以实现推荐，是一个可解释性很强， 非常直观的模型， 但是也存在一些问题， 第一个就是处理稀疏矩阵的能力比较弱， 所以为了使得协同过滤更好处理稀疏矩阵问题， 增强泛化能力， 从协同过滤中衍生出矩阵分解模型(Matrix Factorization,MF)或者叫隐语义模型, 两者差不多说的一个意思， 就是在协同过滤共现矩阵的基础上， 使用更稠密的隐向量表示用户和物品， 挖掘用户和物品的隐含兴趣和隐含特征， 在一定程度上弥补协同过滤模型处理稀疏矩阵能力不足的问题。&lt;/p&gt;</summary>
     
     
     
