@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-21T08:07:44.522Z</updated>
+  <updated>2021-10-21T08:34:49.810Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,20 +17,27 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>GBDT_LR</title>
+    <link href="https://hu1104.github.io/article/GBDT-LR/"/>
+    <id>https://hu1104.github.io/article/GBDT-LR/</id>
+    <published>2021-10-21T08:34:49.000Z</published>
+    <updated>2021-10-21T08:34:49.810Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>FM</title>
     <link href="https://hu1104.github.io/article/FM/"/>
     <id>https://hu1104.github.io/article/FM/</id>
     <published>2021-10-21T07:32:07.000Z</published>
-    <updated>2021-10-21T08:07:44.522Z</updated>
+    <updated>2021-10-21T08:35:26.784Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;1-fm模型的引入&quot;&gt;&lt;a href=&quot;#1-FM模型的引入&quot; class=&quot;headerlink&quot; title=&quot;1. FM模型的引入&quot;&gt;&lt;/a&gt;1. FM模型的引入&lt;a href=&quot;#1-fm模型的引入&quot;</summary>
-        
-      
+    <summary type="html">&lt;h3 id=&quot;1-FM模型的引入&quot;&gt;&lt;a href=&quot;#1-FM模型的引入&quot; class=&quot;headerlink&quot; title=&quot;1. FM模型的引入&quot;&gt;&lt;/a&gt;1. FM模型的引入&lt;/h3&gt;&lt;h4 id=&quot;1-1-逻辑回归模型及其缺点&quot;&gt;&lt;a href=&quot;#1-1-逻辑回归模型及其缺点&quot; class=&quot;headerlink&quot; title=&quot;1.1 逻辑回归模型及其缺点&quot;&gt;&lt;/a&gt;1.1 逻辑回归模型及其缺点&lt;/h4&gt;&lt;p&gt;FM模型其实是一种思路，具体的应用稍少。一般来说做推荐CTR预估时最简单的思路就是将特征做线性组合（逻辑回归LR），传入sigmoid中得到一个概率值，本质上这就是一个线性模型，因为sigmoid是单调增函数不会改变里面的线性模型的CTR预测顺序，因此逻辑回归模型效果会比较差。也就是LR的缺点有：&lt;/p&gt;</summary>
     
     
     
@@ -362,25 +369,6 @@
 
 &lt;p&gt;例二：&lt;/p&gt;
 &lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from functools import partial&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bin2dec = partial( int, base=2 )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print bin2dec( &amp;#x27;0b10001&amp;#x27; )  # 17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print bin2dec( &amp;#x27;10001&amp;#x27; )  # 17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hex2dec = partial( int, base=16 )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print hex2dec( &amp;#x27;0x67&amp;#x27; )  # 103&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;print hex2dec( &amp;#x27;67&amp;#x27; )  # 103&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>threading</title>
-    <link href="https://hu1104.github.io/article/threading/"/>
-    <id>https://hu1104.github.io/article/threading/</id>
-    <published>2021-08-20T07:37:55.000Z</published>
-    <updated>2021-08-30T02:05:09.031Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;python-多线程实现&quot;&gt;&lt;a href=&quot;#python-多线程实现&quot; class=&quot;headerlink&quot; title=&quot;python 多线程实现&quot;&gt;&lt;/a&gt;python 多线程实现&lt;/h1&gt;&lt;p&gt;首先，python的多线程是假的。&lt;/p&gt;
-&lt;p&gt;看一个例子来看看python多线程的实现。&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;import threading&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;import time&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def say(name):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        print(&amp;#x27;你好%s at %s&amp;#x27; %(name,time.ctime()))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        time.sleep(2)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        print(&amp;quot;结束%s at %s&amp;quot; %(name,time.ctime()))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def listen(name):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;#x27;你好%s at %s&amp;#x27; % (name,time.ctime()))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    time.sleep(4)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;quot;结束%s at %s&amp;quot; % (name,time.ctime()))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if __name__ == &amp;#x27;__main__&amp;#x27;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    t1 = threading.Thread(target=say,args=(&amp;#x27;tony&amp;#x27;,))  #创建线程对象，Thread是一个类，实例化产生t1对象，这里就是创建了一个线程对象t1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    t1.start() #启动线程，线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    t2 = threading.Thread(target=listen, args=(&amp;#x27;simon&amp;#x27;,)) #这里就是创建了一个线程对象t2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    t2.start()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;quot;程序结束=====================&amp;quot;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# 输出结果为&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;你好tony at Fri Aug 20 15:42:07 2021 --t1线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;你好simon at Fri Aug 20 15:42:07 2021 --t2线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;程序结束===================== --主线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结束tony at Fri Aug 20 15:42:09 2021 --sleep之后，t1线程执行&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;结束simon at Fri Aug 20 15:42:11 2021 --sleep之后，t2线程执行&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;我们可以看到主线程的print并不是等t1,t2线程都执行完毕之后才打印的，这是因为主线程和t1,t2 线程是同时跑的。但是主进程要等非守护子线程结束之后，主线程才会退出。&lt;/p&gt;</summary>
     
     
     

@@ -62,6 +62,7 @@
     <title>FM</title>
     <url>/article/FM/</url>
     <content><![CDATA[<h3 id="1-fm模型的引入"><a href="#1-FM模型的引入" class="headerlink" title="1. FM模型的引入"></a>1. FM模型的引入<a href="#1-fm模型的引入" class="header-anchor">#</a></h3><h4 id="11-逻辑回归模型及其缺点"><a href="#1-1-逻辑回归模型及其缺点" class="headerlink" title="1.1 逻辑回归模型及其缺点"></a>1.1 逻辑回归模型及其缺点<a href="#11-逻辑回归模型及其缺点" class="header-anchor">#</a></h4><p>FM模型其实是一种思路，具体的应用稍少。一般来说做推荐CTR预估时最简单的思路就是将特征做线性组合（逻辑回归LR），传入sigmoid中得到一个概率值，本质上这就是一个线性模型，因为sigmoid是单调增函数不会改变里面的线性模型的CTR预测顺序，因此逻辑回归模型效果会比较差。也就是LR的缺点有：</p>
+<span id="more"></span>
 <ul>
 <li>是一个线性模型</li>
 <li>每个特征对最终输出结果独立，需要手动特征交叉（$x_i*x_j$），比较麻烦<h4 id="12-二阶交叉项的考虑及改进"><a href="#1-2-二阶交叉项的考虑及改进" class="headerlink" title="1.2 二阶交叉项的考虑及改进"></a>1.2 二阶交叉项的考虑及改进<a href="#12-二阶交叉项的考虑及改进" class="header-anchor">#</a></h4></li>
@@ -82,8 +83,18 @@
 <p>上面的公式中：</p>
 <p>$\omega_{0}$为全局偏置；<br>$\omega_{i}$是模型第$i$个变量的权重;<br>$\omega_{ij} = &lt; v_{i}, v_{j}&gt;$特征$i$和$j$的交叉权重;<br>$v_{i} $是第$i$维特征的隐向量;<br>$&lt;\cdot, \cdot&gt;$代表向量点积;<br>$k(k&lt;&lt;n)$为隐向量的长度，包含 $k$ 个描述特征的因子。<br>FM模型中二次项的参数数量减少为 $kn $个，远少于多项式模型的参数数量。另外，参数因子化使得 $x_{h}x_{i}$ 的参数和 $x_{i}x_{j}$ 的参数不再是相互独立的，因此我们可以在样本稀疏的情况下相对合理地估计FM的二次项参数。具体来说，$x_{h}x_{i}$ 和 $x_{i}x_{j}$的系数分别为 $\lt v_{h},v_{i}\gt$ 和 $\lt v_{i},v_{j}\gt$ ，它们之间有共同项 $v_{i}$ 。也就是说，所有包含“ $x_{i}$ 的非零组合特征”（存在某个 $j \ne i$ ，使得 $x_{i}x_{j}\neq 0$ ）的样本都可以用来学习隐向量$v_{i}$，这很大程度上避免了数据稀疏性造成的影响。而在多项式模型中,$w_{hi}$ 和 $w_{ij}$ 是相互独立的。</p>
 <p>显而易见，FM的公式是一个通用的拟合方程，可以采用不同的损失函数用于解决regression、classification等问题，比如可以采用MSE（Mean Square Error）loss function来求解回归问题，也可以采用Hinge/Cross-Entropy loss来求解分类问题。当然，在进行二元分类时，FM的输出需要使用sigmoid函数进行变换，该原理与LR是一样的。直观上看，FM的复杂度是 $O(kn^2)$ 。但是FM的二次项可以化简，其复杂度可以优化到 $O(kn)$ 。由此可见，FM可以在线性时间对新样本作出预测。</p>
-<p>证明：<br>$$ \begin{align} \sum_{i=1}^{n-1}{\sum_{j=i+1}^{n}{&lt;v_i,v_j&gt;x_ix_j}} &amp;= \frac{1}{2}\sum_{i=1}^{n}{\sum_{j=1}^{n}{&lt;v_i,v_j&gt;x_ix_j}} - \frac{1}{2} {\sum_{i=1}^{n}{&lt;v_i,v_i&gt;x_ix_i}} \ &amp;= \frac{1}{2} \left( \sum_{i=1}^{n}{\sum_{j=1}^{n}{\sum_{f=1}^{k}{v_{i,f}v_{j,f}x_ix_j}}} - \sum_{i=1}^{n}{\sum_{f=1}^{k}{v_{i,f}v_{i,f}x_ix_i}} \right) \ &amp;= \frac{1}{2}\sum_{f=1}^{k}{\left[ \left( \sum_{i=1}^{n}{v_{i,f}x_i} \right) \cdot \left( \sum_{j=1}^{n}{v_{j,f}x_j} \right) - \sum_{i=1}^{n}{v_{i,f}^2 x_i^2} \right]} \ &amp;= \frac{1}{2}\sum_{f=1}^{k}{\left[ \left( \sum_{i=1}^{n}{v_{i,f}x_i} \right)^2 - \sum_{i=1}^{n}{v_{i,f}^2 x_i^2} \right]} \end{align} $$ 解释：</p>
+<p>证明：<br>$$ \begin{align} \sum_{i=1}^{n-1}{\sum_{j=i+1}^{n}{&lt;v_i,v_j&gt;x_ix_j}} &amp;= \frac{1}{2}\sum_{i=1}^{n}{\sum_{j=1}^{n}{&lt;v_i,v_j&gt;x_ix_j}} - \frac{1}{2} {\sum_{i=1}^{n}{&lt;v_i,v_i&gt;x_ix_i}} \<br> &amp;= \frac{1}{2} \left( \sum_{i=1}^{n}{\sum_{j=1}^{n}{\sum_{f=1}^{k}{v_{i,f}v_{j,f}x_ix_j}}} - \sum_{i=1}^{n}{\sum_{f=1}^{k}{v_{i,f}v_{i,f}x_ix_i}} \right) \<br>  &amp;= \frac{1}{2}\sum_{f=1}^{k}{\left[ \left( \sum_{i=1}^{n}{v_{i,f}x_i} \right) \cdot \left( \sum_{j=1}^{n}{v_{j,f}x_j} \right) - \sum_{i=1}^{n}{v_{i,f}^2 x_i^2} \right]} \<br>  &amp;= \frac{1}{2}\sum_{f=1}^{k}{\left[ \left( \sum_{i=1}^{n}{v_{i,f}x_i} \right)^2 - \sum_{i=1}^{n}{v_{i,f}^2 x_i^2} \right]} \end{align} $$ 解释：</p>
 <p>$v_{i,f}$ 是一个具体的值；<br>第1个等号：对称矩阵 $W$ 对角线上半部分；<br>第2个等号：把向量内积 $v_{i}$,$v_{j}$ 展开成累加和的形式；<br>第3个等号：提出公共部分；<br>第4个等号： $i$ 和 $j$ 相当于是一样的，表示成平方过程。</p>
+<h3 id="3-fm模型的应用"><a href="#3-FM模型的应用" class="headerlink" title="3. FM模型的应用"></a>3. FM模型的应用<a href="#3-fm模型的应用" class="header-anchor">#</a></h3><p>最直接的想法就是直接把FM得到的结果放进sigmoid中输出一个概率值，由此做CTR预估，事实上我们也可以做召回。</p>
+<p>由于FM模型是利用两个特征的Embedding做内积得到二阶特征交叉的权重，那么我们可以将训练好的FM特征取出离线存好，之后用来做KNN向量检索。</p>
+<p>工业应用的具体操作步骤：</p>
+<ul>
+<li>离线训练好FM模型（学习目标可以是CTR）</li>
+<li>将训练好的FM模型Embedding取出</li>
+<li>将每个uid对应的Embedding做avg pooling（平均）形成该用户最终的Embedding，item也做同样的操作</li>
+<li>将所有的Embedding向量放入Faiss等</li>
+<li>线上uid发出请求，取出对应的user embedding，进行检索召回</li>
+</ul>
 ]]></content>
   </entry>
   <entry>
@@ -1854,5 +1865,10 @@
       <tags>
         <tag>加密</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>GBDT_LR</title>
+    <url>/article/GBDT-LR/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
