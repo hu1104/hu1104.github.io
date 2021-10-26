@@ -30,6 +30,32 @@
   </entry>
   
   <entry>
+    <title>NecuralCF</title>
+    <link href="https://hu1104.github.io/article/NeuralCF/"/>
+    <id>https://hu1104.github.io/article/NeuralCF/</id>
+    <published>2021-10-22T06:45:39.000Z</published>
+    <updated>2021-10-26T08:03:07.801Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>GBDT_LR</title>
     <link href="https://hu1104.github.io/article/GBDT-LR/"/>
     <id>https://hu1104.github.io/article/GBDT-LR/</id>
@@ -405,23 +431,6 @@
 &lt;li&gt;&lt;p&gt;迭代的形式&lt;/p&gt;
 &lt;p&gt;使用&lt;code&gt;tqdm()&lt;/code&gt;封装可迭代的对象：&lt;/p&gt;
 &lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;from tqdm import tqdm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;from time import sleep&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;text = &amp;quot;&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;for char in tqdm([&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;]):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    sleep(0.25)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    text = text + char&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>coroutine</title>
-    <link href="https://hu1104.github.io/article/coroutine/"/>
-    <id>https://hu1104.github.io/article/coroutine/</id>
-    <published>2021-08-24T08:49:44.000Z</published>
-    <updated>2021-09-03T01:36:33.836Z</updated>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;asyncio-yield-from&quot;&gt;&lt;a href=&quot;#asyncio-yield-from&quot; class=&quot;headerlink&quot; title=&quot;asyncio + yield from&quot;&gt;&lt;/a&gt;asyncio + yield from&lt;/h3&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#-*- coding:utf8 -*-&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;import asyncio&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@asyncio.coroutine&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;def test(i):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;#x27;test_1&amp;#x27;, i)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    r = yield from asyncio.sleep(1)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    print(&amp;#x27;test_2&amp;#x27;, i)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if __name__ == &amp;#x27;__main__&amp;#x27;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    loop = asyncio.get_event_loop()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    tasks = [test(i) for i in range(3)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    loop.run_until_complete(asyncio.wait(tasks))&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    loop.close()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;code&gt;@asyncio.coroutine&lt;/code&gt;把一个generator标记为coroutine类型，然后就把这个coroutine扔到EventLoop中执行。test()会首先打印出test_1，然后&lt;code&gt;yield from&lt;/code&gt;语法可以让我们方便地调用另一个generator。由于&lt;code&gt;asyncio.sleep()&lt;/code&gt;也是一个coroutine，所以线程不会等待&lt;code&gt;asyncio.sleep()&lt;/code&gt;，而是直接中断并执行下一个消息循环。当&lt;code&gt;asyncio.sleep()&lt;/code&gt;返回时，线程就可以从&lt;code&gt;yield from&lt;/code&gt;拿到返回值（此处是None），然后接着执行下一行语句。把&lt;code&gt;asyncio.sleep(1)&lt;/code&gt;看成是一个耗时1秒的IO操作，在此期间主线程并未等待，而是去执行EventLoop中其他可以执行的coroutine了，因此可以实现并发执行。&lt;/p&gt;</summary>
     
     
     
