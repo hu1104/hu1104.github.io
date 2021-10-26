@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-26T08:01:10.436Z</updated>
+  <updated>2021-10-26T08:35:35.520Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -21,20 +21,7 @@
     <link href="https://hu1104.github.io/article/deepcrossing/"/>
     <id>https://hu1104.github.io/article/deepcrossing/</id>
     <published>2021-10-26T08:01:10.000Z</published>
-    <updated>2021-10-26T08:01:10.436Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>NecuralCF</title>
-    <link href="https://hu1104.github.io/article/NeuralCF/"/>
-    <id>https://hu1104.github.io/article/NeuralCF/</id>
-    <published>2021-10-22T06:45:39.000Z</published>
-    <updated>2021-10-26T08:03:07.801Z</updated>
+    <updated>2021-10-26T08:35:35.520Z</updated>
     
     
       
@@ -49,6 +36,32 @@
 &lt;li&gt;&lt;a</summary>
         
       
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>NecuralCF</title>
+    <link href="https://hu1104.github.io/article/NeuralCF/"/>
+    <id>https://hu1104.github.io/article/NeuralCF/</id>
+    <published>2021-10-22T06:45:39.000Z</published>
+    <updated>2021-10-26T08:04:22.032Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1%E5%8A%A8%E6%9C%BA&quot;&gt;1.动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86&quot;&gt;2.模型结构及原理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0&quot;&gt;3. 代码实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1.动机&quot;&gt;&lt;/a&gt;1.动机&lt;/h3&gt;&lt;p&gt;在前面的组队学习中，我们学习了最经典的推荐算法，协同过滤。在前深度学习的时代，协同过滤曾经大放异彩，但随着技术的发展，协同过滤相比深度学习模型的弊端就日益显现出来了，因为它是通过直接利用非常稀疏的共现矩阵进行预测的，所以模型的泛化能力非常弱，遇到历史行为非常少的用户，就没法产生准确的推荐结果了。虽然，我们可以通过矩阵分解算法增强它的泛化能力，但因为矩阵分解是利用非常简单的内积方式来处理用户向量和物品向量的交叉问题的，所以，它的拟合能力也比较弱。这该怎么办呢？不是说深度学习模型的拟合能力都很强吗？我们能不能利用深度学习来改进协同过滤算法呢？当然是可以的。2017 年，新加坡国立的研究者就使用深度学习网络来改进了传统的协同过滤算法，取名 NeuralCF（神经网络协同过滤）。NeuralCF 大大提高了协同过滤算法的泛化能力和拟合能力，让这个经典的推荐算法又重新在深度学习时代焕发生机。这章节，我们就一起来学习并实现 NeuralCF！&lt;/p&gt;</summary>
     
     
     
