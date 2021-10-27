@@ -22,17 +22,17 @@
   </script>
 
 
-  <meta name="description" content="1.动机#在特征交叉的相关模型中FM, FFM都证明了特征交叉的重要性，DNN将神经网络的高阶隐式交叉加到了FM的二阶特征交叉上，一定程度上说明了DNN做特征交叉的有效性。但是对于DNN这种“add”操作的特征交叉并不能充分挖掘类别特征的交叉效果。PNN虽然也用了DNN来对特征进行交叉组合，但是并不是直接将低阶特征放入DNN中，而是设计了Product层先对低阶特征进行充分的交叉组合之后再送入到D">
+  <meta name="description" content="1.动机 2. 模型的结构及原理 2.1 Product Layer 2.1.1 IPNN     3.代码实现    1.动机#在特征交叉的相关模型中FM, FFM都证明了特征交叉的重要性，DNN将神经网络的高阶隐式交叉加到了FM的二阶特征交叉上，一定程度上说明了DNN做特征交叉的有效性。但是对于DNN这种“add”操作的特征交叉并不能充分挖掘类别特征的交叉效果。PNN虽然也用了DNN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PNN">
 <meta property="og:url" content="https://hu1104.github.io/article/PNN/index.html">
 <meta property="og:site_name" content="Zongxing">
-<meta property="og:description" content="1.动机#在特征交叉的相关模型中FM, FFM都证明了特征交叉的重要性，DNN将神经网络的高阶隐式交叉加到了FM的二阶特征交叉上，一定程度上说明了DNN做特征交叉的有效性。但是对于DNN这种“add”操作的特征交叉并不能充分挖掘类别特征的交叉效果。PNN虽然也用了DNN来对特征进行交叉组合，但是并不是直接将低阶特征放入DNN中，而是设计了Product层先对低阶特征进行充分的交叉组合之后再送入到D">
+<meta property="og:description" content="1.动机 2. 模型的结构及原理 2.1 Product Layer 2.1.1 IPNN     3.代码实现    1.动机#在特征交叉的相关模型中FM, FFM都证明了特征交叉的重要性，DNN将神经网络的高阶隐式交叉加到了FM的二阶特征交叉上，一定程度上说明了DNN做特征交叉的有效性。但是对于DNN这种“add”操作的特征交叉并不能充分挖掘类别特征的交叉效果。PNN虽然也用了DNN">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://hu1104.github.io/article/PNN/PNN/PNN%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="https://hu1104.github.io/article/PNN/PNN/product%E5%B1%82.png">
 <meta property="article:published_time" content="2021-10-27T00:55:13.000Z">
-<meta property="article:modified_time" content="2021-10-27T06:30:43.008Z">
+<meta property="article:modified_time" content="2021-10-27T07:09:12.747Z">
 <meta property="article:author" content="hzx">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://hu1104.github.io/article/PNN/PNN/PNN%E7%BB%93%E6%9E%84.png">
@@ -143,7 +143,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">36</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">37</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-27 14:30:43" itemprop="dateModified" datetime="2021-10-27T14:30:43+08:00">2021-10-27</time>
+                <time title="修改时间：2021-10-27 15:09:12" itemprop="dateModified" datetime="2021-10-27T15:09:12+08:00">2021-10-27</time>
               </span>
 
           
@@ -267,7 +267,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="1动机"><a href="#1-动机" class="headerlink" title="1.动机"></a>1.动机<a href="#1动机" class="header-anchor">#</a></h3><p>在特征交叉的相关模型中FM, FFM都证明了特征交叉的重要性，DNN将神经网络的高阶隐式交叉加到了FM的二阶特征交叉上，一定程度上说明了DNN做特征交叉的有效性。但是对于DNN这种“add”操作的特征交叉并不能充分挖掘类别特征的交叉效果。PNN虽然也用了DNN来对特征进行交叉组合，但是并不是直接将低阶特征放入DNN中，而是设计了Product层先对低阶特征进行充分的交叉组合之后再送入到DNN中去。</p>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1%E5%8A%A8%E6%9C%BA">1.动机</a></li>
+<li><a href="#2-%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86">2. 模型的结构及原理</a><ul>
+<li><a href="#21-product-layer">2.1 Product Layer</a><ul>
+<li><a href="#211-ipnn">2.1.1 IPNN</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#3%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">3.代码实现</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3 id="1动机"><a href="#1-动机" class="headerlink" title="1.动机"></a>1.动机<a href="#1动机" class="header-anchor">#</a></h3><p>在特征交叉的相关模型中FM, FFM都证明了特征交叉的重要性，DNN将神经网络的高阶隐式交叉加到了FM的二阶特征交叉上，一定程度上说明了DNN做特征交叉的有效性。但是对于DNN这种“add”操作的特征交叉并不能充分挖掘类别特征的交叉效果。PNN虽然也用了DNN来对特征进行交叉组合，但是并不是直接将低阶特征放入DNN中，而是设计了Product层先对低阶特征进行充分的交叉组合之后再送入到DNN中去。</p>
 <p>PNN模型其实是对IPNN和OPNN的总称，两者分别对应的是不同的Product实现方法，前者采用的是inner product，后者采用的是outer product。在PNN的算法方面，比较重要的部分就是Product Layer的简化实现方法，需要在数学和代码上都能够比较深入的理解。</p>
 <h3 id="2-模型的结构及原理"><a href="#2-模型的结构及原理" class="headerlink" title="2. 模型的结构及原理"></a>2. 模型的结构及原理<a href="#2-模型的结构及原理" class="header-anchor">#</a></h3><p>PNN模型的整体架构如下图所示：<br><img src="./PNN/PNN%E7%BB%93%E6%9E%84.png" alt="PNN模型"></p>
 <p>Product层主要有线性部分和非线性部分组成，分别用$l_z$和$l_p$来表示，<br><img src="PNN/product%E5%B1%82.png" alt="product层"></p>
@@ -302,7 +319,10 @@
     <a href="/article/deepcrossing/" rel="prev" title="deepcrossing">
       <i class="fa fa-chevron-left"></i> deepcrossing
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/article/Wide-deep/" rel="next" title="Wide_deep">
+      Wide_deep <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -375,7 +395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

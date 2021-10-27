@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-27T06:30:43.008Z</updated>
+  <updated>2021-10-27T07:05:31.006Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,18 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Wide_deep</title>
+    <link href="https://hu1104.github.io/article/Wide-deep/"/>
+    <id>https://hu1104.github.io/article/Wide-deep/</id>
+    <published>2021-10-27T07:05:30.000Z</published>
+    <updated>2021-10-27T07:05:31.006Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>PNN</title>
     <link href="https://hu1104.github.io/article/PNN/"/>
     <id>https://hu1104.github.io/article/PNN/</id>
     <published>2021-10-27T00:55:13.000Z</published>
-    <updated>2021-10-27T06:30:43.008Z</updated>
+    <updated>2021-10-27T07:09:12.747Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;1动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1.动机&quot;&gt;&lt;/a&gt;1.动机&lt;a href=&quot;#1动机&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在特征交叉的相关模型中FM,</summary>
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a</summary>
         
       
     
@@ -424,27 +442,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;按天生成日志&quot;&gt;&lt;a href=&quot;#按天生成日志&quot; class=&quot;headerlink&quot; title=&quot;按天生成日志&quot;&gt;&lt;/a&gt;按天生成日志&lt;a href=&quot;#按天生成日志&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;&lt;figure</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>distributed_torch</title>
-    <link href="https://hu1104.github.io/article/distributed-torch/"/>
-    <id>https://hu1104.github.io/article/distributed-torch/</id>
-    <published>2021-08-26T08:11:12.000Z</published>
-    <updated>2021-08-30T07:20:06.981Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;多gpu分配&quot;&gt;&lt;a href=&quot;#多GPU分配&quot; class=&quot;headerlink&quot; title=&quot;多GPU分配&quot;&gt;&lt;/a&gt;多GPU分配&lt;a href=&quot;#多gpu分配&quot;</summary>
         
       
     

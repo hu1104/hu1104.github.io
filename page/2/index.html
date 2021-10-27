@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">36</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">37</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,77 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/anchor-free-or-anchor-based/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/anchor-free-or-anchor-based/" class="post-title-link" itemprop="url">anchor_free_or_anchor_based</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-07 15:52:54" itemprop="dateCreated datePublished" datetime="2021-09-07T15:52:54+08:00">2021-09-07</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -982,103 +1053,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/distributed-torch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/distributed-torch/" class="post-title-link" itemprop="url">distributed_torch</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-26 16:11:12" itemprop="dateCreated datePublished" datetime="2021-08-26T16:11:12+08:00">2021-08-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-30 15:20:06" itemprop="dateModified" datetime="2021-08-30T15:20:06+08:00">2021-08-30</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="多gpu分配"><a href="#多GPU分配" class="headerlink" title="多GPU分配"></a>多GPU分配<a href="#多gpu分配" class="header-anchor">#</a></h1><p>实现逻辑：寻找（可用显存 / 总显存）最大的的GPU，并优先安排任务</p>
-<p>nvidia-smi可以很方便的获得GPU的各种详细信息。</p>
-<p>首先获得可用的GPU数目，nvidia-smi -L | grep GPU |wc -l</p>
-<p>然后获得GPU各自的总显存，nvidia-smi -q -d Memory | grep -A4 GPU | grep Total | grep -o ‘[0-9]+‘</p>
-<p>最后获得GPU各自的可用显存，nvidia-smi -q -d Memory | grep -A4 GPU | grep Free | grep -o ‘[0-9]+‘</p>
-<p>将（可用显存 / 总显存）另存为numpy数组，并使用np.argmax返回值即为可用GPU</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def available_GPU(self):</span><br><span class="line">    import subprocess</span><br><span class="line">    import numpy as np</span><br><span class="line">    nDevice = int(subprocess.getoutput(&quot;nvidia-smi -L | grep GPU |wc -l&quot;))</span><br><span class="line">    total_GPU_str = subprocess.getoutput(&quot;nvidia-smi -q -d Memory | grep -A4 GPU | grep Total | grep -o &#x27;[0-9]\+&#x27;&quot;)</span><br><span class="line">    total_GPU = total_GPU_str.split(&#x27;\n&#x27;)</span><br><span class="line">    total_GPU = np.array([int(device_i) for device_i in total_GPU])</span><br><span class="line">    avail_GPU_str = subprocess.getoutput(&quot;nvidia-smi -q -d Memory | grep -A4 GPU | grep Free | grep -o &#x27;[0-9]\+&#x27;&quot;)</span><br><span class="line">    avail_GPU = avail_GPU_str.split(&#x27;\n&#x27;)</span><br><span class="line">    avail_GPU = np.array([int(device_i) for device_i in avail_GPU])</span><br><span class="line">    avail_GPU = avail_GPU / total_GPU</span><br><span class="line">    return np.argmax(avail_GPU)</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yh-blog/p/12877922.html">pytorch(分布式)数据并行个人实践总结——DataParallel/DistributedDataParallel </a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/junqing_wu/article/details/112732338">torch 多进程训练(详细例程)</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34914551/article/details/110576421">PyTorch多进程分布式训练最简单最好用的实施办法</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ZAQ1018472917/article/details/84626040">python并行编程 - GPU篇</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/107230545">Pytorch 分布式、多进程模块测试 </a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_36669549/article/details/95094464">多进程GPU调用问题</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/77307505">GPU加速02:超详细Python Cuda零基础入门教程，没有显卡也能学</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sh39o/article/details/90382101">使用python多GPU任务分配</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_37320188/article/details/100519346">Deep Learning:PyTorch 基于docker 容器的分布式训练实践</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1148,7 +1122,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
