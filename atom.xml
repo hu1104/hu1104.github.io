@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-29T06:25:53.099Z</updated>
+  <updated>2021-10-29T07:16:13.445Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AFM</title>
+    <link href="https://hu1104.github.io/article/AFM/"/>
+    <id>https://hu1104.github.io/article/AFM/</id>
+    <published>2021-10-29T07:16:13.000Z</published>
+    <updated>2021-10-29T07:16:13.445Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>23种激活函数</title>
+    <link href="https://hu1104.github.io/article/23%E7%A7%8D%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/"/>
+    <id>https://hu1104.github.io/article/23%E7%A7%8D%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</id>
+    <published>2021-10-29T06:56:41.000Z</published>
+    <updated>2021-10-29T06:56:41.487Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>目标检测损失函数</title>
@@ -478,40 +504,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>all_CN</title>
-    <link href="https://hu1104.github.io/article/all-CN/"/>
-    <id>https://hu1104.github.io/article/all-CN/</id>
-    <published>2021-09-03T01:40:26.000Z</published>
-    <updated>2021-10-19T02:56:11.000Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;深度可分离卷积&quot;&gt;&lt;a href=&quot;#深度可分离卷积&quot; class=&quot;headerlink&quot; title=&quot;深度可分离卷积&quot;&gt;&lt;/a&gt;深度可分离卷积&lt;/h1&gt;&lt;p&gt;假设输入是$D_{f^i} * D_{f^i} * M$ ,输出图大小是$D_{f^o}*D_{f^o}&lt;em&gt;N$, 卷积核大小是$D_k&lt;/em&gt;D_k$&lt;/p&gt;
-&lt;h2 id=&quot;普通卷积操作&quot;&gt;&lt;a href=&quot;#普通卷积操作&quot; class=&quot;headerlink&quot; title=&quot;普通卷积操作&quot;&gt;&lt;/a&gt;普通卷积操作&lt;/h2&gt;&lt;p&gt;输入图在经过卷积核（$D_k&lt;em&gt;D_k&lt;/em&gt;M$）后输出为目标输出大小，但此时仅为$D_{f^o}*D_{f^o} * 1$ ,需要$N$个这样的操作才能得到目标特征图。&lt;/p&gt;
-&lt;p&gt;此时所需要的计算量有$D_{f^o}&lt;em&gt;D_{f^o}&lt;em&gt;D_k&lt;/em&gt;D_k&lt;/em&gt;M*N$。&lt;/p&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>deeplearning</title>
-    <link href="https://hu1104.github.io/article/deeplearning/"/>
-    <id>https://hu1104.github.io/article/deeplearning/</id>
-    <published>2021-08-31T05:55:09.000Z</published>
-    <updated>2021-08-31T08:43:15.261Z</updated>
-    
-    
-    <summary type="html">Welcome to my blog, enter password to read.</summary>
-    
-    
-    
-    
-    <category term="加密" scheme="https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
     
   </entry>
   
