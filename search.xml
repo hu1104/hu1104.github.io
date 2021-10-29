@@ -2251,6 +2251,110 @@
   <entry>
     <title>DCN</title>
     <url>/article/DCN/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>Wide&amp;Deep模型的提出不仅综合了“记忆能力”和“泛化能力”， 而且开启了不同网络结构融合的新思路。 所以后面就有各式各样的模型改进Wide部分或者Deep部分， 而Deep&amp;Cross模型(DCN)就是其中比较典型的一个，这是2017年斯坦福大学和谷歌的研究人员在ADKDD会议上提出的， 该模型针对W&amp;D的wide部分进行了改进， 因为Wide部分有一个不足就是需要人工进行特征的组合筛选， 过程繁琐且需要经验， 而2阶的FM模型在线性的时间复杂度中自动进行特征交互，但是这些特征交互的表现能力并不够，并且随着阶数的上升，模型复杂度会大幅度提高。于是乎，作者用一个Cross Network替换掉了Wide部分，来自动进行特征之间的交叉，并且网络的时间和空间复杂度都是线性的。 通过与Deep部分相结合，构成了深度交叉网络（Deep &amp; Cross Network），简称DCN。</p>
+<span id="more"></span>
+<h3 id="2-模型结构与原理"><a href="#2-模型结构与原理" class="headerlink" title="2. 模型结构与原理"></a>2. 模型结构与原理<a href="#2-模型结构与原理" class="header-anchor">#</a></h3><p><img src="./DCN/DCN.png" alt="DCN"><br>这个模型的结构也是比较简洁的， 从上到下依次为：Embedding和Stacking层， Cross网络层与Deep网络层并列， 以及最后的输出层。</p>
+<h4 id="21-embedding和stacking-层"><a href="#2-1-Embedding和Stacking-层" class="headerlink" title="2.1 Embedding和Stacking 层"></a>2.1 Embedding和Stacking 层<a href="#21-embedding和stacking-层" class="header-anchor">#</a></h4><p>Embedding层我们已经非常的熟悉了吧， 这里的作用依然是把稀疏离散的类别型特征变成低维密集型。 $$ \mathbf{x}<em>{\text {embed, } i}=W</em>{\text {embed, } i} \mathbf{x}<em>{i} $$ 其中对于某一类稀疏分类特征（如id），$X</em>{embed, i}$是第$i$个分类值（id序号）的embedding向量。$W_{embed,i}$是embedding矩阵， $n_e\times n_v$维度， $n_e$是embedding维度， $n_v$是该类特征的唯一取值个数。$x_i$属于该特征的二元稀疏向量(one-hot)编码的。 【实质上就是在训练得到的Embedding参数矩阵中找到属于当前样本对应的Embedding向量】。其实绝大多数基于深度学习的推荐模型都需要Embedding操作，参数学习是通过神经网络进行训练。</p>
+<p>最后，该层需要将所有的密集型特征与通过embedding转换后的特征进行联合（Stacking）： $$ \mathbf{x}{0}=\left[\mathbf{x}<em>{\text {embed, } 1}^{T}, \ldots, \mathbf{x}</em>{\text {embed, }, k}^{T}, \mathbf{x}_{\text {dense }}^{T}\right] $$ 一共$k$个类别特征， dense是数值型特征， 两者在特征维度拼在一块。 上面的这两个操作如果是看了前面的模型的话，应该非常容易理解了。</p>
+<h4 id="22-cross-network"><a href="#2-2-Cross-Network" class="headerlink" title="2.2 Cross Network"></a>2.2 Cross Network<a href="#22-cross-network" class="header-anchor">#</a></h4><p>这个就是本模型最大的亮点了—Cross网络， 这个思路感觉非常Nice。设计该网络的目的是增加特征之间的交互力度。交叉网络由多个交叉层组成， 假设$l$层的输出向量$x_l$， 那么对于第$l+1$层的输出向量$x_{l+1}$表示为：</p>
+<p>$$ \mathbf{x}<em>{l+1}=\mathbf{x}</em>{0} \mathbf{x}<em>{l}^{T} \mathbf{w}</em>{l}+\mathbf{b}<em>{l}+\mathbf{x}</em>{l}=f\left(\mathbf{x}<em>{l}, \mathbf{w}</em>{l}, \mathbf{b}<em>{l}\right)+\mathbf{x}</em>{l} $$ 可以看到， 交叉层的操作的二阶部分非常类似PNN提到的外积操作， 在此基础上增加了外积操作的权重向量$w_l$， 以及原输入向量$x_l$和偏置向量$b_l$。 交叉层的可视化如下：<br><img src="DCN/crossnet.png" alt="cross"><br>可以看到， 每一层增加了一个$n$维的权重向量$w_l$（n表示输入向量维度）， 并且在每一层均保留了输入向量， 因此输入和输出之间的变化不会特别明显。关于这一层， 原论文里面有个具体的证明推导Cross Network为啥有效， 不过比较复杂，这里我拿一个式子简单的解释下上面这个公式的伟大之处：</p>
+<blockquote>
+<p>我们根据上面这个公式， 尝试的写前面几层看看:</p>
+<p>$l$ =0: $\mathbf{x}{1} =\mathbf{x}{0} \mathbf{x}{0}^{T} \mathbf{w}{0}+ \mathbf{b}{0}+\mathbf{x}{0}$</p>
+<p>$l=1:\mathbf{x}{2} =\mathbf{x}{0} \mathbf{x}{1}^{T} \mathbf{w}{1}+ \mathbf{b}{1}+\mathbf{x}{1}=\mathbf{x}{0} [\mathbf{x}{0} \mathbf{x}{0}^{T} \mathbf{w}{0}+ \mathbf{b}{0}+\mathbf{x}{0}]^{T}\mathbf{w}{1}+\mathbf{b}{1}+\mathbf{x}_{1}$</p>
+<p>$l=2:\mathbf{x}{3} =\mathbf{x}{0} \mathbf{x}{2}^{T} \mathbf{w}{2}+ \mathbf{b}{2}+\mathbf{x}{2}=\mathbf{x}{0} [\mathbf{x}{0} [\mathbf{x}{0} \mathbf{x}{0}^{T} \mathbf{w}{0}+ \mathbf{b}{0}+\mathbf{x}{0}]^{T}\mathbf{w}{1}+\mathbf{b}{1}+\mathbf{x}{1}]^{T}\mathbf{w}{2}+\mathbf{b}{2}+\mathbf{x}_{2}$</p>
+</blockquote>
+<p>我们暂且写到第3层的计算， 我们会发现什么结论呢？ 给大家总结一下：</p>
+<ol>
+<li><p>$\mathrm{x}_1$中包含了所有的$\mathrm{x}_0$的1,2阶特征的交互， $\mathrm{x}_2$包含了所有的$\mathrm{x}_1, \mathrm{x}_0$的1， 2， 3阶特征的交互，$\mathrm{x}_3$中包含了所有的$\mathrm{x}_2$, $\mathrm{x}_1$与$\mathrm{x}_0$的交互，$\mathrm{x}_0$的1,2,3,4阶特征交互。 因此， 交叉网络层的叉乘阶数是有限的。 第$l$层特征对应的最高的叉乘阶数$l+1$</p>
+</li>
+<li><p>Cross网络的参数是共享的， 每一层的这个权重特征之间共享， 这个可以使得模型泛化到看不见的特征交互作用， 并且对噪声更具有鲁棒性。 例如两个稀疏的特征$x_i,x_j$， 它们在数据中几乎不发生交互， 那么学习$x_i,x_j$的权重对于预测没有任何的意义。</p>
+</li>
+<li><p>计算交叉网络的参数数量。 假设交叉层的数量是$L_c$， 特征$x$的维度是$n$， 那么总共的参数是：<br>$$ n\times L_c \times 2 $$ 这个就是每一层会有$w$和$b$。且$w$维度和$x$的维度是一致的。</p>
+</li>
+<li><p>交叉网络的时间和空间复杂度是线性的。这是因为， 每一层都只有$w$和$b$， 没有激活函数的存在，相对于深度学习网络， 交叉网络的复杂性可以忽略不计。</p>
+</li>
+<li><p>Cross网络是FM的泛化形式， 在FM模型中， 特征$x_i$的权重$v_i$， 那么交叉项$x_i,x_j$的权重为$&lt;x_i,x_j&gt;$。在DCN中， $x_i$的权重为${W_K^{(i)}}{k=1}^l$, 交叉项$x_i,x_j$的权重是参数${W_K^{(i)}}{k=1}^l$和${W_K^{(j)}}_{k=1}^l$的乘积，这个看上面那个例子展开感受下。因此两个模型都各自学习了独立于其他特征的一些参数，并且交叉项的权重是相应参数的某种组合。FM只局限于2阶的特征交叉(一般)，而DCN可以构建更高阶的特征交互， 阶数由网络深度决定，并且交叉网络的参数只依据输入的维度线性增长。</p>
+</li>
+<li><p>还有一点我们也要了解，对于每一层的计算中， 都会跟着$\mathrm{x}_0$, 这个是咱们的原始输入， 之所以会乘以一个这个，是为了保证后面不管怎么交叉，都不能偏离我们的原始输入太远，别最后交叉交叉都跑偏了。</p>
+</li>
+<li><p>$\mathbf{x}{l+1}=f\left(\mathbf{x}{l}, \mathbf{w}{l}, \mathbf{b}{l}\right)+\mathbf{x}_{l}$, 这个东西其实有点跳远连接的意思，也就是和ResNet也有点相似，无形之中还能有效的缓解梯度消失现象。</p>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>目标检测损失函数</title>
+    <url>/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#smooth-l1-loss">Smooth L1 Loss</a></li>
+<li><a href="#iou-loss2016">IoU Loss（2016）</a></li>
+<li><a href="#giou-loss2019">GIOU loss(2019)</a></li>
+<li><a href="#diou-loss2019">DIoU Loss（2019）</a></li>
+<li><a href="#ciou-loss2019">CIoU Loss（2019）</a></li>
+<li><a href="#eiou-loss2021">EIoU Loss（2021）</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3 id="smooth-l1-loss"><a href="#Smooth-L1-Loss" class="headerlink" title="Smooth L1 Loss"></a>Smooth L1 Loss<a href="#smooth-l1-loss" class="header-anchor">#</a></h3><p>【动机】 Smooth L1 Loss完美的避开了L1和L2 Loss的缺点</p>
+<ol>
+<li>L1 Loss的问题：损失函数对x的导数为常数，在训练后期，x很小时，如果learning rate 不变，损失函数会在稳定值附近波动，很难收敛到更高的精度。</li>
+<li>L2 Loss的问题：损失函数对x的导数在x值很大时，其导数也非常大，在训练初期不稳定。<span id="more"></span>
+【分析】<br>$$ smooth_{L1}(x)=\begin{cases}<br> 0.5x^2, &amp;if \left|x\right| &lt;1 \<br> \left|x\right| - 0.5, &amp;otherwise<br>\end{cases}$$<br>SmoothL1对x的导数为：<br>$$\frac{dsmooth_{L1}(x)}{x} = \begin{cases}<br> x, &amp;if\left|x\right|&lt;1\<br> \plusmn1, &amp; otherwise<br>\end{cases}<br>$$<br>实际使用时：<br>$$L_{loc}(t^u,v)=\sum_{i \in {x, y,w,h}}smooth_{L1}(t_i^u-v_i)<br>$$<br>其中， $v_i=(v_x, v_y, v_w, v_h)$表示真实框坐标，$t_i^u=(t_x^u, t_y^u, t_w^u,t_h^u)$表示预测框的坐标，即分别求4个点的loss,然后相加作为Bounding Box Regression Loss.<br><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E5%AF%B9%E6%AF%94%E5%9B%BE.jpeg" alt="对比图"></li>
+</ol>
+<p>【不足】 Smooth L1 Loss在计算目标检测的 bbox loss时，都是独立的求出4个点的 loss，然后相加得到最终的 bbox loss。这种做法的默认4个点是相互独立的，与实际不符。举个例子，当(x, y)为右下角时，w h其实只能取0。</p>
+<h3 id="iou-loss2016"><a href="#IoU-Loss（2016）" class="headerlink" title="IoU Loss（2016）"></a>IoU Loss（2016）<a href="#iou-loss2016" class="header-anchor">#</a></h3><p>【动机】 针对smooth L1没有考虑box四个坐标之间相关性的缺点<br>【分析】 通过4个坐标点独立回归Building boxes的缺点：</p>
+<ul>
+<li>检测评价的方式是使用IoU,而实际回归坐标框的时候是使用4个坐标点，如下图所示，是不等价的；L1或者L2 Loss相同的框，其IoU 不是唯一的；</li>
+<li>通过4个点回归坐标框的方式是假设4个坐标点是相互独立的，没有考虑其相关性，实际4个坐标点具有一定的相关性；</li>
+<li>基于L1和L2的距离的loss对于尺度不具有不变性；<br><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/L2loss%E5%AF%B9%E6%AF%94.png" alt="L2对比"><br><img src="%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/IOUloss.png" alt="IOUloss"></li>
+</ul>
+<p>IoU Loss定义如下：<br>$$Iouloss = -ln(IoU(bbox_{gt},bbox_{pred}))<br>$$<br>实际可简化为：<br>$$IoUloss=1-IoU(bbox_{gt},bbox_{pred})<br>$$</p>
+<p>【不足】</p>
+<ol>
+<li>当预测框和目标框不相交，即 IoU(bbox1, bbox2)=0 时，不能反映两个框距离的远近，此时损失函数不可导，IoU Loss 无法优化两个框不相交的情况。</li>
+<li>假设预测框和目标框的大小都确定，只要两个框的相交值是确定的，其 IoU 值是相同时，IoU 值不能反映两个框是如何相交的。</li>
+</ol>
+<p><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E4%B8%8D%E8%B6%B3.png" alt="不足"></p>
+<h3 id="giou-loss2019"><a href="#GIOU-loss-2019" class="headerlink" title="GIOU loss(2019)"></a>GIOU loss(2019)<a href="#giou-loss2019" class="header-anchor">#</a></h3><p>【动机】 解决IoU Loss没有考虑两个框是如何相交</p>
+<p>【分析】</p>
+<p>GIoU定义如下：<br>$$GIoU = IoU - \frac{\left|C-\left|A \cup B \right|\right|}{C}<br>$$</p>
+<p>实际使用时:<br>$$<br>Loss_{GIoU}=1-GIoU<br>$$</p>
+<ol>
+<li>GIoU 取值范围为 [-1, 1]，在两框重合时取最大值1，在两框无限远的时候取最小值-1；</li>
+<li>与 IoU 只关注重叠区域不同，GIoU不仅关注重叠区域，还关注其他的非重合区域，能更好的反映两者的重合度。</li>
+</ol>
+<p>【不足】 当真实框完全包裹预测框的时候，IoU 和 GIoU 的值都一样，此时 GIoU 退化为 IoU, 无法区分其相对位置关系。</p>
+<h3 id="diou-loss2019"><a href="#DIoU-Loss（2019）" class="headerlink" title="DIoU Loss（2019）"></a>DIoU Loss（2019）<a href="#diou-loss2019" class="header-anchor">#</a></h3><p>【动机】 解决GIoU Loss缺点当真实框完全包裹预测框的时候，IoU 和 GIoU 的值都一样，引入距离</p>
+<p>【分析】</p>
+<p>基于IoU和GIoU存在的问题，作者提出了两个问题：</p>
+<ol>
+<li>第一：直接最小化预测框与目标框之间的归一化距离是否可行，以达到更快的收敛速度。</li>
+<li>第二：如何使回归在与目标框有重叠甚至包含时更准确、更快。</li>
+</ol>
+<p>好的目标框回归损失应该考虑三个重要的几何因素：重叠面积，中心点距离，长宽比。</p>
+<ul>
+<li>针对问题一，作者提出了DIoU Loss,相对于GIoU Loss收敛速度更快，该Loss考虑了重叠面积和中心点距离，但没有考虑到长宽比；</li>
+<li>针对问题二，作者提出了CIoU Loss，其收敛的精度更高，以上三个因素都考虑到了。</li>
+</ul>
+<p>DIoU Loss 的定义如下：<br>$$<br>Loss_{DIoU}=1-IoU+\frac{\rho^2(b,b^{gt})}{c^2}<br>$$<br>其中$\rho()$表示预测框和真实框中心点欧氏距离，c表示预测框和真实框最小外界矩形的对角线距离，如下图所示：<br><img src="%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/DIOU.png" alt="DIOU"></p>
+<p>当2个框完全重合时，<br>$Loss_{DIOU}=Loss_{GIOU}=0$</p>
+<p>当2个框不相交时：<br>$Loss_{DIOU}=Loss_{GIOU}=2$<br>【不足】 边框回归的三个重要几何因素：重叠面积、中心点距离和长宽比，DIoU 没有包含长宽比因素。</p>
+<h3 id="ciou-loss2019"><a href="#CIoU-Loss（2019）" class="headerlink" title="CIoU Loss（2019）"></a>CIoU Loss（2019）<a href="#ciou-loss2019" class="header-anchor">#</a></h3><p>【动机】 解决DIoU loss没有包含长宽比因素的不足</p>
+<p>【分析】</p>
+<p>CIoU的惩罚项是在DIoU的惩罚项基础上加了一个影响因子。<br>CIoU Loss定义为：<br>$$<br>Loss_{CIOU}=1-IoU +\frac{\rho^2(b,b^{gt})}{c^2} + \alpha v<br>$$<br>其中$v=\frac{4}{\pi}(\arctan {\frac{w^gt}{h^gt}} - \arctan {\frac{w}{h}})^2$<br>用于做trade-off的参数$\alpha=\frac{v}{(1-IoU)+v}$</p>
+<p>【不足】 在CIoU的定义中，衡量长宽比过于复杂，从两个方面减缓了收敛速度</p>
+<ol>
+<li>长宽比不能取代单独的长宽，比如$w=kw^{gt},h=kh^{gt}$  都会导致v=0；</li>
+<li>从v的导数可以得到$\frac{\partial v}{\partial w}=-\frac{h}{w}\frac{\partial v}{\partial h}$  ，这说明$\frac{\partial v}{\partial w}$  和 $\frac{\partial v}{\partial h} v$ 在优化中意义相反。</li>
+</ol>
+<h3 id="eiou-loss2021"><a href="#EIoU-Loss（2021）" class="headerlink" title="EIoU Loss（2021）"></a>EIoU Loss（2021）<a href="#eiou-loss2021" class="header-anchor">#</a></h3><p>【动机】 解决CIoU的定义中不足<br>【亮点】 引入了解决样本不平衡问题的Focal Loss思想</p>
+<p>【分析】将CIOU的$\alpha v$取代为$\frac{\rho^2(w,w^{gt})}{C_w^2}+\frac{\rho^2(h,h^{gt})}{C_h^2}$</p>
+<p>EIoU Loss的定义为：<br>$$<br>Loss_{EIoU}=1-IoU + \frac{\rho^2(b,b^{gt})}{c^2}+ \frac{\rho^2(w,w^{gt})}{C_w^2}+\frac{\rho^2(h,h^{gt})}{C_h^2}<br>$$<br>Focal-EIoU Loss的定义为：<br>focal loss可以理解为对损失加权，常见的分类focal loss为：<br>$FL(p_t)=-\alpha_t(1-p_t)^\gamma log(p_t)$<br>最后得到：<br>$Loss_{focal-EIoU}=IoU^\gamma Loss_{EIoU}$</p>
+]]></content>
   </entry>
 </search>

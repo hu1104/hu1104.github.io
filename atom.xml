@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-29T01:38:34.994Z</updated>
+  <updated>2021-10-29T06:25:53.099Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -17,12 +17,46 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>目标检测损失函数</title>
+    <link href="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/"/>
+    <id>https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</id>
+    <published>2021-10-29T02:12:34.000Z</published>
+    <updated>2021-10-29T06:25:53.099Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#smooth-l1-loss&quot;&gt;Smooth L1 Loss&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#iou-loss2016&quot;&gt;IoU Loss（2016）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#giou-loss2019&quot;&gt;GIOU loss(2019)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#diou-loss2019&quot;&gt;DIoU Loss（2019）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#ciou-loss2019&quot;&gt;CIoU Loss（2019）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#eiou-loss2021&quot;&gt;EIoU Loss（2021）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;Smooth-L1-Loss&quot;&gt;&lt;a href=&quot;#Smooth-L1-Loss&quot; class=&quot;headerlink&quot; title=&quot;Smooth L1 Loss&quot;&gt;&lt;/a&gt;Smooth L1 Loss&lt;/h3&gt;&lt;p&gt;【动机】 Smooth L1 Loss完美的避开了L1和L2 Loss的缺点&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;L1 Loss的问题：损失函数对x的导数为常数，在训练后期，x很小时，如果learning rate 不变，损失函数会在稳定值附近波动，很难收敛到更高的精度。&lt;/li&gt;
+&lt;li&gt;L2 Loss的问题：损失函数对x的导数在x值很大时，其导数也非常大，在训练初期不稳定。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>DCN</title>
     <link href="https://hu1104.github.io/article/DCN/"/>
     <id>https://hu1104.github.io/article/DCN/</id>
     <published>2021-10-29T01:38:34.000Z</published>
-    <updated>2021-10-29T01:38:34.994Z</updated>
+    <updated>2021-10-29T02:32:01.974Z</updated>
     
+    
+    <summary type="html">&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;Wide&amp;amp;Deep模型的提出不仅综合了“记忆能力”和“泛化能力”， 而且开启了不同网络结构融合的新思路。 所以后面就有各式各样的模型改进Wide部分或者Deep部分， 而Deep&amp;amp;Cross模型(DCN)就是其中比较典型的一个，这是2017年斯坦福大学和谷歌的研究人员在ADKDD会议上提出的， 该模型针对W&amp;amp;D的wide部分进行了改进， 因为Wide部分有一个不足就是需要人工进行特征的组合筛选， 过程繁琐且需要经验， 而2阶的FM模型在线性的时间复杂度中自动进行特征交互，但是这些特征交互的表现能力并不够，并且随着阶数的上升，模型复杂度会大幅度提高。于是乎，作者用一个Cross Network替换掉了Wide部分，来自动进行特征之间的交叉，并且网络的时间和空间复杂度都是线性的。 通过与Deep部分相结合，构成了深度交叉网络（Deep &amp;amp; Cross Network），简称DCN。&lt;/p&gt;</summary>
     
     
     
@@ -478,27 +512,6 @@
     
     
     <category term="加密" scheme="https://hu1104.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mmdetection</title>
-    <link href="https://hu1104.github.io/article/mmdetection/"/>
-    <id>https://hu1104.github.io/article/mmdetection/</id>
-    <published>2021-08-30T07:33:17.000Z</published>
-    <updated>2021-08-30T07:59:05.195Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;a href=&quot;#参考资料&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
-        
-      
-    
-    
-    
     
   </entry>
   
