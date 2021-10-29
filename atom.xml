@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-10-28T02:35:36.170Z</updated>
+  <updated>2021-10-28T05:57:40.220Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NFM</title>
+    <link href="https://hu1104.github.io/article/NFM/"/>
+    <id>https://hu1104.github.io/article/NFM/</id>
+    <published>2021-10-28T05:57:40.000Z</published>
+    <updated>2021-10-28T05:57:40.220Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>deepFM</title>
@@ -467,27 +480,6 @@
     
     <summary type="html">&lt;h1 id=&quot;环境配置&quot;&gt;&lt;a href=&quot;#环境配置&quot; class=&quot;headerlink&quot; title=&quot;环境配置&quot;&gt;&lt;/a&gt;环境配置&lt;/h1&gt;&lt;p&gt; 第一步：安装YOLOX&lt;/p&gt;
 &lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git clone git@github.com:Megvii-BaseDetection/YOLOX.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd YOLOX&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pip3 install -U pip &amp;amp;&amp;amp; pip3 install -r requirements.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pip3 install -v -e .  # or  python3 setup.py develop&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>python_base</title>
-    <link href="https://hu1104.github.io/article/python-base/"/>
-    <id>https://hu1104.github.io/article/python-base/</id>
-    <published>2021-08-30T02:18:47.000Z</published>
-    <updated>2021-08-30T07:20:16.023Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;initpy&quot;&gt;&lt;a href=&quot;#init-py&quot; class=&quot;headerlink&quot; title=&quot;init.py&quot;&gt;&lt;/a&gt;&lt;strong&gt;init&lt;/strong&gt;.py&lt;a href=&quot;#initpy&quot;</summary>
-        
-      
     
     
     
