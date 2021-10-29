@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">39</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">40</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/NFM/">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/DCN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -210,7 +210,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/article/NFM/" class="post-title-link" itemprop="url">NFM</a>
+            <a href="/article/DCN/" class="post-title-link" itemprop="url">DCN</a>
         </h2>
 
         <div class="post-meta">
@@ -220,7 +220,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-10-28 13:57:40" itemprop="dateCreated datePublished" datetime="2021-10-28T13:57:40+08:00">2021-10-28</time>
+              <time title="创建时间：2021-10-29 09:38:34" itemprop="dateCreated datePublished" datetime="2021-10-29T09:38:34+08:00">2021-10-29</time>
             </span>
 
           <br>
@@ -249,6 +249,109 @@
 
       
           
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/NFM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/NFM/" class="post-title-link" itemprop="url">NFM</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-28 13:57:40" itemprop="dateCreated datePublished" datetime="2021-10-28T13:57:40+08:00">2021-10-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-29 09:39:03" itemprop="dateModified" datetime="2021-10-29T09:39:03+08:00">2021-10-29</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-%E5%8A%A8%E6%9C%BA">1. 动机</a></li>
+<li><a href="#2-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8E%9F%E7%90%86">2. 模型结构与原理</a><ul>
+<li><a href="#21-input%E5%92%8Cembedding%E5%B1%82">2.1 Input和Embedding层</a></li>
+<li><a href="#22-bi-interaction-pooling-layer">2.2 Bi-Interaction Pooling layer</a></li>
+<li><a href="#23-%E9%9A%90%E8%97%8F%E5%B1%82">2.3 隐藏层</a></li>
+<li><a href="#24-%E9%A2%84%E6%B5%8B%E5%B1%82">2.4 预测层</a></li>
+</ul>
+</li>
+<li><a href="#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">3. 代码实现</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机</h3><p>NFM(Neural Factorization Machines)是2017年由新加坡国立大学的何向南教授等人在SIGIR会议上提出的一个模型，传统的FM模型仅局限于线性表达和二阶交互， 无法胜任生活中各种具有复杂结构和规律性的真实数据， 针对FM的这点不足， 作者提出了一种将FM融合进DNN的策略，通过引进了一个特征交叉池化层的结构，使得FM与DNN进行了完美衔接，这样就组合了FM的建模低阶特征交互能力和DNN学习高阶特征交互和非线性的能力，形成了深度学习时代的神经FM模型(NFM)。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/article/NFM/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1075,112 +1178,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/CF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/CF/" class="post-title-link" itemprop="url">CF</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-20 10:36:47" itemprop="dateCreated datePublished" datetime="2021-10-20T10:36:47+08:00">2021-10-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-21 16:42:19" itemprop="dateModified" datetime="2021-10-21T16:42:19+08:00">2021-10-21</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-
-<!-- code_chunk_output -->
-
-<ul>
-<li><a href="#1-%E5%8D%8F%E8%B0%83%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95">1. 协调过滤算法</a></li>
-<li><a href="#2-%E7%9B%B8%E4%BC%BC%E6%80%A7%E5%BA%A6%E9%87%8F%E6%96%B9%E6%B3%95">2. 相似性度量方法</a></li>
-<li><a href="#3-%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4">3. 基于用户的协同过滤</a></li>
-<li><a href="#4-%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0">4. 编程实现</a></li>
-<li><a href="#5-usercf-%E4%BC%98%E7%BC%BA%E7%82%B9">5. UserCF 优缺点</a></li>
-<li><a href="#6-%E7%AE%97%E6%B3%95%E8%AF%84%E4%BC%B0">6. 算法评估</a></li>
-<li><a href="#7%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">7.协同过滤算法的问题分析</a></li>
-</ul>
-<!-- /code_chunk_output -->
-
-<h3 id="1-协调过滤算法"><a href="#1-协调过滤算法" class="headerlink" title="1. 协调过滤算法"></a>1. 协调过滤算法</h3><p>所谓协同过滤， 基本思想是根据用户之前的喜好以及其他兴趣相近的用户的选择来给用户推荐物品(基于对用户历史行为数据的挖掘发现用户的喜好偏向， 并预测用户可能喜好的产品进行推荐)，一般是仅仅基于用户的行为数据（评价、购买、下载等）, 而不依赖于项的任何附加信息（物品自身特征）或者用户的任何附加信息（年龄， 性别等）。<br><br><br>目前应用比较广泛的协同过滤算法是基于邻域的方法， 而这种方法主要有下面两种算法：</p>
-<ul>
-<li>基于用户的协同过滤算法(UserCF): 给用户推荐和他兴趣相似的其他用户喜欢的产品</li>
-<li>基于物品的协同过滤算法(ItemCF): 给用户推荐和他之前喜欢的物品相似的物品</li>
-</ul>
-<p>不管是UserCF还是ItemCF算法， 非常重要的步骤之一就是计算用户和用户或者物品和物品之间的相似度， 所以下面先整理常用的相似性度量方法， 然后再对每个算法的具体细节进行展开。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/CF/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1250,7 +1247,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1303,12 +1300,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">212k</span>
+    <span title="站点总字数">217k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:13</span>
+    <span title="站点阅读时长">3:18</span>
 </div>
 
         
