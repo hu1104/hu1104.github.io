@@ -22,16 +22,16 @@
   </script>
 
 
-  <meta name="description" content="1. 动机#AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} &#x3D; w_0+\sum_{i&#x3D;1}^nw_ix_i+\sum_{i&#x3D;1}^{n}\sum">
+  <meta name="description" content="1. 动机 AFM模型原理 2.1 Pair-wise Interaction Layer 2.2 Attention-based Pooling 2.3 AFM模型训练      1. 动机AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AFM">
 <meta property="og:url" content="https://hu1104.github.io/article/AFM/index.html">
 <meta property="og:site_name" content="Zongxing">
-<meta property="og:description" content="1. 动机#AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} &#x3D; w_0+\sum_{i&#x3D;1}^nw_ix_i+\sum_{i&#x3D;1}^{n}\sum">
+<meta property="og:description" content="1. 动机 AFM模型原理 2.1 Pair-wise Interaction Layer 2.2 Attention-based Pooling 2.3 AFM模型训练      1. 动机AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://hu1104.github.io/article/AFM/AFM/AFM.png">
 <meta property="article:published_time" content="2021-10-29T07:16:13.000Z">
-<meta property="article:modified_time" content="2021-11-08T01:59:37.376Z">
+<meta property="article:modified_time" content="2021-11-08T02:52:06.124Z">
 <meta property="article:author" content="hzx">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://hu1104.github.io/article/AFM/AFM/AFM.png">
@@ -231,7 +231,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-08 09:59:37" itemprop="dateModified" datetime="2021-11-08T09:59:37+08:00">2021-11-08</time>
+                <time title="修改时间：2021-11-08 10:52:06" itemprop="dateModified" datetime="2021-11-08T10:52:06+08:00">2021-11-08</time>
               </span>
 
           
@@ -247,7 +247,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
+              <span>2.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -266,7 +266,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} = w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ 如何让不同的交叉特征具有不同的重要性就是AFM核心的贡献，在谈论AFM交叉特征注意力之前，对于FM交叉特征部分的改进还有FFM，其是考虑到了对于不同的其他特征，某个指定特征的隐向量应该是不同的（相比于FM对于所有的特征只有一个隐向量，FFM对于一个特征有多个不同的隐向量）。</p>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-%E5%8A%A8%E6%9C%BA">1. 动机</a></li>
+<li><a href="#afm%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86">AFM模型原理</a><ul>
+<li><a href="#21-pair-wise-interaction-layer">2.1 Pair-wise Interaction Layer</a></li>
+<li><a href="#22-attention-based-pooling">2.2 Attention-based Pooling</a></li>
+<li><a href="#23-afm%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83">2.3 AFM模型训练</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} = w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ 如何让不同的交叉特征具有不同的重要性就是AFM核心的贡献，在谈论AFM交叉特征注意力之前，对于FM交叉特征部分的改进还有FFM，其是考虑到了对于不同的其他特征，某个指定特征的隐向量应该是不同的（相比于FM对于所有的特征只有一个隐向量，FFM对于一个特征有多个不同的隐向量）。</p>
+<span id="more"></span>
+
 <h3 id="afm模型原理"><a href="#AFM模型原理" class="headerlink" title="AFM模型原理"></a>AFM模型原理<a href="#afm模型原理" class="header-anchor">#</a></h3><p><img src="./AFM/AFM.png" alt="AFM"><br>上图表示的就是AFM交叉特征部分的模型结构(非交叉部分与FM是一样的，图中并没有给出)。AFM最核心的两个点分别是Pair-wise Interaction Layer和Attention-based Pooling。前者将输入的非零特征的隐向量两两计算element-wise product(哈达玛积，两个向量对应元素相乘，得到的还是一个向量)，假如输入的特征中的非零向量的数量为m，那么经过Pair-wise Interaction Layer之后输出的就是$\frac{m(m-1)}{2}$个向量，再将前面得到的交叉特征向量组输入到Attention-based Pooling，该pooling层会先计算出每个特征组合的自适应权重(通过Attention Net进行计算)，通过加权求和的方式将向量组压缩成一个向量，由于最终需要输出的是一个数值，所以还需要将前一步得到的向量通过另外一个向量将其映射成一个值，得到最终的基于注意力加权的二阶交叉特征的输出。(对于这部分如果不是很清楚，可以先看下面对两个核心层的介绍)</p>
 <h4 id="21-pair-wise-interaction-layer"><a href="#2-1-Pair-wise-Interaction-Layer" class="headerlink" title="2.1 Pair-wise Interaction Layer"></a>2.1 Pair-wise Interaction Layer<a href="#21-pair-wise-interaction-layer" class="header-anchor">#</a></h4><p>FM二阶交叉项：所有非零特征对应的隐向量两两点积再求和，输出的是一个数值 $$ \sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ AFM二阶交叉项(无attention)：所有非零特征对应的隐向量两两对应元素乘积，然后再向量求和，输出的还是一个向量。 $$ \sum_{i=1}^{n}\sum_{i+1}^n (v_i \odot v_j) x_ix_j $$ 上述写法是为了更好的与FM进行对比，下面将公式变形方便与原论文中保持一致。首先是特征的隐向量。从上图中可以看出，作者对数值特征也对应了一个隐向量，不同的数值乘以对应的隐向量就可以得到不同的隐向量，相对于one-hot编码的特征乘以1还是其本身(并没有什么变化)，其实就是为了将公式进行统一。虽然论文中给出了对数值特征定义隐向量，但是在作者的代码中并没有发现有对数值特征进行embedding的过程(原论文代码链接）具体原因不详。</p>
 <p>按照论文的意思，特征的embedding可以表示为：$\varepsilon = {v_ix_i}$，经过Pair-wise Interaction Layer输出可得： $$ f_{PI}(\varepsilon)={(v_i \odot v_j) x_ix_j}\ \ \ \ {i,j \in R_x} $$ $R_x$表示的是有效特征集合。此时的$f{PI}(\varepsilon)$表示的是一个向量集合，所以需要先将这些向量集合聚合成一个向量，然后在转换成一个数值： $$ \hat{y} = p^T \sum_{(i,j)\in R_x}(v_i \odot v_j) x_ix_j + b $$ 上式中的求和部分就是将向量集合聚合成一个维度与隐向量维度相同的向量，通过向量$p$再将其转换成一个数值，b表示的是偏置。</p>

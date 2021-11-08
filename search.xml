@@ -2365,7 +2365,24 @@
   <entry>
     <title>AFM</title>
     <url>/article/AFM/</url>
-    <content><![CDATA[<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} = w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ 如何让不同的交叉特征具有不同的重要性就是AFM核心的贡献，在谈论AFM交叉特征注意力之前，对于FM交叉特征部分的改进还有FFM，其是考虑到了对于不同的其他特征，某个指定特征的隐向量应该是不同的（相比于FM对于所有的特征只有一个隐向量，FFM对于一个特征有多个不同的隐向量）。</p>
+    <content><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-%E5%8A%A8%E6%9C%BA">1. 动机</a></li>
+<li><a href="#afm%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86">AFM模型原理</a><ul>
+<li><a href="#21-pair-wise-interaction-layer">2.1 Pair-wise Interaction Layer</a></li>
+<li><a href="#22-attention-based-pooling">2.2 Attention-based Pooling</a></li>
+<li><a href="#23-afm%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83">2.3 AFM模型训练</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} = w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ 如何让不同的交叉特征具有不同的重要性就是AFM核心的贡献，在谈论AFM交叉特征注意力之前，对于FM交叉特征部分的改进还有FFM，其是考虑到了对于不同的其他特征，某个指定特征的隐向量应该是不同的（相比于FM对于所有的特征只有一个隐向量，FFM对于一个特征有多个不同的隐向量）。</p>
+<span id="more"></span>
+
 <h3 id="afm模型原理"><a href="#AFM模型原理" class="headerlink" title="AFM模型原理"></a>AFM模型原理<a href="#afm模型原理" class="header-anchor">#</a></h3><p><img src="./AFM/AFM.png" alt="AFM"><br>上图表示的就是AFM交叉特征部分的模型结构(非交叉部分与FM是一样的，图中并没有给出)。AFM最核心的两个点分别是Pair-wise Interaction Layer和Attention-based Pooling。前者将输入的非零特征的隐向量两两计算element-wise product(哈达玛积，两个向量对应元素相乘，得到的还是一个向量)，假如输入的特征中的非零向量的数量为m，那么经过Pair-wise Interaction Layer之后输出的就是$\frac{m(m-1)}{2}$个向量，再将前面得到的交叉特征向量组输入到Attention-based Pooling，该pooling层会先计算出每个特征组合的自适应权重(通过Attention Net进行计算)，通过加权求和的方式将向量组压缩成一个向量，由于最终需要输出的是一个数值，所以还需要将前一步得到的向量通过另外一个向量将其映射成一个值，得到最终的基于注意力加权的二阶交叉特征的输出。(对于这部分如果不是很清楚，可以先看下面对两个核心层的介绍)</p>
 <h4 id="21-pair-wise-interaction-layer"><a href="#2-1-Pair-wise-Interaction-Layer" class="headerlink" title="2.1 Pair-wise Interaction Layer"></a>2.1 Pair-wise Interaction Layer<a href="#21-pair-wise-interaction-layer" class="header-anchor">#</a></h4><p>FM二阶交叉项：所有非零特征对应的隐向量两两点积再求和，输出的是一个数值 $$ \sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ AFM二阶交叉项(无attention)：所有非零特征对应的隐向量两两对应元素乘积，然后再向量求和，输出的还是一个向量。 $$ \sum_{i=1}^{n}\sum_{i+1}^n (v_i \odot v_j) x_ix_j $$ 上述写法是为了更好的与FM进行对比，下面将公式变形方便与原论文中保持一致。首先是特征的隐向量。从上图中可以看出，作者对数值特征也对应了一个隐向量，不同的数值乘以对应的隐向量就可以得到不同的隐向量，相对于one-hot编码的特征乘以1还是其本身(并没有什么变化)，其实就是为了将公式进行统一。虽然论文中给出了对数值特征定义隐向量，但是在作者的代码中并没有发现有对数值特征进行embedding的过程(原论文代码链接）具体原因不详。</p>
 <p>按照论文的意思，特征的embedding可以表示为：$\varepsilon = {v_ix_i}$，经过Pair-wise Interaction Layer输出可得： $$ f_{PI}(\varepsilon)={(v_i \odot v_j) x_ix_j}\ \ \ \ {i,j \in R_x} $$ $R_x$表示的是有效特征集合。此时的$f{PI}(\varepsilon)$表示的是一个向量集合，所以需要先将这些向量集合聚合成一个向量，然后在转换成一个数值： $$ \hat{y} = p^T \sum_{(i,j)\in R_x}(v_i \odot v_j) x_ix_j + b $$ 上式中的求和部分就是将向量集合聚合成一个维度与隐向量维度相同的向量，通过向量$p$再将其转换成一个数值，b表示的是偏置。</p>
@@ -2382,7 +2399,23 @@
   <entry>
     <title>DIN</title>
     <url>/article/DIN/</url>
-    <content><![CDATA[<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>Deep Interest Network(DIIN)是2018年阿里巴巴提出来的模型， 该模型基于业务的观察，从实际应用的角度进行改进，相比于之前很多“学术风”的深度模型， 该模型更加具有业务气息。该模型的应用场景是阿里巴巴的电商广告推荐业务， 这样的场景下一般会有大量的用户历史行为信息， 这个其实是很关键的，因为DIN模型的创新点或者解决的问题就是使用了注意力机制来对用户的兴趣动态模拟， 而这个模拟过程存在的前提就是用户之前有大量的历史行为了，这样我们在预测某个商品广告用户是否点击的时候，就可以参考他之前购买过或者查看过的商品，这样就能猜测出用户的大致兴趣来，这样我们的推荐才能做的更加到位，所以这个模型的使用场景是非常注重用户的历史行为特征（历史购买过的商品或者类别信息），也希望通过这一点，能够和前面的一些深度学习模型对比一下。</p>
+    <content><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-%E5%8A%A8%E6%9C%BA">1. 动机</a></li>
+<li><a href="#2-din%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86">2. DIN模型结构及原理</a><ul>
+<li><a href="#21-%E7%89%B9%E5%BE%81%E8%A1%A8%E7%A4%BA">2.1 特征表示</a></li>
+<li><a href="#22-%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B">2.2 基线模型</a></li>
+<li><a href="#23-din%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84">2.3 DIN模型架构</a></li>
+</ul>
+</li>
+<li><a href="#3%E5%AE%9E%E7%8E%B0">3.实现</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>Deep Interest Network(DIIN)是2018年阿里巴巴提出来的模型， 该模型基于业务的观察，从实际应用的角度进行改进，相比于之前很多“学术风”的深度模型， 该模型更加具有业务气息。该模型的应用场景是阿里巴巴的电商广告推荐业务， 这样的场景下一般会有大量的用户历史行为信息， 这个其实是很关键的，因为DIN模型的创新点或者解决的问题就是使用了注意力机制来对用户的兴趣动态模拟， 而这个模拟过程存在的前提就是用户之前有大量的历史行为了，这样我们在预测某个商品广告用户是否点击的时候，就可以参考他之前购买过或者查看过的商品，这样就能猜测出用户的大致兴趣来，这样我们的推荐才能做的更加到位，所以这个模型的使用场景是非常注重用户的历史行为特征（历史购买过的商品或者类别信息），也希望通过这一点，能够和前面的一些深度学习模型对比一下。</p>
 <p>在个性化的电商广告推荐业务场景中，也正式由于用户留下了大量的历史交互行为，才更加看出了之前的深度学习模型(作者统称Embeding&amp;MLP模型)的不足之处。如果学习了前面的各种深度学习模型，就会发现Embeding&amp;MLP模型对于这种推荐任务一般有着差不多的固定处理套路，就是大量稀疏特征先经过embedding层， 转成低维稠密的，然后进行拼接，最后喂入到多层神经网络中去。</p>
 <p>这些模型在这种个性化广告点击预测任务中存在的问题就是无法表达用户广泛的兴趣，因为这些模型在得到各个特征的embedding之后，就蛮力拼接了，然后就各种交叉等。这时候根本没有考虑之前用户历史行为商品具体是什么，究竟用户历史行为中的哪个会对当前的点击预测带来积极的作用。 而实际上，对于用户点不点击当前的商品广告，很大程度上是依赖于他的历史行为的，王喆老师举了个例子</p>
 <blockquote>
@@ -2390,6 +2423,7 @@
 </blockquote>
 <p>这里也就是说如果是之前的那些深度学习模型，是没法很好的去表达出用户这广泛多样的兴趣的，如果想表达的准确些， 那么就得加大隐向量的维度，让每个特征的信息更加丰富， 那这样带来的问题就是计算量上去了，毕竟真实情景尤其是电商广告推荐的场景，特征维度的规模是非常大的。 并且根据上面的例子， 也并不是用户所有的历史行为特征都会对某个商品广告点击预测起到作用。所以对于当前某个商品广告的点击预测任务，没必要考虑之前所有的用户历史行为。</p>
 <p>这样， DIN的动机就出来了，在业务的角度，我们应该自适应的去捕捉用户的兴趣变化，这样才能较为准确的实施广告推荐；而放到模型的角度， 我们应该考虑到用户的历史行为商品与当前商品广告的一个关联性，如果用户历史商品中很多与当前商品关联，那么说明该商品可能符合用户的品味，就把该广告推荐给他。而一谈到关联性的话， 我们就容易想到“注意力”的思想了， 所以为了更好的从用户的历史行为中学习到与当前商品广告的关联性，学习到用户的兴趣变化， 作者把注意力引入到了模型，设计了一个”local activation unit”结构，利用候选商品和历史问题商品之间的相关性计算出权重，这个就代表了对于当前商品广告的预测，用户历史行为的各个商品的重要程度大小， 而加入了注意力权重的深度学习网络，就是这次的主角DIN， 下面具体来看下该模型。</p>
+<span id="more"></span>
 <h3 id="2-din模型结构及原理"><a href="#2-DIN模型结构及原理" class="headerlink" title="2. DIN模型结构及原理"></a>2. DIN模型结构及原理<a href="#2-din模型结构及原理" class="header-anchor">#</a></h3><p>在具体分析DIN模型之前， 我们还得先介绍两块小内容，一个是DIN模型的数据集和特征表示， 一个是上面提到的之前深度学习模型的基线模型， 有了这两个， 再看DIN模型，就感觉是水到渠成了。</p>
 <h4 id="21-特征表示"><a href="#2-1-特征表示" class="headerlink" title="2.1 特征表示"></a>2.1 特征表示<a href="#21-特征表示" class="header-anchor">#</a></h4><p>工业上的CTR预测数据集一般都是multi-group categorial form的形式，就是类别型特征最为常见，这种数据集一般长这样：<br><img src="./DIN/%E6%95%B0%E6%8D%AE%E9%9B%86.png" alt="数据集"><br>这里的亮点就是框出来的那个特征，这个包含着丰富的用户兴趣信息。</p>
 <p>对于特征编码，作者这里举了个例子：[weekday=Friday, gender=Female, visited_cate_ids={Bag,Book}, ad_cate_id=Book]， 这种情况我们知道一般是通过one-hot的形式对其编码， 转成系数的二值特征的形式。但是这里我们会发现一个visted_cate_ids， 也就是用户的历史商品列表， 对于某个用户来讲，这个值是个多值型的特征， 而且还要知道这个特征的长度不一样长，也就是用户购买的历史商品个数不一样多，这个显然。这个特征的话，我们一般是用到multi-hot编码，也就是可能不止1个1了，有哪个商品，对应位置就是1， 所以经过编码后的数据长下面这个样子：<br><img src="DIN/%E4%BE%8B%E5%AD%90.png" alt="例子"></p>
@@ -2433,8 +2467,23 @@
   <entry>
     <title>DIEN</title>
     <url>/article/DIEN/</url>
-    <content><![CDATA[<h3 id="1-dien提出的动机"><a href="#1-DIEN提出的动机" class="headerlink" title="1. DIEN提出的动机"></a>1. DIEN提出的动机<a href="#1-dien提出的动机" class="header-anchor">#</a></h3><p>在推荐场景，用户无需输入搜索关键词来表达意图，这种情况下捕捉用户兴趣并考虑兴趣的动态变化将是提升模型效果的关键。以Wide&amp;Deep为代表的深度模型更多的是考虑不同field特征之间的相互作用，未关注用户兴趣。</p>
+    <content><![CDATA[<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-dien%E6%8F%90%E5%87%BA%E7%9A%84%E5%8A%A8%E6%9C%BA">1. DIEN提出的动机</a></li>
+<li><a href="#2-dien%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86">2. DIEN模型原理</a><ul>
+<li><a href="#21-interest-exterator-layer">2.1 Interest Exterator Layer</a></li>
+<li><a href="#22-interest-evolving-layer">2.2 Interest Evolving Layer</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3 id="1-dien提出的动机"><a href="#1-DIEN提出的动机" class="headerlink" title="1. DIEN提出的动机"></a>1. DIEN提出的动机<a href="#1-dien提出的动机" class="header-anchor">#</a></h3><p>在推荐场景，用户无需输入搜索关键词来表达意图，这种情况下捕捉用户兴趣并考虑兴趣的动态变化将是提升模型效果的关键。以Wide&amp;Deep为代表的深度模型更多的是考虑不同field特征之间的相互作用，未关注用户兴趣。</p>
 <p>DIN模型考虑了用户兴趣，并且强调用户兴趣是多样的，该模型使用注意力机制来捕捉和target item的相关的兴趣，这样以来用户的兴趣就会随着目标商品自适应的改变。但是大多该类模型包括DIN在内，直接将用户的行为当做用户的兴趣(因为DIN模型只是在行为序列上做了简单的特征处理)，但是用户潜在兴趣一般很难直接通过用户的行为直接表示，大多模型都没有挖掘用户行为背后真实的兴趣，捕捉用户兴趣的动态变化对用户兴趣的表示非常重要。DIEN相比于之前的模型，即对用户的兴趣进行建模，又对建模出来的用户兴趣继续建模得到用户的兴趣变化过程。</p>
+<span id="more"></span>
 <h3 id="2-dien模型原理"><a href="#2-DIEN模型原理" class="headerlink" title="2. DIEN模型原理"></a>2. DIEN模型原理<a href="#2-dien模型原理" class="header-anchor">#</a></h3><p><img src="./DIEN/DIEN%E6%A8%A1%E5%9E%8B.png" alt="DIEN模型"><br>模型的输入可以分成两大部分，一部分是用户的行为序列(这部分会通过兴趣提取层及兴趣演化层转换成与用户当前兴趣相关的embedding)，另一部分就是除了用户行为以外的其他所有特征，如Target id, Context Feature, UserProfile Feature，这些特征都转化成embedding的类型然后concat在一起（形成一个大的embedding）作为非行为相关的特征(这里可能也会存在一些非id类特征，应该可以直接进行concat)。最后DNN输入的部分由行为序列embedding和非行为特征embedding（多个特征concat到一起之后形成的一个大的向量）组成，将两者concat之后输入到DNN中。</p>
 <p>所以DIEN模型的重点就是如何将用户的行为序列转换成与用户兴趣相关的向量，在DIN中是直接通过与target item计算序列中每个元素的注意力分数，然后加权求和得到最终的兴趣表示向量。在DIEN中使用了两层结构来建模用户兴趣相关的向量。</p>
 <h4 id="21-interest-exterator-layer"><a href="#2-1-Interest-Exterator-Layer" class="headerlink" title="2.1 Interest Exterator Layer"></a>2.1 Interest Exterator Layer<a href="#21-interest-exterator-layer" class="header-anchor">#</a></h4><p>兴趣抽取层的输入原本是一个id序列(按照点击时间的先后顺序形成的一个序列)，通过Embedding层将其转化成一个embedding序列。然后使用GRU模块对兴趣进行抽取，GRU的输入是embedding层之后得到的embedding序列。对于GRU模块不是很了解的可以看一下动手学深度学习中GRU相关的内容</p>

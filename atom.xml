@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-11-08T01:59:37.368Z</updated>
+  <updated>2021-11-08T02:52:10.942Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -21,16 +21,25 @@
     <link href="https://hu1104.github.io/article/DIEN/"/>
     <id>https://hu1104.github.io/article/DIEN/</id>
     <published>2021-11-08T01:15:28.000Z</published>
-    <updated>2021-11-08T01:59:37.368Z</updated>
+    <updated>2021-11-08T02:52:10.942Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;1-dien提出的动机&quot;&gt;&lt;a href=&quot;#1-DIEN提出的动机&quot; class=&quot;headerlink&quot; title=&quot;1. DIEN提出的动机&quot;&gt;&lt;/a&gt;1. DIEN提出的动机&lt;a href=&quot;#1-dien提出的动机&quot;</summary>
-        
-      
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-dien%E6%8F%90%E5%87%BA%E7%9A%84%E5%8A%A8%E6%9C%BA&quot;&gt;1. DIEN提出的动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-dien%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86&quot;&gt;2. DIEN模型原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-interest-exterator-layer&quot;&gt;2.1 Interest Exterator Layer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-interest-evolving-layer&quot;&gt;2.2 Interest Evolving Layer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-DIEN提出的动机&quot;&gt;&lt;a href=&quot;#1-DIEN提出的动机&quot; class=&quot;headerlink&quot; title=&quot;1. DIEN提出的动机&quot;&gt;&lt;/a&gt;1. DIEN提出的动机&lt;/h3&gt;&lt;p&gt;在推荐场景，用户无需输入搜索关键词来表达意图，这种情况下捕捉用户兴趣并考虑兴趣的动态变化将是提升模型效果的关键。以Wide&amp;amp;Deep为代表的深度模型更多的是考虑不同field特征之间的相互作用，未关注用户兴趣。&lt;/p&gt;
+&lt;p&gt;DIN模型考虑了用户兴趣，并且强调用户兴趣是多样的，该模型使用注意力机制来捕捉和target item的相关的兴趣，这样以来用户的兴趣就会随着目标商品自适应的改变。但是大多该类模型包括DIN在内，直接将用户的行为当做用户的兴趣(因为DIN模型只是在行为序列上做了简单的特征处理)，但是用户潜在兴趣一般很难直接通过用户的行为直接表示，大多模型都没有挖掘用户行为背后真实的兴趣，捕捉用户兴趣的动态变化对用户兴趣的表示非常重要。DIEN相比于之前的模型，即对用户的兴趣进行建模，又对建模出来的用户兴趣继续建模得到用户的兴趣变化过程。&lt;/p&gt;</summary>
     
     
     
@@ -42,16 +51,33 @@
     <link href="https://hu1104.github.io/article/DIN/"/>
     <id>https://hu1104.github.io/article/DIN/</id>
     <published>2021-10-29T09:09:55.000Z</published>
-    <updated>2021-11-08T01:59:37.369Z</updated>
+    <updated>2021-11-08T02:52:01.423Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;a href=&quot;#1-动机&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Deep Interest</summary>
-        
-      
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-din%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86&quot;&gt;2. DIN模型结构及原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-%E7%89%B9%E5%BE%81%E8%A1%A8%E7%A4%BA&quot;&gt;2.1 特征表示&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B&quot;&gt;2.2 基线模型&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#23-din%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84&quot;&gt;2.3 DIN模型架构&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3%E5%AE%9E%E7%8E%B0&quot;&gt;3.实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;Deep Interest Network(DIIN)是2018年阿里巴巴提出来的模型， 该模型基于业务的观察，从实际应用的角度进行改进，相比于之前很多“学术风”的深度模型， 该模型更加具有业务气息。该模型的应用场景是阿里巴巴的电商广告推荐业务， 这样的场景下一般会有大量的用户历史行为信息， 这个其实是很关键的，因为DIN模型的创新点或者解决的问题就是使用了注意力机制来对用户的兴趣动态模拟， 而这个模拟过程存在的前提就是用户之前有大量的历史行为了，这样我们在预测某个商品广告用户是否点击的时候，就可以参考他之前购买过或者查看过的商品，这样就能猜测出用户的大致兴趣来，这样我们的推荐才能做的更加到位，所以这个模型的使用场景是非常注重用户的历史行为特征（历史购买过的商品或者类别信息），也希望通过这一点，能够和前面的一些深度学习模型对比一下。&lt;/p&gt;
+&lt;p&gt;在个性化的电商广告推荐业务场景中，也正式由于用户留下了大量的历史交互行为，才更加看出了之前的深度学习模型(作者统称Embeding&amp;amp;MLP模型)的不足之处。如果学习了前面的各种深度学习模型，就会发现Embeding&amp;amp;MLP模型对于这种推荐任务一般有着差不多的固定处理套路，就是大量稀疏特征先经过embedding层， 转成低维稠密的，然后进行拼接，最后喂入到多层神经网络中去。&lt;/p&gt;
+&lt;p&gt;这些模型在这种个性化广告点击预测任务中存在的问题就是无法表达用户广泛的兴趣，因为这些模型在得到各个特征的embedding之后，就蛮力拼接了，然后就各种交叉等。这时候根本没有考虑之前用户历史行为商品具体是什么，究竟用户历史行为中的哪个会对当前的点击预测带来积极的作用。 而实际上，对于用户点不点击当前的商品广告，很大程度上是依赖于他的历史行为的，王喆老师举了个例子&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;假设广告中的商品是键盘， 如果用户历史点击的商品中有化妆品， 包包，衣服， 洗面奶等商品， 那么大概率上该用户可能是对键盘不感兴趣的， 而如果用户历史行为中的商品有鼠标， 电脑，iPad，手机等， 那么大概率该用户对键盘是感兴趣的， 而如果用户历史商品中有鼠标， 化妆品， T-shirt和洗面奶， 鼠标这个商品embedding对预测“键盘”广告的点击率的重要程度应该大于后面的那三个。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里也就是说如果是之前的那些深度学习模型，是没法很好的去表达出用户这广泛多样的兴趣的，如果想表达的准确些， 那么就得加大隐向量的维度，让每个特征的信息更加丰富， 那这样带来的问题就是计算量上去了，毕竟真实情景尤其是电商广告推荐的场景，特征维度的规模是非常大的。 并且根据上面的例子， 也并不是用户所有的历史行为特征都会对某个商品广告点击预测起到作用。所以对于当前某个商品广告的点击预测任务，没必要考虑之前所有的用户历史行为。&lt;/p&gt;
+&lt;p&gt;这样， DIN的动机就出来了，在业务的角度，我们应该自适应的去捕捉用户的兴趣变化，这样才能较为准确的实施广告推荐；而放到模型的角度， 我们应该考虑到用户的历史行为商品与当前商品广告的一个关联性，如果用户历史商品中很多与当前商品关联，那么说明该商品可能符合用户的品味，就把该广告推荐给他。而一谈到关联性的话， 我们就容易想到“注意力”的思想了， 所以为了更好的从用户的历史行为中学习到与当前商品广告的关联性，学习到用户的兴趣变化， 作者把注意力引入到了模型，设计了一个”local activation unit”结构，利用候选商品和历史问题商品之间的相关性计算出权重，这个就代表了对于当前商品广告的预测，用户历史行为的各个商品的重要程度大小， 而加入了注意力权重的深度学习网络，就是这次的主角DIN， 下面具体来看下该模型。&lt;/p&gt;</summary>
     
     
     
@@ -63,16 +89,25 @@
     <link href="https://hu1104.github.io/article/AFM/"/>
     <id>https://hu1104.github.io/article/AFM/</id>
     <published>2021-10-29T07:16:13.000Z</published>
-    <updated>2021-11-08T01:59:37.376Z</updated>
+    <updated>2021-11-08T02:52:06.124Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;a href=&quot;#1-动机&quot;</summary>
-        
-      
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#afm%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86&quot;&gt;AFM模型原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-pair-wise-interaction-layer&quot;&gt;2.1 Pair-wise Interaction Layer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-attention-based-pooling&quot;&gt;2.2 Attention-based Pooling&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#23-afm%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83&quot;&gt;2.3 AFM模型训练&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} = w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ 如何让不同的交叉特征具有不同的重要性就是AFM核心的贡献，在谈论AFM交叉特征注意力之前，对于FM交叉特征部分的改进还有FFM，其是考虑到了对于不同的其他特征，某个指定特征的隐向量应该是不同的（相比于FM对于所有的特征只有一个隐向量，FFM对于一个特征有多个不同的隐向量）。&lt;/p&gt;</summary>
     
     
     
