@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">43</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,109 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/LN-BN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/LN-BN/" class="post-title-link" itemprop="url">LN_BN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-03 09:40:40" itemprop="dateCreated datePublished" datetime="2021-09-03T09:40:40+08:00">2021-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-19 10:54:59" itemprop="dateModified" datetime="2021-10-19T10:54:59+08:00">2021-10-19</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>825</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>LN：Layer Normalization，LN是“横”着来的，对一个样本，不同的神经元neuron间做归一化。</p>
+<p>BN：Batch Normalization，BN是“竖”着来的，各个维度做归一化，所以与batch size有关系。</p>
+<p><img src="image-20210906155404860.png" alt="image-20210906155404860"></p>
+<p><strong>优点：</strong>Bactch Normalization通过标准化让激活函数分布在线性区间，结果就是加大了梯度，让模型更大胆的进行梯度下降，具有如下优点：</p>
+<ul>
+<li>加大搜索的步长，加快收敛的速度；</li>
+<li>更容易跳出局部最小值；</li>
+<li>破坏原来的数据分布，一定程度上缓解了过拟合</li>
+</ul>
+<p><strong>缺陷如下：</strong></p>
+<p>1、BN是在batch size样本上各个维度做标准化的，所以size越大肯定越能得出合理的μ和σ来做标准化，因此BN比较依赖size的大小。<br>2、在训练的时候，是分批量进行填入模型的，但是在预测的时候，如果只有一个样本或者很少量的样本来做inference，这个时候用BN显然偏差很大，例如在线学习场景。<br>3、RNN是一个动态的网络，也就是size是变化的，可大可小，造成多样本维度都没法对齐，所以不适合用BN。</p>
+<p><strong>LN带来的优势：</strong></p>
+<p>1、Layer Normalization是每个样本内部做标准化，跟size没关系，不受其影响。<br>2、RNN中LN也不受影响，内部自己做标准化，所以LN的应用面更广。</p>
+<ul>
+<li>BatchNorm：batch方向做归一化，计算N<em>H</em>W的均值</li>
+<li>LayerNorm：channel方向做归一化，计算C<em>H</em>W的均值</li>
+<li>InstanceNorm：一个channel内做归一化，计算H*W的均值</li>
+<li>GroupNorm：先将channel方向分group，然后每个group内做归一化，计算(C//G)<em>H</em>W的均值</li>
+</ul>
+<h1 id="wn"><a href="#WN" class="headerlink" title="WN"></a>WN<a href="#wn" class="header-anchor">#</a></h1><p><img src="image-20210906155830408.png" alt="image-20210906155830408"></p>
+<p><img src="LN-BN/image-20210906155845338.png" alt="image-20210906155845338"></p>
+<h1 id="归一化操作"><a href="#归一化操作" class="headerlink" title="归一化操作"></a>归一化操作<a href="#归一化操作" class="header-anchor">#</a></h1><p><img src="image-20210906160001983.png" alt="image-20210906160001983"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gczr/p/12597344.html">https://www.cnblogs.com/gczr/p/12597344.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33173246">详解深度学习中的Normalization，BN/LN/WN - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shine-lee/p/11779514.html">为什么要做特征归一化/标准化？ - shine-lee - 博客园 (cnblogs.com)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -991,97 +1094,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/python-%E8%BF%9B%E9%98%B6/" class="post-title-link" itemprop="url">python_进阶</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-24 13:44:57" itemprop="dateCreated datePublished" datetime="2021-08-24T13:44:57+08:00">2021-08-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-09 09:19:51" itemprop="dateModified" datetime="2021-09-09T09:19:51+08:00">2021-09-09</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h1><p>定义：偏函数的第二个部分(可变参数)，按原有函数的参数顺序进行补充，参数将作用在原函数上，最后偏函数返回一个新函数（类似于，装饰器decorator，对于函数进行二次包装，产生特殊效果；但又不同于装饰器，偏函数产生了一个新函数，而装饰器，可改变被装饰函数的函数入口地址也可以不影响原函数）</p>
-<p>例一：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from functools import partial</span><br><span class="line"> </span><br><span class="line">def mod( n, m ):</span><br><span class="line">  return n % m</span><br><span class="line"> </span><br><span class="line">mod_by_100 = partial( mod, 100 )</span><br><span class="line"> </span><br><span class="line">print mod( 100, 7 )  # 2</span><br><span class="line">print mod_by_100( 7 )  # 2</span><br></pre></td></tr></table></figure>
-
-<p>例二：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from functools import partial</span><br><span class="line"> </span><br><span class="line">bin2dec = partial( int, base=2 )</span><br><span class="line">print bin2dec( &#x27;0b10001&#x27; )  # 17</span><br><span class="line">print bin2dec( &#x27;10001&#x27; )  # 17</span><br><span class="line"> </span><br><span class="line">hex2dec = partial( int, base=16 )</span><br><span class="line">print hex2dec( &#x27;0x67&#x27; )  # 103</span><br><span class="line">print hex2dec( &#x27;67&#x27; )  # 103</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/python-%E8%BF%9B%E9%98%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1151,7 +1163,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
