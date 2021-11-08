@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">44</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">45</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -192,6 +192,97 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/%E4%B8%8A%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">上采样方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-06 15:48:43" itemprop="dateCreated datePublished" datetime="2021-09-06T15:48:43+08:00">2021-09-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-10-19 10:54:08" itemprop="dateModified" datetime="2021-10-19T10:54:08+08:00">2021-10-19</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>613</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="pixelshuffle"><a href="#pixelshuffle" class="headerlink" title="pixelshuffle"></a>pixelshuffle<a href="#pixelshuffle" class="header-anchor">#</a></h1><p>上采样可以理解为在同一个位置，原来只是以1:1的比例提取信息，而现在以1:4的比例提取信息，提取信息的频率更高了，所以能反映的细节也就更多。对于tensor来说，在同一个位置多提取信息，也就是通过卷积生成通道数更多的tensor。具体过程为（以一个（n,64,64,64）的特征图为例）</p>
+<ol>
+<li>通过卷积，得到通道数倍增的特征图（n,64,64,256）</li>
+<li>将特征图切割成若干份，对每一份（n,64,64,4）的像素点进行重新排列,reshape成(n,64,64,2,2），再reshape成（n,64,2,64,2），最后reshape成（n,128,128,1），再把这么多份拼接起来，得（n,128,128,64）的特征图</li>
+</ol>
+<p><img src="image-20210906161758378.png" alt="image-20210906161758378"></p>
+<p><img src="image-20210906161922868.png" alt="image-20210906161922868"></p>
+<h1 id="upsample"><a href="#upsample" class="headerlink" title="upsample"></a>upsample<a href="#upsample" class="header-anchor">#</a></h1><p>插值方法</p>
+<h1 id="转置卷积convtranspose2d"><a href="#转置卷积-ConvTranspose2d" class="headerlink" title="转置卷积(ConvTranspose2d)"></a>转置卷积(ConvTranspose2d)<a href="#转置卷积convtranspose2d" class="header-anchor">#</a></h1><p>填充0后做卷积</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料<a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_14845119/article/details/107557449">(19条消息) 上采样方法大PK（Upsample，Interpolate，resize，Transposed convolution，deconv，Unpool，Pixelshuffle）_年轻即出发，-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/oliyoung/p/upsample.html">上采样，上池化，反卷积 - OliYoung - 博客园 (cnblogs.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.pianshen.com/article/46871443097/">PixelShuffler原理学习笔记 - 程序员大本营 (pianshen.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiangkejie/p/12919155.html">pytorch中的上采样（上采样，转置卷积，上池化，PixelShuffle） - 那抹阳光1994 - 博客园 (cnblogs.com)</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1006,94 +1097,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/coroutine/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/coroutine/" class="post-title-link" itemprop="url">coroutine</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-24 16:49:44" itemprop="dateCreated datePublished" datetime="2021-08-24T16:49:44+08:00">2021-08-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-03 09:36:33" itemprop="dateModified" datetime="2021-09-03T09:36:33+08:00">2021-09-03</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="asyncio-yield-from"><a href="#asyncio-yield-from" class="headerlink" title="asyncio + yield from"></a>asyncio + yield from</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#-*- coding:utf8 -*-</span><br><span class="line">import asyncio</span><br><span class="line"></span><br><span class="line">@asyncio.coroutine</span><br><span class="line">def test(i):</span><br><span class="line">    print(&#x27;test_1&#x27;, i)</span><br><span class="line">    r = yield from asyncio.sleep(1)</span><br><span class="line">    print(&#x27;test_2&#x27;, i)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    tasks = [test(i) for i in range(3)]</span><br><span class="line">    loop.run_until_complete(asyncio.wait(tasks))</span><br><span class="line">    loop.close()</span><br></pre></td></tr></table></figure>
-
-<p><code>@asyncio.coroutine</code>把一个generator标记为coroutine类型，然后就把这个coroutine扔到EventLoop中执行。test()会首先打印出test_1，然后<code>yield from</code>语法可以让我们方便地调用另一个generator。由于<code>asyncio.sleep()</code>也是一个coroutine，所以线程不会等待<code>asyncio.sleep()</code>，而是直接中断并执行下一个消息循环。当<code>asyncio.sleep()</code>返回时，线程就可以从<code>yield from</code>拿到返回值（此处是None），然后接着执行下一行语句。把<code>asyncio.sleep(1)</code>看成是一个耗时1秒的IO操作，在此期间主线程并未等待，而是去执行EventLoop中其他可以执行的coroutine了，因此可以实现并发执行。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/coroutine/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1163,7 +1166,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1216,12 +1219,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">240k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:24</span>
+    <span title="站点阅读时长">3:38</span>
 </div>
 
         

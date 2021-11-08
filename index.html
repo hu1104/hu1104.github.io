@@ -138,7 +138,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">44</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">45</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/DIEN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/article/DIEN/" class="post-title-link" itemprop="url">DIEN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-08 09:15:28" itemprop="dateCreated datePublished" datetime="2021-11-08T09:15:28+08:00">2021-11-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-08 09:59:37" itemprop="dateModified" datetime="2021-11-08T09:59:37+08:00">2021-11-08</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-dien提出的动机"><a href="#1-DIEN提出的动机" class="headerlink" title="1. DIEN提出的动机"></a>1. DIEN提出的动机<a href="#1-dien提出的动机" class="header-anchor">#</a></h3><p>在推荐场景，用户无需输入搜索关键词来表达意图，这种情况下捕捉用户兴趣并考虑兴趣的动态变化将是提升模型效果的关键。以Wide&amp;Deep为代表的深度模型更多的是考虑不同field特征之间的相互作用，未关注用户兴趣。</p>
+<p>DIN模型考虑了用户兴趣，并且强调用户兴趣是多样的，该模型使用注意力机制来捕捉和target item的相关的兴趣，这样以来用户的兴趣就会随着目标商品自适应的改变。但是大多该类模型包括DIN在内，直接将用户的行为当做用户的兴趣(因为DIN模型只是在行为序列上做了简单的特征处理)，但是用户潜在兴趣一般很难直接通过用户的行为直接表示，大多模型都没有挖掘用户行为背后真实的兴趣，捕捉用户兴趣的动态变化对用户兴趣的表示非常重要。DIEN相比于之前的模型，即对用户的兴趣进行建模，又对建模出来的用户兴趣继续建模得到用户的兴趣变化过程。</p>
+<h3 id="2-dien模型原理"><a href="#2-DIEN模型原理" class="headerlink" title="2. DIEN模型原理"></a>2. DIEN模型原理<a href="#2-dien模型原理" class="header-anchor">#</a></h3><p><img src="./DIEN/DIEN%E6%A8%A1%E5%9E%8B.png" alt="DIEN模型"><br>模型的输入可以分成两大部分，一部分是用户的行为序列(这部分会通过兴趣提取层及兴趣演化层转换成与用户当前兴趣相关的embedding)，另一部分就是除了用户行为以外的其他所有特征，如Target id, Context Feature, UserProfile Feature，这些特征都转化成embedding的类型然后concat在一起（形成一个大的embedding）作为非行为相关的特征(这里可能也会存在一些非id类特征，应该可以直接进行concat)。最后DNN输入的部分由行为序列embedding和非行为特征embedding（多个特征concat到一起之后形成的一个大的向量）组成，将两者concat之后输入到DNN中。</p>
+<p>所以DIEN模型的重点就是如何将用户的行为序列转换成与用户兴趣相关的向量，在DIN中是直接通过与target item计算序列中每个元素的注意力分数，然后加权求和得到最终的兴趣表示向量。在DIEN中使用了两层结构来建模用户兴趣相关的向量。</p>
+<h4 id="21-interest-exterator-layer"><a href="#2-1-Interest-Exterator-Layer" class="headerlink" title="2.1 Interest Exterator Layer"></a>2.1 Interest Exterator Layer<a href="#21-interest-exterator-layer" class="header-anchor">#</a></h4><p>兴趣抽取层的输入原本是一个id序列(按照点击时间的先后顺序形成的一个序列)，通过Embedding层将其转化成一个embedding序列。然后使用GRU模块对兴趣进行抽取，GRU的输入是embedding层之后得到的embedding序列。对于GRU模块不是很了解的可以看一下动手学深度学习中GRU相关的内容</p>
+<p>作者并没有直接完全使用原始的GRU来提取用户的兴趣，而是引入了一个辅助函数来指导用户兴趣的提取。作者认为如果直接使用GRU提取用户的兴趣，只能得到用户行为之间的依赖关系，不能有效的表示用户的兴趣。因为是用户的兴趣导致了用户的点击，用户的最后一次点击与用户点击之前的兴趣相关性就很强，但是直接使用行为序列训练GRU的话，只有用户最后一次点击的物品(也就是label，在这里可以认为是Target Ad), 那么最多就是能够捕捉到用户最后一次点击时的兴趣，而最后一次的兴趣又和前面点击过的物品在兴趣上是相关的，而前面点击的物品中并没有target item进行监督。所以作者提出的辅助损失就是为了让行为序列中的每一个时刻都有一个target item进行监督训练，也就是使用下一个行为来监督兴趣状态的学习</p>
+<p>辅助损失</p>
+<p>首先需要明确的就是辅助损失是计算哪两个量的损失。计算的是用户每个时刻的兴趣表示（GRU每个时刻输出的隐藏状态形成的序列）与用户当前时刻实际点击的物品表示（输入的embedding序列）之间的损失，相当于是行为序列中的第t+1个物品与用户第t时刻的兴趣表示之间的损失<strong>为什么这里用户第t时刻的兴趣与第t+1时刻的真实点击做损失呢？我的理解是，只有知道了用户第t+1真实点击的商品，才能更好的确定用户第t时刻的兴趣）。</strong></p>
+<p><img src="DIEN/GRU.png" alt="GRU"><br>当然，如果只计算用户点击物品与其点击前一次的兴趣之间的损失，只能认为是正样本之间的损失，那么用户第t时刻的兴趣其实还有很多其他的未点击的商品，这些未点击的商品就是负样本，负样本一般通过从用户点击序列中采样得到，这样一来辅助损失中就包含了用户某个时刻下的兴趣及与该时刻兴趣相关的正负物品。所以最终的损失函数表示如下。<br><img src="DIEN/loss.png" alt="Loss"><br>其中$h_t^i$表示的是用户$i$第$t$时刻的隐藏状态，可以表示用户第$t$时刻的兴趣向量，$e_b^i，\hat{e_b^i}$分别表示的是正负样本，$e_b^i[t+1]$表示的是用户$i$第$t+1$时刻点击的物品向量。</p>
+<p>辅助损失会加到最终的目标损失(ctr损失)中一起进行优化，并且通过$\alpha$参数来平衡点击率和兴趣的关系 $$ L = L_{target} + \alpha L_{aux} $$</p>
+<p>引入辅助函数的函数有：</p>
+<ol>
+<li>辅助loss可以帮助GRU的隐状态更好地表示用户兴趣。</li>
+<li>RNN在长序列建模场景下梯度传播可能并不能很好的影响到序列开始部分，如果在序列的每个部分都引入一个辅助的监督信号，则可一定程度降低优化难度。</li>
+<li>辅助loss可以给embedding层的学习带来更多语义信息，学习到item对应的更好的embedding。</li>
+</ol>
+<h4 id="22-interest-evolving-layer"><a href="#2-2-Interest-Evolving-Layer" class="headerlink" title="2.2 Interest Evolving Layer"></a>2.2 Interest Evolving Layer<a href="#22-interest-evolving-layer" class="header-anchor">#</a></h4><p>将用户的行为序列通过GRU+辅助损失建模之后，对用户行为序列中的兴趣进行了提取并表达成了向量的形式(GRU每个时刻输出的隐藏状态)。而用户的兴趣会因为外部环境或内部认知随着时间变化，特点如下：</p>
+<ol>
+<li>兴趣是多样化的，可能发生漂移。兴趣漂移对行为的影响是用户可能在一段时间内对各种书籍感兴趣，而在另一段时间却需要衣服</li>
+<li>虽然兴趣可能会相互影响，但是每一种兴趣都有自己的发展过程，例如书和衣服的发展过程几乎是独立的。而我们只关注与target item相关的演进过程。</li>
+</ol>
+<p>由于用户的兴趣是多样的，但是用户的每一种兴趣都有自己的发展过程，即使兴趣发生漂移我们可以只考虑用户与target item(广告或者商品)相关的兴趣演化过程，这样就不用考虑用户多样化的兴趣的问题了，而如何只获取与target item相关的信息，作者使用了与DIN模型中提取与target item相同的方法，来计算用户历史兴趣与target item之间的相似度，即这里也使用了DIN中介绍的局部激活单元(就是下图中的Attention模块)。</p>
+<p><img src="DIEN/%E5%85%B4%E8%B6%A3.png" alt="兴趣"></p>
+<p>当得到了用户历史兴趣序列及兴趣序列与target item之间的相关性(注意力分数)之后，就需要再次对注意力序列进行建模得到用户注意力的演化过程，进一步表示用户最终的兴趣向量。此时的序列数据等同于有了一个序列及序列中每个向量的注意力权重，下面就是考虑如何使用这个注意力权重来一起优化序列建模的结果了。作者提出了三种注意力结合的GRU模型快：</p>
+<ol>
+<li>AIGRU: 将注意力分数直接与输入的序列进行相乘，也就是权重越大的向量对应的值也越大, 其中$i_t^{‘}, h_t, a_t$分别表示用户$i$在兴趣演化过程使用的GRU的第t时刻的输入，$h_t$表示的是兴趣抽取层第t时刻的输出，$a_t$表示的是$h_t$的注意力分数，这种方式的弊端是即使是零输入也会改变GRU的隐藏状态，所以相对较少的兴趣值也会影响兴趣的学习进化(根据GRU门的更新公式就可以知道，下一个隐藏状态的计算会用到上一个隐藏状态的信息，所以即使当前输入为0，最终隐藏状态也不会直接等于0，所以即使兴趣较少，也会影响到最终兴趣的演化)。 $$ i_t^{‘} = h_t * a_t $$</li>
+<li>AGRU: 将注意力分数直接作为GRU模块中，更新门的值，则重置门对应的值表示为$1-a_t$, 所以最终隐藏状态的更新公式表示为：其中$\hat{h_t^{‘}}$表示的是候选隐藏状态。但是这种方式的弊端是弱化了兴趣之间的相关性，因为最终兴趣的更新前后是没关系的，只取决于输入的注意力分数 $$ h_t^{‘} = (1-a_t)h_{t-1}^{‘} + a_t * \tilde{h_t^{‘}} $$</li>
+<li>AUGRU: 将注意力分数作为更新门的权重，这样既兼顾了注意力分数很低时的状态更新值，也利用了兴趣之间的相关性，最终的表达式如下： $$ \begin{align} &amp; \tilde{u_t^{‘}} = a_t * u_t \ &amp; h_t^{‘} = (1-\tilde{u_t^{‘}})h_{t-1}^{‘} + \tilde{u_t^{‘}} * \tilde{h_t^{‘}} \end{align} $$</li>
+</ol>
+<p>建模兴趣演化过程的好处：</p>
+<ul>
+<li>追踪用户的interest可以使我们学习final interest的表达时包含更多的历史信息</li>
+<li>可以根据interest的变化趋势更好地进行CTR预测</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/DIN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -222,6 +334,13 @@
 
               <time title="创建时间：2021-10-29 17:09:55" itemprop="dateCreated datePublished" datetime="2021-10-29T17:09:55+08:00">2021-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-08 09:59:37" itemprop="dateModified" datetime="2021-11-08T09:59:37+08:00">2021-11-08</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -229,14 +348,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>9.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -248,7 +367,53 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>Deep Interest Network(DIIN)是2018年阿里巴巴提出来的模型， 该模型基于业务的观察，从实际应用的角度进行改进，相比于之前很多“学术风”的深度模型， 该模型更加具有业务气息。该模型的应用场景是阿里巴巴的电商广告推荐业务， 这样的场景下一般会有大量的用户历史行为信息， 这个其实是很关键的，因为DIN模型的创新点或者解决的问题就是使用了注意力机制来对用户的兴趣动态模拟， 而这个模拟过程存在的前提就是用户之前有大量的历史行为了，这样我们在预测某个商品广告用户是否点击的时候，就可以参考他之前购买过或者查看过的商品，这样就能猜测出用户的大致兴趣来，这样我们的推荐才能做的更加到位，所以这个模型的使用场景是非常注重用户的历史行为特征（历史购买过的商品或者类别信息），也希望通过这一点，能够和前面的一些深度学习模型对比一下。</p>
+<p>在个性化的电商广告推荐业务场景中，也正式由于用户留下了大量的历史交互行为，才更加看出了之前的深度学习模型(作者统称Embeding&amp;MLP模型)的不足之处。如果学习了前面的各种深度学习模型，就会发现Embeding&amp;MLP模型对于这种推荐任务一般有着差不多的固定处理套路，就是大量稀疏特征先经过embedding层， 转成低维稠密的，然后进行拼接，最后喂入到多层神经网络中去。</p>
+<p>这些模型在这种个性化广告点击预测任务中存在的问题就是无法表达用户广泛的兴趣，因为这些模型在得到各个特征的embedding之后，就蛮力拼接了，然后就各种交叉等。这时候根本没有考虑之前用户历史行为商品具体是什么，究竟用户历史行为中的哪个会对当前的点击预测带来积极的作用。 而实际上，对于用户点不点击当前的商品广告，很大程度上是依赖于他的历史行为的，王喆老师举了个例子</p>
+<blockquote>
+<p>假设广告中的商品是键盘， 如果用户历史点击的商品中有化妆品， 包包，衣服， 洗面奶等商品， 那么大概率上该用户可能是对键盘不感兴趣的， 而如果用户历史行为中的商品有鼠标， 电脑，iPad，手机等， 那么大概率该用户对键盘是感兴趣的， 而如果用户历史商品中有鼠标， 化妆品， T-shirt和洗面奶， 鼠标这个商品embedding对预测“键盘”广告的点击率的重要程度应该大于后面的那三个。</p>
+</blockquote>
+<p>这里也就是说如果是之前的那些深度学习模型，是没法很好的去表达出用户这广泛多样的兴趣的，如果想表达的准确些， 那么就得加大隐向量的维度，让每个特征的信息更加丰富， 那这样带来的问题就是计算量上去了，毕竟真实情景尤其是电商广告推荐的场景，特征维度的规模是非常大的。 并且根据上面的例子， 也并不是用户所有的历史行为特征都会对某个商品广告点击预测起到作用。所以对于当前某个商品广告的点击预测任务，没必要考虑之前所有的用户历史行为。</p>
+<p>这样， DIN的动机就出来了，在业务的角度，我们应该自适应的去捕捉用户的兴趣变化，这样才能较为准确的实施广告推荐；而放到模型的角度， 我们应该考虑到用户的历史行为商品与当前商品广告的一个关联性，如果用户历史商品中很多与当前商品关联，那么说明该商品可能符合用户的品味，就把该广告推荐给他。而一谈到关联性的话， 我们就容易想到“注意力”的思想了， 所以为了更好的从用户的历史行为中学习到与当前商品广告的关联性，学习到用户的兴趣变化， 作者把注意力引入到了模型，设计了一个”local activation unit”结构，利用候选商品和历史问题商品之间的相关性计算出权重，这个就代表了对于当前商品广告的预测，用户历史行为的各个商品的重要程度大小， 而加入了注意力权重的深度学习网络，就是这次的主角DIN， 下面具体来看下该模型。</p>
+<h3 id="2-din模型结构及原理"><a href="#2-DIN模型结构及原理" class="headerlink" title="2. DIN模型结构及原理"></a>2. DIN模型结构及原理<a href="#2-din模型结构及原理" class="header-anchor">#</a></h3><p>在具体分析DIN模型之前， 我们还得先介绍两块小内容，一个是DIN模型的数据集和特征表示， 一个是上面提到的之前深度学习模型的基线模型， 有了这两个， 再看DIN模型，就感觉是水到渠成了。</p>
+<h4 id="21-特征表示"><a href="#2-1-特征表示" class="headerlink" title="2.1 特征表示"></a>2.1 特征表示<a href="#21-特征表示" class="header-anchor">#</a></h4><p>工业上的CTR预测数据集一般都是multi-group categorial form的形式，就是类别型特征最为常见，这种数据集一般长这样：<br><img src="./DIN/%E6%95%B0%E6%8D%AE%E9%9B%86.png" alt="数据集"><br>这里的亮点就是框出来的那个特征，这个包含着丰富的用户兴趣信息。</p>
+<p>对于特征编码，作者这里举了个例子：[weekday=Friday, gender=Female, visited_cate_ids={Bag,Book}, ad_cate_id=Book]， 这种情况我们知道一般是通过one-hot的形式对其编码， 转成系数的二值特征的形式。但是这里我们会发现一个visted_cate_ids， 也就是用户的历史商品列表， 对于某个用户来讲，这个值是个多值型的特征， 而且还要知道这个特征的长度不一样长，也就是用户购买的历史商品个数不一样多，这个显然。这个特征的话，我们一般是用到multi-hot编码，也就是可能不止1个1了，有哪个商品，对应位置就是1， 所以经过编码后的数据长下面这个样子：<br><img src="DIN/%E4%BE%8B%E5%AD%90.png" alt="例子"></p>
+<p>这个就是喂入模型的数据格式了，这里还要注意一点 就是上面的特征里面没有任何的交互组合，也就是没有做特征交叉。这个交互信息交给后面的神经网络去学习。</p>
+<h4 id="22-基线模型"><a href="#2-2-基线模型" class="headerlink" title="2.2 基线模型"></a>2.2 基线模型<a href="#22-基线模型" class="header-anchor">#</a></h4><p>这里的base 模型，就是上面提到过的Embedding&amp;MLP的形式， 这个之所以要介绍，就是因为DIN网络的基准也是他，只不过在这个的基础上添加了一个新结构(注意力网络)来学习当前候选广告与用户历史行为特征的相关性，从而动态捕捉用户的兴趣。</p>
+<p>基准模型的结构相对比较简单，我们前面也一直用这个基准， 分为三大模块：Embedding layer，Pooling &amp; Concat layer和MLP， 结构如下:<br><img src="DIN/base.png" alt="base"><br>前面的大部分深度模型结构也是遵循着这个范式套路， 简介一下各个模块。</p>
+<ol>
+<li><p>Embedding layer：这个层的作用是把高维稀疏的输入转成低维稠密向量， 每个离散特征下面都会对应着一个embedding词典， 维度是$D\times K$， 这里的$D$表示的是隐向量的维度， 而$K$表示的是当前离散特征的唯一取值个数, 这里为了好理解，这里举个例子说明，就比如上面的weekday特征：</p>
+<blockquote>
+<p>假设某个用户的weekday特征就是周五，化成one-hot编码的时候，就是[0,0,0,0,1,0,0]表示，这里如果再假设隐向量维度是D， 那么这个特征对应的embedding词典是一个$D\times7$的一个矩阵(每一列代表一个embedding，7列正好7个embedding向量，对应周一到周日)，那么该用户这个one-hot向量经过embedding层之后会得到一个$D\times1$的向量，也就是周五对应的那个embedding，怎么算的，其实就是$embedding矩阵* [0,0,0,0,1,0,0]^T$ 。其实也就是直接把embedding矩阵中one-hot向量为1的那个位置的embedding向量拿出来。 这样就得到了稀疏特征的稠密向量了。</p>
+<p>其他离散特征也是同理，只不过上面那个multi-hot编码的那个，会得到一个embedding向量的列表，因为他开始的那个multi-hot向量不止有一个是1，这样乘以embedding矩阵，就会得到一个列表了。通过这个层，上面的输入特征都可以拿到相应的稠密embedding向量了。</p>
+</blockquote>
+</li>
+<li><p>pooling layer and Concat layer： pooling层的作用是将用户的历史行为embedding这个最终变成一个定长的向量，因为每个用户历史购买的商品数是不一样的， 也就是每个用户multi-hot中1的个数不一致，这样经过embedding层，得到的用户历史行为embedding的个数不一样多，也就是上面的embedding列表$t_i$不一样长， 那么这样的话，每个用户的历史行为特征拼起来就不一样长了。 而后面如果加全连接网络的话，我们知道，他需要定长的特征输入。 所以往往用一个pooling layer先把用户历史行为embedding变成固定长度(统一长度)，所以有了这个公式： $$ e_i=pooling(e_{i1}, e_{i2}, …e_{ik}) $$ 这里的$e_{ij}$是用户历史行为的那些embedding。$e_i$就变成了定长的向量， 这里的$i$表示第$i$个历史特征组(是历史行为，比如历史的商品id，历史的商品类别id等)， 这里的$k$表示对应历史特种组里面用户购买过的商品数量，也就是历史embedding的数量，看上面图里面的user behaviors系列，就是那个过程了。 Concat layer层的作用就是拼接了，就是把这所有的特征embedding向量，如果再有连续特征的话也算上，从特征维度拼接整合，作为MLP的输入。</p>
+</li>
+<li><p>MLP：这个就是普通的全连接，用了学习特征之间的各种交互。</p>
+</li>
+<li><p>Loss: 由于这里是点击率预测任务， 二分类的问题，所以这里的损失函数用的负的log对数似然： $$ L=-\frac{1}{N} \sum_{(\boldsymbol{x}, y) \in \mathcal{S}}(y \log p(\boldsymbol{x})+(1-y) \log (1-p(\boldsymbol{x}))) $$</p>
+</li>
+</ol>
+<p>这就是base 模型的全貌， 这里应该能看出这种模型的问题， 通过上面的图也能看出来， 用户的历史行为特征和当前的候选广告特征在全都拼起来给神经网络之前，是一点交互的过程都没有， 而拼起来之后给神经网络，虽然是有了交互了，但是原来的一些信息，比如，每个历史商品的信息会丢失了一部分，因为这个与当前候选广告商品交互的是池化后的历史特征embedding， 这个embedding是综合了所有的历史商品信息， 这个通过我们前面的分析，对于预测当前广告点击率，并不是所有历史商品都有用，综合所有的商品信息反而会增加一些噪声性的信息，可以联想上面举得那个键盘鼠标的例子，如果加上了各种洗面奶，衣服啥的反而会起到反作用。其次就是这样综合起来，已经没法再看出到底用户历史行为中的哪个商品与当前商品比较相关，也就是丢失了历史行为中各个商品对当前预测的重要性程度。最后一点就是如果所有用户浏览过的历史行为商品，最后都通过embedding和pooling转换成了固定长度的embedding，这样会限制模型学习用户的多样化兴趣。</p>
+<p>那么改进这个问题的思路有哪些呢？ 第一个就是加大embedding的维度，增加之前各个商品的表达能力，这样即使综合起来，embedding的表达能力也会加强， 能够蕴涵用户的兴趣信息，但是这个在大规模的真实推荐场景计算量超级大，不可取。 另外一个思路就是在当前候选广告和用户的历史行为之间引入注意力的机制，这样在预测当前广告是否点击的时候，让模型更关注于与当前广告相关的那些用户历史产品，也就是说与当前商品更加相关的历史行为更能促进用户的点击行为。 作者这里又举了之前的一个例子：</p>
+<blockquote>
+<p>想象一下，当一个年轻母亲访问电子商务网站时，她发现展示的新手袋很可爱，就点击它。让我们来分析一下点击行为的驱动力。</p>
+<p>展示的广告通过软搜索这位年轻母亲的历史行为，发现她最近曾浏览过类似的商品，如大手提袋和皮包，从而击中了她的相关兴趣</p>
+</blockquote>
+<p>第二个思路就是DIN的改进之处了。DIN通过给定一个候选广告，然后去注意与该广告相关的局部兴趣的表示来模拟此过程。 DIN不会通过使用同一向量来表达所有用户的不同兴趣，而是通过考虑历史行为的相关性来自适应地计算用户兴趣的表示向量（对于给的广告）。 该表示向量随不同广告而变化。下面看一下DIN模型。</p>
+<h4 id="23-din模型架构"><a href="#2-3-DIN模型架构" class="headerlink" title="2.3 DIN模型架构"></a>2.3 DIN模型架构<a href="#23-din模型架构" class="header-anchor">#</a></h4><p>上面分析完了base模型的不足和改进思路之后，DIN模型的结构就呼之欲出了，首先，它依然是采用了基模型的结构，只不过是在这个的基础上加了一个注意力机制来学习用户兴趣与当前候选广告间的关联程度， 用论文里面的话是，引入了一个新的local activation unit， 这个东西用在了用户历史行为特征上面， 能够根据用户历史行为特征和当前广告的相关性给用户历史行为特征embedding进行加权。我们先看一下它的结构，然后看一下这个加权公式。<br><img src="DIN/model.png" alt="model"><br>这里改进的地方已经框出来了，这里会发现相比于base model， 这里加了一个local activation unit， 这里面是一个前馈神经网络，输入是用户历史行为商品和当前的候选商品， 输出是它俩之间的相关性， 这个相关性相当于每个历史商品的权重，把这个权重与原来的历史行为embedding相乘求和就得到了用户的兴趣表示$\boldsymbol{v}<em>{U}(A)$, 这个东西的计算公式如下： $$ \boldsymbol{v}</em>{U}(A)=f\left(\boldsymbol{v}<em>{A}, \boldsymbol{e}</em>{1}, \boldsymbol{e}<em>{2}, \ldots, \boldsymbol{e}{H}\right)=\sum</em>{j=1}^{H} a\left(\boldsymbol{e}<em>{j}, \boldsymbol{v}</em>{A}\right) \boldsymbol{e}<em>{j}=\sum</em>{j=1}^{H} \boldsymbol{w}<em>{j} \boldsymbol{e}</em>{j} $$ 这里的${\boldsymbol{v}<em>{A}, \boldsymbol{e}</em>{1}, \boldsymbol{e}<em>{2}, \ldots, \boldsymbol{e}</em>{H}}$是用户$U$的历史行为特征embedding， $v_{A}$表示的是候选广告$A$的embedding向量， $a(e_j, v_A)=w_j$表示的权重或者历史行为商品与当前广告$A$的相关性程度。$a(\cdot)$表示的上面那个前馈神经网络，也就是那个所谓的注意力机制， 当然，看图里的话，输入除了历史行为向量和候选广告向量外，还加了一个它俩的外积操作，作者说这里是有利于模型相关性建模的显性知识。</p>
+<p>这里有一点需要特别注意，就是这里的权重加和不是1， 准确的说这里不是权重， 而是直接算的相关性的那种分数作为了权重，也就是平时的那种scores(softmax之前的那个值)，这个是为了保留用户的兴趣强度。</p>
+<h3 id="3实现"><a href="#3-实现" class="headerlink" title="3.实现"></a>3.实现<a href="#3实现" class="header-anchor">#</a></h3><p>下面我们看下DIN的代码复现，这里主要是给大家说一下这个模型的设计逻辑，参考了deepctr的函数API的编程风格， 具体的代码以及示例大家可以去参考后面的GitHub，里面已经给出了详细的注释， 这里主要分析模型的逻辑这块。关于函数API的编程式风格，我们还给出了一份文档， 大家可以先看这个，再看后面的代码部分，会更加舒服些。下面开始：</p>
+<p>这里主要和大家说一下DIN模型的总体运行逻辑，这样可以让大家从宏观的层面去把握模型的编写过程。该模型所使用的数据集是movielens数据集， 具体介绍可以参考后面的GitHub。 因为上面反复强调了DIN的应用场景，需要基于用户的历史行为数据， 所以在这个数据集中会有用户过去对电影评分的一系列行为。这在之前的数据集中往往是看不到的。 大家可以导入数据之后自行查看这种行为特征(hist_behavior)。另外还有一点需要说明的是这种历史行为是序列性质的特征， 并且不同的用户这种历史行为特征长度会不一样， 但是我们的神经网络是要求序列等长的，所以这种情况我们一般会按照最长的序列进行padding的操作(不够长的填0)， 而到具体层上进行运算的时候，会用mask掩码的方式标记出这些填充的位置，好保证计算的准确性。 在我们给出的代码中，大家会在AttentionPoolingLayer层的前向传播中看到这种操作。下面开始说编写逻辑：</p>
+<p>首先， DIN模型的输入特征大致上分为了三类： Dense(连续型), Sparse(离散型), VarlenSparse(变长离散型)，也就是指的上面的历史行为数据。而不同的类型特征也就决定了后面处理的方式会不同：</p>
+<ul>
+<li>Dense型特征：由于是数值型了，这里为每个这样的特征建立Input层接收这种输入， 然后拼接起来先放着，等离散的那边处理好之后，和离散的拼接起来进DNN</li>
+<li>Sparse型特征，为离散型特征建立Input层接收输入，然后需要先通过embedding层转成低维稠密向量，然后拼接起来放着，等变长离散那边处理好之后， 一块拼起来进DNN， 但是这里面要注意有个特征的embedding向量还得拿出来用，就是候选商品的embedding向量，这个还得和后面的计算相关性，对历史行为序列加权。</li>
+<li>VarlenSparse型特征：这个一般指的用户的历史行为特征，变长数据， 首先会进行padding操作成等长， 然后建立Input层接收输入，然后通过embedding层得到各自历史行为的embedding向量， 拿着这些向量与上面的候选商品embedding向量进入AttentionPoolingLayer去对这些历史行为特征加权合并，最后得到输出。</li>
+</ul>
+<p>通过上面的三种处理， 就得到了处理好的连续特征，离散特征和变长离散特征， 接下来把这三种特征拼接，进DNN网络，得到最后的输出结果即可。所以有了这个解释， 就可以放DIN模型的代码全貌了，大家可以感受下我上面解释的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"># DIN网络搭建</span><br><span class="line">def DIN(feature_columns, behavior_feature_list, behavior_seq_feature_list):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    这里搭建DIN网络，有了上面的各个模块，这里直接拼起来</span><br><span class="line">    :param feature_columns: A list. 里面的每个元素是namedtuple(元组的一种扩展类型，同时支持序号和属性名访问组件)类型，表示的是数据的特征封装版</span><br><span class="line">    :param behavior_feature_list: A list. 用户的候选行为列表</span><br><span class="line">    :param behavior_seq_feature_list: A list. 用户的历史行为列表</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    # 构建Input层并将Input层转成列表作为模型的输入</span><br><span class="line">    input_layer_dict = build_input_layers(feature_columns)</span><br><span class="line">    input_layers = list(input_layer_dict.values())</span><br><span class="line">    </span><br><span class="line">    # 筛选出特征中的sparse和Dense特征， 后面要单独处理</span><br><span class="line">    sparse_feature_columns = list(filter(lambda x: isinstance(x, SparseFeat), feature_columns))</span><br><span class="line">    dense_feature_columns = list(filter(lambda x: isinstance(x, DenseFeat), feature_columns))</span><br><span class="line">    </span><br><span class="line">    # 获取Dense Input</span><br><span class="line">    dnn_dense_input = []</span><br><span class="line">    for fc in dense_feature_columns:</span><br><span class="line">        dnn_dense_input.append(input_layer_dict[fc.name])</span><br><span class="line">    </span><br><span class="line">    # 将所有的dense特征拼接</span><br><span class="line">    dnn_dense_input = concat_input_list(dnn_dense_input)   # (None, dense_fea_nums)</span><br><span class="line">    </span><br><span class="line">    # 构建embedding字典</span><br><span class="line">    embedding_layer_dict = build_embedding_layers(feature_columns, input_layer_dict)</span><br><span class="line"></span><br><span class="line">    # 离散的这些特特征embedding之后，然后拼接，然后直接作为全连接层Dense的输入，所以需要进行Flatten</span><br><span class="line">    dnn_sparse_embed_input = concat_embedding_list(sparse_feature_columns, input_layer_dict, embedding_layer_dict, flatten=True)</span><br><span class="line">    </span><br><span class="line">    # 将所有的sparse特征embedding特征拼接</span><br><span class="line">    dnn_sparse_input = concat_input_list(dnn_sparse_embed_input)   # (None, sparse_fea_nums*embed_dim)</span><br><span class="line">    </span><br><span class="line">    # 获取当前行为特征的embedding， 这里有可能有多个行为产生了行为列表，所以需要列表将其放在一起</span><br><span class="line">    query_embed_list = embedding_lookup(behavior_feature_list, input_layer_dict, embedding_layer_dict)</span><br><span class="line">    </span><br><span class="line">    # 获取历史行为的embedding， 这里有可能有多个行为产生了行为列表，所以需要列表将其放在一起</span><br><span class="line">    keys_embed_list = embedding_lookup(behavior_seq_feature_list, input_layer_dict, embedding_layer_dict)</span><br><span class="line">    # 使用注意力机制将历史行为的序列池化，得到用户的兴趣</span><br><span class="line">    dnn_seq_input_list = []</span><br><span class="line">    for i in range(len(keys_embed_list)):</span><br><span class="line">        seq_embed = AttentionPoolingLayer()([query_embed_list[i], keys_embed_list[i]])  # (None, embed_dim)</span><br><span class="line">        dnn_seq_input_list.append(seq_embed)</span><br><span class="line">    </span><br><span class="line">    # 将多个行为序列的embedding进行拼接</span><br><span class="line">    dnn_seq_input = concat_input_list(dnn_seq_input_list)  # (None, hist_len*embed_dim)</span><br><span class="line">    </span><br><span class="line">    # 将dense特征，sparse特征， 即通过注意力机制加权的序列特征拼接起来</span><br><span class="line">    dnn_input = Concatenate(axis=1)([dnn_dense_input, dnn_sparse_input, dnn_seq_input]) # (None, dense_fea_num+sparse_fea_nums*embed_dim+hist_len*embed_dim)</span><br><span class="line">    </span><br><span class="line">    # 获取最终的DNN的预测值</span><br><span class="line">    dnn_logits = get_dnn_logits(dnn_input, activation=&#x27;prelu&#x27;)</span><br><span class="line">    </span><br><span class="line">    model = Model(inputs=input_layers, outputs=dnn_logits)</span><br><span class="line">    </span><br><span class="line">    return model</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -293,6 +458,13 @@
 
               <time title="创建时间：2021-10-29 15:16:13" itemprop="dateCreated datePublished" datetime="2021-10-29T15:16:13+08:00">2021-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-08 09:59:37" itemprop="dateModified" datetime="2021-11-08T09:59:37+08:00">2021-11-08</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -300,14 +472,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -319,7 +491,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机<a href="#1-动机" class="header-anchor">#</a></h3><p>AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} = w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ 如何让不同的交叉特征具有不同的重要性就是AFM核心的贡献，在谈论AFM交叉特征注意力之前，对于FM交叉特征部分的改进还有FFM，其是考虑到了对于不同的其他特征，某个指定特征的隐向量应该是不同的（相比于FM对于所有的特征只有一个隐向量，FFM对于一个特征有多个不同的隐向量）。</p>
+<h3 id="afm模型原理"><a href="#AFM模型原理" class="headerlink" title="AFM模型原理"></a>AFM模型原理<a href="#afm模型原理" class="header-anchor">#</a></h3><p><img src="./AFM/AFM.png" alt="AFM"><br>上图表示的就是AFM交叉特征部分的模型结构(非交叉部分与FM是一样的，图中并没有给出)。AFM最核心的两个点分别是Pair-wise Interaction Layer和Attention-based Pooling。前者将输入的非零特征的隐向量两两计算element-wise product(哈达玛积，两个向量对应元素相乘，得到的还是一个向量)，假如输入的特征中的非零向量的数量为m，那么经过Pair-wise Interaction Layer之后输出的就是$\frac{m(m-1)}{2}$个向量，再将前面得到的交叉特征向量组输入到Attention-based Pooling，该pooling层会先计算出每个特征组合的自适应权重(通过Attention Net进行计算)，通过加权求和的方式将向量组压缩成一个向量，由于最终需要输出的是一个数值，所以还需要将前一步得到的向量通过另外一个向量将其映射成一个值，得到最终的基于注意力加权的二阶交叉特征的输出。(对于这部分如果不是很清楚，可以先看下面对两个核心层的介绍)</p>
+<h4 id="21-pair-wise-interaction-layer"><a href="#2-1-Pair-wise-Interaction-Layer" class="headerlink" title="2.1 Pair-wise Interaction Layer"></a>2.1 Pair-wise Interaction Layer<a href="#21-pair-wise-interaction-layer" class="header-anchor">#</a></h4><p>FM二阶交叉项：所有非零特征对应的隐向量两两点积再求和，输出的是一个数值 $$ \sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ AFM二阶交叉项(无attention)：所有非零特征对应的隐向量两两对应元素乘积，然后再向量求和，输出的还是一个向量。 $$ \sum_{i=1}^{n}\sum_{i+1}^n (v_i \odot v_j) x_ix_j $$ 上述写法是为了更好的与FM进行对比，下面将公式变形方便与原论文中保持一致。首先是特征的隐向量。从上图中可以看出，作者对数值特征也对应了一个隐向量，不同的数值乘以对应的隐向量就可以得到不同的隐向量，相对于one-hot编码的特征乘以1还是其本身(并没有什么变化)，其实就是为了将公式进行统一。虽然论文中给出了对数值特征定义隐向量，但是在作者的代码中并没有发现有对数值特征进行embedding的过程(原论文代码链接）具体原因不详。</p>
+<p>按照论文的意思，特征的embedding可以表示为：$\varepsilon = {v_ix_i}$，经过Pair-wise Interaction Layer输出可得： $$ f_{PI}(\varepsilon)={(v_i \odot v_j) x_ix_j}\ \ \ \ {i,j \in R_x} $$ $R_x$表示的是有效特征集合。此时的$f{PI}(\varepsilon)$表示的是一个向量集合，所以需要先将这些向量集合聚合成一个向量，然后在转换成一个数值： $$ \hat{y} = p^T \sum_{(i,j)\in R_x}(v_i \odot v_j) x_ix_j + b $$ 上式中的求和部分就是将向量集合聚合成一个维度与隐向量维度相同的向量，通过向量$p$再将其转换成一个数值，b表示的是偏置。</p>
+<p>从开始介绍Pair-wise Interaction Layer到现在解决的一个问题是，如何将使用哈达玛积得到的交叉特征转换成一个最终输出需要的数值，到目前为止交叉特征之间的注意力权重还没有出现。在没有详细介绍注意力之前先感性的认识一下如果现在已经有了每个交叉特征的注意力权重，那么交叉特征的输出可以表示为： $$ \hat{y} = p^T \sum_{(i,j)\in R_x}\alpha_{ij}(v_i \odot v_j) x_ix_j + b $$ 就是在交叉特征得到的新向量前面乘以一个注意力权重$\alpha_{ij}$, 那么这个注意力权重如何计算得到呢？</p>
+<h4 id="22-attention-based-pooling"><a href="#2-2-Attention-based-Pooling" class="headerlink" title="2.2 Attention-based Pooling"></a>2.2 Attention-based Pooling<a href="#22-attention-based-pooling" class="header-anchor">#</a></h4><p>对于神经网络注意力相关的基础知识大家可以去看一下邱锡鹏老师的《神经网络与深度学习》第8章注意力机制与外部记忆。这里简单的叙述一下使用MLP实现注意力机制的计算。假设现在有n个交叉特征(假如维度是k)，将nxk的数据输入到一个kx1的全连接网络中，输出的张量维度为nx1，使用softmax函数将nx1的向量的每个维度进行归一化，得到一个新的nx1的向量，这个向量所有维度加起来的和为1，每个维度上的值就可以表示原nxk数据每一行(即1xk的数据)的权重。用公式表示为： $$ \alpha_{ij}’ = h^T ReLU(W(v_i \odot v_j)x_ix_j + b) $$ 使用softmax归一化可得： $$ \alpha_{ij} = \frac{exp(\alpha_{ij}’)}{\sum_{(i,j)\in R_x}exp(\alpha_{ij}’)} $$ 这样就得到了AFM二阶交叉部分的注意力权重，如果将AFM的一阶项写在一起，AFM模型用公式表示为： $$ \hat{y}<em>{afm}(x) = w_0+\sum{i=1}^nw_ix_i+p^T \sum</em>{(i,j)\in R_x}\alpha_{ij}(v_i \odot v_j) x_ix_j + b $$</p>
+<h4 id="23-afm模型训练"><a href="#2-3-AFM模型训练" class="headerlink" title="2.3 AFM模型训练"></a>2.3 AFM模型训练<a href="#23-afm模型训练" class="header-anchor">#</a></h4><p>AFM从最终的模型公式可以看出与FM的模型公式是非常相似的，所以也可以和FM一样应用于不同的任务，例如分类、回归及排序（不同的任务的损失函数是不一样的），AFM也有对防止过拟合进行处理：</p>
+<ol>
+<li>在Pair-wise Interaction Layer层的输出结果上使用dropout防止过拟合，因为并不是所有的特征组合对预测结果都有用，所以随机的去除一些交叉特征，让剩下的特征去自适应的学习可以更好的防止过拟合。</li>
+<li>对Attention-based Pooling层中的权重矩阵$W$使用L2正则，作者没有在这一层使用dropout的原因是发现同时在特征交叉层和注意力层加dropout会使得模型训练不稳定，并且性能还会下降。</li>
+</ol>
+<p>加上正则参数之后的回归任务的损失函数表示为： $$ L = \sum_{x\in T} (\hat{y}_{afm}(x) - y(x))^2 + \lambda ||W||^2 $$</p>
+
       
     </div>
 
@@ -1004,113 +1188,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/deepcrossing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hzx">
-      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zongxing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/article/deepcrossing/" class="post-title-link" itemprop="url">deepcrossing</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-26 16:01:10" itemprop="dateCreated datePublished" datetime="2021-10-26T16:01:10+08:00">2021-10-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-27 15:17:37" itemprop="dateModified" datetime="2021-10-27T15:17:37+08:00">2021-10-27</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-
-<!-- code_chunk_output -->
-
-<ul>
-<li><a href="#1-%E5%8A%A8%E6%9C%BA">1. 动机</a></li>
-<li><a href="#2-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86">2. 模型结构及原理</a><ul>
-<li><a href="#21-embedding-layer">2.1 Embedding Layer</a></li>
-<li><a href="#22-stacking-layer">2.2 Stacking Layer</a></li>
-<li><a href="#23-multiple-residual-units-layer">2.3 Multiple Residual Units Layer</a></li>
-<li><a href="#24-scoring-layer">2.4 Scoring Layer</a></li>
-</ul>
-</li>
-<li><a href="#3%E6%80%BB%E7%BB%93">3.总结</a></li>
-<li><a href="#4-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">4. 代码实现</a></li>
-</ul>
-<!-- /code_chunk_output -->
-
-
-<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机</h3><p>这个模型就是一个真正的把深度学习架构应用于推荐系统中的模型了， 2016年由微软提出， 完整的解决了特征工程、稀疏向量稠密化， 多层神经网络进行优化目标拟合等一系列深度学习再推荐系统的应用问题。 这个模型涉及到的技术比较基础，在传统神经网络的基础上加入了embedding，残差连接等思想，且结构比较简单，对初学者复现和学习都比较友好。</p>
-<p>DeepCrossing模型应用场景是微软搜索引擎Bing中的搜索广告推荐， 用户在输入搜索词之后， 搜索引擎除了返回相关结果， 还返回与搜索词相关的广告，Deep Crossing的优化目标就是预测对于某一广告， 用户是否会点击，依然是点击率预测的一个问题。</p>
-<p>这种场景下，我们的输入一般会有类别型特征，比如广告id，和数值型特征，比如广告预算，两种情况。 对于类别型特征，我们需要进行one-hot编码处理，而数值型特征 一般需要进行归一化处理，这样算是把数据进行了一个简单清洗。 DeepCrossing模型就是利用这些特征向量进行CRT预估，那么它的结构长啥样, 又是怎么做CTR预估的呢？ 这又是DeepCrossing的核心内容。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/article/deepcrossing/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1180,7 +1257,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1233,12 +1310,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">224k</span>
+    <span title="站点总字数">240k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:24</span>
+    <span title="站点阅读时长">3:38</span>
 </div>
 
         
