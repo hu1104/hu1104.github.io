@@ -328,7 +328,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-08 10:52:01" itemprop="dateModified" datetime="2021-11-08T10:52:01+08:00">2021-11-08</time>
+                <time title="修改时间：2021-12-13 14:13:38" itemprop="dateModified" datetime="2021-12-13T14:13:38+08:00">2021-12-13</time>
               </span>
 
           <br>
@@ -372,7 +372,7 @@
 </ul>
 <!-- /code_chunk_output -->
 
-<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机</h3><p>Deep Interest Network(DIIN)是2018年阿里巴巴提出来的模型， 该模型基于业务的观察，从实际应用的角度进行改进，相比于之前很多“学术风”的深度模型， 该模型更加具有业务气息。该模型的应用场景是阿里巴巴的电商广告推荐业务， 这样的场景下一般会有大量的用户历史行为信息， 这个其实是很关键的，因为DIN模型的创新点或者解决的问题就是使用了注意力机制来对用户的兴趣动态模拟， 而这个模拟过程存在的前提就是用户之前有大量的历史行为了，这样我们在预测某个商品广告用户是否点击的时候，就可以参考他之前购买过或者查看过的商品，这样就能猜测出用户的大致兴趣来，这样我们的推荐才能做的更加到位，所以这个模型的使用场景是非常注重用户的历史行为特征（历史购买过的商品或者类别信息），也希望通过这一点，能够和前面的一些深度学习模型对比一下。</p>
+<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机</h3><p>Deep Interest Network(DIN)是2018年阿里巴巴提出来的模型， 该模型基于业务的观察，从实际应用的角度进行改进，相比于之前很多“学术风”的深度模型， 该模型更加具有业务气息。该模型的应用场景是阿里巴巴的电商广告推荐业务， 这样的场景下一般会有大量的用户历史行为信息， 这个其实是很关键的，因为DIN模型的创新点或者解决的问题就是使用了注意力机制来对用户的兴趣动态模拟， 而这个模拟过程存在的前提就是用户之前有大量的历史行为了，这样我们在预测某个商品广告用户是否点击的时候，就可以参考他之前购买过或者查看过的商品，这样就能猜测出用户的大致兴趣来，这样我们的推荐才能做的更加到位，所以这个模型的使用场景是非常注重用户的历史行为特征（历史购买过的商品或者类别信息），也希望通过这一点，能够和前面的一些深度学习模型对比一下。</p>
 <p>在个性化的电商广告推荐业务场景中，也正式由于用户留下了大量的历史交互行为，才更加看出了之前的深度学习模型(作者统称Embeding&amp;MLP模型)的不足之处。如果学习了前面的各种深度学习模型，就会发现Embeding&amp;MLP模型对于这种推荐任务一般有着差不多的固定处理套路，就是大量稀疏特征先经过embedding层， 转成低维稠密的，然后进行拼接，最后喂入到多层神经网络中去。</p>
 <p>这些模型在这种个性化广告点击预测任务中存在的问题就是无法表达用户广泛的兴趣，因为这些模型在得到各个特征的embedding之后，就蛮力拼接了，然后就各种交叉等。这时候根本没有考虑之前用户历史行为商品具体是什么，究竟用户历史行为中的哪个会对当前的点击预测带来积极的作用。 而实际上，对于用户点不点击当前的商品广告，很大程度上是依赖于他的历史行为的，王喆老师举了个例子</p>
 <blockquote>
@@ -712,7 +712,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-29 10:32:01" itemprop="dateModified" datetime="2021-10-29T10:32:01+08:00">2021-10-29</time>
+                <time title="修改时间：2021-12-13 10:46:06" itemprop="dateModified" datetime="2021-12-13T10:46:06+08:00">2021-12-13</time>
               </span>
 
           <br>
@@ -740,7 +740,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机</h3><p>Wide&amp;Deep模型的提出不仅综合了“记忆能力”和“泛化能力”， 而且开启了不同网络结构融合的新思路。 所以后面就有各式各样的模型改进Wide部分或者Deep部分， 而Deep&amp;Cross模型(DCN)就是其中比较典型的一个，这是2017年斯坦福大学和谷歌的研究人员在ADKDD会议上提出的， 该模型针对W&amp;D的wide部分进行了改进， 因为Wide部分有一个不足就是需要人工进行特征的组合筛选， 过程繁琐且需要经验， 而2阶的FM模型在线性的时间复杂度中自动进行特征交互，但是这些特征交互的表现能力并不够，并且随着阶数的上升，模型复杂度会大幅度提高。于是乎，作者用一个Cross Network替换掉了Wide部分，来自动进行特征之间的交叉，并且网络的时间和空间复杂度都是线性的。 通过与Deep部分相结合，构成了深度交叉网络（Deep &amp; Cross Network），简称DCN。</p>
+          <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-%E5%8A%A8%E6%9C%BA">1. 动机</a></li>
+<li><a href="#2-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8E%9F%E7%90%86">2. 模型结构与原理</a><ul>
+<li><a href="#21-embedding%E5%92%8Cstacking-%E5%B1%82">2.1 Embedding和Stacking 层</a></li>
+<li><a href="#22-cross-network">2.2 Cross Network</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3 id="1-动机"><a href="#1-动机" class="headerlink" title="1. 动机"></a>1. 动机</h3><p>Wide&amp;Deep模型的提出不仅综合了“记忆能力”和“泛化能力”， 而且开启了不同网络结构融合的新思路。 所以后面就有各式各样的模型改进Wide部分或者Deep部分， 而Deep&amp;Cross模型(DCN)就是其中比较典型的一个，这是2017年斯坦福大学和谷歌的研究人员在ADKDD会议上提出的， 该模型针对W&amp;D的wide部分进行了改进， 因为Wide部分有一个不足就是需要人工进行特征的组合筛选， 过程繁琐且需要经验， 而2阶的FM模型在线性的时间复杂度中自动进行特征交互，但是这些特征交互的表现能力并不够，并且随着阶数的上升，模型复杂度会大幅度提高。于是乎，作者用一个Cross Network替换掉了Wide部分，来自动进行特征之间的交叉，并且网络的时间和空间复杂度都是线性的。 通过与Deep部分相结合，构成了深度交叉网络（Deep &amp; Cross Network），简称DCN。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/article/DCN/#more" rel="contents">
@@ -1285,8 +1299,8 @@
 
 <div class="copyright">
   
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="heart"></i>
   </span>
@@ -1295,12 +1309,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">744k</span>
+    <span title="站点总字数">1.3m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11:16</span>
+    <span title="站点阅读时长">20:09</span>
 </div>
 
         
