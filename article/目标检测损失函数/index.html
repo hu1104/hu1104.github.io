@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E4%B8%8D%E8%B6%B3.png">
 <meta property="og:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/DIOU.png">
 <meta property="article:published_time" content="2021-10-29T02:12:34.000Z">
-<meta property="article:modified_time" content="2021-10-29T06:25:53.099Z">
+<meta property="article:modified_time" content="2022-01-28T09:55:48.800Z">
 <meta property="article:author" content="hzx">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E5%AF%B9%E6%AF%94%E5%9B%BE.jpeg">
@@ -146,7 +146,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">45</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-10-29 14:25:53" itemprop="dateModified" datetime="2021-10-29T14:25:53+08:00">2021-10-29</time>
+                <time title="修改时间：2022-01-28 17:55:48" itemprop="dateModified" datetime="2022-01-28T17:55:48+08:00">2022-01-28</time>
               </span>
 
           
@@ -288,7 +288,7 @@
 <ol>
 <li>L1 Loss的问题：损失函数对x的导数为常数，在训练后期，x很小时，如果learning rate 不变，损失函数会在稳定值附近波动，很难收敛到更高的精度。</li>
 <li>L2 Loss的问题：损失函数对x的导数在x值很大时，其导数也非常大，在训练初期不稳定。<span id="more"></span>
-【分析】<br>$$ smooth_{L1}(x)=\begin{cases}<br> 0.5x^2, &amp;if \left|x\right| &lt;1 \<br> \left|x\right| - 0.5, &amp;otherwise<br>\end{cases}$$<br>SmoothL1对x的导数为：<br>$$\frac{dsmooth_{L1}(x)}{x} = \begin{cases}<br> x, &amp;if\left|x\right|&lt;1\<br> \plusmn1, &amp; otherwise<br>\end{cases}<br>$$<br>实际使用时：<br>$$L_{loc}(t^u,v)=\sum_{i \in {x, y,w,h}}smooth_{L1}(t_i^u-v_i)<br>$$<br>其中， $v_i=(v_x, v_y, v_w, v_h)$表示真实框坐标，$t_i^u=(t_x^u, t_y^u, t_w^u,t_h^u)$表示预测框的坐标，即分别求4个点的loss,然后相加作为Bounding Box Regression Loss.<br><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E5%AF%B9%E6%AF%94%E5%9B%BE.jpeg" alt="对比图"></li>
+【分析】<br>$$ smooth_{L1}(x)=\begin{cases}<br> 0.5x^2, &amp;if \left|x\right| &lt;1 \<br> \left|x\right| - 0.5, &amp;otherwise<br>\end{cases}$$<br>SmoothL1对x的导数为：<br>$$\frac{dsmooth_{L1}(x)}{x} = \begin{cases}<br> x, &amp;if\left|x\right|&lt;1\<br> \plusmn1, &amp; otherwise<br>\end{cases}$$<br>$$<br>实际使用时：<br>L_{loc}(t^u,v)=\sum_{i \in {x, y,w,h}}smooth_{L1}(t_i^u-v_i)<br>$$<br>其中， $v_i=(v_x, v_y, v_w, v_h)$表示真实框坐标，$t_i^u=(t_x^u, t_y^u, t_w^u,t_h^u)$表示预测框的坐标，即分别求4个点的loss,然后相加作为Bounding Box Regression Loss.<br><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E5%AF%B9%E6%AF%94%E5%9B%BE.jpeg" alt="对比图"></li>
 </ol>
 <p>【不足】 Smooth L1 Loss在计算目标检测的 bbox loss时，都是独立的求出4个点的 loss，然后相加得到最终的 bbox loss。这种做法的默认4个点是相互独立的，与实际不符。举个例子，当(x, y)为右下角时，w h其实只能取0。</p>
 <h3 id="iou-loss2016"><a href="#IoU-Loss（2016）" class="headerlink" title="IoU Loss（2016）"></a>IoU Loss（2016）<a href="#iou-loss2016" class="header-anchor">#</a></h3><p>【动机】 针对smooth L1没有考虑box四个坐标之间相关性的缺点<br>【分析】 通过4个坐标点独立回归Building boxes的缺点：</p>
@@ -297,8 +297,8 @@
 <li>通过4个点回归坐标框的方式是假设4个坐标点是相互独立的，没有考虑其相关性，实际4个坐标点具有一定的相关性；</li>
 <li>基于L1和L2的距离的loss对于尺度不具有不变性；<br><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/L2loss%E5%AF%B9%E6%AF%94.png" alt="L2对比"><br><img src="%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/IOUloss.png" alt="IOUloss"></li>
 </ul>
-<p>IoU Loss定义如下：<br>$$Iouloss = -ln(IoU(bbox_{gt},bbox_{pred}))<br>$$<br>实际可简化为：<br>$$IoUloss=1-IoU(bbox_{gt},bbox_{pred})<br>$$</p>
-<p>【不足】</p>
+<p>IoU Loss定义如下：<br>$$Iouloss = -ln(IoU(bbox_{gt},bbox_{pred}))$$</p>
+<p>实际可简化为：<br>$$IoUloss=1-IoU(bbox_{gt},bbox_{pred})$$<br>【不足】</p>
 <ol>
 <li>当预测框和目标框不相交，即 IoU(bbox1, bbox2)=0 时，不能反映两个框距离的远近，此时损失函数不可导，IoU Loss 无法优化两个框不相交的情况。</li>
 <li>假设预测框和目标框的大小都确定，只要两个框的相交值是确定的，其 IoU 值是相同时，IoU 值不能反映两个框是如何相交的。</li>
@@ -306,8 +306,9 @@
 <p><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E4%B8%8D%E8%B6%B3.png" alt="不足"></p>
 <h3 id="giou-loss2019"><a href="#GIOU-loss-2019" class="headerlink" title="GIOU loss(2019)"></a>GIOU loss(2019)<a href="#giou-loss2019" class="header-anchor">#</a></h3><p>【动机】 解决IoU Loss没有考虑两个框是如何相交</p>
 <p>【分析】</p>
-<p>GIoU定义如下：<br>$$GIoU = IoU - \frac{\left|C-\left|A \cup B \right|\right|}{C}<br>$$</p>
-<p>实际使用时:<br>$$<br>Loss_{GIoU}=1-GIoU<br>$$</p>
+<p>GIoU定义如下：<br>$$GIoU = IoU - \frac{\left|C-\left|A \cup B \right|\right|}{C}$$</p>
+<p>实际使用时:</p>
+<p>$$Loss_{GIoU}=1-GIoU$$</p>
 <ol>
 <li>GIoU 取值范围为 [-1, 1]，在两框重合时取最大值1，在两框无限远的时候取最小值-1；</li>
 <li>与 IoU 只关注重叠区域不同，GIoU不仅关注重叠区域，还关注其他的非重合区域，能更好的反映两者的重合度。</li>
@@ -325,12 +326,16 @@
 <li>针对问题一，作者提出了DIoU Loss,相对于GIoU Loss收敛速度更快，该Loss考虑了重叠面积和中心点距离，但没有考虑到长宽比；</li>
 <li>针对问题二，作者提出了CIoU Loss，其收敛的精度更高，以上三个因素都考虑到了。</li>
 </ul>
-<p>DIoU Loss 的定义如下：<br>$$<br>Loss_{DIoU}=1-IoU+\frac{\rho^2(b,b^{gt})}{c^2}<br>$$<br>其中$\rho()$表示预测框和真实框中心点欧氏距离，c表示预测框和真实框最小外界矩形的对角线距离，如下图所示：<br><img src="%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/DIOU.png" alt="DIOU"></p>
+<p>DIoU Loss 的定义如下：</p>
+<p>$$Loss_{DIoU}=1-IoU+\frac{\rho^2(b,b^{gt})}{c^2}$$</p>
+<p>其中$\rho()$表示预测框和真实框中心点欧氏距离，c表示预测框和真实框最小外界矩形的对角线距离，如下图所示：<br><img src="%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/DIOU.png" alt="DIOU"></p>
 <p>当2个框完全重合时，<br>$Loss_{DIOU}=Loss_{GIOU}=0$</p>
 <p>当2个框不相交时：<br>$Loss_{DIOU}=Loss_{GIOU}=2$<br>【不足】 边框回归的三个重要几何因素：重叠面积、中心点距离和长宽比，DIoU 没有包含长宽比因素。</p>
 <h3 id="ciou-loss2019"><a href="#CIoU-Loss（2019）" class="headerlink" title="CIoU Loss（2019）"></a>CIoU Loss（2019）<a href="#ciou-loss2019" class="header-anchor">#</a></h3><p>【动机】 解决DIoU loss没有包含长宽比因素的不足</p>
 <p>【分析】</p>
-<p>CIoU的惩罚项是在DIoU的惩罚项基础上加了一个影响因子。<br>CIoU Loss定义为：<br>$$<br>Loss_{CIOU}=1-IoU +\frac{\rho^2(b,b^{gt})}{c^2} + \alpha v<br>$$<br>其中$v=\frac{4}{\pi}(\arctan {\frac{w^gt}{h^gt}} - \arctan {\frac{w}{h}})^2$<br>用于做trade-off的参数$\alpha=\frac{v}{(1-IoU)+v}$</p>
+<p>CIoU的惩罚项是在DIoU的惩罚项基础上加了一个影响因子。<br>CIoU Loss定义为：</p>
+<p>$$Loss_{CIOU}=1-IoU +\frac{\rho^2(b,b^{gt})}{c^2} + \alpha v$$</p>
+<p>其中$v=\frac{4}{\pi}(\arctan {\frac{w^{gt}}{h^{gt}}} - \arctan {\frac{w}{h}})^2$<br>用于做trade-off的参数$\alpha=\frac{v}{(1-IoU)+v}$</p>
 <p>【不足】 在CIoU的定义中，衡量长宽比过于复杂，从两个方面减缓了收敛速度</p>
 <ol>
 <li>长宽比不能取代单独的长宽，比如$w=kw^{gt},h=kh^{gt}$  都会导致v=0；</li>
@@ -338,7 +343,8 @@
 </ol>
 <h3 id="eiou-loss2021"><a href="#EIoU-Loss（2021）" class="headerlink" title="EIoU Loss（2021）"></a>EIoU Loss（2021）<a href="#eiou-loss2021" class="header-anchor">#</a></h3><p>【动机】 解决CIoU的定义中不足<br>【亮点】 引入了解决样本不平衡问题的Focal Loss思想</p>
 <p>【分析】将CIOU的$\alpha v$取代为$\frac{\rho^2(w,w^{gt})}{C_w^2}+\frac{\rho^2(h,h^{gt})}{C_h^2}$</p>
-<p>EIoU Loss的定义为：<br>$$<br>Loss_{EIoU}=1-IoU + \frac{\rho^2(b,b^{gt})}{c^2}+ \frac{\rho^2(w,w^{gt})}{C_w^2}+\frac{\rho^2(h,h^{gt})}{C_h^2}<br>$$<br>Focal-EIoU Loss的定义为：<br>focal loss可以理解为对损失加权，常见的分类focal loss为：<br>$FL(p_t)=-\alpha_t(1-p_t)^\gamma log(p_t)$<br>最后得到：<br>$Loss_{focal-EIoU}=IoU^\gamma Loss_{EIoU}$</p>
+<p>EIoU Loss的定义为：</p>
+<p>$$Loss_{EIoU}=1-IoU + \frac{\rho^2(b,b^{gt})}{c^2}+ \frac{\rho^2(w,w^{gt})}{C_w^2}+\frac{\rho^2(h,h^{gt})}{C_h^2}$$<br>Focal-EIoU Loss的定义为：<br>focal loss可以理解为对损失加权，常见的分类focal loss为：<br>$FL(p_t)=-\alpha_t(1-p_t)^\gamma log(p_t)$<br>最后得到：<br>$Loss_{focal-EIoU}=IoU^\gamma Loss_{EIoU}$</p>
 
     </div>
 
@@ -358,8 +364,8 @@
       <i class="fa fa-chevron-left"></i> DCN
     </a></div>
       <div class="post-nav-item">
-    <a href="/article/23%E7%A7%8D%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" rel="next" title="23种激活函数">
-      23种激活函数 <i class="fa fa-chevron-right"></i>
+    <a href="/article/AFM/" rel="next" title="AFM">
+      AFM <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -433,7 +439,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -491,7 +497,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">20:09</span>
+    <span title="站点阅读时长">20:10</span>
 </div>
 
         

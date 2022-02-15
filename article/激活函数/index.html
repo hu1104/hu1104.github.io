@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="1、恒等函数#$$f(x)&#x3D;x \ \ \ \ \ \ \ f^{‘}(x) &#x3D;1$$  2. 单位阶跃函数#$$f(x)&#x3D;\begin{cases}0, &amp; \text x&lt;0\1, &amp; \text x \geq 0\end{cases}\ \ \ \ \ \ \ \ f(x)&#x3D;\begin{cases}0, &amp; \text x \neq 0\?, &amp; \t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="激活函数">
+<meta property="og:url" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:description" content="1、恒等函数#$$f(x)&#x3D;x \ \ \ \ \ \ \ f^{‘}(x) &#x3D;1$$  2. 单位阶跃函数#$$f(x)&#x3D;\begin{cases}0, &amp; \text x&lt;0\1, &amp; \text x \geq 0\end{cases}\ \ \ \ \ \ \ \ f(x)&#x3D;\begin{cases}0, &amp; \text x \neq 0\?, &amp; \t">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%81%92%E7%AD%89.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E9%98%B6%E8%B7%83%E5%87%BD%E6%95%B0.jpg">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E5%8E%9F%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E4%B8%80%E9%98%B6%E5%AF%BC%E6%95%B0.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E5%8F%8C%E6%9B%B2%E6%AD%A3%E5%88%87%E5%87%BD%E6%95%B0%E5%8E%9F%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E5%8F%8C%E6%9B%B2%E6%AD%A3%E5%88%87%E4%B8%80%E9%98%B6%E5%AF%BC%E6%95%B0.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/RELU.jpg">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/swish.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/ReLUvsRelu6.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/ReLu6grad.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/softplus.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/Mish.jpg">
+<meta property="article:published_time" content="2022-01-13T09:05:53.000Z">
+<meta property="article:modified_time" content="2022-01-28T09:55:52.997Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%81%92%E7%AD%89.png">
+
+<link rel="canonical" href="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>激活函数 | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">46</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          激活函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-13 17:05:53" itemprop="dateCreated datePublished" datetime="2022-01-13T17:05:53+08:00">2022-01-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-28 17:55:52" itemprop="dateModified" datetime="2022-01-28T17:55:52+08:00">2022-01-28</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-恒等函数"><a href="#1、恒等函数" class="headerlink" title="1、恒等函数"></a>1、恒等函数<a href="#1-恒等函数" class="header-anchor">#</a></h1><p>$$<br>f(x)=x \ \ \ \ \ \ \ f^{‘}(x) =1<br>$$</p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E6%81%92%E7%AD%89.png" alt="!恒等"></p>
+<h1 id="2-单位阶跃函数"><a href="#2-单位阶跃函数" class="headerlink" title="2. 单位阶跃函数"></a>2. 单位阶跃函数<a href="#2-单位阶跃函数" class="header-anchor">#</a></h1><p>$$<br>f(x)=\begin{cases}<br>0, &amp; \text x&lt;0\<br>1, &amp; \text x \geq 0<br>\end{cases}<br>\ \ \ \ \ \ \ \ <br>f(x)=\begin{cases}<br>0, &amp; \text x \neq 0\<br>?, &amp; \text x = 0<br>\end{cases}<br>$$</p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E9%98%B6%E8%B7%83%E5%87%BD%E6%95%B0.jpg" alt="阶跃函数"></p>
+<h1 id="逻辑函数"><a href="#逻辑函数" class="headerlink" title="逻辑函数"></a>逻辑函数<a href="#逻辑函数" class="header-anchor">#</a></h1><p>$$<br>f(x)=\sigma (x)=\frac{1}{1+e^{-x}}\ \ \ \ \ \ \ \ \<br>f^{‘}(x) = f(x)(1-f(x))<br>$$</p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E5%8E%9F%E5%87%BD%E6%95%B0.png" alt="逻辑函数原函数"></p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0%E4%B8%80%E9%98%B6%E5%AF%BC%E6%95%B0.png" alt="逻辑函数一阶导数"></p>
+<p>range:(0,1),存在梯度消失的风险，原函数满足单调性，一阶导数不满足；</p>
+<p>优点：平滑，易于求导</p>
+<p>缺点：梯度消失；不是关于原点对称；exp耗时</p>
+<h1 id="双曲正切函数"><a href="#双曲正切函数" class="headerlink" title="双曲正切函数"></a>双曲正切函数<a href="#双曲正切函数" class="header-anchor">#</a></h1><p>$$<br>f(x)=tanh(x)=\frac{e^x - e^{-x}}{e^x + e^{-x}}\ \ \ \ \ \ \ \<br>f^{‘}(x)=1-f(x)^2<br>$$</p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E5%8F%8C%E6%9B%B2%E6%AD%A3%E5%88%87%E5%87%BD%E6%95%B0%E5%8E%9F%E5%87%BD%E6%95%B0.png" alt="双曲正切函数原函数"></p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/%E5%8F%8C%E6%9B%B2%E6%AD%A3%E5%88%87%E4%B8%80%E9%98%B6%E5%AF%BC%E6%95%B0.png" alt="双曲正切一阶导数"></p>
+<p>range:(-1,1);——解决sigmoid不是关于原点对称问题，但是梯度消失（缓解依然存在）；</p>
+<h1 id="relu"><a href="#RELU" class="headerlink" title="RELU"></a>RELU<a href="#relu" class="header-anchor">#</a></h1><p>修正线性单元函数<br>$$<br>f(x)=max(0,x)\ \ \ \ \ \ \ <br>f(x)=\begin{cases}<br>0 &amp; \text x&lt;0\<br>1 &amp;\text x\geq 0<br>\end{cases}<br>$$<br><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/RELU.jpg" alt="RELU"></p>
+<p>解决梯度消失，但是存在梯度爆炸风险；因为没有exp运算，运算快于sigmoid和tanh；收敛因梯度值将快于sigmoid和tanh；但是输入如果为负数时，则将输出总是0，导致神经元不被激活。</p>
+<h1 id="swish"><a href="#Swish" class="headerlink" title="Swish"></a>Swish<a href="#swish" class="header-anchor">#</a></h1><p>$$<br>swish(x)=x \cdot \sigma(\beta x)<br>$$</p>
+<p>其中$\beta$ 是个常数或者可训练的参数。</p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/swish.png" alt="swish"></p>
+<p>Swish激活函数具备无上界有下届、平滑、非单调的特性，Swish在深层模型上效果优于ReLU。</p>
+<h1 id="hard-swish"><a href="#hard-swish" class="headerlink" title="hard-swish"></a>hard-swish<a href="#hard-swish" class="header-anchor">#</a></h1><p>$$<br>h-swish(x)=x\frac{ReLU6(x+3)}{6}<br>$$</p>
+<p>该激活函数在MobileNetV3论文中提出，相较于swish函数，具有数值稳定性好，计算速度快等优点。</p>
+<p> 嵌入式时，计算sigmoid函数代价太大</p>
+<p>在论文中，作者提到，虽然这种Swish非线性提高了精度，但是在嵌入式环境中，他的成本是非零的，因为在移动设备上计算sigmoid函数代价要大得多。</p>
+<p>因此作者使用hard-Swish和hard-Sigmoid替换了ReLU6和SE-block中的Sigmoid层，但是只是在网络的后半段才将ReLU6替换为h-Swish，因为作者发现Swish函数只有在更深的网络层使用才能体现其优势。</p>
+<p>首先是肯定了Swish的重要性，然后指出在量化模式下，Sigmoid函数比ReLU6的计算代价大的多，所以才有了这个ReLU6版本的h-Swish。</p>
+<h1 id="relu6"><a href="#ReLU6" class="headerlink" title="ReLU6"></a>ReLU6<a href="#relu6" class="header-anchor">#</a></h1><p>抑制最大值</p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/ReLUvsRelu6.png" alt="relu6"><br>$$<br>ReLu6(x) = min(6, max(0, x))<br>$$<br><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/ReLu6grad.png" alt="relu6-grad"></p>
+<p>主要是为了在移动端float16的低精度的时候，也能有很好的数值分辨率，如果对ReLu的输出值不加限制，那么输出范围就是0到正无穷，而低精度的float16无法精确描述其数值，带来精度损失。</p>
+<h1 id="softplus"><a href="#softplus" class="headerlink" title="softplus"></a>softplus<a href="#softplus" class="header-anchor">#</a></h1><p>$$<br>f(x)=ln(1+e^x)\ \ \ \ \ \ \ \<br>f^{‘}(x)=\frac {e^x}{1+e^x}<br>$$</p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/softplus.png" alt="softplus"></p>
+<h1 id="mish"><a href="#Mish" class="headerlink" title="Mish"></a>Mish<a href="#mish" class="header-anchor">#</a></h1><p>$$<br>Mish(x) = x \cdot tanh(ln(1+e^x))<br>$$</p>
+<p><img src="%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/Mish.jpg" alt="Mish"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/DIEN/" rel="prev" title="DIEN">
+      <i class="fa fa-chevron-left"></i> DIEN
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/%E4%BC%98%E7%A7%80%E5%8D%9A%E6%96%87/" rel="next" title="优秀博文">
+      优秀博文 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%81%92%E7%AD%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">1、恒等函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%8D%95%E4%BD%8D%E9%98%B6%E8%B7%83%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">2. 单位阶跃函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">逻辑函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E6%9B%B2%E6%AD%A3%E5%88%87%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">双曲正切函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#relu"><span class="nav-number">5.</span> <span class="nav-text">RELU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#swish"><span class="nav-number">6.</span> <span class="nav-text">Swish</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hard-swish"><span class="nav-number">7.</span> <span class="nav-text">hard-swish</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#relu6"><span class="nav-number">8.</span> <span class="nav-text">ReLU6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#softplus"><span class="nav-number">9.</span> <span class="nav-text">softplus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mish"><span class="nav-number">10.</span> <span class="nav-text">Mish</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.3m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20:10</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>

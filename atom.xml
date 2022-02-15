@@ -6,7 +6,7 @@
   <link href="https://hu1104.github.io/atom.xml" rel="self"/>
   
   <link href="https://hu1104.github.io/"/>
-  <updated>2021-11-08T02:52:10.942Z</updated>
+  <updated>2022-01-28T09:56:02.554Z</updated>
   <id>https://hu1104.github.io/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>优秀博文</title>
+    <link href="https://hu1104.github.io/article/%E4%BC%98%E7%A7%80%E5%8D%9A%E6%96%87/"/>
+    <id>https://hu1104.github.io/article/%E4%BC%98%E7%A7%80%E5%8D%9A%E6%96%87/</id>
+    <published>2022-01-19T01:56:25.000Z</published>
+    <updated>2022-01-28T09:56:02.554Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;yolo&quot;&gt;&lt;a href=&quot;#yolo&quot; class=&quot;headerlink&quot; title=&quot;yolo&quot;&gt;&lt;/a&gt;yolo&lt;a href=&quot;#yolo&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>激活函数</title>
+    <link href="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/"/>
+    <id>https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</id>
+    <published>2022-01-13T09:05:53.000Z</published>
+    <updated>2022-01-28T09:55:52.997Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;1-恒等函数&quot;&gt;&lt;a href=&quot;#1、恒等函数&quot; class=&quot;headerlink&quot; title=&quot;1、恒等函数&quot;&gt;&lt;/a&gt;1、恒等函数&lt;a href=&quot;#1-恒等函数&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>DIEN</title>
@@ -115,24 +157,11 @@
   </entry>
   
   <entry>
-    <title>23种激活函数</title>
-    <link href="https://hu1104.github.io/article/23%E7%A7%8D%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/"/>
-    <id>https://hu1104.github.io/article/23%E7%A7%8D%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</id>
-    <published>2021-10-29T06:56:41.000Z</published>
-    <updated>2021-10-29T06:56:41.487Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>目标检测损失函数</title>
     <link href="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/"/>
     <id>https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</id>
     <published>2021-10-29T02:12:34.000Z</published>
-    <updated>2021-10-29T06:25:53.099Z</updated>
+    <updated>2022-01-28T09:55:48.800Z</updated>
     
     
     <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
@@ -542,19 +571,6 @@
     <id>https://hu1104.github.io/article/anchor-free-or-anchor-based/</id>
     <published>2021-09-07T07:52:54.000Z</published>
     <updated>2021-09-07T07:52:54.784Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>algorithm</title>
-    <link href="https://hu1104.github.io/article/algorithm/"/>
-    <id>https://hu1104.github.io/article/algorithm/</id>
-    <published>2021-09-07T01:42:30.000Z</published>
-    <updated>2021-09-07T01:42:30.249Z</updated>
     
     
     
