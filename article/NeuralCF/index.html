@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="1.动机 2.模型结构及原理 3. 代码实现    1.动机在前面的组队学习中，我们学习了最经典的推荐算法，协同过滤。在前深度学习的时代，协同过滤曾经大放异彩，但随着技术的发展，协同过滤相比深度学习模型的弊端就日益显现出来了，因为它是通过直接利用非常稀疏的共现矩阵进行预测的，所以模型的泛化能力非常弱，遇到历史行为非常少的用户，就没法产生准确的推荐结果了。虽然，我们可以通过矩阵分解算法增强">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NecuralCF">
+<meta property="og:url" content="https://hu1104.github.io/article/NeuralCF/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:description" content="1.动机 2.模型结构及原理 3. 代码实现    1.动机在前面的组队学习中，我们学习了最经典的推荐算法，协同过滤。在前深度学习的时代，协同过滤曾经大放异彩，但随着技术的发展，协同过滤相比深度学习模型的弊端就日益显现出来了，因为它是通过直接利用非常稀疏的共现矩阵进行预测的，所以模型的泛化能力非常弱，遇到历史行为非常少的用户，就没法产生准确的推荐结果了。虽然，我们可以通过矩阵分解算法增强">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/NeuralCF/NeuralCF/neuralCF.webp">
+<meta property="og:image" content="https://hu1104.github.io/article/NeuralCF/NeuralCF/NMF.png">
+<meta property="article:published_time" content="2021-10-22T06:45:39.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:21:48.883Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/NeuralCF/NeuralCF/neuralCF.webp">
+
+<link rel="canonical" href="https://hu1104.github.io/article/NeuralCF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>NecuralCF | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/NeuralCF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NecuralCF
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-22 14:45:39" itemprop="dateCreated datePublished" datetime="2021-10-22T14:45:39+08:00">2021-10-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-11 16:21:48" itemprop="dateModified" datetime="2022-07-11T16:21:48+08:00">2022-07-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1%E5%8A%A8%E6%9C%BA">1.动机</a></li>
+<li><a href="#2%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86">2.模型结构及原理</a></li>
+<li><a href="#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0">3. 代码实现</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3><span id="1动机">1.动机</span><a href="#1动机" class="header-anchor">#</a></h3><p>在前面的组队学习中，我们学习了最经典的推荐算法，协同过滤。在前深度学习的时代，协同过滤曾经大放异彩，但随着技术的发展，协同过滤相比深度学习模型的弊端就日益显现出来了，因为它是通过直接利用非常稀疏的共现矩阵进行预测的，所以模型的泛化能力非常弱，遇到历史行为非常少的用户，就没法产生准确的推荐结果了。虽然，我们可以通过矩阵分解算法增强它的泛化能力，但因为矩阵分解是利用非常简单的内积方式来处理用户向量和物品向量的交叉问题的，所以，它的拟合能力也比较弱。这该怎么办呢？不是说深度学习模型的拟合能力都很强吗？我们能不能利用深度学习来改进协同过滤算法呢？当然是可以的。2017 年，新加坡国立的研究者就使用深度学习网络来改进了传统的协同过滤算法，取名 NeuralCF（神经网络协同过滤）。NeuralCF 大大提高了协同过滤算法的泛化能力和拟合能力，让这个经典的推荐算法又重新在深度学习时代焕发生机。这章节，我们就一起来学习并实现 NeuralCF！</p>
+<span id="more"></span>
+<h3><span id="2模型结构及原理">2.模型结构及原理</span><a href="#2模型结构及原理" class="header-anchor">#</a></h3><p><img src="./NeuralCF/neuralCF.webp" alt="necural模型"></p>
+<p>为了允许神经网络对协同过滤进行一个完整的处理，我们采用上图展示的多层感知机去模拟一个用户项目交互$y_{ui}$，它的一层的输出作为下一层的输入。底部输入层包括两个特征向量$v^U_u$和$v^I_i$ ，分别用来描述用户$u$和项目$i$。 他们可以进行定制，用以支持广泛的用户和项目的建模，例如上下文感知，基于内容，和基于邻居的构建方式。由于本章工作的重点是纯的协同过滤模型设置，我们仅使用一个用户和一个项目作为输入特征，它使用$one-hot$编码将它们转化为二值化稀疏向量。注意到，我们对输入使用这样的通用特征表示，可以很容易地使用的内容特征来表示用户和项目，以调整解决冷启动问题。</p>
+<p>输入层上面是嵌入层$（Embedding\  Layer）$;它是一个全连接层，用来将输入层的稀疏特征向量映射为一个稠密向量$（dense\ vector）$。所获得的用户（项目）的嵌入（就是一个稠密向量）可以被看作是在潜在因素模型的上下文中用于描述用户（项目）的潜在向量。然后我们将用户嵌入和项目嵌入送入多层神经网络中，我们将它称为神经网络协同过滤层，它将潜在向量映射为预测分数。NCF层的每一层都可以被定制，用以发现用户-项目交互的某些潜在结构。最后一个隐藏层 $X$ 的维度尺寸决定了模型的能力。最终输出层是预测分数$\hat{y}<em>{ui}$，通过最小化预测值$\hat{y}</em>{ui}$和其目标值$y_{ui}$之间逐点损失进行训练。</p>
+<p>论文中主要运用均方误差$（squared\ loss）$进行回归： $$ L_{sqr}=\sum_{(u,i)\in y\cup y^-}w_{ui}(y_{ui}-\hat{y}<em>{ui})^2 $$ 其中$ y$表示交互矩阵$Y$中观察到的条目（如对电影有明确的评分，评级）， $y^-$表示负样本（$negative\ instances$，可以将未观察的样本全体视为负样本，或者采取抽样的方式标记为负样本）; $w</em>{ui}$是一个超参数，用来表示训练样本$(u,i)$的权重。虽然均方误差可以通过假设观测服从高斯分布来作出解释，但是它不适合处理隐性数据$（implicit\ data）$。这是因为对于隐含数据来说，目标值 $y_{ui}$是二进制值$1$或$0$，表示$u$是否与$i$进行了互动。在下文中提出了逐点学习NCF的概率学方法，特别注重隐性数据的二进制属性。</p>
+<p>考虑到隐性反馈的一类性质，我们可以将$y_{ui}$的值作为一个标签——$1$表示项目$i$和用户$u$相关，$0$表达不相关。这样一来预测分数$\hat{y}<em>{ui}$就代表了项目$i$和用户$u$相关的可能性大小。为了赋予NCF这样的概率解释，我们需要将网络输出限制到$[0,1]$的范围内，通过使用概率函数（逻辑函数$sigmoid$或者$probit$函数）作为激活函数作用在输出层$\phi</em>{out}$，我们可以很容易地实现数据压缩。经过以上设置后，我们这样定义似然函数： $$ p(y,y^-|P,Q,\Theta_f)=\prod_{(u,i)\in{y}}\hat{y}<em>{ui}\prod</em>{(u,j)\in{y^-}}(1-\hat{y}<em>{uj}) $$ 对似然函数取负对数，我们得到（负对数可以用来表示$Loss$函数，而且还能消除小数乘法的下溢出问题）: $$ L=-\sum</em>{(u,i)\in{y}}log\hat{y}<em>{ui}-\sum</em>{(u,j)\in{y^-}}log(1-\hat{y}<em>{uj})=-\sum</em>{(u,i)\in{y}\cup{y}^-}y_{ui}log \hat{y}<em>{ui}+(1-y</em>{ui})log(1-\hat{y}_{ui}) $$ 这是NCF需要去最小化的目标函数，并且可以通过使用随机梯度下降$（SGD）$来进行训练优化。这个函数和交叉熵损失函数$（binary\ cross-entropy\ loss，又被成为log\ loss）$是一样的。通过在NCF上使用这样一个概率处理$（probabilistic\ treatment）$，我们把隐性反馈的推荐问题当做一个二分类问题来解决。对于负样本 $y^-$ ，我们在每次迭代均匀地从未观察到的相互作用中采样（作为负样本）并且对照可观察到交互的数量，控制采样比率。</p>
+<p>我们现在来证明MF是如何被解释为我们的NCF框架的一个特例。由于MF是推荐领域最流行的模型，并已在众多文献中被广泛的研究，复现它能证明NCF可以模拟大部分的分解模型。由于输入层是用户（项目）ID中的一个$one-hot\ encoding$编码，所获得的嵌入向量可以被看作是用户（项目）的潜在向量。我们用$P^Tv^U_u$表示用户的潜在向量$p_u$,$Q^Tv^I_i$表示项目的潜在向量$q_i$ ,我们定义第一层神经CF层的映射函数为： $$ \phi(p_u,q_i)=p_u\odot q_i $$ 其中$\odot$表示向量的逐元素乘积。然后，我们将向量映射到输出层： $$ \hat{y}<em>{ui}=a</em>{out}(h^T(p_u\odot q_i)) $$ 其中$a_{out}$和$h$分别表示输出层的激活函数和连接权。直观地讲，如果我们将$a_{out}$看做一个恒等函数， $h$权重全为1，显然这就是我们的MF模型。在NCF的框架下，MF可以很容易地被泛化和推广。例如，如果我们允许从没有一致性约束（uniform constraint）的数据中学习$h$，则会形成MF的变体，它允许潜在维度的不同重要性（For example, if we allow h to be learnt from data without the uniform constraint, it will result in a variant of MF that allows varying importance of latent dimensions）。如果我们用一个非线性函数$a_{out}$将进一步推广MF到非线性集合，使得模型比线性MF模型更具有表现力。在NCF下实现一个更一般化的MF，它使用Sigmoid函数$\sigma(x)=1/1(1+e^{-x})$作为激活函数，通过$log loss$学习 $h$。称为GMF（Generalized Matrix Factorization，广义矩阵分解）。</p>
+<p><img src="./NeuralCF/NMF.png" alt="NMF"></p>
+<p>GMF，它应用了一个线性内核来模拟潜在的特征交互；MLP，使用非线性内核从数据中学习交互函数。接下来的问题是：我们如何能够在NCF框架下融合GMF和MLP，使他们能够相互强化，以更好地对复杂的用户-项目交互建模？一个直接的解决方法是让GMF和MLP共享相同的嵌入层（Embedding Layer），然后再结合它们分别对相互作用的函数输出。这种方式和著名的神经网络张量（NTN,Neural Tensor Network）有点相似。然而，共享GMF和MLP的嵌入层可能会限制融合模型的性能。例如，它意味着，GMF和MLP必须使用的大小相同的嵌入;对于数据集，两个模型的最佳嵌入尺寸差异很大，使得这种解决方案可能无法获得最佳的组合。为了使得融合模型具有更大的灵活性，我们允许GMF和MLP学习独立的嵌入，并结合两种模型通过连接他们最后的隐层输出。</p>
+<h3><span id="3-代码实现">3. 代码实现</span><a href="#3-代码实现" class="header-anchor">#</a></h3><p>从模型的结构上来看，NeuralCF的模型其实是在矩阵分解上进行了加强，用MLP代替了inner product，下面是构建模型的核心代码，详细代码参考github。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">def NCF(dnn_feature_columns):</span><br><span class="line">    # 构建输入层，即所有特征对应的Input()层，这里使用字典的形式返回，方便后续构建模型</span><br><span class="line">    _, sparse_input_dict = build_input_layers(dnn_feature_columns) # 没有dense特征</span><br><span class="line"></span><br><span class="line">    # 构建模型的输入层，模型的输入层不能是字典的形式，应该将字典的形式转换成列表的形式</span><br><span class="line">    # 注意：这里实际的输入与Input()层的对应，是通过模型输入时候的字典数据的key与对应name的Input层</span><br><span class="line">    input_layers = list(sparse_input_dict.values())</span><br><span class="line">    </span><br><span class="line">    # 创建两份embedding向量, 由于Embedding层的name不能相同，所以这里加入一个prefix参数</span><br><span class="line">    GML_embedding_dict = build_embedding_layers(dnn_feature_columns, sparse_input_dict, is_linear=False, prefix=&#x27;GML&#x27;)</span><br><span class="line">    MLP_embedding_dict = build_embedding_layers(dnn_feature_columns, sparse_input_dict, is_linear=False, prefix=&#x27;MLP&#x27;)</span><br><span class="line"></span><br><span class="line">    # 构建GML的输出</span><br><span class="line">    GML_user_emb = Flatten()(GML_embedding_dict[&#x27;user_id&#x27;](sparse_input_dict[&#x27;user_id&#x27;])) # B x embed_dim</span><br><span class="line">    GML_item_emb = Flatten()(GML_embedding_dict[&#x27;movie_id&#x27;](sparse_input_dict[&#x27;movie_id&#x27;])) # B x embed_dim</span><br><span class="line">    GML_out = tf.multiply(GML_user_emb, GML_item_emb) # 按元素相乘 </span><br><span class="line"></span><br><span class="line">    # 构建MLP的输出</span><br><span class="line">    MLP_user_emb = Flatten()(MLP_embedding_dict[&#x27;user_id&#x27;](sparse_input_dict[&#x27;user_id&#x27;])) # B x embed_dim</span><br><span class="line">    MLP_item_emb = Flatten()(MLP_embedding_dict[&#x27;movie_id&#x27;](sparse_input_dict[&#x27;movie_id&#x27;])) # B x embed_dim</span><br><span class="line">    MLP_dnn_input = Concatenate(axis=1)([MLP_user_emb, MLP_item_emb]) # 两个向量concat</span><br><span class="line">    MLP_dnn_out = get_dnn_out(MLP_dnn_input, (32, 16))</span><br><span class="line"></span><br><span class="line">    # 将dense特征和Sparse特征拼接到一起</span><br><span class="line">    concat_out = Concatenate(axis=1)([GML_out, MLP_dnn_out]) </span><br><span class="line"></span><br><span class="line">    # 输入到dnn中，需要提前定义需要几个残差块</span><br><span class="line">    # output_layer = Dense(1, &#x27;sigmoid&#x27;)(concat_out)</span><br><span class="line">    output_layer = Dense(1)(concat_out)</span><br><span class="line">    </span><br><span class="line">    model = Model(input_layers, output_layer)</span><br><span class="line">    return model</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/GBDT-LR/" rel="prev" title="GBDT_LR">
+      <i class="fa fa-chevron-left"></i> GBDT_LR
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/deepcrossing/" rel="next" title="deepcrossing">
+      deepcrossing <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1.动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2.模型结构及原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3. 代码实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">2.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33:20</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>

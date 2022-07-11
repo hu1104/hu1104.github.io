@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="代码应当易于理解 关键思想：代码应当易于理解 ​     关键思想：代码的写法应当使别人理解它所需的时间最小化 ​     表面层次的改进 把信息装到名字里 选择专业的词 get 与 fetch size() 与  NumNodes()、MemoryBytes() stop() 与 Kill()、Pause()、Resume() 选用更有表现力的单词： ​     避免泛泛的名字 因为懒惰而使用：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码规范">
+<meta property="og:url" content="https://hu1104.github.io/article/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:description" content="代码应当易于理解 关键思想：代码应当易于理解 ​     关键思想：代码的写法应当使别人理解它所需的时间最小化 ​     表面层次的改进 把信息装到名字里 选择专业的词 get 与 fetch size() 与  NumNodes()、MemoryBytes() stop() 与 Kill()、Pause()、Resume() 选用更有表现力的单词： ​     避免泛泛的名字 因为懒惰而使用：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEcfdfd51f98b8b098dce22de6420dfc28/762">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEb12e63366fb83a771c2723911f677253/764">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE587d83e7b70bf577aafc01bb91d5a2f3/777">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE3d22d47eabc7a04878740f867ec42152/796">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE68aa7b4ba78c829227cc5b5a15eacd3e/802">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE049205974eacf735fecaa32e3d2d3ab9/804">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEc91cd4692b35a17b6464564b67a29d1a/847">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE6617c9390e70912602fb1c2afd06fd59/849">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE4684b2d2b804643dad4c883be1e03928/841">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEba36ac465c7852482064b7439ef13d74/845">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEd0a40808c6ccab00edfe0b98ec817278/852">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEe28ce6e866b1afd0588af9043e5be520/854">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEc2d2a034f9019d4cc818856ad9b93d99/857">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE8aac017851825b9550f333fad5f7eeb0/859">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEff280b728a5c387d1e55fa3091e53431/866">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE308e1be96fbb26734dc03ab9533db02e/872">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE3e874d1d1a4dbd12ab2d11d9da5ea37f/874">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE0fce44dfad058b6386506dba31b8690a/889">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE5981ba9fec63219a0a3a70beb8440dac/891">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEe72f0b8f66bddfc329db1716a599d733/895">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEb111bb7b780f913f8a88d03ea39690aa/898">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEda8409fb490afdefcf3c94f3e535eb17/902">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEf7fdbec03bbcdc7b930ef9024394aa32/910">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEad20b6e154782f85bdbdaaa9ae40d3b3/912">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEf5a3819bb5876c7191a847f77a567d3c/917">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE4aa84863f5e1edbb85764c82c08708d9/919">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEbd1e9dc12ff901f1a6147b4020f16b27/927">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE254f7724fb765a881c689301b5ada614/930">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE8c62e2322663993eda80cd41c9e5bfd3/933">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEf417ff7c5cc7d627f0ea7670b83c848d/935">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE08b90ab8493e06d8f1140f3bcd1c87de/938">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE8cb57ef3a49f13f8c1ec3ef159965799/941">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE0cd0d82b4b15720985d52fedde5ff98b/944">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEa4efd3652e5eb701a0149222241e7913/946">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE7d2be8875fcef867abbaaac541d68202/948">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE7ec67aa9e34e22bac0f88290bf56b642/950">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE336c4f011fc972f0e84e2dc88d6fc8fc/954">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE5630d6f5a414e7788712d7dae6979652/956">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE57fab3b817a64d661467c9bb864d6656/959">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE338243ed77066a9dcce4445380ac6683/968">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE530faecb703f963b527f28fbe5cfb590/970">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE3064448cad0c3963ff9461c681e74a82/974">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEdaf114b083e16be71c5326f399aeeceb/976">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE9452bf99abb2cdd33520de57593c050f/979">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE61b9f6fac42ed52a60d1a62736d3fe27/964">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE14dd031f8c853bfc43485820b9b8b3ab/988">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE890c5ad9fd560c31b33af1e00278a5ad/990">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE3b32b043511baafdf2dd9bb1c889be18/1001">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE0aa5a7d477b7b2dd7a50432b5ed3e24f/1005">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE06e685b1e260f364367fd52f4181d9e1/1007">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEe96f5ce66b8a0242c2a54a0cd67693a5/1013">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE4ed79dfda17a99a9be3de12be06e5de2/1019">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE45c13e79458eeac5a8f60ac0cd12df46/1022">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE05cc42e8aaca00071c924b4d0b8be6eb/1028">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEa44fc33b972558b3cca2c3ba615dc74c/1030">
+<meta property="article:published_time" content="2022-03-14T07:48:43.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:21:49.448Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEcfdfd51f98b8b098dce22de6420dfc28/762">
+
+<link rel="canonical" href="https://hu1104.github.io/article/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>代码规范 | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          代码规范
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-14 15:48:43" itemprop="dateCreated datePublished" datetime="2022-03-14T15:48:43+08:00">2022-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-11 16:21:49" itemprop="dateModified" datetime="2022-07-11T16:21:49+08:00">2022-07-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>代码应当易于理解</strong></p>
+<p><strong>关键思想：代码应当易于理解</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEcfdfd51f98b8b098dce22de6420dfc28/762" alt="0"></p>
+<p><strong>关键思想：代码的写法应当使别人理解它所需的时间最小化</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEb12e63366fb83a771c2723911f677253/764" alt="0"></p>
+<p><strong>表面层次的改进</strong></p>
+<p><strong>把信息装到名字里</strong></p>
+<p><strong>选择专业的词</strong></p>
+<p>get 与 fetch</p>
+<p>size() 与  NumNodes()、MemoryBytes()</p>
+<p>stop() 与 Kill()、Pause()、Resume()</p>
+<p>选用更有表现力的单词：</p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE587d83e7b70bf577aafc01bb91d5a2f3/777" alt="0"></p>
+<p><strong>避免泛泛的名字</strong></p>
+<p>因为懒惰而使用：tmp retval result </p>
+<p>result 与 userList  orderList  cateList</p>
+<p>循环迭代时的 i j k   变成更有意思的 cateLength    xxxLen</p>
+<p><strong>用具体的名字代替抽象的名字</strong></p>
+<p>在给变量、函数或其它元素命名时，要把它描述得更具体而不是更抽象。</p>
+<p>DISALLOW_EVIL_CONSTRUCTORS</p>
+<p>DISALLOW_COPY_AND_ASSIGN</p>
+<p><strong>使用前缀或后缀来给名字附带更多信息</strong></p>
+<p>如果变量是一个度量，最好把名字带上单位</p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE3d22d47eabc7a04878740f867ec42152/796" alt="0"></p>
+<p>附带其它重要信息：</p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE68aa7b4ba78c829227cc5b5a15eacd3e/802" alt="0"></p>
+<p><strong>决定名字的长度</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE049205974eacf735fecaa32e3d2d3ab9/804" alt="0"></p>
+<p>BEManager与BackEndManager</p>
+<p>小的作用域可心使用短名字</p>
+<p>经验原则：团队新成员是否能理解这个名字的含义？</p>
+<p>doc document  eval evaluation</p>
+<p><strong>丢掉没用的词：</strong></p>
+<p>convertToString() 与 ToString()</p>
+<p>long2Str</p>
+<p><strong>利用名字的格式来表达含义</strong></p>
+<p>这个比较成熟，遵照规范和团队约定即可</p>
+<p><strong>不会误解的名字</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEc91cd4692b35a17b6464564b67a29d1a/847" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE6617c9390e70912602fb1c2afd06fd59/849" alt="0"></p>
+<p><strong>关键思想：名字不要有歧义</strong></p>
+<p>objList.filter(“age &gt; 18”);</p>
+<p>objList.leaveAdults(“age&gt;18”);</p>
+<p><strong>给布尔值命名</strong></p>
+<p>userIsAuthentiated</p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE4684b2d2b804643dad4c883be1e03928/841" alt="0"></p>
+<p><strong>与使用者的期望相匹配</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEba36ac465c7852482064b7439ef13d74/845" alt="0"></p>
+<p><strong>审美</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEd0a40808c6ccab00edfe0b98ec817278/852" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEe28ce6e866b1afd0588af9043e5be520/854" alt="0"></p>
+<p>来比较一下下面的代码 ：</p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEc2d2a034f9019d4cc818856ad9b93d99/857" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE8aac017851825b9550f333fad5f7eeb0/859" alt="0"></p>
+<p><strong>用换行来保持一致和紧凑</strong></p>
+<p><strong>用方法来整理不规则的东西</strong></p>
+<p><strong>在需要时使用列对齐</strong></p>
+<p><strong>把代码分段落</strong></p>
+<p><strong>使用一致的风格</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEff280b728a5c387d1e55fa3091e53431/866" alt="0"></p>
+<p><strong>该写什么样的注释</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE308e1be96fbb26734dc03ab9533db02e/872" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE3e874d1d1a4dbd12ab2d11d9da5ea37f/874" alt="0"></p>
+<p><strong>不要为了注释而注释</strong></p>
+<p><strong>不要给不好的名字加注释——应该把名字改好</strong></p>
+<p><strong>记录你的思想</strong></p>
+<p><strong>加入“导演评论”</strong></p>
+<p><strong>为代码中的瑕疵写注释</strong></p>
+<p><strong>给常量加注释</strong></p>
+<p><strong>意料中的提问</strong></p>
+<p><strong>公布可能的陷阱</strong></p>
+<p><strong>“全局观”注释</strong></p>
+<p><strong>最后的思考-克服“作者心理阻滞”</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE0fce44dfad058b6386506dba31b8690a/889" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE5981ba9fec63219a0a3a70beb8440dac/891" alt="0"></p>
+<p><strong>写出言简意赅的注释</strong></p>
+<p><strong>简化循环和逻辑</strong></p>
+<p><strong>把控制流变得易读</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEe72f0b8f66bddfc329db1716a599d733/895" alt="0"></p>
+<p><strong>条件语句中的参数顺序</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEb111bb7b780f913f8a88d03ea39690aa/898" alt="0"></p>
+<p><strong>if/else语句块的顺序</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEda8409fb490afdefcf3c94f3e535eb17/902" alt="0"></p>
+<p><strong>?:条件表达式</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEf7fdbec03bbcdc7b930ef9024394aa32/910" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEad20b6e154782f85bdbdaaa9ae40d3b3/912" alt="0"></p>
+<p><strong>避免do/while循环</strong></p>
+<p><strong>从函数中提前返回</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEf5a3819bb5876c7191a847f77a567d3c/917" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE4aa84863f5e1edbb85764c82c08708d9/919" alt="0"></p>
+<p><strong>最小化嵌套</strong></p>
+<p><strong>通过提前返回来减少嵌套</strong></p>
+<p><strong>减少循环内的嵌套</strong></p>
+<p><strong>总结：</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEbd1e9dc12ff901f1a6147b4020f16b27/927" alt="0"></p>
+<p><strong>拆分超长表达式</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE254f7724fb765a881c689301b5ada614/930" alt="0"></p>
+<p><strong>用作解释的变量</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE8c62e2322663993eda80cd41c9e5bfd3/933" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEf417ff7c5cc7d627f0ea7670b83c848d/935" alt="0"></p>
+<p><strong>总结变量</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE08b90ab8493e06d8f1140f3bcd1c87de/938" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE8cb57ef3a49f13f8c1ec3ef159965799/941" alt="0"></p>
+<p><strong>使用德摩根定理</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE0cd0d82b4b15720985d52fedde5ff98b/944" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEa4efd3652e5eb701a0149222241e7913/946" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE7d2be8875fcef867abbaaac541d68202/948" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE7ec67aa9e34e22bac0f88290bf56b642/950" alt="0"></p>
+<p><strong>找到更优雅的方式</strong></p>
+<p><strong>拆分巨大的语句</strong></p>
+<p>优雅的例子：</p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE336c4f011fc972f0e84e2dc88d6fc8fc/954" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE5630d6f5a414e7788712d7dae6979652/956" alt="0"></p>
+<p><strong>变量与可读性</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE57fab3b817a64d661467c9bb864d6656/959" alt="0"></p>
+<p><strong>减少变量</strong></p>
+<p><strong>没有价值的临时变量</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE338243ed77066a9dcce4445380ac6683/968" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE530faecb703f963b527f28fbe5cfb590/970" alt="0"></p>
+<p><strong>减少中间结果</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE3064448cad0c3963ff9461c681e74a82/974" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEdaf114b083e16be71c5326f399aeeceb/976" alt="0"></p>
+<p><strong>减少控制流变量</strong></p>
+<p><strong>缩小变量的作用域</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE9452bf99abb2cdd33520de57593c050f/979" alt="0"></p>
+<p><strong>只写一次的变量更好</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE61b9f6fac42ed52a60d1a62736d3fe27/964" alt="0"></p>
+<p><strong>重新组织代码</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE14dd031f8c853bfc43485820b9b8b3ab/988" alt="0"></p>
+<p><strong>抽取不相关的子问题</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE890c5ad9fd560c31b33af1e00278a5ad/990" alt="0"></p>
+<p><strong>纯工具代码</strong></p>
+<p><strong>其它用途代码</strong></p>
+<p><strong>意料之外的好处</strong></p>
+<p><strong>创建大量通用代码</strong></p>
+<p><strong>项目专有的功能</strong></p>
+<p><strong>简化已有接口</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE3b32b043511baafdf2dd9bb1c889be18/1001" alt="0"></p>
+<p><strong>一次只做一件事</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE0aa5a7d477b7b2dd7a50432b5ed3e24f/1005" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE06e685b1e260f364367fd52f4181d9e1/1007" alt="0"></p>
+<p><strong>任务可以很小</strong></p>
+<p><strong>应用“一次只做一件事情”原则</strong></p>
+<p><strong>把想法变成代码</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEe96f5ce66b8a0242c2a54a0cd67693a5/1013" alt="0"></p>
+<p><strong>清楚的描述逻辑</strong></p>
+<p><strong>用自然语言描述解决文案</strong></p>
+<p><strong>少写代码</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE4ed79dfda17a99a9be3de12be06e5de2/1019" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE45c13e79458eeac5a8f60ac0cd12df46/1022" alt="0"></p>
+<p><strong>质疑和拆分你的需求</strong></p>
+<p><strong>删除没用的代码</strong></p>
+<p><strong>熟悉你周边的库</strong></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCE05cc42e8aaca00071c924b4d0b8be6eb/1028" alt="0"></p>
+<p>​    <img src="https://note.youdao.com/yws/public/resource/af1715f13dd62179a995485790fc4a41/xmlnote/WEBRESOURCEa44fc33b972558b3cca2c3ba615dc74c/1030" alt="0"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/%E4%BC%98%E7%A7%80%E5%8D%9A%E6%96%87/" rel="prev" title="优秀博文">
+      <i class="fa fa-chevron-left"></i> 优秀博文
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="next" title="动态规划">
+      动态规划 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">2.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33:20</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>

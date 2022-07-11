@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="偏函数定义：偏函数的第二个部分(可变参数)，按原有函数的参数顺序进行补充，参数将作用在原函数上，最后偏函数返回一个新函数（类似于，装饰器decorator，对于函数进行二次包装，产生特殊效果；但又不同于装饰器，偏函数产生了一个新函数，而装饰器，可改变被装饰函数的函数入口地址也可以不影响原函数） 例一： 123456789from functools import partial def mod(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python_进阶">
+<meta property="og:url" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:description" content="偏函数定义：偏函数的第二个部分(可变参数)，按原有函数的参数顺序进行补充，参数将作用在原函数上，最后偏函数返回一个新函数（类似于，装饰器decorator，对于函数进行二次包装，产生特殊效果；但又不同于装饰器，偏函数产生了一个新函数，而装饰器，可改变被装饰函数的函数入口地址也可以不影响原函数） 例一： 123456789from functools import partial def mod(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/python-%E8%BF%9B%E9%98%B6/image-20210824144323526.png">
+<meta property="og:image" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/python-%E8%BF%9B%E9%98%B6/image-20210824144415139.png">
+<meta property="og:image" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/python-%E8%BF%9B%E9%98%B6/image-20210824145859135.png">
+<meta property="og:image" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/python-%E8%BF%9B%E9%98%B6/image-20210824162124766.png">
+<meta property="og:image" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/python-%E8%BF%9B%E9%98%B6/image-20210824162204387.png">
+<meta property="og:image" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/python-%E8%BF%9B%E9%98%B6/image-20210824162246391.png">
+<meta property="og:image" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/python-%E8%BF%9B%E9%98%B6/image-20210824162411720.png">
+<meta property="article:published_time" content="2021-08-24T05:44:57.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:21:48.947Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/python-%E8%BF%9B%E9%98%B6/image-20210824144323526.png">
+
+<link rel="canonical" href="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python_进阶 | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/python-%E8%BF%9B%E9%98%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python_进阶
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-24 13:44:57" itemprop="dateCreated datePublished" datetime="2021-08-24T13:44:57+08:00">2021-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-11 16:21:48" itemprop="dateModified" datetime="2022-07-11T16:21:48+08:00">2022-07-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1><span id="偏函数">偏函数</span><a href="#偏函数" class="header-anchor">#</a></h1><p>定义：偏函数的第二个部分(可变参数)，按原有函数的参数顺序进行补充，参数将作用在原函数上，最后偏函数返回一个新函数（类似于，装饰器decorator，对于函数进行二次包装，产生特殊效果；但又不同于装饰器，偏函数产生了一个新函数，而装饰器，可改变被装饰函数的函数入口地址也可以不影响原函数）</p>
+<p>例一：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from functools import partial</span><br><span class="line"> </span><br><span class="line">def mod( n, m ):</span><br><span class="line">  return n % m</span><br><span class="line"> </span><br><span class="line">mod_by_100 = partial( mod, 100 )</span><br><span class="line"> </span><br><span class="line">print mod( 100, 7 )  # 2</span><br><span class="line">print mod_by_100( 7 )  # 2</span><br></pre></td></tr></table></figure>
+
+<p>例二：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from functools import partial</span><br><span class="line"> </span><br><span class="line">bin2dec = partial( int, base=2 )</span><br><span class="line">print bin2dec( &#x27;0b10001&#x27; )  # 17</span><br><span class="line">print bin2dec( &#x27;10001&#x27; )  # 17</span><br><span class="line"> </span><br><span class="line">hex2dec = partial( int, base=16 )</span><br><span class="line">print hex2dec( &#x27;0x67&#x27; )  # 103</span><br><span class="line">print hex2dec( &#x27;67&#x27; )  # 103</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h1><span id="同步异步阻塞非阻塞">同步，异步，阻塞，非阻塞</span><a href="#同步异步阻塞非阻塞" class="header-anchor">#</a></h1><p>二者其实是不同维度的东西，但是的确容易搞混。</p>
+<p>做法A(同步，阻塞) :开单独线程（进程）处理，线程内一般是循环接收消息。<br>做法B(同步，非阻塞) :主线程循环处理,但一般搭配sleep函数(释放时间片,自身状态运行转就绪再等待时间片)，避免完全的cpu空转<br>做法C(异步，非阻塞):函数参数包含函数(回调函数)，或url地址，类似的东西，对方有消息就推送给你，所以还需要新开一个接口(or功能)用来接受信息。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">例子:老张水壶</span><br><span class="line">老张爱喝茶，废话不说，煮开水。</span><br><span class="line">出场人物：老张，水壶两把（普通水壶，简称水壶；会响的水壶，简称响水壶）。</span><br><span class="line">1 老张把水壶放到火上，立等水开。（同步阻塞）</span><br><span class="line">2 老张把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）</span><br><span class="line">老张还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀~的噪音。</span><br><span class="line">3 老张把响水壶放到火上，立等水开。（异步阻塞）</span><br><span class="line">4 老张把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）</span><br><span class="line">所谓同步异步，只是对于水壶而言。</span><br><span class="line">普通水壶，同步；响水壶，异步。虽然都能干活，但响水壶可以在自己完工之后，提示老张水开了。这是普通水壶所不能及的。同步只能让调用者去轮询自己（情况2中），造成老张效率的低下。</span><br><span class="line">所谓阻塞非阻塞，仅仅对于老张而言。</span><br><span class="line">立等的老张，阻塞；看电视的老张，非阻塞。情况1和情况3中老张就是阻塞的，媳妇喊他都不知道。虽然3中响水壶是异步的，可对于立等的老张没有太大的意义。所以一般异步是配合非阻塞使用的，这样才能发挥异步的效用。</span><br></pre></td></tr></table></figure>
+
+
+
+<h1><span id="并发">并发</span><a href="#并发" class="header-anchor">#</a></h1><h2><span id="进程状态和调度">进程状态和调度</span><a href="#进程状态和调度" class="header-anchor">#</a></h2><p><img src="python-%E8%BF%9B%E9%98%B6/image-20210824144323526.png" alt="image-20210824144323526"></p>
+<p><img src="python-%E8%BF%9B%E9%98%B6/image-20210824144415139.png" alt="image-20210824144415139"></p>
+<h2><span id="进程线程协程">进程,线程,协程</span><a href="#进程线程协程" class="header-anchor">#</a></h2><p>1、进程<br>进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行<strong>资源</strong>分配和调度的一个独立单位。每个进程都有自己的独立内存空间，不同进程通过进程间通信来通信。由于进程比较重量，占据独立的内存，所以上下文进程间的切换开销（栈、寄存器、虚拟内存、文件句柄等）比较大，但相对比较稳定安全。<br>2、线程<br>线程是进程的一个实体,是<strong>CPU调度</strong>和分派的基本单位,它是比进程更小的能独立运行的基本单位.线程自己基本上不拥有系统资源,只拥有一点在运行中必不可少的资源(如程序计数器,一组寄存器和栈),但是它可与同属一个进程的其他的线程共享进程所拥有的全部资源。线程间通信主要通过共享内存，上下文切换很快，资源开销较少，但相比进程不够稳定容易丢失数据。<br>3、协程<br>协程是一种<strong>用户态的轻量级线程</strong>，协程的调度完全由用户控制。协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，直接操作栈则基本没有内核切换的开销，<strong>可以不加锁的访问全局变量</strong>，所以上下文的切换非常快。</p>
+<h2><span id="多进程和多线程">多进程和多线程</span><a href="#多进程和多线程" class="header-anchor">#</a></h2><p>在数据共享、同步方面，多进程是数据共享复杂，需要用IPC，数据是分开的，同步简单。多线程因为共享进程数据，数据共享简单，但同步复杂；<br>在内存、CPU方面，多进程占用内存多，切换复杂，CPU利用率低。<br>多线程占用内存少，切换简单，CPU利用率高；<br>在创建销毁、切换方面，多进程创建销毁、切换复杂，速度慢。多线程创建销毁、切换简单，速度很快；<br>在编程、调试方面，<strong>多进程编程和调试都简单。多线程编程和调试都复杂</strong>；<br><strong>可靠性方面，多进程间不会互相影响。多线程中的一个线程挂掉将导致整个进程挂掉；</strong><br>在分布式方面，多进程适应于多核、多机分布式。多线程适应于多核分布式。</p>
+<p><strong>多进程模式最大的优点就是稳定性高</strong>，因为一个子进程崩溃了，不会影响主进程和其他子进程。（当然主进程挂了所有进程就全挂了，但是Master进程只负责分配任务，挂掉的概率低）著名的Apache最早就是采用多进程模式。<br><strong>多进程模式的缺点是创建进程的代价大</strong>，在Unix/Linux系统下，用fork调用还行，在Windows下创建进程开销巨大。另外，操作系统能同时运行的进程数也是有限的，在内存和CPU的限制下，如果有几千个进程同时运行，操作系统连调度都会成问题。<br>多线程模式通常比多进程快一点，但是也快不到哪去，而且，<strong>多线程模式致命的缺点</strong>就是任何一个线程挂掉都可能直接造成<strong>整个进程崩溃</strong>，因为所有线程共享进程的内存。在Windows上，如果一个线程执行的代码出了问题，你经常可以看到这样的提示：“该程序执行了非法操作，即将关闭”，其实往往是某个线程出了问题，但是操作系统会强制结束整个进程。<br><strong>在Windows下，多线程的效率比多进程要高</strong>，所以微软的IIS服务器默认采用多线程模式。由于多线程存在稳定性的问题，IIS的稳定性就不如Apache。为了缓解这个问题，IIS和Apache现在又有多进程+多线程的混合模式，真是把问题越搞越复杂。</p>
+<p><img src="python-%E8%BF%9B%E9%98%B6/image-20210824145859135.png" alt="image-20210824145859135"></p>
+<h2><span id="线程和协程">线程和协程</span><a href="#线程和协程" class="header-anchor">#</a></h2><p>协程:又被称为用户级线程或绿色线程。</p>
+<ol>
+<li>一个线程可以多个协程，一个进程也可以单独拥有多个协程，这样python中则能使用多核CPU。</li>
+<li> 线程进程都是同步机制，而协程则是异步</li>
+<li>协程能保留上一次调用时的状态，每次过程重入时，就相当于进入上一次调用的状态</li>
+</ol>
+<h2><span id="协程">协程</span><a href="#协程" class="header-anchor">#</a></h2><p>协程 :<br>能够在一个线程中实现并发效果的效果,提高cpu的利用率<br>无需原子操作锁定及同步的开销<br>能够规避一些任务中的IO操作<br>方便切换控制流，简化编程模型<br>协程相比于多线程的优势 切换的效率更快了</p>
+<p>缺点：<br>无法利用多核资源：协程的本质是个单线程,它不能同时将 单个CPU 的多个核用上,协程需要和进程配合才能运行在多CPU上.当然我们日常所编写的绝大部分应用都没有这个必要，除非是cpu密集型应用。</p>
+<p>线程和进程的操作是由程序触发系统接口，最后的执行者是系统，它本质上是操作系统提供的功能。而协程的操作则是程序员指定的，在python中通过yield，人为的实现并发处理。<br>协程存在的意义：对于多线程应用，CPU通过切片的方式来切换线程间的执行，线程切换时需要耗时。协程，则只使用一个线程，分解一个线程成为多个“微线程”，在一个线程中规定某个代码块的执行顺序。<br>协程的适用场景：当程序中存在大量不需要CPU的操作时（IO）。<br>常用第三方模块gevent和greenlet。（本质上，gevent是对greenlet的高级封装，因此一般用它就行，这是一个相当高效的模块。）</p>
+<h1><span id="何时使用多进程or多线程">何时使用多进程or多线程</span><a href="#何时使用多进程or多线程" class="header-anchor">#</a></h1><p>使用多进程or线程,对于python，考虑到GIL锁，基本上<strong>默认使用多进程</strong>就对了。<br>除此之外，线程<strong>共享全局变量</strong>，进程<strong>全局变量则是隔离的</strong>，实际进程大多数情况需要通信的，所以也需要考虑共享数据读写问题处理。 决定因素稳定性和数据共享要求上（操作系统差异性，win偏好线程，linux偏好进程）<br>性能上虽然线程较好，但实际除了大型互联网公司和部分专业性质软件，大多数中小型公司的并发量，并不会带来很大影响，况且目前服务器领域，基本上LInux和Unix占比较高，线程相比进程在性能上优势并不十分突出。所以这方面考量不会太大的。</p>
+<h2><span id="线程是并发还是并行进程是并发还是并行">线程是并发还是并行，进程是并发还是并行？</span><a href="#线程是并发还是并行进程是并发还是并行" class="header-anchor">#</a></h2><p><strong>线程是并发</strong>，<strong>进程是并行</strong>；<br>现代os都将<strong>线程作为最小调度单位</strong>，进程作为<strong>资源分配的最小单位</strong>。</p>
+<h2><span id="父子进程如何区分">父子进程如何区分?</span><a href="#父子进程如何区分" class="header-anchor">#</a></h2><p> 子进程是父进程通过fork()产生出来的，pid = os.fork()<br>​ 通过<strong>返回值pid是否为0</strong>，判断是否为子进程，如果是0，则表示是子进程<br>​ 由于 fork() 是 Linux 上的概念，所以如果要跨平台，最好还是使用 subprocess 模块来创建子进程。</p>
+<h2><span id="子进程如何回收">子进程如何回收？</span><a href="#子进程如何回收" class="header-anchor">#</a></h2><p>python中采用os.wait()方法用来回收子进程占用的资源<br>pid, result = os.wait() # 回收子进程资源　阻塞，等待子进程执行完成回收<br>如果有子进程没有被回收的，但是父进程已经死掉了，这个子进程就是僵尸进程。孤儿进程,父类进程over.,子进程未结束</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">Multi-args</th>
+<th align="left">Concurrence</th>
+<th align="left">Blocking</th>
+<th>Ordered-results</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">map</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td align="left">apply</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td align="left">map_async</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td>yes</td>
+</tr>
+<tr>
+<td align="left">apply_async</td>
+<td align="left">yes</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td>no</td>
+</tr>
+</tbody></table>
+<p>需要注意：map 和 map_async 入参为迭代器类型，可以批量调用。而apply和apply_async只能一个个调用。且进程池只能传递管道，而不能用队列。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># map</span><br><span class="line">results = pool.map(worker, [1, 2, 3])</span><br><span class="line"></span><br><span class="line"># apply</span><br><span class="line">for x, y in [[1, 1], [2, 2]]:</span><br><span class="line">    results.append(pool.apply(worker, (x, y)))</span><br><span class="line"></span><br><span class="line">def collect_result(result):</span><br><span class="line">    results.append(result)</span><br><span class="line"></span><br><span class="line"># map_async</span><br><span class="line">pool.map_async(worker, jobs, callback=collect_result)</span><br><span class="line"></span><br><span class="line"># apply_async</span><br><span class="line">for x, y in [[1, 1], [2, 2]]:</span><br><span class="line">    pool.apply_async(worker, (x, y), callback=collect_result)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1><span id="生产者消费者模式">生产者消费者模式</span><a href="#生产者消费者模式" class="header-anchor">#</a></h1><p>这也是实际项目中使用较多的一种并发模式，用Queue(JoinableQueue)实现，是Python中最常用的方式(这里的queue特指multiprocess包下的queue，非queue.Queue)。</p>
+<h2><span id="queue">queue</span><a href="#queue" class="header-anchor">#</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"># encoding:utf-8</span><br><span class="line">__author__ = &#x27;Fioman&#x27;</span><br><span class="line">__time__ = &#x27;2019/3/7 14:06&#x27;</span><br><span class="line">from multiprocessing import Process,Queue</span><br><span class="line">import time,random</span><br><span class="line"></span><br><span class="line">def consumer(q,name):</span><br><span class="line">    while True:</span><br><span class="line">        food = q.get()</span><br><span class="line">        if food is None:</span><br><span class="line">            print(&#x27;接收到了一个空,生产者已经完事了&#x27;)</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        print(&#x27;\033[31m&#123;&#125;消费了&#123;&#125;\033[0m&#x27;.format(name,food))</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line"></span><br><span class="line">def producer(name,food,q):</span><br><span class="line">    for i in range(10):</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line">        f = &#x27;&#123;&#125;生产了&#123;&#125;&#123;&#125;&#x27;.format(name,food,i)</span><br><span class="line">        print(f)</span><br><span class="line">        q.put(f)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    q = Queue(20)</span><br><span class="line">    p1 = Process(target=producer,args=(&#x27;fioman&#x27;,&#x27;包子&#x27;,q))</span><br><span class="line">    p2 = Process(target=producer,args=(&#x27;jingjing&#x27;,&#x27;馒头&#x27;,q))</span><br><span class="line">    p1.start()</span><br><span class="line">    p2.start()</span><br><span class="line"></span><br><span class="line">    c1 = Process(target=consumer,args=(q,&#x27;mengmeng&#x27;))</span><br><span class="line">    c2 = Process(target=consumer,args=(q,&#x27;xiaoxiao&#x27;))</span><br><span class="line">    c1.start()</span><br><span class="line">    c2.start()</span><br><span class="line"></span><br><span class="line">    # 让主程序可以等待子进程的结束.</span><br><span class="line">    p1.join()</span><br><span class="line">    p2.join()</span><br><span class="line">    # 生产者的进程结束,这里需要放置两个空值,供消费者获取,用来判断已经没有存货了</span><br><span class="line">    q.put(None)</span><br><span class="line">    q.put(None)</span><br><span class="line"></span><br><span class="line">    print(&#x27;主程序结束..........&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h2><span id="joinablequeue">JoinableQueue</span><a href="#joinablequeue" class="header-anchor">#</a></h2><p>创建可连接的共享进程队列,它们也是队列,但是这些队列比较特殊.它们可以允许消费者通知生产者项目已经被成功处理.注意,这里必须是生产者生产完了,生产者的进程被挂起,等到消费者完全消费的时候,生产者进程就结束,然后主程序结束.将消费者进程设置为守护进程,这样的话,主进程结束的时候,消费进程也就结束了.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">q.task_done() </span><br><span class="line">使用者使用此方法发出信号，表示q.get()返回的项目已经被处理。如果调用此方法的次数大于从队列中删除的项目数量，将引发ValueError异常。</span><br><span class="line"></span><br><span class="line">q.join() </span><br><span class="line">生产者将使用此方法进行阻塞，直到队列中所有项目均被处理。阻塞将持续到为队列中的每个项目均调用q.task_done()方法为止。 </span><br><span class="line"># encoding:utf-8</span><br><span class="line">__author__ = &#x27;Fioman&#x27;</span><br><span class="line">__time__ = &#x27;2019/3/7 14:06&#x27;</span><br><span class="line">from multiprocessing import Process,JoinableQueue</span><br><span class="line">import time,random</span><br><span class="line"></span><br><span class="line">def consumer(q,name):</span><br><span class="line">    while True:</span><br><span class="line">        food = q.get()</span><br><span class="line">        if food is None:</span><br><span class="line">            print(&#x27;接收到了一个空,生产者已经完事了&#x27;)</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        print(&#x27;\033[31m&#123;&#125;消费了&#123;&#125;\033[0m&#x27;.format(name,food))</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line">        q.task_done()  # 向生产者发送信号,表示消费了一个</span><br><span class="line"></span><br><span class="line">def producer(name,food,q):</span><br><span class="line">    for i in range(10):</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line">        f = &#x27;&#123;&#125;生产了&#123;&#125;&#123;&#125;&#x27;.format(name,food,i)</span><br><span class="line">        print(f)</span><br><span class="line">        q.put(f)</span><br><span class="line">    q.join() # 当生产者生产完毕之后,会在这里阻塞.等待消费者的消费.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    q = JoinableQueue(20)</span><br><span class="line">    p1 = Process(target=producer,args=(&#x27;fioman&#x27;,&#x27;包子&#x27;,q))</span><br><span class="line">    p2 = Process(target=producer,args=(&#x27;jingjing&#x27;,&#x27;馒头&#x27;,q))</span><br><span class="line">    p1.start()</span><br><span class="line">    p2.start()</span><br><span class="line"></span><br><span class="line">    c1 = Process(target=consumer,args=(q,&#x27;mengmeng&#x27;))</span><br><span class="line">    c2 = Process(target=consumer,args=(q,&#x27;xiaoxiao&#x27;))</span><br><span class="line">    c1.daemon = True # 将消费者设置为守护进程</span><br><span class="line">    c2.daemon = True # 将消费者设置为守护进程</span><br><span class="line">    c1.start()</span><br><span class="line">    c2.start()</span><br><span class="line"></span><br><span class="line">    # 让主程序可以等待生产子进程的结束.</span><br><span class="line">    p1.join()</span><br><span class="line">    p2.join()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    print(&#x27;主程序结束..........&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>在消费者调用q.task_done()时，会触发一次q.join()的检查(q.join()是用来阻塞进程的，最后一个任务完成后，q.task_done()＝》q.join()＝》阻塞解除)，之后生产者进程退出。而消费者呢？业务逻辑层面上是没有退出的（本例）。比如，本例中通过<strong>设置为守护进程的方式进行退出</strong>。但如果后续主进程还有其他任务，而没有退出呢？那么这些子进程则沦为僵尸进程，虽然对系统资源消耗很少(消费者的queue.get()也是阻塞的，所以不会执行循环，仅仅会“卡”在那里，但也不会自动消亡)，但感觉非常别扭的。所以个人还是倾向于用”生产者queue.put(None) ,消费者见到None则break(退出循环)”的传统方式 进行消费者进程触发退出。如果采用这种方式那么JoinableQueue相比Queue就没有优势了。</p>
+<p>假如有一种队列，内置了**状态信息(存活生产者个数)**，设置目前存活的生产者个数<br>StatusableQueue(product_n=2,size=20)　#product_n=2含义：存活的生产者个数,size=20,队列长度<br>生产者：生产结束，q.product_n - 1(存活生产者个数-1)<br>消费者：存活生产者个数=0(生产者均已经完成生成) 且 队列长度=0(队列也已经消费结束) 则退出消费者进程.<br>这种情况下，只需要　消费者.join()　就可以保证整个生产消费进程的执行结束(这一点和JoinableQueue很像，不过JoinableQueue是 生产者.join())<br>一共只改动3处，就可以完成生产者消费者的并行化控制。 而且更符合逻辑，因为生产者是明确知道自己的退出条件的，而消费者依赖生产者，所以只需要观察消费者就可以知道（生成者是否结束）整个－生成消费链是否完成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">def consumer(q,name):</span><br><span class="line">    while not (q.product_n==0 and q.size==0):# 存活生产者=0，意味着全部结束生产，队列不会新增数据,queue.size=0说明消费完毕</span><br><span class="line">        food = q.get()</span><br><span class="line">        print(&#x27;\033[31m&#123;&#125;消费了&#123;&#125;\033[0m&#x27;.format(name,food))</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line"></span><br><span class="line">def producer(name,food,q):</span><br><span class="line">    for i in range(10):</span><br><span class="line">        time.sleep(random.random())</span><br><span class="line">        f = &#x27;&#123;&#125;生产了&#123;&#125;&#123;&#125;&#x27;.format(name,food,i)</span><br><span class="line">        print(f)</span><br><span class="line">        q.put(f)</span><br><span class="line">    q.product_n -= 1 # 当生产者生产完毕之后,q.product_n - 1(存活生产者个数-1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    q = StatusableQueue(product_n=2,size=20)#默认状态=正常,n=2含义：生产者个数,size=20,对列长度</span><br><span class="line">    p1 = Process(target=producer,args=(&#x27;fioman&#x27;,&#x27;包子&#x27;,q))</span><br><span class="line">    p2 = Process(target=producer,args=(&#x27;jingjing&#x27;,&#x27;馒头&#x27;,q))</span><br><span class="line">    p1.start()</span><br><span class="line">    p2.start()</span><br><span class="line"></span><br><span class="line">    c1 = Process(target=consumer,args=(q,&#x27;mengmeng&#x27;))</span><br><span class="line">    c2 = Process(target=consumer,args=(q,&#x27;xiaoxiao&#x27;))</span><br><span class="line">    c1.start()</span><br><span class="line">    c2.start()</span><br><span class="line"></span><br><span class="line">    # 消费者消费结束（说明生产也一定结束了），则说明整个生产－消费逻辑完成</span><br><span class="line">    c1.join()</span><br><span class="line">    c2.join()</span><br></pre></td></tr></table></figure>
+
+<p>缺点：<strong>必须知道生产者个数</strong>，这个数据应该不难获取，毕竟后面在创建生产者时也需要使用这个变量控制。</p>
+<h1><span id="并行化改造">并行化改造</span><a href="#并行化改造" class="header-anchor">#</a></h1><p>图示变量含义说明:<br>1个大step中包含3个小step,大step内部的第一步，二步，三步存在依赖关系（就是内部保持顺序执行）<br>a1,b1,c1,表示子任务a的第一步，b的第一步，c的第一步.同理a2,表示子任务a的第二步。</p>
+<h2><span id="无并行">无并行</span><a href="#无并行" class="header-anchor">#</a></h2><p><img src="python-%E8%BF%9B%E9%98%B6/image-20210824162124766.png" alt="image-20210824162124766"></p>
+<h2><span id="水平并行">水平并行</span><a href="#水平并行" class="header-anchor">#</a></h2><p>优点：修改简单，容易排错<br>缺点：使用场景有限，适合批量数据，不适合流式数据<br>实现：pool().map(step1);pool().map(step2);pool().map(step3)</p>
+<p><img src="python-%E8%BF%9B%E9%98%B6/image-20210824162204387.png" alt="image-20210824162204387"></p>
+<h2><span id="垂直并行">垂直并行</span><a href="#垂直并行" class="header-anchor">#</a></h2><p>优点：修改简单，容易排错<br>缺点：如果中间步骤耗时过多，上游依然处于限制状态<br>实现：pool().apply_sync(func(step1,step2,step3))</p>
+<p><img src="python-%E8%BF%9B%E9%98%B6/image-20210824162246391.png" alt="image-20210824162246391"></p>
+<h2><span id="生产者消费者">生产者消费者</span><a href="#生产者消费者" class="header-anchor">#</a></h2><p>优点：上下游耦合小，任务粒度更细<br>缺点：改造稍微复杂，需考虑生产者生成结束等特殊情况的兼容，并且调试也较麻烦<br>实现：Queue(多进程multiprocessing,Queue,多线程queue.Queue,python大多多进程)</p>
+<p><img src="python-%E8%BF%9B%E9%98%B6/image-20210824162411720.png" alt="image-20210824162411720"></p>
+<h2><span id="协程">协程</span><a href="#协程" class="header-anchor">#</a></h2><p>协成可看做特殊单线程（意味着本质是单线程，多线程是表象），任务角度多个线程同时执行，实时角度看只有一个线程真正执行，好处是无需处理线程共享数据的加锁等情况（因为只有一个线程会执行，不存在同时修改的情况）。还有就是其<strong>进程内部不需要操作系统调度</strong>（进程整体肯定是操作系统调度，否则就凌驾与操作系统了），<strong>会自行调度</strong>，释放时间片给其他内部线程。<br>常规的线程一旦得到cpu时间片，会毫不犹豫执行，哪怕处于sleep状态也会占用资源。而协程则不会，其会把cpu主动出让(给自己其他线程)，等到别人”呼唤”自己时才会真正执行（比如next（自己）,gevent.sleep时间到了也算唤醒）。</p>
+<h2><span id="事件">事件</span><a href="#事件" class="header-anchor">#</a></h2><p>优点：如果可以不同事件自动并行化(不确定python是否已实现)，基本上生产者消费者所有优点都具备，并且，额外还有容易追溯，调试的好处.<br>缺点：程序架构需调整。改动最大.<br>实现：signal(python,django)<br>这个严格来说，并不属于并行范畴，但是将其放到这里，因为其和生产者消费者有共通之处，而且协程的实现底层也是基于事件模型。<br>生产者消费者存在很大问题，就是难以调试以及流程难以控制，由于切分粒度很细，并且不同步骤之间几乎独立，虽然可以保证整体的顺序执行以及最终任务可完成，但其上下游关系难以追溯，一旦出错也难以复现。所以个人很排斥生产者消费者这种方式。<br>而事件则不同，生产完成后将信息注册到事件链中，不但可以保存任务结束的result,还可以传递任务本身初始参数信息。每个事件都可以看做独立函数，即使某一个出错，也可以将事件参数作为debug锚点进行追踪。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">def thread_multi():</span><br><span class="line">    threads = list()</span><br><span class="line">    for url in urls:</span><br><span class="line">        threads.append(threading.Thread(target=process, args=(url,)))</span><br><span class="line">    [t.start() for t in threads]</span><br><span class="line">    [t.join() for t in threads]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def thread_map():</span><br><span class="line">    pool = ThreadPool(max(1, cpu_count() - 1))</span><br><span class="line">    results = pool.map(process, urls)</span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br><span class="line">    print(results)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def thread_async():</span><br><span class="line">    pool = ThreadPool(max(1, cpu_count() - 1))</span><br><span class="line">    results = list()</span><br><span class="line">    for url in urls:</span><br><span class="line">        results.append(pool.apply_async(process, args=(url,)))</span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br><span class="line">    print([result.get() for result in results])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def process_multi():</span><br><span class="line">    processes = list()</span><br><span class="line">    for url in urls:</span><br><span class="line">        processes.append(Process(target=process, args=(url,)))</span><br><span class="line">    [t.start() for t in processes]</span><br><span class="line">    [t.join() for t in processes]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def process_map():</span><br><span class="line">    pool = Pool(processes=max(1, cpu_count() - 1))</span><br><span class="line">    results = pool.map(process, urls)</span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br><span class="line">    print(results)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def process_async():</span><br><span class="line">    pool = Pool(processes=max(1, cpu_count() - 1))</span><br><span class="line">    results = list()</span><br><span class="line">    for url in urls:</span><br><span class="line">        results.append(pool.apply_async(process, (url,)))</span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br><span class="line">    print([result.get() for result in results])</span><br></pre></td></tr></table></figure>
+
+
+
+<h1><span id="多线程与数据同步">多线程与数据同步</span><a href="#多线程与数据同步" class="header-anchor">#</a></h1><p>python并发<strong>首选进程</strong>，但偶尔有场景进程无法搞定，比如有些<strong>变量是无法序列化的</strong>，就无法使用工具包<strong>manager()的工具类进行共享</strong>。如果自己实现新的共享方法，可能开发量较大，且质量难以保证。此时可考虑用线程处理，规避进程的变量共享难题，而且实际场景中,<strong>IO大概率都是瓶颈</strong>，所以使用线程其实也的确有些优势。个人而言，选择进程和线程较为重视的<strong>安全性</strong>，进程数据隔离较好，互不干扰。其次就是<strong>公用数据占比</strong>，如果大多数数据都需公用，那么线程也会比进程更佳，避免了进程较多的数据共享问题。</p>
+<h3><span id="线程本身就有局部变量为何还需要threadlocal">线程本身就有局部变量，为何还需要ThreadLocal</span><a href="#线程本身就有局部变量为何还需要threadlocal" class="header-anchor">#</a></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line"> </span><br><span class="line"># 创建全局ThreadLocal对象:</span><br><span class="line">local_school = threading.local()</span><br><span class="line"> </span><br><span class="line">def process_student():</span><br><span class="line">  print &#x27;Hello, %s (in %s)&#x27; % (local_school.student, threading.current_thread().name)</span><br><span class="line"> </span><br><span class="line">def process_thread(name):</span><br><span class="line">  # 绑定ThreadLocal的student:</span><br><span class="line">  local_school.student = name</span><br><span class="line">  process_student()</span><br><span class="line"> </span><br><span class="line">t1 = threading.Thread(target= process_thread, args=(&#x27;Alice&#x27;,), name=&#x27;Thread-A&#x27;)</span><br><span class="line">t2 = threading.Thread(target= process_thread, args=(&#x27;Bob&#x27;,), name=&#x27;Thread-B&#x27;)</span><br><span class="line">t1.start()</span><br><span class="line">t2.start()</span><br><span class="line">t1.join()</span><br><span class="line">t2.join()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1><span id="参考资料">参考资料</span><a href="#参考资料" class="header-anchor">#</a></h1><p><a target="_blank" rel="noopener" href="https://hexo.yuanjh.cn/hexo/16e1d5a">偏函数</a></p>
+<p><a target="_blank" rel="noopener" href="https://hexo.yuanjh.cn/hexo/549f56e4">并发</a></p>
+<p><a target="_blank" rel="noopener" href="https://hexo.yuanjh.cn/page/5/">闻鸡起舞 </a></p>
+<p><a target="_blank" rel="noopener" href="http://luly.lamost.org/blog/python_multiprocessing.html">python多进程pickle</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2d3e6a21f6fe">Python生产者消费者模型 </a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30279751/article/details/95653467">(19条消息) 进程间通信(队列、管道)、消费者模型和进程池(apply,apply_async,map)_weixin_30279751的博客-CSDN博客</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/threading/" rel="prev" title="threading">
+      <i class="fa fa-chevron-left"></i> threading
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/coroutine/" rel="next" title="coroutine">
+      coroutine <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">偏函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">同步，异步，阻塞，非阻塞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">并发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">进程状态和调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">进程,线程,协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.3.</span> <span class="nav-text">多进程和多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.4.</span> <span class="nav-text">线程和协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.5.</span> <span class="nav-text">协程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">何时使用多进程or多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.1.</span> <span class="nav-text">线程是并发还是并行，进程是并发还是并行？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.2.</span> <span class="nav-text">父子进程如何区分?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.3.</span> <span class="nav-text">子进程如何回收？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">生产者消费者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.1.</span> <span class="nav-text">queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.2.</span> <span class="nav-text">JoinableQueue</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">并行化改造</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.1.</span> <span class="nav-text">无并行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.2.</span> <span class="nav-text">水平并行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.3.</span> <span class="nav-text">垂直并行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.4.</span> <span class="nav-text">生产者消费者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.5.</span> <span class="nav-text">协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.6.</span> <span class="nav-text">事件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">多线程与数据同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">7.0.1.</span> <span class="nav-text">线程本身就有局部变量，为何还需要ThreadLocal</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">2.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33:20</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>

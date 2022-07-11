@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="1. GBDT+LR简介 2. 逻辑回归模型 3. GBDT模型 4. GBDT+LR模型     1. GBDT+LR简介前面介绍的协同过滤和矩阵分解存在的劣势就是仅利用了用户与物品相互行为信息进行推荐， 忽视了用户自身特征， 物品自身特征以及上下文信息等，导致生成的结果往往会比较片面。 而这次介绍的这个模型是2014年由Facebook提出的GBDT+LR模型， 该模型利用GBDT自">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GBDT_LR">
+<meta property="og:url" content="https://hu1104.github.io/article/GBDT-LR/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:description" content="1. GBDT+LR简介 2. 逻辑回归模型 3. GBDT模型 4. GBDT+LR模型     1. GBDT+LR简介前面介绍的协同过滤和矩阵分解存在的劣势就是仅利用了用户与物品相互行为信息进行推荐， 忽视了用户自身特征， 物品自身特征以及上下文信息等，导致生成的结果往往会比较片面。 而这次介绍的这个模型是2014年由Facebook提出的GBDT+LR模型， 该模型利用GBDT自">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/GBDT-LR/GBDT-LR/%E6%8E%A8%E6%96%AD%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://hu1104.github.io/article/GBDT-LR/GBDT-LR/GBDT.png">
+<meta property="og:image" content="https://hu1104.github.io/article/GBDT-LR/GBDT-LR/%E8%A1%A8%E6%A0%BC.png">
+<meta property="og:image" content="https://hu1104.github.io/article/GBDT-LR/GBDT-LR/%E6%AE%8B%E5%B7%AE.png">
+<meta property="og:image" content="https://hu1104.github.io/article/GBDT-LR/GBDT-LR/%E5%88%86%E8%A3%82.png">
+<meta property="og:image" content="https://hu1104.github.io/article/GBDT-LR/GBDT-LR/GBDT+LR.png">
+<meta property="article:published_time" content="2021-10-21T08:34:49.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:21:48.871Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/GBDT-LR/GBDT-LR/%E6%8E%A8%E6%96%AD%E8%BF%87%E7%A8%8B.png">
+
+<link rel="canonical" href="https://hu1104.github.io/article/GBDT-LR/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GBDT_LR | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/GBDT-LR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GBDT_LR
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-21 16:34:49" itemprop="dateCreated datePublished" datetime="2021-10-21T16:34:49+08:00">2021-10-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-11 16:21:48" itemprop="dateModified" datetime="2022-07-11T16:21:48+08:00">2022-07-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-gbdtlr%E7%AE%80%E4%BB%8B">1. GBDT+LR简介</a></li>
+<li><a href="#2-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B">2. 逻辑回归模型</a></li>
+<li><a href="#3-gbdt%E6%A8%A1%E5%9E%8B">3. GBDT模型</a></li>
+<li><a href="#4-gbdtlr%E6%A8%A1%E5%9E%8B">4. GBDT+LR模型</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+
+<h3><span id="1-gbdtlr简介">1. GBDT+LR简介</span><a href="#1-gbdtlr简介" class="header-anchor">#</a></h3><p>前面介绍的协同过滤和矩阵分解存在的劣势就是仅利用了用户与物品相互行为信息进行推荐， 忽视了用户自身特征， 物品自身特征以及上下文信息等，导致生成的结果往往会比较片面。 而这次介绍的这个模型是2014年由Facebook提出的GBDT+LR模型， 该模型利用GBDT自动进行特征筛选和组合， 进而生成新的离散特征向量， 再把该特征向量当做LR模型的输入， 来产生最后的预测结果， 该模型能够综合利用用户、物品和上下文等多种不同的特征， 生成较为全面的推荐结果， 在CTR点击率预估场景下使用较为广泛。</p>
+<p>下面首先会介绍逻辑回归和GBDT模型各自的原理及优缺点， 然后介绍GBDT+LR模型的工作原理和细节。</p>
+<span id="more"></span>
+
+<h3><span id="2-逻辑回归模型">2. 逻辑回归模型</span><a href="#2-逻辑回归模型" class="header-anchor">#</a></h3><p>逻辑回归模型非常重要， 在推荐领域里面， 相比于传统的协同过滤， 逻辑回归模型能够综合利用用户、物品、上下文等多种不同的特征生成较为“全面”的推荐结果， 关于逻辑回归的更多细节， 可以参考下面给出的链接，这里只介绍比较重要的一些细节和在推荐中的应用。</p>
+<p>逻辑回归是在线性回归的基础上加了一个 Sigmoid 函数（非线形）映射，使得逻辑回归成为了一个优秀的分类算法， 学习逻辑回归模型， 首先应该记住一句话：<strong>逻辑回归假设数据服从伯努利分布,通过极大化似然函数的方法，运用梯度下降来求解参数，来达到将数据二分类的目的。</strong></p>
+<p>相比于协同过滤和矩阵分解利用用户的物品“相似度”进行推荐， 逻辑回归模型将问题看成了一个分类问题， 通过预测正样本的概率对物品进行排序。这里的正样本可以是用户“点击”了某个商品或者“观看”了某个视频， 均是推荐系统希望用户产生的“正反馈”行为， 因此逻辑回归模型将推荐问题转化成了一个点击率预估问题。而点击率预测就是一个典型的二分类， 正好适合逻辑回归进行处理， 那么逻辑回归是如何做推荐的呢？ 过程如下：</p>
+<ol>
+<li>将用户年龄、性别、物品属性、物品描述、当前时间、当前地点等特征转成数值型向量</li>
+<li>确定逻辑回归的优化目标，比如把点击率预测转换成二分类问题， 这样就可以得到分类问题常用的损失作为目标， 训练模型</li>
+<li>在预测的时候， 将特征向量输入模型产生预测， 得到用户“点击”物品的概率</li>
+<li>利用点击概率对候选物品排序， 得到推荐列表</li>
+</ol>
+<p><img src="GBDT-LR/%E6%8E%A8%E6%96%AD%E8%BF%87%E7%A8%8B.png" alt="推断过程"><br>这里的关键就是每个特征的权重参数$w$， 我们一般是使用梯度下降的方式， 首先会先随机初始化参数$w$， 然后将特征向量（也就是我们上面数值化出来的特征）输入到模型， 就会通过计算得到模型的预测概率， 然后通过对目标函数求导得到每个$w$的梯度， 然后进行更新$w$</p>
+<p>这里的目标函数长下面这样：</p>
+<p>$$ J(w)=-\frac{1}{m}\left(\sum_{i=1}^{m}\left(y^{i} \log f_{w}\left(x^{i}\right)+\left(1-y^{i}\right) \log \left(1-f_{w}\left(x^{i}\right)\right)\right)\right. $$ 求导之后的方式长这样： $$ w_{j} \leftarrow w_{j}-\gamma \frac{1}{m} \sum_{i=1}^{m}\left(f_{w}\left(x^{i}\right)-y^{i}\right) x_{j}^{i} $$ 这样通过若干次迭代， 就可以得到最终的$w$了， 关于这些公式的推导，可以参考下面给出的文章链接， 下面我们分析一下逻辑回归模型的优缺点。</p>
+<p>优点：</p>
+<ol>
+<li>LR模型形式简单，可解释性好，从特征的权重可以看到不同的特征对最后结果的影响。</li>
+<li>训练时便于并行化，在预测时只需要对特征进行线性加权，所以性能比较好，往往适合处理海量id类特征，用id类特征有一个很重要的好处，就是防止信息损失（相对于范化的 CTR 特征），对于头部资源会有更细致的描述</li>
+<li>资源占用小,尤其是内存。在实际的工程应用中只需要存储权重比较大的特征及特征对应的权重。</li>
+<li>方便输出结果调整。逻辑回归可以很方便的得到最后的分类结果，因为输出的是每个样本的概率分数，我们可以很容易的对这些概率分数进行cutoff，也就是划分阈值(大于某个阈值的是一类，小于某个阈值的是一类)</li>
+</ol>
+<p>当然， 逻辑回归模型也有一定的局限性</p>
+<ol>
+<li>表达能力不强， 无法进行特征交叉， 特征筛选等一系列“高级“操作（这些工作都得人工来干， 这样就需要一定的经验， 否则会走一些弯路）， 因此可能造成信息的损失</li>
+<li>准确率并不是很高。因为这毕竟是一个线性模型加了个sigmoid， 形式非常的简单(非常类似线性模型)，很难去拟合数据的真实分布</li>
+<li>处理非线性数据较麻烦。逻辑回归在不引入其他方法的情况下，只能处理线性可分的数据， 如果想处理非线性， 首先对连续特征的处理需要先进行离散化（离散化的目的是为了引入非线性），如上文所说，人工分桶的方式会引入多种问题。</li>
+<li>LR 需要进行人工特征组合，这就需要开发者有非常丰富的领域经验，才能不走弯路。这样的模型迁移起来比较困难，换一个领域又需要重新进行大量的特征工程。</li>
+</ol>
+<p>所以如何自动发现有效的特征、特征组合，弥补人工经验不足，缩短LR特征实验周期，是亟需解决的问题， 而GBDT模型， 正好可以自动发现特征并进行有效组合</p>
+<h3><span id="3-gbdt模型">3. GBDT模型</span><a href="#3-gbdt模型" class="header-anchor">#</a></h3><p>GBDT全称梯度提升决策树，在传统机器学习算法里面是对真实分布拟合的最好的几种算法之一，在前几年深度学习还没有大行其道之前，gbdt在各种竞赛是大放异彩。原因大概有几个，一是效果确实挺不错。二是即可以用于分类也可以用于回归。三是可以筛选特征， 所以这个模型依然是一个非常重要的模型。</p>
+<p>GBDT是通过采用加法模型(即基函数的线性组合），以及不断减小训练过程产生的误差来达到将数据分类或者回归的算法， 其训练过程如下：<br><img src="GBDT-LR/GBDT.png" alt="GBDT"></p>
+<p>gbdt通过多轮迭代， 每轮迭代会产生一个弱分类器， 每个分类器在上一轮分类器的残差基础上进行训练。 gbdt对弱分类器的要求一般是足够简单， 并且低方差高偏差。 因为训练的过程是通过降低偏差来不断提高最终分类器的精度。 由于上述高偏差和简单的要求，每个分类回归树的深度不会很深。最终的总分类器是将每轮训练得到的弱分类器加权求和得到的（也就是加法模型）。<br>关于GBDT的详细细节，依然是可以参考下面给出的链接。这里想分析一下GBDT如何来进行二分类的，因为我们要明确一点就是gbdt 每轮的训练是在上一轮的训练的残差基础之上进行训练的， 而这里的残差指的就是当前模型的负梯度值， 这个就要求每轮迭代的时候，弱分类器的输出的结果相减是有意义的， 而gbdt 无论用于分类还是回归一直都是使用的CART 回归树， 那么既然是回归树， 是如何进行二分类问题的呢？</p>
+<p>GBDT 来解决二分类问题和解决回归问题的本质是一样的，都是通过不断构建决策树的方式，使预测结果一步步的接近目标值， 但是二分类问题和回归问题的损失函数是不同的， 关于GBDT在回归问题上的树的生成过程， 损失函数和迭代原理可以参考给出的链接， 回归问题中一般使用的是平方损失， 而二分类问题中， GBDT和逻辑回归一样， 使用的下面这个：</p>
+<p>$$ L=\arg \min \left[\sum_{i}^{n}-\left(y_{i} \log \left(p_{i}\right)+\left(1-y_{i}\right) \log \left(1-p_{i}\right)\right)\right] $$ 其中， $y_i$是第$i$个样本的观测值， 取值要么是0要么是1， 而$p_i$是第$i$个样本的预测值， 取值是0-1之间的概率，由于我们知道GBDT拟合的残差是当前模型的负梯度， 那么我们就需要求出这个模型的导数， 即$\frac{dL}{dp_i}$， 对于某个特定的样本， 求导的话就可以只考虑它本身， 去掉加和号， 那么就变成了$\frac{dl}{dp_i}$， 其中$l$如下：<br>$$ \begin{aligned} l &amp;=-y_{i} \log \left(p_{i}\right)-\left(1-y_{i}\right) \log \left(1-p_{i}\right) \<br> &amp;=-y_{i} \log \left(p_{i}\right)-\log \left(1-p_{i}\right)+y_{i} \log \left(1-p_{i}\right) \<br>&amp;=-y_{i}\left(\log \left(\frac{p_{i}}{1-p_{i}}\right)\right)-\log \left(1-p_{i}\right) \end{aligned} $$ 如果对逻辑回归非常熟悉的话， $\left(\log \left(\frac{p_{i}}{1-p_{i}}\right)\right)$一定不会陌生吧， 这就是对几率比取了个对数， 并且在逻辑回归里面这个式子会等于$\theta X$， 所以才推出了$p_i=\frac{1}{1+e^{-\theta X}}$的那个形式。 这里令$\eta_i=\frac{p_i}{1-p_i}$, 即$p_i=\frac{\eta_i}{1+\eta_i}$, 则上面这个式子变成了：</p>
+<p>$$ \begin{aligned} l &amp;=-y_{i} \log \left(\eta_{i}\right)-\log \left(1-\frac{e^{\log \left(\eta_{i}\right)}}{1+e^{\log \left(\eta_{i}\right)}}\right) \<br>&amp;=-y_{i} \log \left(\eta_{i}\right)-\log \left(\frac{1}{1+e^{\log \left(\eta_{i}\right)}}\right) \<br>&amp;=-y_{i} \log \left(\eta_{i}\right)+\log \left(1+e^{\log \left(\eta_{i}\right)}\right) \end{aligned} $$ 这时候，我们对$log(\eta_i)$求导， 得 $$ \frac{d l}{d \log (\eta_i)}=-y_{i}+\frac{e^{\log \left(\eta_{i}\right)}}{1+e^{\log \left(\eta_{i}\right)}}=-y_i+p_i $$ 这样， 我们就得到了某个训练样本在当前模型的梯度值了， 那么残差就是$y_i-p_i$。GBDT二分类的这个思想，其实和逻辑回归的思想一样，逻辑回归是用一个线性模型去拟合$P(y=1|x)$这个事件的对数几率$log\frac{p}{1-p}=\theta^Tx$， GBDT二分类也是如此， 用一系列的梯度提升树去拟合这个对数几率， 其分类模型可以表达为： $$ P(Y=1 \mid x)=\frac{1}{1+e^{-F_{M}(x)}} $$</p>
+<p>下面我们具体来看GBDT的生成过程， 构建分类GBDT的步骤有两个：</p>
+<ol>
+<li>初始化GBDT 和回归问题一样， 分类 GBDT 的初始状态也只有一个叶子节点，该节点为所有样本的初始预测值，如下： $$ F_{0}(x)=\arg \min _{\gamma} \sum{i=1}^{n} L(y, \gamma) $$ 上式里面， $F$代表GBDT模型， $F_0$是模型的初识状态， 该式子的意思是找到一个$\gamma$，使所有样本的 Loss 最小，在这里及下文中，$\gamma$都表示节点的输出，即叶子节点， 且它是一个 $log(\eta_i)$ 形式的值(回归值)，在初始状态，$\gamma =F_0$。</li>
+</ol>
+<p>下面看例子(该例子来自下面的第二个链接)， 假设我们有下面3条样本：<br><img src="GBDT-LR/%E8%A1%A8%E6%A0%BC.png" alt="表格"></p>
+<pre><code>     我们希望构建 GBDT 分类树，它能通过「喜欢爆米花」、「年龄」和「颜色偏好」这 3 个特征来预测某一个样本是否喜欢看电影。            我们把数据代入上面的公式中求Loss:
+</code></pre>
+<p>$$ \operatorname{Loss}=L(1, \gamma)+L(1, \gamma)+L(0, \gamma) $$ 为了令其最小， 我们求导， 且让导数为0， 则：</p>
+<p>$$ \operatorname{Loss}=p-1 + p-1+p=0 $$ 于是， 就得到了初始值$p=\frac{2}{3}=0.67, \gamma=log(\frac{p}{1-p})=0.69$, 模型的初识状态$F_0(x)=0.69$</p>
+<p>循环生成决策树 这里回忆一下回归树的生成步骤， 其实有4小步， 第一就是计算负梯度值得到残差， 第二步是用回归树拟合残差， 第三步是计算叶子节点的输出值， 第四步是更新模型。 下面我们一一来看：</p>
+<ol>
+<li>计算负梯度得到残差 $$ r_{i m}=-\left[\frac{\partial L\left(y_{i}, F\left(x_{i}\right)\right)}{\partial F\left(x_{i}\right)}\right]{F(x)=F_{m-1}(x)} $$ 此处使用$m-1$棵树的模型， 计算每个样本的残差$r_{im}$, 就是上面的$y_i-pi$, 于是例子中， 每个样本的残差：<br><img src="GBDT-LR/%E6%AE%8B%E5%B7%AE.png" alt="残差"></li>
+<li>使用回归树来拟合$r_{im}$， 这里的$i$表示样本哈，回归树的建立过程可以参考下面的链接文章，简单的说就是遍历每个特征， 每个特征下遍历每个取值， 计算分裂后两组数据的平方损失， 找到最小的那个划分节点。 假如我们产生的第2棵决策树如下：<br><img src="GBDT-LR/%E5%88%86%E8%A3%82.png" alt="分裂"></li>
+<li>对于每个叶子节点$j$, 计算最佳残差拟合值 $$ \gamma <em>{j m}=\arg \min <em>{\gamma} \sum</em> {x \in R</em>{i j}} {L\left(y_{i}, F_{m-1}\left(x_{i}\right)+\gamma\right)} $$ 意思是， 在刚构建的树$m$中， 找到每个节点$j$的输出$\gamma_{jm}$, 能使得该节点的loss最小。 那么我们看一下这个$\gamma$的求解方式， 这里非常的巧妙。 首先， 我们把损失函数写出来， 对于左边的第一个样本， 有 $$ L\left(y_{1}, F_{m-1}\left(x_{1}\right)+\gamma\right)=-y_{1}\left(F_{m-1}\left(x_{1}\right)+\gamma\right)+\log \left(1+e^{F_{m-1}\left(x_{1}\right)+\gamma}\right) $$ 这个式子就是上面推导的$l$， 因为我们要用回归树做分类， 所以这里把分类的预测概率转换成了对数几率回归的形式， 即$log(\eta_i)$， 这个就是模型的回归输出值。而如果求这个损失的最小值， 我们要求导， 解出令损失最小的$\gamma$。 但是上面这个式子求导会很麻烦， 所以这里介绍了一个技巧就是使用二阶泰勒公式来近似表示该式， 再求导， 还记得伟大的泰勒吗？ $$ f(x+\Delta x) \approx f(x)+\Delta x f^{\prime}(x)+\frac{1}{2} \Delta x^{2} f^{\prime \prime}(x)+O(\Delta x) $$ 这里就相当于把$L(y_1, F_{m-1}(x_1))$当做常量$f(x)$， $\gamma$作为变量$\Delta x$， 将$f(x)$二阶展开： $$ L\left(y_{1}, F_{m-1}\left(x_{1}\right)+\gamma\right) \approx L\left(y_{1}, F_{m-1}\left(x_{1}\right)\right)+L^{\prime}\left(y_{1}, F_{m-1}\left(x_{1}\right)\right) \gamma+\frac{1}{2} L^{\prime \prime}\left(y_{1}, F_{m-1}\left(x_{1}\right)\right) \gamma^{2} $$ 这时候再求导就简单了 $$ \frac{d L}{d \gamma}=L^{\prime}\left(y_{1}, F_{m-1}\left(x_{1}\right)\right)+L^{\prime \prime}\left(y_{1}, F_{m-1}\left(x_{1}\right)\right) \gamma $$ Loss最小的时候， 上面的式子等于0， 就可以得到$\gamma$: $$ \gamma_{11}=\frac{-L^{\prime}\left(y_{1}, F_{m-1}\left(x_{1}\right)\right)}{L^{\prime \prime}\left(y_{1}, F_{m-1}\left(x_{1}\right)\right)} $$ 因为分子就是残差(上述已经求到了)， 分母可以通过对残差求导，得到原损失函数的二阶导： $$ \begin{aligned} L^{\prime \prime}\left(y_{1}, F(x)\right) &amp;=\frac{d L^{\prime}}{d \log (\eta_1)} \ &amp;=\frac{d}{d \log (\eta_1)}\left[-y_{i}+\frac{e^{\log (\eta_1)}}{1+e^{\log (\eta_1)}}\right] \ &amp;=\frac{d}{d \log (\eta_1)}\left[e^{\log (\eta_1)}\left(1+e^{\log (\eta_1)}\right)^{-1}\right] \ &amp;=e^{\log (\eta_1)}\left(1+e^{\log (\eta_1)}\right)^{-1}-e^{2 \log (\eta_1)}\left(1+e^{\log (\eta_1)}\right)^{-2} \ &amp;=\frac{e^{\log (\eta_1)}}{\left(1+e^{\log (\eta_1)}\right)^{2}} \ &amp;=\frac{\eta_1}{(1+\eta_1)}\frac{1}{(1+\eta_1)} \ &amp;=p_1(1-p_1) \end{aligned} $$ 这时候， 就可以算出该节点的输出： $$ \gamma_{11}=\frac{r_{11}}{p_{10}\left(1-p_{10}\right)}=\frac{0.33}{0.67 \times 0.33}=1.49 $$ 这里的下面$\gamma_{jm}$表示第$m$棵树的第$j$个叶子节点。 接下来是右边节点的输出， 包含样本2和样本3， 同样使用二阶泰勒公式展开： $$ \begin{array}{l} L\left(y_{2}, F_{m-1}\left(x_{2}\right)+\gamma\right)+L\left(y_{3}, F_{m-1}\left(x_{3}\right)+\gamma\right) \ \approx L\left(y_{2}, F_{m-1}\left(x_{2}\right)\right)+L^{\prime}\left(y_{2}, F_{m-1}\left(x_{2}\right)\right) \gamma+\frac{1}{2} L^{\prime \prime}\left(y_{2}, F_{m-1}\left(x_{2}\right)\right) \gamma^{2} \ +L\left(y_{3}, F_{m-1}\left(x_{3}\right)\right)+L^{\prime}\left(y_{3}, F_{m-1}\left(x_{3}\right)\right) \gamma+\frac{1}{2} L^{\prime \prime}\left(y_{3}, F_{m-1}\left(x_{3}\right)\right) \gamma^{2} \end{array} $$ 求导， 令其结果为0，就会得到， 第1棵树的第2个叶子节点的输出： $$ \begin{aligned} \gamma_{21} &amp;=\frac{-L^{\prime}\left(y_{2}, F_{m-1}\left(x_{2}\right)\right)-L^{\prime}\left(y_{3}, F_{m-1}\left(x_{3}\right)\right)}{L^{\prime \prime}\left(y_{2}, F_{m-1}\left(x_{2}\right)\right)+L^{\prime \prime}\left(y_{3}, F_{m-1}\left(x_{3}\right)\right)} \ &amp;=\frac{r_{21}+r_{31}}{p_{20}\left(1-p_{20}\right)+p_{30}\left(1-p_{30}\right)} \ &amp;=\frac{0.33-0.67}{0.67 \times 0.33+0.67 \times 0.33} \ &amp;=-0.77 \end{aligned} $$ 可以看出， 对于任意叶子节点， 我们可以直接计算其输出值： $$ \gamma_{j m}=\frac{\sum_{i=1}^{R_{i j}} r_{i m}}{\sum_{i=1}^{R_{i j}} p_{i, m-1}\left(1-p_{i, m-1}\right)} $$</li>
+<li>更新模型$F_m(x)$ $$ F_{m}(x)=F_{m-1}(x)+\nu \sum_{j=1}^{J_{m}} \gamma_{m} $$</li>
+</ol>
+<p>下面分析一下GBDT的优缺点：</p>
+<p>我们可以把树的生成过程理解成自动进行多维度的特征组合的过程，从根结点到叶子节点上的整个路径(多个特征值判断)，才能最终决定一棵树的预测值， 另外，对于连续型特征的处理，GBDT 可以拆分出一个临界阈值，比如大于 0.027 走左子树，小于等于 0.027（或者 default 值）走右子树，这样很好的规避了人工离散化的问题。这样就非常轻松的解决了逻辑回归那里自动发现特征并进行有效组合的问题， 这也是GBDT的优势所在。</p>
+<p>但是GBDT也会有一些局限性， 对于海量的 id 类特征，GBDT 由于树的深度和棵树限制（防止过拟合），不能有效的存储；另外海量特征在也会存在性能瓶颈，当 GBDT 的 one hot 特征大于 10 万维时，就必须做分布式的训练才能保证不爆内存。所以 GBDT 通常配合少量的反馈 CTR 特征来表达，这样虽然具有一定的范化能力，但是同时会有信息损失，对于头部资源不能有效的表达。</p>
+<p>所以， 我们发现其实GBDT和LR的优缺点可以进行互补。</p>
+<h3><span id="4-gbdtlr模型">4. GBDT+LR模型</span><a href="#4-gbdtlr模型" class="header-anchor">#</a></h3><p>2014年， Facebook提出了一种利用GBDT自动进行特征筛选和组合， 进而生成新的离散特征向量， 再把该特征向量当做LR模型的输入， 来产生最后的预测结果， 这就是著名的GBDT+LR模型了。GBDT+LR 使用最广泛的场景是CTR点击率预估，即预测当给用户推送的广告会不会被用户点击。</p>
+<p>有了上面的铺垫， 这个模型解释起来就比较容易了， 模型的总体结构长下面这样：<br><img src="GBDT-LR/GBDT+LR.png" alt="GBDT+LR"><br><strong>训练时</strong>，GBDT 建树的过程相当于自动进行的特征组合和离散化，然后从根结点到叶子节点的这条路径就可以看成是不同特征进行的特征组合，用叶子节点可以唯一的表示这条路径，并作为一个离散特征传入 LR 进行<strong>二次训练</strong>。<br>比如上图中， 有两棵树，x为一条输入样本，遍历两棵树后，x样本分别落到两颗树的叶子节点上，每个叶子节点对应LR一维特征，那么通过遍历树，就得到了该样本对应的所有LR特征。构造的新特征向量是取值0/1的。 比如左树有三个叶子节点，右树有两个叶子节点，最终的特征即为五维的向量。对于输入x，假设他落在左树第二个节点，编码[0,1,0]，落在右树第二个节点则编码[0,1]，所以整体的编码为[0,1,0,0,1]，这类编码作为特征，输入到线性分类模型（LR or FM）中进行分类。</p>
+<p>预测时，会先走 GBDT 的每棵树，得到某个叶子节点对应的一个离散特征(即一组特征组合)，然后把该特征以 one-hot 形式传入 LR 进行线性加权预测。</p>
+<p>这个方案应该比较简单了， 下面有几个关键的点我们需要了解：</p>
+<ol>
+<li>通过GBDT进行特征组合之后得到的离散向量是和训练数据的原特征一块作为逻辑回归的输入， 而不仅仅全是这种离散特征</li>
+<li>建树的时候用ensemble建树的原因就是一棵树的表达能力很弱，不足以表达多个有区分性的特征组合，多棵树的表达能力更强一些。GBDT每棵树都在学习前面棵树尚存的不足，迭代多少次就会生成多少棵树。</li>
+<li>RF也是多棵树，但从效果上有实践证明不如GBDT。且GBDT前面的树，特征分裂主要体现对多数样本有区分度的特征；后面的树，主要体现的是经过前N颗树，残差仍然较大的少数样本。优先选用在整体上有区分度的特征，再选用针对少数样本有区分度的特征，思路更加合理，这应该也是用GBDT的原因。</li>
+<li>在CRT预估中， GBDT一般会建立两类树(非ID特征建一类， ID类特征建一类)， AD，ID类特征在CTR预估中是非常重要的特征，直接将AD，ID作为feature进行建树不可行，故考虑为每个AD，ID建GBDT树。<ol>
+<li>非ID类树：不以细粒度的ID建树，此类树作为base，即便曝光少的广告、广告主，仍可以通过此类树得到有区分性的特征、特征组合</li>
+<li>ID类树：以细粒度 的ID建一类树，用于发现曝光充分的ID对应有区分性的特征、特征组合</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/FM/" rel="prev" title="FM">
+      <i class="fa fa-chevron-left"></i> FM
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/NeuralCF/" rel="next" title="NecuralCF">
+      NecuralCF <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1. GBDT+LR简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2. 逻辑回归模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3. GBDT模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">4. GBDT+LR模型</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">2.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33:20</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>

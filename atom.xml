@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Zongxing</title>
+  
+  <subtitle>你若安好，便是晴天！</subtitle>
+  <link href="https://hu1104.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://hu1104.github.io/"/>
+  <updated>2022-07-11T07:49:51.555Z</updated>
+  <id>https://hu1104.github.io/</id>
+  
+  <author>
+    <name>hzx</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>onetap</title>
+    <link href="https://hu1104.github.io/article/onetap/"/>
+    <id>https://hu1104.github.io/article/onetap/</id>
+    <published>2022-07-11T07:49:37.000Z</published>
+    <updated>2022-07-11T07:49:51.555Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>动态规划</title>
+    <link href="https://hu1104.github.io/article/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+    <id>https://hu1104.github.io/article/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</id>
+    <published>2022-06-09T14:10:30.000Z</published>
+    <updated>2022-07-11T08:21:49.448Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>代码规范</title>
+    <link href="https://hu1104.github.io/article/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
+    <id>https://hu1104.github.io/article/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</id>
+    <published>2022-03-14T07:48:43.000Z</published>
+    <updated>2022-07-11T08:21:49.448Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;代码应当易于理解&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键思想：代码应当易于理解&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​    &lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>优秀博文</title>
+    <link href="https://hu1104.github.io/article/%E4%BC%98%E7%A7%80%E5%8D%9A%E6%96%87/"/>
+    <id>https://hu1104.github.io/article/%E4%BC%98%E7%A7%80%E5%8D%9A%E6%96%87/</id>
+    <published>2022-01-19T01:56:25.000Z</published>
+    <updated>2022-07-11T08:21:49.448Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;span id=&quot;yolo&quot;&gt;yolo&lt;/span&gt;&lt;a href=&quot;#yolo&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>激活函数</title>
+    <link href="https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/"/>
+    <id>https://hu1104.github.io/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</id>
+    <published>2022-01-13T09:05:53.000Z</published>
+    <updated>2022-07-11T08:21:49.449Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;span id=&quot;1-恒等函数&quot;&gt;1、恒等函数&lt;/span&gt;&lt;a href=&quot;#1-恒等函数&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;$$&lt;br&gt;f(x)=x \ \ \ \ \ \ \ f^{‘}(x)</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>DIEN</title>
+    <link href="https://hu1104.github.io/article/DIEN/"/>
+    <id>https://hu1104.github.io/article/DIEN/</id>
+    <published>2021-11-08T01:15:28.000Z</published>
+    <updated>2022-07-11T08:21:48.865Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-dien%E6%8F%90%E5%87%BA%E7%9A%84%E5%8A%A8%E6%9C%BA&quot;&gt;1. DIEN提出的动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-dien%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86&quot;&gt;2. DIEN模型原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-interest-exterator-layer&quot;&gt;2.1 Interest Exterator Layer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-interest-evolving-layer&quot;&gt;2.2 Interest Evolving Layer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-DIEN提出的动机&quot;&gt;&lt;a href=&quot;#1-DIEN提出的动机&quot; class=&quot;headerlink&quot; title=&quot;1. DIEN提出的动机&quot;&gt;&lt;/a&gt;1. DIEN提出的动机&lt;/h3&gt;&lt;p&gt;在推荐场景，用户无需输入搜索关键词来表达意图，这种情况下捕捉用户兴趣并考虑兴趣的动态变化将是提升模型效果的关键。以Wide&amp;amp;Deep为代表的深度模型更多的是考虑不同field特征之间的相互作用，未关注用户兴趣。&lt;/p&gt;
+&lt;p&gt;DIN模型考虑了用户兴趣，并且强调用户兴趣是多样的，该模型使用注意力机制来捕捉和target item的相关的兴趣，这样以来用户的兴趣就会随着目标商品自适应的改变。但是大多该类模型包括DIN在内，直接将用户的行为当做用户的兴趣(因为DIN模型只是在行为序列上做了简单的特征处理)，但是用户潜在兴趣一般很难直接通过用户的行为直接表示，大多模型都没有挖掘用户行为背后真实的兴趣，捕捉用户兴趣的动态变化对用户兴趣的表示非常重要。DIEN相比于之前的模型，即对用户的兴趣进行建模，又对建模出来的用户兴趣继续建模得到用户的兴趣变化过程。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>DIN</title>
+    <link href="https://hu1104.github.io/article/DIN/"/>
+    <id>https://hu1104.github.io/article/DIN/</id>
+    <published>2021-10-29T09:09:55.000Z</published>
+    <updated>2022-07-11T08:21:48.868Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-din%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86&quot;&gt;2. DIN模型结构及原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-%E7%89%B9%E5%BE%81%E8%A1%A8%E7%A4%BA&quot;&gt;2.1 特征表示&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-%E5%9F%BA%E7%BA%BF%E6%A8%A1%E5%9E%8B&quot;&gt;2.2 基线模型&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#23-din%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84&quot;&gt;2.3 DIN模型架构&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3%E5%AE%9E%E7%8E%B0&quot;&gt;3.实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;Deep Interest Network(DIN)是2018年阿里巴巴提出来的模型， 该模型基于业务的观察，从实际应用的角度进行改进，相比于之前很多“学术风”的深度模型， 该模型更加具有业务气息。该模型的应用场景是阿里巴巴的电商广告推荐业务， 这样的场景下一般会有大量的用户历史行为信息， 这个其实是很关键的，因为DIN模型的创新点或者解决的问题就是使用了注意力机制来对用户的兴趣动态模拟， 而这个模拟过程存在的前提就是用户之前有大量的历史行为了，这样我们在预测某个商品广告用户是否点击的时候，就可以参考他之前购买过或者查看过的商品，这样就能猜测出用户的大致兴趣来，这样我们的推荐才能做的更加到位，所以这个模型的使用场景是非常注重用户的历史行为特征（历史购买过的商品或者类别信息），也希望通过这一点，能够和前面的一些深度学习模型对比一下。&lt;/p&gt;
+&lt;p&gt;在个性化的电商广告推荐业务场景中，也正式由于用户留下了大量的历史交互行为，才更加看出了之前的深度学习模型(作者统称Embeding&amp;amp;MLP模型)的不足之处。如果学习了前面的各种深度学习模型，就会发现Embeding&amp;amp;MLP模型对于这种推荐任务一般有着差不多的固定处理套路，就是大量稀疏特征先经过embedding层， 转成低维稠密的，然后进行拼接，最后喂入到多层神经网络中去。&lt;/p&gt;
+&lt;p&gt;这些模型在这种个性化广告点击预测任务中存在的问题就是无法表达用户广泛的兴趣，因为这些模型在得到各个特征的embedding之后，就蛮力拼接了，然后就各种交叉等。这时候根本没有考虑之前用户历史行为商品具体是什么，究竟用户历史行为中的哪个会对当前的点击预测带来积极的作用。 而实际上，对于用户点不点击当前的商品广告，很大程度上是依赖于他的历史行为的，王喆老师举了个例子&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;假设广告中的商品是键盘， 如果用户历史点击的商品中有化妆品， 包包，衣服， 洗面奶等商品， 那么大概率上该用户可能是对键盘不感兴趣的， 而如果用户历史行为中的商品有鼠标， 电脑，iPad，手机等， 那么大概率该用户对键盘是感兴趣的， 而如果用户历史商品中有鼠标， 化妆品， T-shirt和洗面奶， 鼠标这个商品embedding对预测“键盘”广告的点击率的重要程度应该大于后面的那三个。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这里也就是说如果是之前的那些深度学习模型，是没法很好的去表达出用户这广泛多样的兴趣的，如果想表达的准确些， 那么就得加大隐向量的维度，让每个特征的信息更加丰富， 那这样带来的问题就是计算量上去了，毕竟真实情景尤其是电商广告推荐的场景，特征维度的规模是非常大的。 并且根据上面的例子， 也并不是用户所有的历史行为特征都会对某个商品广告点击预测起到作用。所以对于当前某个商品广告的点击预测任务，没必要考虑之前所有的用户历史行为。&lt;/p&gt;
+&lt;p&gt;这样， DIN的动机就出来了，在业务的角度，我们应该自适应的去捕捉用户的兴趣变化，这样才能较为准确的实施广告推荐；而放到模型的角度， 我们应该考虑到用户的历史行为商品与当前商品广告的一个关联性，如果用户历史商品中很多与当前商品关联，那么说明该商品可能符合用户的品味，就把该广告推荐给他。而一谈到关联性的话， 我们就容易想到“注意力”的思想了， 所以为了更好的从用户的历史行为中学习到与当前商品广告的关联性，学习到用户的兴趣变化， 作者把注意力引入到了模型，设计了一个”local activation unit”结构，利用候选商品和历史问题商品之间的相关性计算出权重，这个就代表了对于当前商品广告的预测，用户历史行为的各个商品的重要程度大小， 而加入了注意力权重的深度学习网络，就是这次的主角DIN， 下面具体来看下该模型。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>AFM</title>
+    <link href="https://hu1104.github.io/article/AFM/"/>
+    <id>https://hu1104.github.io/article/AFM/</id>
+    <published>2021-10-29T07:16:13.000Z</published>
+    <updated>2022-07-11T08:21:48.859Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#afm%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86&quot;&gt;AFM模型原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-pair-wise-interaction-layer&quot;&gt;2.1 Pair-wise Interaction Layer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-attention-based-pooling&quot;&gt;2.2 Attention-based Pooling&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#23-afm%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83&quot;&gt;2.3 AFM模型训练&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;AFM的全称是Attentional Factorization Machines, 从模型的名称上来看是在FM的基础上加上了注意力机制，FM是通过特征隐向量的内积来对交叉特征进行建模，从公式中可以看出所有的交叉特征都具有相同的权重也就是1，没有考虑到不同的交叉特征的重要性程度： $$ y_{fm} = w_0+\sum_{i=1}^nw_ix_i+\sum_{i=1}^{n}\sum_{i+1}^n\lt v_i,v_j\gt x_ix_j $$ 如何让不同的交叉特征具有不同的重要性就是AFM核心的贡献，在谈论AFM交叉特征注意力之前，对于FM交叉特征部分的改进还有FFM，其是考虑到了对于不同的其他特征，某个指定特征的隐向量应该是不同的（相比于FM对于所有的特征只有一个隐向量，FFM对于一个特征有多个不同的隐向量）。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>目标检测损失函数</title>
+    <link href="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/"/>
+    <id>https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</id>
+    <published>2021-10-29T02:12:34.000Z</published>
+    <updated>2022-07-11T08:21:49.454Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#smooth-l1-loss&quot;&gt;Smooth L1 Loss&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#iou-loss2016&quot;&gt;IoU Loss（2016）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#giou-loss2019&quot;&gt;GIOU loss(2019)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#diou-loss2019&quot;&gt;DIoU Loss（2019）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#ciou-loss2019&quot;&gt;CIoU Loss（2019）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#eiou-loss2021&quot;&gt;EIoU Loss（2021）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;Smooth-L1-Loss&quot;&gt;&lt;a href=&quot;#Smooth-L1-Loss&quot; class=&quot;headerlink&quot; title=&quot;Smooth L1 Loss&quot;&gt;&lt;/a&gt;Smooth L1 Loss&lt;/h3&gt;&lt;p&gt;【动机】 Smooth L1 Loss完美的避开了L1和L2 Loss的缺点&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;L1 Loss的问题：损失函数对x的导数为常数，在训练后期，x很小时，如果learning rate 不变，损失函数会在稳定值附近波动，很难收敛到更高的精度。&lt;/li&gt;
+&lt;li&gt;L2 Loss的问题：损失函数对x的导数在x值很大时，其导数也非常大，在训练初期不稳定。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>DCN</title>
+    <link href="https://hu1104.github.io/article/DCN/"/>
+    <id>https://hu1104.github.io/article/DCN/</id>
+    <published>2021-10-29T01:38:34.000Z</published>
+    <updated>2022-07-11T08:21:48.863Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8E%9F%E7%90%86&quot;&gt;2. 模型结构与原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-embedding%E5%92%8Cstacking-%E5%B1%82&quot;&gt;2.1 Embedding和Stacking 层&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-cross-network&quot;&gt;2.2 Cross Network&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;Wide&amp;amp;Deep模型的提出不仅综合了“记忆能力”和“泛化能力”， 而且开启了不同网络结构融合的新思路。 所以后面就有各式各样的模型改进Wide部分或者Deep部分， 而Deep&amp;amp;Cross模型(DCN)就是其中比较典型的一个，这是2017年斯坦福大学和谷歌的研究人员在ADKDD会议上提出的， 该模型针对W&amp;amp;D的wide部分进行了改进， 因为Wide部分有一个不足就是需要人工进行特征的组合筛选， 过程繁琐且需要经验， 而2阶的FM模型在线性的时间复杂度中自动进行特征交互，但是这些特征交互的表现能力并不够，并且随着阶数的上升，模型复杂度会大幅度提高。于是乎，作者用一个Cross Network替换掉了Wide部分，来自动进行特征之间的交叉，并且网络的时间和空间复杂度都是线性的。 通过与Deep部分相结合，构成了深度交叉网络（Deep &amp;amp; Cross Network），简称DCN。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>NFM</title>
+    <link href="https://hu1104.github.io/article/NFM/"/>
+    <id>https://hu1104.github.io/article/NFM/</id>
+    <published>2021-10-28T05:57:40.000Z</published>
+    <updated>2022-07-11T08:21:48.882Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8E%9F%E7%90%86&quot;&gt;2. 模型结构与原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-input%E5%92%8Cembedding%E5%B1%82&quot;&gt;2.1 Input和Embedding层&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-bi-interaction-pooling-layer&quot;&gt;2.2 Bi-Interaction Pooling layer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#23-%E9%9A%90%E8%97%8F%E5%B1%82&quot;&gt;2.3 隐藏层&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#24-%E9%A2%84%E6%B5%8B%E5%B1%82&quot;&gt;2.4 预测层&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0&quot;&gt;3. 代码实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;NFM(Neural Factorization Machines)是2017年由新加坡国立大学的何向南教授等人在SIGIR会议上提出的一个模型，传统的FM模型仅局限于线性表达和二阶交互， 无法胜任生活中各种具有复杂结构和规律性的真实数据， 针对FM的这点不足， 作者提出了一种将FM融合进DNN的策略，通过引进了一个特征交叉池化层的结构，使得FM与DNN进行了完美衔接，这样就组合了FM的建模低阶特征交互能力和DNN学习高阶特征交互和非线性的能力，形成了深度学习时代的神经FM模型(NFM)。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>deepFM</title>
+    <link href="https://hu1104.github.io/article/deepFM/"/>
+    <id>https://hu1104.github.io/article/deepFM/</id>
+    <published>2021-10-28T01:11:46.000Z</published>
+    <updated>2022-07-11T08:21:48.931Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8E%9F%E7%90%86&quot;&gt;2. 模型的结构与原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-fm&quot;&gt;2.1 FM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-deep&quot;&gt;2.2 Deep&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0&quot;&gt;3.代码实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;对于CTR问题，被证明的最有效的提升任务表现的策略是特征组合(Feature Interaction), 在CTR问题的探究历史上来看就是如何更好地学习特征组合，进而更加精确地描述数据的特点。可以说这是基础推荐模型到深度学习推荐模型遵循的一个主要的思想。而组合特征大牛们研究过组合二阶特征，三阶甚至更高阶，但是面临一个问题就是随着阶数的提升，复杂度就成几何倍的升高。这样即使模型的表现更好了，但是推荐系统在实时性的要求也不能满足了。所以很多模型的出现都是为了解决另外一个更加深入的问题：如何更高效的学习特征组合？&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Wide_deep</title>
+    <link href="https://hu1104.github.io/article/Wide-deep/"/>
+    <id>https://hu1104.github.io/article/Wide-deep/</id>
+    <published>2021-10-27T07:05:30.000Z</published>
+    <updated>2022-07-11T08:21:48.925Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86&quot;&gt;2. 模型结构及原理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0&quot;&gt;3. 代码实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;在CTR预估任务中利用手工构造的交叉组合特征来使线性模型具有“记忆性”，使模型记住共现频率较高的特征组合，往往也能达到一个不错的baseline，且可解释性强。但这种方式有着较为明显的缺点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;特征工程需要耗费太多精力。&lt;/li&gt;
+&lt;li&gt;模型是强行记住这些组合特征的，对于未曾出现过的特征组合，权重系数为0，无法进行泛化。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;为了加强模型的泛化能力，研究者引入了DNN结构，将高维稀疏特征编码为低维稠密的Embedding vector，这种基于Embedding的方式能够有效提高模型的泛化能力。但是，基于Embedding的方式可能因为数据长尾分布，导致长尾的一些特征值无法被充分学习，其对应的Embedding vector是不准确的，这便会造成模型泛化过度。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>PNN</title>
+    <link href="https://hu1104.github.io/article/PNN/"/>
+    <id>https://hu1104.github.io/article/PNN/</id>
+    <published>2021-10-27T00:55:13.000Z</published>
+    <updated>2022-07-11T08:21:48.885Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1%E5%8A%A8%E6%9C%BA&quot;&gt;1.动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86&quot;&gt;2. 模型的结构及原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-product-layer&quot;&gt;2.1 Product Layer&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#211-ipnn&quot;&gt;2.1.1 IPNN&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0&quot;&gt;3.代码实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1.动机&quot;&gt;&lt;/a&gt;1.动机&lt;/h3&gt;&lt;p&gt;在特征交叉的相关模型中FM, FFM都证明了特征交叉的重要性，DNN将神经网络的高阶隐式交叉加到了FM的二阶特征交叉上，一定程度上说明了DNN做特征交叉的有效性。但是对于DNN这种“add”操作的特征交叉并不能充分挖掘类别特征的交叉效果。PNN虽然也用了DNN来对特征进行交叉组合，但是并不是直接将低阶特征放入DNN中，而是设计了Product层先对低阶特征进行充分的交叉组合之后再送入到DNN中去。&lt;/p&gt;
+&lt;p&gt;PNN模型其实是对IPNN和OPNN的总称，两者分别对应的是不同的Product实现方法，前者采用的是inner product，后者采用的是outer product。在PNN的算法方面，比较重要的部分就是Product Layer的简化实现方法，需要在数学和代码上都能够比较深入的理解。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>deepcrossing</title>
+    <link href="https://hu1104.github.io/article/deepcrossing/"/>
+    <id>https://hu1104.github.io/article/deepcrossing/</id>
+    <published>2021-10-26T08:01:10.000Z</published>
+    <updated>2022-07-11T08:21:48.939Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8A%A8%E6%9C%BA&quot;&gt;1. 动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86&quot;&gt;2. 模型结构及原理&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#21-embedding-layer&quot;&gt;2.1 Embedding Layer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#22-stacking-layer&quot;&gt;2.2 Stacking Layer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#23-multiple-residual-units-layer&quot;&gt;2.3 Multiple Residual Units Layer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#24-scoring-layer&quot;&gt;2.4 Scoring Layer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3%E6%80%BB%E7%BB%93&quot;&gt;3.总结&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0&quot;&gt;4. 代码实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1. 动机&quot;&gt;&lt;/a&gt;1. 动机&lt;/h3&gt;&lt;p&gt;这个模型就是一个真正的把深度学习架构应用于推荐系统中的模型了， 2016年由微软提出， 完整的解决了特征工程、稀疏向量稠密化， 多层神经网络进行优化目标拟合等一系列深度学习再推荐系统的应用问题。 这个模型涉及到的技术比较基础，在传统神经网络的基础上加入了embedding，残差连接等思想，且结构比较简单，对初学者复现和学习都比较友好。&lt;/p&gt;
+&lt;p&gt;DeepCrossing模型应用场景是微软搜索引擎Bing中的搜索广告推荐， 用户在输入搜索词之后， 搜索引擎除了返回相关结果， 还返回与搜索词相关的广告，Deep Crossing的优化目标就是预测对于某一广告， 用户是否会点击，依然是点击率预测的一个问题。&lt;/p&gt;
+&lt;p&gt;这种场景下，我们的输入一般会有类别型特征，比如广告id，和数值型特征，比如广告预算，两种情况。 对于类别型特征，我们需要进行one-hot编码处理，而数值型特征 一般需要进行归一化处理，这样算是把数据进行了一个简单清洗。 DeepCrossing模型就是利用这些特征向量进行CRT预估，那么它的结构长啥样, 又是怎么做CTR预估的呢？ 这又是DeepCrossing的核心内容。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>NecuralCF</title>
+    <link href="https://hu1104.github.io/article/NeuralCF/"/>
+    <id>https://hu1104.github.io/article/NeuralCF/</id>
+    <published>2021-10-22T06:45:39.000Z</published>
+    <updated>2022-07-11T08:21:48.883Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1%E5%8A%A8%E6%9C%BA&quot;&gt;1.动机&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86&quot;&gt;2.模型结构及原理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0&quot;&gt;3. 代码实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-动机&quot;&gt;&lt;a href=&quot;#1-动机&quot; class=&quot;headerlink&quot; title=&quot;1.动机&quot;&gt;&lt;/a&gt;1.动机&lt;/h3&gt;&lt;p&gt;在前面的组队学习中，我们学习了最经典的推荐算法，协同过滤。在前深度学习的时代，协同过滤曾经大放异彩，但随着技术的发展，协同过滤相比深度学习模型的弊端就日益显现出来了，因为它是通过直接利用非常稀疏的共现矩阵进行预测的，所以模型的泛化能力非常弱，遇到历史行为非常少的用户，就没法产生准确的推荐结果了。虽然，我们可以通过矩阵分解算法增强它的泛化能力，但因为矩阵分解是利用非常简单的内积方式来处理用户向量和物品向量的交叉问题的，所以，它的拟合能力也比较弱。这该怎么办呢？不是说深度学习模型的拟合能力都很强吗？我们能不能利用深度学习来改进协同过滤算法呢？当然是可以的。2017 年，新加坡国立的研究者就使用深度学习网络来改进了传统的协同过滤算法，取名 NeuralCF（神经网络协同过滤）。NeuralCF 大大提高了协同过滤算法的泛化能力和拟合能力，让这个经典的推荐算法又重新在深度学习时代焕发生机。这章节，我们就一起来学习并实现 NeuralCF！&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>GBDT_LR</title>
+    <link href="https://hu1104.github.io/article/GBDT-LR/"/>
+    <id>https://hu1104.github.io/article/GBDT-LR/</id>
+    <published>2021-10-21T08:34:49.000Z</published>
+    <updated>2022-07-11T08:21:48.871Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-gbdtlr%E7%AE%80%E4%BB%8B&quot;&gt;1. GBDT+LR简介&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B&quot;&gt;2. 逻辑回归模型&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-gbdt%E6%A8%A1%E5%9E%8B&quot;&gt;3. GBDT模型&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4-gbdtlr%E6%A8%A1%E5%9E%8B&quot;&gt;4. GBDT+LR模型&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+
+&lt;h3 id=&quot;1-GBDT-LR简介&quot;&gt;&lt;a href=&quot;#1-GBDT-LR简介&quot; class=&quot;headerlink&quot; title=&quot;1. GBDT+LR简介&quot;&gt;&lt;/a&gt;1. GBDT+LR简介&lt;/h3&gt;&lt;p&gt;前面介绍的协同过滤和矩阵分解存在的劣势就是仅利用了用户与物品相互行为信息进行推荐， 忽视了用户自身特征， 物品自身特征以及上下文信息等，导致生成的结果往往会比较片面。 而这次介绍的这个模型是2014年由Facebook提出的GBDT+LR模型， 该模型利用GBDT自动进行特征筛选和组合， 进而生成新的离散特征向量， 再把该特征向量当做LR模型的输入， 来产生最后的预测结果， 该模型能够综合利用用户、物品和上下文等多种不同的特征， 生成较为全面的推荐结果， 在CTR点击率预估场景下使用较为广泛。&lt;/p&gt;
+&lt;p&gt;下面首先会介绍逻辑回归和GBDT模型各自的原理及优缺点， 然后介绍GBDT+LR模型的工作原理和细节。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>FM</title>
+    <link href="https://hu1104.github.io/article/FM/"/>
+    <id>https://hu1104.github.io/article/FM/</id>
+    <published>2021-10-21T07:32:07.000Z</published>
+    <updated>2022-07-11T08:21:48.871Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-fm%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%BC%95%E5%85%A5&quot;&gt;1. FM模型的引入&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#11-%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%85%B6%E7%BC%BA%E7%82%B9&quot;&gt;1.1 逻辑回归模型及其缺点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#12-%E4%BA%8C%E9%98%B6%E4%BA%A4%E5%8F%89%E9%A1%B9%E7%9A%84%E8%80%83%E8%99%91%E5%8F%8A%E6%94%B9%E8%BF%9B&quot;&gt;1.2 二阶交叉项的考虑及改进&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-fm%E5%85%AC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3&quot;&gt;2. FM公式的理解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-fm%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%BA%94%E7%94%A8&quot;&gt;3. FM模型的应用&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-FM模型的引入&quot;&gt;&lt;a href=&quot;#1-FM模型的引入&quot; class=&quot;headerlink&quot; title=&quot;1. FM模型的引入&quot;&gt;&lt;/a&gt;1. FM模型的引入&lt;/h3&gt;&lt;h4 id=&quot;1-1-逻辑回归模型及其缺点&quot;&gt;&lt;a href=&quot;#1-1-逻辑回归模型及其缺点&quot; class=&quot;headerlink&quot; title=&quot;1.1 逻辑回归模型及其缺点&quot;&gt;&lt;/a&gt;1.1 逻辑回归模型及其缺点&lt;/h4&gt;&lt;p&gt;FM模型其实是一种思路，具体的应用稍少。一般来说做推荐CTR预估时最简单的思路就是将特征做线性组合（逻辑回归LR），传入sigmoid中得到一个概率值，本质上这就是一个线性模型，因为sigmoid是单调增函数不会改变里面的线性模型的CTR预测顺序，因此逻辑回归模型效果会比较差。也就是LR的缺点有：&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MF</title>
+    <link href="https://hu1104.github.io/article/MF/"/>
+    <id>https://hu1104.github.io/article/MF/</id>
+    <published>2021-10-21T03:07:19.000Z</published>
+    <updated>2022-07-11T08:21:48.878Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E9%9A%90%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3&quot;&gt;1. 隐语义模型与矩阵分解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E9%9A%90%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%9E%8B&quot;&gt;2. 隐语义模型&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E7%9A%84%E5%8E%9F%E7%90%86&quot;&gt;3.矩阵分解的原理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E7%9A%84%E6%B1%82%E8%A7%A3funk-svd&quot;&gt;4.矩阵分解的求解——Funk-SVD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#5-%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0&quot;&gt;5. 编程实现&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#6-%E4%BC%98%E7%BC%BA%E7%82%B9&quot;&gt;6. 优缺点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-隐语义模型与矩阵分解&quot;&gt;&lt;a href=&quot;#1-隐语义模型与矩阵分解&quot; class=&quot;headerlink&quot; title=&quot;1. 隐语义模型与矩阵分解&quot;&gt;&lt;/a&gt;1. 隐语义模型与矩阵分解&lt;/h3&gt;&lt;p&gt;协同过滤算法的特点就是完全没有利用到物品本身或者是用户自身的属性， 仅仅利用了用户与物品的交互信息就可以实现推荐，是一个可解释性很强， 非常直观的模型， 但是也存在一些问题， 第一个就是处理稀疏矩阵的能力比较弱， 所以为了使得协同过滤更好处理稀疏矩阵问题， 增强泛化能力， 从协同过滤中衍生出矩阵分解模型(Matrix Factorization,MF)或者叫隐语义模型, 两者差不多说的一个意思， 就是在协同过滤共现矩阵的基础上， 使用更稠密的隐向量表示用户和物品， 挖掘用户和物品的隐含兴趣和隐含特征， 在一定程度上弥补协同过滤模型处理稀疏矩阵能力不足的问题。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CF</title>
+    <link href="https://hu1104.github.io/article/CF/"/>
+    <id>https://hu1104.github.io/article/CF/</id>
+    <published>2021-10-20T02:36:47.000Z</published>
+    <updated>2022-07-11T08:21:48.861Z</updated>
+    
+    
+    <summary type="html">&lt;!-- @import &quot;[TOC]&quot; {cmd=&quot;toc&quot; depthFrom=1 depthTo=6 orderedList=false} --&gt;
+
+&lt;!-- code_chunk_output --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E5%8D%8F%E8%B0%83%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95&quot;&gt;1. 协调过滤算法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E7%9B%B8%E4%BC%BC%E6%80%A7%E5%BA%A6%E9%87%8F%E6%96%B9%E6%B3%95&quot;&gt;2. 相似性度量方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4&quot;&gt;3. 基于用户的协同过滤&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#4-%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0&quot;&gt;4. 编程实现&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#5-usercf-%E4%BC%98%E7%BC%BA%E7%82%B9&quot;&gt;5. UserCF 优缺点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#6-%E7%AE%97%E6%B3%95%E8%AF%84%E4%BC%B0&quot;&gt;6. 算法评估&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#7%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90&quot;&gt;7.协同过滤算法的问题分析&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /code_chunk_output --&gt;
+
+&lt;h3 id=&quot;1-协调过滤算法&quot;&gt;&lt;a href=&quot;#1-协调过滤算法&quot; class=&quot;headerlink&quot; title=&quot;1. 协调过滤算法&quot;&gt;&lt;/a&gt;1. 协调过滤算法&lt;/h3&gt;&lt;p&gt;所谓协同过滤， 基本思想是根据用户之前的喜好以及其他兴趣相近的用户的选择来给用户推荐物品(基于对用户历史行为数据的挖掘发现用户的喜好偏向， 并预测用户可能喜好的产品进行推荐)，一般是仅仅基于用户的行为数据（评价、购买、下载等）, 而不依赖于项的任何附加信息（物品自身特征）或者用户的任何附加信息（年龄， 性别等）。&lt;br&gt;&lt;br&gt;&lt;br&gt;目前应用比较广泛的协同过滤算法是基于邻域的方法， 而这种方法主要有下面两种算法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基于用户的协同过滤算法(UserCF): 给用户推荐和他兴趣相似的其他用户喜欢的产品&lt;/li&gt;
+&lt;li&gt;基于物品的协同过滤算法(ItemCF): 给用户推荐和他之前喜欢的物品相似的物品&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不管是UserCF还是ItemCF算法， 非常重要的步骤之一就是计算用户和用户或者物品和物品之间的相似度， 所以下面先整理常用的相似性度量方法， 然后再对每个算法的具体细节进行展开。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+</feed>

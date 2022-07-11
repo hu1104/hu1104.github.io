@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="1. DIEN提出的动机 2. DIEN模型原理 2.1 Interest Exterator Layer 2.2 Interest Evolving Layer      1. DIEN提出的动机在推荐场景，用户无需输入搜索关键词来表达意图，这种情况下捕捉用户兴趣并考虑兴趣的动态变化将是提升模型效果的关键。以Wide&amp;Deep为代表的深度模型更多的是考虑不同field特征之间的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DIEN">
+<meta property="og:url" content="https://hu1104.github.io/article/DIEN/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:description" content="1. DIEN提出的动机 2. DIEN模型原理 2.1 Interest Exterator Layer 2.2 Interest Evolving Layer      1. DIEN提出的动机在推荐场景，用户无需输入搜索关键词来表达意图，这种情况下捕捉用户兴趣并考虑兴趣的动态变化将是提升模型效果的关键。以Wide&amp;Deep为代表的深度模型更多的是考虑不同field特征之间的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/DIEN/DIEN/DIEN%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://hu1104.github.io/article/DIEN/DIEN/GRU.png">
+<meta property="og:image" content="https://hu1104.github.io/article/DIEN/DIEN/loss.png">
+<meta property="og:image" content="https://hu1104.github.io/article/DIEN/DIEN/%E5%85%B4%E8%B6%A3.png">
+<meta property="article:published_time" content="2021-11-08T01:15:28.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:21:48.865Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/DIEN/DIEN/DIEN%E6%A8%A1%E5%9E%8B.png">
+
+<link rel="canonical" href="https://hu1104.github.io/article/DIEN/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>DIEN | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/DIEN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DIEN
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-08 09:15:28" itemprop="dateCreated datePublished" datetime="2021-11-08T09:15:28+08:00">2021-11-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-11 16:21:48" itemprop="dateModified" datetime="2022-07-11T16:21:48+08:00">2022-07-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-dien%E6%8F%90%E5%87%BA%E7%9A%84%E5%8A%A8%E6%9C%BA">1. DIEN提出的动机</a></li>
+<li><a href="#2-dien%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86">2. DIEN模型原理</a><ul>
+<li><a href="#21-interest-exterator-layer">2.1 Interest Exterator Layer</a></li>
+<li><a href="#22-interest-evolving-layer">2.2 Interest Evolving Layer</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3><span id="1-dien提出的动机">1. DIEN提出的动机</span><a href="#1-dien提出的动机" class="header-anchor">#</a></h3><p>在推荐场景，用户无需输入搜索关键词来表达意图，这种情况下捕捉用户兴趣并考虑兴趣的动态变化将是提升模型效果的关键。以Wide&amp;Deep为代表的深度模型更多的是考虑不同field特征之间的相互作用，未关注用户兴趣。</p>
+<p>DIN模型考虑了用户兴趣，并且强调用户兴趣是多样的，该模型使用注意力机制来捕捉和target item的相关的兴趣，这样以来用户的兴趣就会随着目标商品自适应的改变。但是大多该类模型包括DIN在内，直接将用户的行为当做用户的兴趣(因为DIN模型只是在行为序列上做了简单的特征处理)，但是用户潜在兴趣一般很难直接通过用户的行为直接表示，大多模型都没有挖掘用户行为背后真实的兴趣，捕捉用户兴趣的动态变化对用户兴趣的表示非常重要。DIEN相比于之前的模型，即对用户的兴趣进行建模，又对建模出来的用户兴趣继续建模得到用户的兴趣变化过程。</p>
+<span id="more"></span>
+<h3><span id="2-dien模型原理">2. DIEN模型原理</span><a href="#2-dien模型原理" class="header-anchor">#</a></h3><p><img src="./DIEN/DIEN%E6%A8%A1%E5%9E%8B.png" alt="DIEN模型"><br>模型的输入可以分成两大部分，一部分是用户的行为序列(这部分会通过兴趣提取层及兴趣演化层转换成与用户当前兴趣相关的embedding)，另一部分就是除了用户行为以外的其他所有特征，如Target id, Context Feature, UserProfile Feature，这些特征都转化成embedding的类型然后concat在一起（形成一个大的embedding）作为非行为相关的特征(这里可能也会存在一些非id类特征，应该可以直接进行concat)。最后DNN输入的部分由行为序列embedding和非行为特征embedding（多个特征concat到一起之后形成的一个大的向量）组成，将两者concat之后输入到DNN中。</p>
+<p>所以DIEN模型的重点就是如何将用户的行为序列转换成与用户兴趣相关的向量，在DIN中是直接通过与target item计算序列中每个元素的注意力分数，然后加权求和得到最终的兴趣表示向量。在DIEN中使用了两层结构来建模用户兴趣相关的向量。</p>
+<h4><span id="21-interest-exterator-layer">2.1 Interest Exterator Layer</span><a href="#21-interest-exterator-layer" class="header-anchor">#</a></h4><p>兴趣抽取层的输入原本是一个id序列(按照点击时间的先后顺序形成的一个序列)，通过Embedding层将其转化成一个embedding序列。然后使用GRU模块对兴趣进行抽取，GRU的输入是embedding层之后得到的embedding序列。对于GRU模块不是很了解的可以看一下动手学深度学习中GRU相关的内容</p>
+<p>作者并没有直接完全使用原始的GRU来提取用户的兴趣，而是引入了一个辅助函数来指导用户兴趣的提取。作者认为如果直接使用GRU提取用户的兴趣，只能得到用户行为之间的依赖关系，不能有效的表示用户的兴趣。因为是用户的兴趣导致了用户的点击，用户的最后一次点击与用户点击之前的兴趣相关性就很强，但是直接使用行为序列训练GRU的话，只有用户最后一次点击的物品(也就是label，在这里可以认为是Target Ad), 那么最多就是能够捕捉到用户最后一次点击时的兴趣，而最后一次的兴趣又和前面点击过的物品在兴趣上是相关的，而前面点击的物品中并没有target item进行监督。所以作者提出的辅助损失就是为了让行为序列中的每一个时刻都有一个target item进行监督训练，也就是使用下一个行为来监督兴趣状态的学习</p>
+<p>辅助损失</p>
+<p>首先需要明确的就是辅助损失是计算哪两个量的损失。计算的是用户每个时刻的兴趣表示（GRU每个时刻输出的隐藏状态形成的序列）与用户当前时刻实际点击的物品表示（输入的embedding序列）之间的损失，相当于是行为序列中的第t+1个物品与用户第t时刻的兴趣表示之间的损失<strong>为什么这里用户第t时刻的兴趣与第t+1时刻的真实点击做损失呢？我的理解是，只有知道了用户第t+1真实点击的商品，才能更好的确定用户第t时刻的兴趣）。</strong></p>
+<p><img src="DIEN/GRU.png" alt="GRU"><br>当然，如果只计算用户点击物品与其点击前一次的兴趣之间的损失，只能认为是正样本之间的损失，那么用户第t时刻的兴趣其实还有很多其他的未点击的商品，这些未点击的商品就是负样本，负样本一般通过从用户点击序列中采样得到，这样一来辅助损失中就包含了用户某个时刻下的兴趣及与该时刻兴趣相关的正负物品。所以最终的损失函数表示如下。<br><img src="DIEN/loss.png" alt="Loss"><br>其中$h_t^i$表示的是用户$i$第$t$时刻的隐藏状态，可以表示用户第$t$时刻的兴趣向量，$e_b^i，\hat{e_b^i}$分别表示的是正负样本，$e_b^i[t+1]$表示的是用户$i$第$t+1$时刻点击的物品向量。</p>
+<p>辅助损失会加到最终的目标损失(ctr损失)中一起进行优化，并且通过$\alpha$参数来平衡点击率和兴趣的关系 $$ L = L_{target} + \alpha L_{aux} $$</p>
+<p>引入辅助函数的函数有：</p>
+<ol>
+<li>辅助loss可以帮助GRU的隐状态更好地表示用户兴趣。</li>
+<li>RNN在长序列建模场景下梯度传播可能并不能很好的影响到序列开始部分，如果在序列的每个部分都引入一个辅助的监督信号，则可一定程度降低优化难度。</li>
+<li>辅助loss可以给embedding层的学习带来更多语义信息，学习到item对应的更好的embedding。</li>
+</ol>
+<h4><span id="22-interest-evolving-layer">2.2 Interest Evolving Layer</span><a href="#22-interest-evolving-layer" class="header-anchor">#</a></h4><p>将用户的行为序列通过GRU+辅助损失建模之后，对用户行为序列中的兴趣进行了提取并表达成了向量的形式(GRU每个时刻输出的隐藏状态)。而用户的兴趣会因为外部环境或内部认知随着时间变化，特点如下：</p>
+<ol>
+<li>兴趣是多样化的，可能发生漂移。兴趣漂移对行为的影响是用户可能在一段时间内对各种书籍感兴趣，而在另一段时间却需要衣服</li>
+<li>虽然兴趣可能会相互影响，但是每一种兴趣都有自己的发展过程，例如书和衣服的发展过程几乎是独立的。而我们只关注与target item相关的演进过程。</li>
+</ol>
+<p>由于用户的兴趣是多样的，但是用户的每一种兴趣都有自己的发展过程，即使兴趣发生漂移我们可以只考虑用户与target item(广告或者商品)相关的兴趣演化过程，这样就不用考虑用户多样化的兴趣的问题了，而如何只获取与target item相关的信息，作者使用了与DIN模型中提取与target item相同的方法，来计算用户历史兴趣与target item之间的相似度，即这里也使用了DIN中介绍的局部激活单元(就是下图中的Attention模块)。</p>
+<p><img src="DIEN/%E5%85%B4%E8%B6%A3.png" alt="兴趣"></p>
+<p>当得到了用户历史兴趣序列及兴趣序列与target item之间的相关性(注意力分数)之后，就需要再次对注意力序列进行建模得到用户注意力的演化过程，进一步表示用户最终的兴趣向量。此时的序列数据等同于有了一个序列及序列中每个向量的注意力权重，下面就是考虑如何使用这个注意力权重来一起优化序列建模的结果了。作者提出了三种注意力结合的GRU模型快：</p>
+<ol>
+<li>AIGRU: 将注意力分数直接与输入的序列进行相乘，也就是权重越大的向量对应的值也越大, 其中$i_t^{‘}, h_t, a_t$分别表示用户$i$在兴趣演化过程使用的GRU的第t时刻的输入，$h_t$表示的是兴趣抽取层第t时刻的输出，$a_t$表示的是$h_t$的注意力分数，这种方式的弊端是即使是零输入也会改变GRU的隐藏状态，所以相对较少的兴趣值也会影响兴趣的学习进化(根据GRU门的更新公式就可以知道，下一个隐藏状态的计算会用到上一个隐藏状态的信息，所以即使当前输入为0，最终隐藏状态也不会直接等于0，所以即使兴趣较少，也会影响到最终兴趣的演化)。 $$ i_t^{‘} = h_t * a_t $$</li>
+<li>AGRU: 将注意力分数直接作为GRU模块中，更新门的值，则重置门对应的值表示为$1-a_t$, 所以最终隐藏状态的更新公式表示为：其中$\hat{h_t^{‘}}$表示的是候选隐藏状态。但是这种方式的弊端是弱化了兴趣之间的相关性，因为最终兴趣的更新前后是没关系的，只取决于输入的注意力分数 $$ h_t^{‘} = (1-a_t)h_{t-1}^{‘} + a_t * \tilde{h_t^{‘}} $$</li>
+<li>AUGRU: 将注意力分数作为更新门的权重，这样既兼顾了注意力分数很低时的状态更新值，也利用了兴趣之间的相关性，最终的表达式如下： $$ \begin{align} &amp; \tilde{u_t^{‘}} = a_t * u_t \ &amp; h_t^{‘} = (1-\tilde{u_t^{‘}})h_{t-1}^{‘} + \tilde{u_t^{‘}} * \tilde{h_t^{‘}} \end{align} $$</li>
+</ol>
+<p>建模兴趣演化过程的好处：</p>
+<ul>
+<li>追踪用户的interest可以使我们学习final interest的表达时包含更多的历史信息</li>
+<li>可以根据interest的变化趋势更好地进行CTR预测</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/DIN/" rel="prev" title="DIN">
+      <i class="fa fa-chevron-left"></i> DIN
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/" rel="next" title="激活函数">
+      激活函数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1. DIEN提出的动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2. DIEN模型原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Interest Exterator Layer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Interest Evolving Layer</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">2.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33:20</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>

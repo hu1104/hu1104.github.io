@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="RS">
+<meta property="og:url" content="https://hu1104.github.io/article/RS/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/%E5%8F%91%E5%B1%95%E5%9B%BE2.png">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/ROC.png">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/RS/%E5%A4%9A%E8%B7%AF%E5%8F%AC%E5%9B%9E.png">
+<meta property="og:image" content="https://hu1104.github.io/article/RS/RS/Embedding.jpg">
+<meta property="article:published_time" content="2021-10-18T05:37:56.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:21:48.887Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/RS/%E5%8F%91%E5%B1%95%E5%9B%BE1.png">
+
+<link rel="canonical" href="https://hu1104.github.io/article/RS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>RS | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/RS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-18 13:37:56" itemprop="dateCreated datePublished" datetime="2021-10-18T13:37:56+08:00">2021-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-11 16:21:48" itemprop="dateModified" datetime="2022-07-11T16:21:48+08:00">2022-07-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="%E5%8F%91%E5%B1%95%E5%9B%BE1.png" alt="rs发展历程1"><br><img src="%E5%8F%91%E5%B1%95%E5%9B%BE2.png" alt="rs发展历程2"></p>
+<span id="more"></span>
+<h1><span id="推荐系统简介">推荐系统简介</span><a href="#推荐系统简介" class="header-anchor">#</a></h1><ol>
+<li>做什么<ul>
+<li>用户：帮助用户快速发现有用信息</li>
+<li>企业：增加产品与潜在用户接触、购买等行为概率的工具</li>
+</ul>
+</li>
+<li>为什么<ul>
+<li>用户：在需求不明确的时候进行信息过滤，利用用户的各类历史信息猜测其可能喜欢的内容</li>
+<li>使产品最大限度的吸引用户，留存客户，增长用户黏性，提高用户转化率</li>
+</ul>
+</li>
+<li>为了谁<ul>
+<li>用户和企业，在此基础上，展开想想什么样的人需要推荐系统，及什么样的企业需要推荐系统</li>
+</ul>
+</li>
+</ol>
+<h1><span id="评价指标">评价指标</span><a href="#评价指标" class="header-anchor">#</a></h1><ol>
+<li><p>用户满意度<br> &emsp;&emsp;用户满意度直接决定推荐系统的好坏，但是无法离线计算。因此需要购买率来度量客户满意度，与此类似的还有用户停留时间和转化率等指标。</p>
+</li>
+<li><p>预测精准度<br> 预测准确度是用来度量用户的实际行为与推荐系统预测结果的准确度，是最重要的离线评价指标。</p>
+<ul>
+<li><p>评分预测<br>  预测用户对物品的评分行为称为评分预测。评分预测模型通过对用户的历史物品评分记录进行建模，进而得到用户的兴趣模型，然后使用模型预测用户对未见过商品的评分。评分预测的准确度一般通过均方根误差（RMSE）或者平均绝对误差（MAE）计算。对于测试集中的一个用户$u$和物品$i$,令$r_{ui}$是用户$u$对物品$i$的实际评分,而$\hat{r_{ui}}$是推荐模型预测出的评分,那么RMSE可以定义为: $$ RMSE = \sqrt{\frac{\sum_{u,i \in T}(r_{ui} - \hat{r}<em>{ui})^2}{|T|}} $$ MAE定义为: $$ MAE = \frac{\sum{u,i \in T}|r</em>{ui} - \hat{r}_{ui}|}{|T|} $$ RMSE由于存在平方项，使得使得用户真实评分与推荐系统预测评分相差较大的用户加大了惩罚，即该评测指标对系统要求更加的苛刻</p>
+</li>
+<li><p>TopN推荐<br>   推荐系统在给用户推荐物品的时候,往往会给用户一个列表的推荐物品,这种场景下的推荐成为是TopN推荐,该推荐方式最常用的预测准确率指标一般是精确率(precision)和召回率(recall),令$R(u)$为通过推荐模型得到的推荐列表,$T(u)$为用户在实际场景中(测试集)的行为列表.</p>
+<ul>
+<li><p>精确率(precision): 分类正确的正样本个数占分类器判定为正样本的样本个数比例(这里$R(u)$相当于是模型判定的正样本) $$ Precision= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|R(u)|} $$</p>
+</li>
+<li><p>召回率(recall): 分类正确的正样本个数占真正的正样本个数的比例(这里的$T(u)$相当于真正的正样本集合)</p>
+<p>  $$ Recall= \frac{\sum_{u \in U}|R(u) \cap T(u)|}{\sum_{u \in U}|T(u)|} $$<br>有时候为了更加全面的评估TopN推荐,通常会选取不同的推荐列表长度计算多组精确率与召回率然后分别绘制出精确率曲线和召回率曲线,需要注意的是这里并不是PR曲线,感兴趣的可以了解一下PR曲线相关的知识.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>覆盖率<br> 覆盖率是用来描述一个推荐系统对物品长尾的发掘能力,一个简单的定义可以是:推荐系统所有推荐出来的商品集合数占总物品集合数的比例.<br> 信息熵定义覆盖率: 其中$p(i)$是物品$i$的流行度除以所有物品流行度之和 $$ H = -\sum_{i=1}^n p(i) logp(i) $$ 基尼系数定义覆盖率: 其中$i_j$是按照物品流行度p从小到大排序的物品列表中第$j$个物品 $$ G=\frac{1}{n-1} \sum_{j=1}^{n}(2j-n-1)p(i_{j}) $$</p>
+</li>
+<li><p>多样性<br> 人的兴趣爱好通常是比较广泛的,所以一个好的推荐系统得到的推荐列表中应该尽可能多的包含用户的兴趣,只有这样才能增加用户找到感兴趣物品的概率.度量推荐列表中物品的多样性换句话说就是度量推荐列表中所有物品之间的不相似性,可以通过不同的相似性函数来度量推荐列表中商品的相似性,比如商品基于内容的相似,基于协同过滤的相似,这样就可以得到不同角度的多样性.令函数$s(i,j)$为物品$i$和物品$j$的相似性,那么用户推荐列表的多样性可以定义为: $$ Diversity(R(u))=1-\frac{\sum_{i,j \in R(u)}s(i,j)}{\frac{1}{2}|R(u)|(|R(u)|-1)} $$ 推荐系统整体的多样性可以定义为所有用户推荐列表多样性的平均值: $$ Diversity = \frac{1}{U} \sum_{u\in U}Diversity(R(u)) $$</p>
+</li>
+<li><p>新颖性<br> 满足推荐的新颖性最简单的方法就是给用户推荐他们之前没有看过的物品,但是每个用户没见过的物品数量是非常庞大的,所以一般会计算推荐物品的平均流行度,流行度越低的物品越有可能让用户觉得新颖,因此,如果推荐结果中的物品平均热门程度比较低说明推荐的结果就可能比较新颖.</p>
+</li>
+<li><p>AUC曲线<br> AUC（Area Under Curve），ROC曲线下与坐标轴围成的面积<br> TP：真的真了（真实值是真的，预测也是真）<br> FN：真的假了（真实值是真的，预测为假了）<br> FP：假的真了（真实值是假的，预测为真了）<br> TN：假的假了（真实值是假的，预测也是假）<br>  $$ Recall = \frac{TP}{TP+FN}\ Precise=\frac{TP}{TP+FP} $$ ROC(Receiver Operating Characteristic Curve)曲线：<br>  <img src="ROC.png" alt="ROC曲线图"><br>  ROC曲线的横坐标为假阳性率（False Positive Rate, FPR），N是真实负样本的个数， FP是N个负样本中被分类器预测为正样本的个数。</p>
+<p> 纵坐标为真阳性率（True Positive Rate, TPR），P是真实正样本的个数，TP是P个正样本中被分类器预测为正样本的个数。</p>
+</li>
+</ol>
+<h1><span id="召回">召回</span><a href="#召回" class="header-anchor">#</a></h1><ol>
+<li><p>召回层在推荐系统架构中的位置及作用</p>
+<p> &nbsp;<br> 在推荐系统架构中召回层与排序层是推荐系统的核心算法层，而将推荐过程分成召回层与排序层主要是基于工程上的考虑，其中召回阶段负责将海量的候选集快速缩小为几万到几千的规模；而排序层则负责对缩小后的候选集进行精准排序。所以在召回阶段往往会利用少量的特征和简单的模型对大规模的数据集进行快速的筛选，而在排序层一般会使用更多的特征和更加复杂的模型进行精准的排序。<br> &nbsp;<br> <strong>下面是召回层与排序层的特点</strong></p>
+<ul>
+<li><strong>召回层</strong>:待计算的候选集合大、计算速度快、模型简单、特征较少，尽量让用户感兴趣的物品在这个阶段能够被快速召回，即保证相关物品的召回率</li>
+<li><strong>排序层</strong>:首要目标是得到精准的排序结果。需要处理的物品数量少，可以利用较多的特征，使用比较复杂的模型。</li>
+</ul>
+</li>
+</ol>
+<p>在设计召回层时，“计算速度”和“召回率”其实是矛盾的两个指标，为提高“计算速度”，需要使召回策略尽量简单一些；而为了提高“召回率”，要求召回策略尽量选出排序模型所需要的候选集，这也就要求召回策略不能过于简单。在权衡计算速度和召回率后，目前工业界主流的召回方法是采用多个简单策略叠加的“多路召回策略”</p>
+<ol start="2">
+<li><p>多路召回策略<br>所谓的“多路召回”策略，就是指采用不同的策略、特征或简单模型，分别召回一部分候选集，然后把候选集混合在一起供后续排序模型使用，可以明显的看出，“多路召回策略”是在“计算速度”和“召回率”之间进行权衡的结果。其中，各种简单策略保证候选集的快速召回，从不同角度设计的策略保证召回率接近理想的状态，不至于损伤排序效果。<br><img src="./RS/%E5%A4%9A%E8%B7%AF%E5%8F%AC%E5%9B%9E.png" alt="多路召回"><br>具体使用哪些召回策略其实是与业务强相关的，针对不同的任务就会有对于该业务真实场景下需要考虑的召回规则。例如视频推荐，召回规则可以是“热门视频”、“导演召回”、“演员召回”、“最近上映“、”流行趋势“、”类型召回“等等。<br>&nbsp;<br><strong>多路召回存在的问题</strong><br>&nbsp;<br>虽然多路召回权衡了计算速度和召回率的问题，可以使得用于排序的候选商品更加的丰富，但是实际的多路召回仍然存在一些问题。如上图所示，对于每一路召回都会从商品集合中拉回K个商品，这里的K是一个超参数，对于K的选择一般需要通过离线评估加线上的A/B测试来确定合理的K值。除此之外，对于不同的任务具体策略的选择也是人工基于经验的选择，选择的策略之间的信息是割裂的，无法总和考虑不同策略对一个物品的影响。</p>
+</li>
+<li><p>Embedding召回</p>
+</li>
+</ol>
+<br>
+
+<p><strong>embedding 是什么</strong></p>
+<p>Embedding其实是一种思想，主要目的是将稀疏的向量(如one-hot编码)表示转换成稠密的向量，下图直观的显示了one-hot编码和Embedding表示的区别于联系，即Embedding相当于是对one-hot做了平滑，而onehot相当于是对Embedding做了max pooling。<br><img src="./RS/Embedding.jpg" alt="embdding"></p>
+<p><strong>常见的Embedding技术有哪些？</strong></p>
+<p>目前主要三大类：</p>
+<ul>
+<li>text embedding</li>
+<li>image embedding</li>
+<li>graph embedding</li>
+</ul>
+<p>在推荐系统领域，text embedding技术是目前使用最多的embedding技术，对于文本特征可以直接使用该技术，对于非文本的id类特征，可以先将其转化成id序列再使用text embedding的技术获取id的embedding再做召回。</p>
+<p>常见的text Embedding的技术有：</p>
+<ul>
+<li>静态向量：word2vec, fasttext, glove</li>
+<li>动态向量：ELMO, GPT, BERT</li>
+</ul>
+<p>对于image embedding其实主要是对于有图或者视频的特征，目前计算机视觉模型已经发展的比较成熟了，对于图像与视频的识别都有效果比较好的模型，大部分都是卷积模块通过各种连接技巧搭建的高效模型，可以使用现有的预训练模型提取图像或者视频的向量特征，然后用于召回。</p>
+<p>对于社交网络相关的推荐，进行推荐的用户与用于之间或者商品之间天然的存在某种复杂的图结构的关系，如何利用图中节点与节点之间的关系对其进行向量化是非常关键的，在这种场景下基于序列的text embedding和基于卷积模型的image embedding都显得力不从心，在这样的背景下Graph Embedding逐渐在推荐系统中流行起来。经典的Graph Embedding模型有, Deep Walk, Node2Vec，LINE以及比较新的阿里巴巴2018年公布的EGES graph Embedding模型。</p>
+<ol start="4">
+<li>参考文献：</li>
+</ol>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/143763320">推荐系统 embedding 技术实践总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/luanfenlian0992/article/details/107416438">推荐系统召回策略之多路召回与Embedding召回</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/git_learn/" rel="prev" title="git_learn">
+      <i class="fa fa-chevron-left"></i> git_learn
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/CF/" rel="next" title="CF">
+      CF <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">推荐系统简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">评价指标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">召回</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">2.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33:20</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>

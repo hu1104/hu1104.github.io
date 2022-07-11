@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Smooth L1 Loss IoU Loss（2016） GIOU loss(2019) DIoU Loss（2019） CIoU Loss（2019） EIoU Loss（2021）    Smooth L1 Loss【动机】 Smooth L1 Loss完美的避开了L1和L2 Loss的缺点  L1 Loss的问题：损失函数对x的导数为常数，在训练后期，x很小时，如果learnin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标检测损失函数">
+<meta property="og:url" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:description" content="Smooth L1 Loss IoU Loss（2016） GIOU loss(2019) DIoU Loss（2019） CIoU Loss（2019） EIoU Loss（2021）    Smooth L1 Loss【动机】 Smooth L1 Loss完美的避开了L1和L2 Loss的缺点  L1 Loss的问题：损失函数对x的导数为常数，在训练后期，x很小时，如果learnin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E5%AF%B9%E6%AF%94%E5%9B%BE.jpeg">
+<meta property="og:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/L2loss%E5%AF%B9%E6%AF%94.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/IOUloss.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E4%B8%8D%E8%B6%B3.png">
+<meta property="og:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/DIOU.png">
+<meta property="article:published_time" content="2021-10-29T02:12:34.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:21:49.454Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E5%AF%B9%E6%AF%94%E5%9B%BE.jpeg">
+
+<link rel="canonical" href="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>目标检测损失函数 | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          目标检测损失函数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-29 10:12:34" itemprop="dateCreated datePublished" datetime="2021-10-29T10:12:34+08:00">2021-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-11 16:21:49" itemprop="dateModified" datetime="2022-07-11T16:21:49+08:00">2022-07-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#smooth-l1-loss">Smooth L1 Loss</a></li>
+<li><a href="#iou-loss2016">IoU Loss（2016）</a></li>
+<li><a href="#giou-loss2019">GIOU loss(2019)</a></li>
+<li><a href="#diou-loss2019">DIoU Loss（2019）</a></li>
+<li><a href="#ciou-loss2019">CIoU Loss（2019）</a></li>
+<li><a href="#eiou-loss2021">EIoU Loss（2021）</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3><span id="smooth-l1-loss">Smooth L1 Loss</span><a href="#smooth-l1-loss" class="header-anchor">#</a></h3><p>【动机】 Smooth L1 Loss完美的避开了L1和L2 Loss的缺点</p>
+<ol>
+<li>L1 Loss的问题：损失函数对x的导数为常数，在训练后期，x很小时，如果learning rate 不变，损失函数会在稳定值附近波动，很难收敛到更高的精度。</li>
+<li>L2 Loss的问题：损失函数对x的导数在x值很大时，其导数也非常大，在训练初期不稳定。<span id="more"></span>
+【分析】<br>$$ smooth_{L1}(x)=\begin{cases}<br> 0.5x^2, &amp;if \left|x\right| &lt;1 \<br> \left|x\right| - 0.5, &amp;otherwise<br>\end{cases}$$<br>SmoothL1对x的导数为：<br>$$\frac{dsmooth_{L1}(x)}{x} = \begin{cases}<br> x, &amp;if\left|x\right|&lt;1\<br> \plusmn1, &amp; otherwise<br>\end{cases}$$<br>$$<br>实际使用时：<br>L_{loc}(t^u,v)=\sum_{i \in {x, y,w,h}}smooth_{L1}(t_i^u-v_i)<br>$$<br>其中， $v_i=(v_x, v_y, v_w, v_h)$表示真实框坐标，$t_i^u=(t_x^u, t_y^u, t_w^u,t_h^u)$表示预测框的坐标，即分别求4个点的loss,然后相加作为Bounding Box Regression Loss.<br><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E5%AF%B9%E6%AF%94%E5%9B%BE.jpeg" alt="对比图"></li>
+</ol>
+<p>【不足】 Smooth L1 Loss在计算目标检测的 bbox loss时，都是独立的求出4个点的 loss，然后相加得到最终的 bbox loss。这种做法的默认4个点是相互独立的，与实际不符。举个例子，当(x, y)为右下角时，w h其实只能取0。</p>
+<h3><span id="iou-loss2016">IoU Loss（2016）</span><a href="#iou-loss2016" class="header-anchor">#</a></h3><p>【动机】 针对smooth L1没有考虑box四个坐标之间相关性的缺点<br>【分析】 通过4个坐标点独立回归Building boxes的缺点：</p>
+<ul>
+<li>检测评价的方式是使用IoU,而实际回归坐标框的时候是使用4个坐标点，如下图所示，是不等价的；L1或者L2 Loss相同的框，其IoU 不是唯一的；</li>
+<li>通过4个点回归坐标框的方式是假设4个坐标点是相互独立的，没有考虑其相关性，实际4个坐标点具有一定的相关性；</li>
+<li>基于L1和L2的距离的loss对于尺度不具有不变性；<br><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/L2loss%E5%AF%B9%E6%AF%94.png" alt="L2对比"><br><img src="%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/IOUloss.png" alt="IOUloss"></li>
+</ul>
+<p>IoU Loss定义如下：<br>$$Iouloss = -ln(IoU(bbox_{gt},bbox_{pred}))$$</p>
+<p>实际可简化为：<br>$$IoUloss=1-IoU(bbox_{gt},bbox_{pred})$$<br>【不足】</p>
+<ol>
+<li>当预测框和目标框不相交，即 IoU(bbox1, bbox2)=0 时，不能反映两个框距离的远近，此时损失函数不可导，IoU Loss 无法优化两个框不相交的情况。</li>
+<li>假设预测框和目标框的大小都确定，只要两个框的相交值是确定的，其 IoU 值是相同时，IoU 值不能反映两个框是如何相交的。</li>
+</ol>
+<p><img src="./%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/%E4%B8%8D%E8%B6%B3.png" alt="不足"></p>
+<h3><span id="giou-loss2019">GIOU loss(2019)</span><a href="#giou-loss2019" class="header-anchor">#</a></h3><p>【动机】 解决IoU Loss没有考虑两个框是如何相交</p>
+<p>【分析】</p>
+<p>GIoU定义如下：<br>$$GIoU = IoU - \frac{\left|C-\left|A \cup B \right|\right|}{C}$$</p>
+<p>实际使用时:</p>
+<p>$$Loss_{GIoU}=1-GIoU$$</p>
+<ol>
+<li>GIoU 取值范围为 [-1, 1]，在两框重合时取最大值1，在两框无限远的时候取最小值-1；</li>
+<li>与 IoU 只关注重叠区域不同，GIoU不仅关注重叠区域，还关注其他的非重合区域，能更好的反映两者的重合度。</li>
+</ol>
+<p>【不足】 当真实框完全包裹预测框的时候，IoU 和 GIoU 的值都一样，此时 GIoU 退化为 IoU, 无法区分其相对位置关系。</p>
+<h3><span id="diou-loss2019">DIoU Loss（2019）</span><a href="#diou-loss2019" class="header-anchor">#</a></h3><p>【动机】 解决GIoU Loss缺点当真实框完全包裹预测框的时候，IoU 和 GIoU 的值都一样，引入距离</p>
+<p>【分析】</p>
+<p>基于IoU和GIoU存在的问题，作者提出了两个问题：</p>
+<ol>
+<li>第一：直接最小化预测框与目标框之间的归一化距离是否可行，以达到更快的收敛速度。</li>
+<li>第二：如何使回归在与目标框有重叠甚至包含时更准确、更快。</li>
+</ol>
+<p>好的目标框回归损失应该考虑三个重要的几何因素：重叠面积，中心点距离，长宽比。</p>
+<ul>
+<li>针对问题一，作者提出了DIoU Loss,相对于GIoU Loss收敛速度更快，该Loss考虑了重叠面积和中心点距离，但没有考虑到长宽比；</li>
+<li>针对问题二，作者提出了CIoU Loss，其收敛的精度更高，以上三个因素都考虑到了。</li>
+</ul>
+<p>DIoU Loss 的定义如下：</p>
+<p>$$Loss_{DIoU}=1-IoU+\frac{\rho^2(b,b^{gt})}{c^2}$$</p>
+<p>其中$\rho()$表示预测框和真实框中心点欧氏距离，c表示预测框和真实框最小外界矩形的对角线距离，如下图所示：<br><img src="%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/DIOU.png" alt="DIOU"></p>
+<p>当2个框完全重合时，<br>$Loss_{DIOU}=Loss_{GIOU}=0$</p>
+<p>当2个框不相交时：<br>$Loss_{DIOU}=Loss_{GIOU}=2$<br>【不足】 边框回归的三个重要几何因素：重叠面积、中心点距离和长宽比，DIoU 没有包含长宽比因素。</p>
+<h3><span id="ciou-loss2019">CIoU Loss（2019）</span><a href="#ciou-loss2019" class="header-anchor">#</a></h3><p>【动机】 解决DIoU loss没有包含长宽比因素的不足</p>
+<p>【分析】</p>
+<p>CIoU的惩罚项是在DIoU的惩罚项基础上加了一个影响因子。<br>CIoU Loss定义为：</p>
+<p>$$Loss_{CIOU}=1-IoU +\frac{\rho^2(b,b^{gt})}{c^2} + \alpha v$$</p>
+<p>其中$v=\frac{4}{\pi}(\arctan {\frac{w^{gt}}{h^{gt}}} - \arctan {\frac{w}{h}})^2$<br>用于做trade-off的参数$\alpha=\frac{v}{(1-IoU)+v}$</p>
+<p>【不足】 在CIoU的定义中，衡量长宽比过于复杂，从两个方面减缓了收敛速度</p>
+<ol>
+<li>长宽比不能取代单独的长宽，比如$w=kw^{gt},h=kh^{gt}$  都会导致v=0；</li>
+<li>从v的导数可以得到$\frac{\partial v}{\partial w}=-\frac{h}{w}\frac{\partial v}{\partial h}$  ，这说明$\frac{\partial v}{\partial w}$  和 $\frac{\partial v}{\partial h} v$ 在优化中意义相反。</li>
+</ol>
+<h3><span id="eiou-loss2021">EIoU Loss（2021）</span><a href="#eiou-loss2021" class="header-anchor">#</a></h3><p>【动机】 解决CIoU的定义中不足<br>【亮点】 引入了解决样本不平衡问题的Focal Loss思想</p>
+<p>【分析】将CIOU的$\alpha v$取代为$\frac{\rho^2(w,w^{gt})}{C_w^2}+\frac{\rho^2(h,h^{gt})}{C_h^2}$</p>
+<p>EIoU Loss的定义为：</p>
+<p>$$Loss_{EIoU}=1-IoU + \frac{\rho^2(b,b^{gt})}{c^2}+ \frac{\rho^2(w,w^{gt})}{C_w^2}+\frac{\rho^2(h,h^{gt})}{C_h^2}$$<br>Focal-EIoU Loss的定义为：<br>focal loss可以理解为对损失加权，常见的分类focal loss为：<br>$FL(p_t)=-\alpha_t(1-p_t)^\gamma log(p_t)$<br>最后得到：<br>$Loss_{focal-EIoU}=IoU^\gamma Loss_{EIoU}$</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/DCN/" rel="prev" title="DCN">
+      <i class="fa fa-chevron-left"></i> DCN
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/AFM/" rel="next" title="AFM">
+      AFM <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Smooth L1 Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">IoU Loss（2016）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">GIOU loss(2019)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">DIoU Loss（2019）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">CIoU Loss（2019）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">EIoU Loss（2021）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">2.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33:20</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>

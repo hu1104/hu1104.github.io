@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hu1104.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="1. 协调过滤算法 2. 相似性度量方法 3. 基于用户的协同过滤 4. 编程实现 5. UserCF 优缺点 6. 算法评估 7.协同过滤算法的问题分析    1. 协调过滤算法所谓协同过滤， 基本思想是根据用户之前的喜好以及其他兴趣相近的用户的选择来给用户推荐物品(基于对用户历史行为数据的挖掘发现用户的喜好偏向， 并预测用户可能喜好的产品进行推荐)，一般是仅仅基于用户的行为数据（评价">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CF">
+<meta property="og:url" content="https://hu1104.github.io/article/CF/index.html">
+<meta property="og:site_name" content="Zongxing">
+<meta property="og:description" content="1. 协调过滤算法 2. 相似性度量方法 3. 基于用户的协同过滤 4. 编程实现 5. UserCF 优缺点 6. 算法评估 7.协同过滤算法的问题分析    1. 协调过滤算法所谓协同过滤， 基本思想是根据用户之前的喜好以及其他兴趣相近的用户的选择来给用户推荐物品(基于对用户历史行为数据的挖掘发现用户的喜好偏向， 并预测用户可能喜好的产品进行推荐)，一般是仅仅基于用户的行为数据（评价">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hu1104.github.io/article/CF/CF/userCF.png">
+<meta property="og:image" content="https://hu1104.github.io/article/CF/CF/%E7%A4%BA%E4%BE%8B.png">
+<meta property="article:published_time" content="2021-10-20T02:36:47.000Z">
+<meta property="article:modified_time" content="2022-07-11T08:21:48.861Z">
+<meta property="article:author" content="hzx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hu1104.github.io/article/CF/CF/userCF.png">
+
+<link rel="canonical" href="https://hu1104.github.io/article/CF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CF | Zongxing</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- <script type="text/javascript" src="/js/love.js"></script> -->
+   <!-- 爆炸红心效果 -->
+<!--<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>-->
+
+<link rel="alternate" href="/atom.xml" title="Zongxing" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zongxing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">你若安好，便是晴天！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">49</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hu1104.github.io/article/CF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hzx">
+      <meta itemprop="description" content="代码千万行，注释第一行。</br>编程不规范，同事两行泪。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zongxing">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CF
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-20 10:36:47" itemprop="dateCreated datePublished" datetime="2021-10-20T10:36:47+08:00">2021-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-11 16:21:48" itemprop="dateModified" datetime="2022-07-11T16:21:48+08:00">2022-07-11</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#1-%E5%8D%8F%E8%B0%83%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95">1. 协调过滤算法</a></li>
+<li><a href="#2-%E7%9B%B8%E4%BC%BC%E6%80%A7%E5%BA%A6%E9%87%8F%E6%96%B9%E6%B3%95">2. 相似性度量方法</a></li>
+<li><a href="#3-%E5%9F%BA%E4%BA%8E%E7%94%A8%E6%88%B7%E7%9A%84%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4">3. 基于用户的协同过滤</a></li>
+<li><a href="#4-%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0">4. 编程实现</a></li>
+<li><a href="#5-usercf-%E4%BC%98%E7%BC%BA%E7%82%B9">5. UserCF 优缺点</a></li>
+<li><a href="#6-%E7%AE%97%E6%B3%95%E8%AF%84%E4%BC%B0">6. 算法评估</a></li>
+<li><a href="#7%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E7%9A%84%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90">7.协同过滤算法的问题分析</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h3><span id="1-协调过滤算法">1. 协调过滤算法</span><a href="#1-协调过滤算法" class="header-anchor">#</a></h3><p>所谓协同过滤， 基本思想是根据用户之前的喜好以及其他兴趣相近的用户的选择来给用户推荐物品(基于对用户历史行为数据的挖掘发现用户的喜好偏向， 并预测用户可能喜好的产品进行推荐)，一般是仅仅基于用户的行为数据（评价、购买、下载等）, 而不依赖于项的任何附加信息（物品自身特征）或者用户的任何附加信息（年龄， 性别等）。<br><br><br>目前应用比较广泛的协同过滤算法是基于邻域的方法， 而这种方法主要有下面两种算法：</p>
+<ul>
+<li>基于用户的协同过滤算法(UserCF): 给用户推荐和他兴趣相似的其他用户喜欢的产品</li>
+<li>基于物品的协同过滤算法(ItemCF): 给用户推荐和他之前喜欢的物品相似的物品</li>
+</ul>
+<p>不管是UserCF还是ItemCF算法， 非常重要的步骤之一就是计算用户和用户或者物品和物品之间的相似度， 所以下面先整理常用的相似性度量方法， 然后再对每个算法的具体细节进行展开。</p>
+<span id="more"></span>
+<h3><span id="2-相似性度量方法">2. 相似性度量方法</span><a href="#2-相似性度量方法" class="header-anchor">#</a></h3><ol>
+<li>jaccard相似系数<br>这个是衡量两个集合的相似度一种指标。两个用户$u$和$v$交互商品交集的数量占这两个用户交互商品并集的数量的比例，称为两个集合的杰卡德相似系数，用符号$sim_{uv}$表示，其中$N(u),N(v)$分别表示用户$u$和用户$v$交互商品的集合。 $$ sim_{uv}=\frac{|N(u) \cap N(v)|}{\sqrt{|N(u)| \cup|N(v)|}} $$ 由于杰卡德相似系数一般无法反映具体用户的评分喜好信息， 所以常用来评估用户是否会对某商品进行打分， 而不是预估用户会对某商品打多少分。</li>
+<li>余弦相似度<br>余弦相似度衡量了两个向量的夹角，夹角越小越相似。首先从集合的角度描述余弦相似度，相比于Jaccard公式来说就是分母有差异，不是两个用户交互商品的并集的数量，而是两个用户分别交互的商品数量的乘积，公式如下： $$ sim_{uv}=\frac{|N(u) \cap N(v)|}{\sqrt{|N(u)|\cdot|N(v)|}} $$ 从向量的角度进行描述，令矩阵$A$为用户-商品交互矩阵(因为是TopN推荐并不需要用户对物品的评分，只需要知道用户对商品是否有交互就行)，即矩阵的每一行表示一个用户对所有商品的交互情况，有交互的商品值为1没有交互的商品值为0，矩阵的列表示所有商品。若用户和商品数量分别为$m,n$的话，交互矩阵$A$就是一个$m$行$n$列的矩阵。此时用户的相似度可以表示为(其中$u\cdot v$指的是向量点积)： $$ sim_{uv} = cos(u,v) =\frac{u\cdot v}{|u|\cdot |v|} $$ 上述用户-商品交互矩阵在现实情况下是非常的稀疏了，为了避免存储这么大的稀疏矩阵，在计算用户相似度的时候一般会采用集合的方式进行计算。理论上向量之间的相似度计算公式都可以用来计算用户之间的相似度，但是会根据实际的情况选择不同的用户相似度度量方法。</li>
+<li>皮尔逊相关系数<br>皮尔逊相关系数的公式与余弦相似度的计算公式非常的类似，首先对于上述的余弦相似度的计算公式写成求和的形式,其中$r_{ui},r_{vi}$分别表示用户$u$和用户$v$对商品$i$是否有交互(或者具体的评分值)： $$ sim_{uv} = \frac{\sum_i r_{ui}*r_{vi}}{\sqrt{\sum_i r_{ui}^2}\sqrt{\sum_i r_{vi}^2}} $$ 如下是皮尔逊相关系数计算公式，其中$r_{ui},r_{vi}$分别表示用户$u$和用户$v$对商品$i$是否有交互(或者具体的评分值)，$\bar r_u, \bar r_v$分别表示用户$u$和用户$v$交互的所有商品交互数量或者具体评分的平均值。 $$ sim(u,v)=\frac{\sum_{i\in I}(r_{ui}-\bar r_u)(r_{vi}-\bar r_v)}{\sqrt{\sum_{i\in I }(r_{ui}-\bar r_u)^2}\sqrt{\sum_{i\in I }(r_{vi}-\bar r_v)^2}} $$ 所以相比余弦相似度，皮尔逊相关系数通过使用用户的平均分对各独立评分进行修正，减小了用户评分偏置的影响。</li>
+</ol>
+<h3><span id="3-基于用户的协同过滤">3. 基于用户的协同过滤</span><a href="#3-基于用户的协同过滤" class="header-anchor">#</a></h3><br>
+基于用户的协同过滤（以下用UserCF表示），思想其实比较简单，当一个用户A需要个性化推荐的时候， 我们可以先找到和他有相似兴趣的其他用户， 然后把那些用户喜欢的， 而用户A没有听说过的物品推荐给A。
+
+<p><img src="./CF/userCF.png" alt="userCF"></p>
+<p>UserCF算法主要两个步骤：</p>
+<ol>
+<li>找到和目标用户兴趣相似的集合</li>
+<li>找到这个集合中的用户喜欢的，且目标用户没有听说过的产品推荐给目标用户<br><img src="./CF/%E7%A4%BA%E4%BE%8B.png" alt="示例"></li>
+</ol>
+<p>应用UserCF算法的两个步骤：</p>
+<ol>
+<li>首先根据前面的这些打分情况(或者说已有的用户向量）计算一下Alice和用户1， 2， 3， 4的相似程度， 找出与Alice最相似的n个用户</li>
+<li>根据这n个用户对物品5的评分情况和与Alice的相似程度会猜测出Alice对物品5的评分， 如果评分比较高的话， 就把物品5推荐给用户Alice， 否则不推荐。</li>
+</ol>
+<p>根据上面的几种方法， 我们可以计算出向量之间的相似程度， 也就是可以计算出Alice和其他用户的相近程度， 这时候我们就可以选出与Alice最相近的前n个用户， 基于他们对物品5的评价猜测出Alice的打分值， 那么是怎么计算的呢？</p>
+<p>这里常用的方式之一是利用用户相似度和相似用户的评价加权平均获得用户的评价预测， 用下面式子表示：</p>
+<p>$$ R_{\mathrm{u}, \mathrm{p}}=\frac{\sum_{\mathrm{s} \in S}\left(w_{\mathrm{u}, \mathrm{s}} \cdot R_{\mathrm{s}, \mathrm{p}}\right)}{\sum_{\mathrm{s} \in S} w_{\mathrm{u}, \mathrm{s}}} $$ 这个式子里面， 权重$w_{u,s}$是用户$u$和用户$s$的相似度， $R_{s,p}$是用户$s$对物品$p$的评分。</p>
+<p>还有一种方式如下， 这种方式考虑的更加全面， 依然是用户相似度作为权值， 但后面不单纯的是其他用户对物品的评分， 而是该物品的评分与此用户的所有评分的差值进行加权平均， 这时候考虑到了有的用户内心的评分标准不一的情况， 即有的用户喜欢打高分， 有的用户喜欢打低分的情况。</p>
+<p>$$ P_{i, j}=\bar{R}{i}+\frac{\sum_{k=1}^{n}\left(S_{i, k}\left(R_{k, j}-\bar{R}<em>{k}\right)\right)}{\sum</em>{k=1}^{n} S_{j, k}} $$ 所以这一种计算方式更为推荐。</p>
+<p>在获得用户$u$对不同物品的评价预测后， 最终的推荐列表根据预测评分进行排序得到。</p>
+<h3><span id="4-编程实现">4. 编程实现</span><a href="#4-编程实现" class="header-anchor">#</a></h3><p> 梳理一下上面的过程其实就是三步： 计算用户相似性矩阵、得到前n个相似用户、计算最终得分。</p>
+<ol>
+<li>首先， 先把数据表给建立起来</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 定义数据集， 也就是那个表格， 注意这里我们采用字典存放数据， 因为实际情况中数据是非常稀疏的， 很少有情况是现在这样</span><br><span class="line">def loadData():</span><br><span class="line">    items=&#123;&#x27;A&#x27;: &#123;1: 5, 2: 3, 3: 4, 4: 3, 5: 1&#125;,</span><br><span class="line">           &#x27;B&#x27;: &#123;1: 3, 2: 1, 3: 3, 4: 3, 5: 5&#125;,</span><br><span class="line">           &#x27;C&#x27;: &#123;1: 4, 2: 2, 3: 4, 4: 1, 5: 5&#125;,</span><br><span class="line">           &#x27;D&#x27;: &#123;1: 4, 2: 3, 3: 3, 4: 5, 5: 2&#125;,</span><br><span class="line">           &#x27;E&#x27;: &#123;2: 3, 3: 5, 4: 4, 5: 1&#125;</span><br><span class="line">          &#125;</span><br><span class="line">    users=&#123;1: &#123;&#x27;A&#x27;: 5, &#x27;B&#x27;: 3, &#x27;C&#x27;: 4, &#x27;D&#x27;: 4&#125;,</span><br><span class="line">           2: &#123;&#x27;A&#x27;: 3, &#x27;B&#x27;: 1, &#x27;C&#x27;: 2, &#x27;D&#x27;: 3, &#x27;E&#x27;: 3&#125;,</span><br><span class="line">           3: &#123;&#x27;A&#x27;: 4, &#x27;B&#x27;: 3, &#x27;C&#x27;: 4, &#x27;D&#x27;: 3, &#x27;E&#x27;: 5&#125;,</span><br><span class="line">           4: &#123;&#x27;A&#x27;: 3, &#x27;B&#x27;: 3, &#x27;C&#x27;: 1, &#x27;D&#x27;: 5, &#x27;E&#x27;: 4&#125;,</span><br><span class="line">           5: &#123;&#x27;A&#x27;: 1, &#x27;B&#x27;: 5, &#x27;C&#x27;: 5, &#x27;D&#x27;: 2, &#x27;E&#x27;: 1&#125;</span><br><span class="line">          &#125;</span><br><span class="line">    return items,users</span><br><span class="line"></span><br><span class="line">items, users = loadData()</span><br><span class="line">item_df = pd.DataFrame(items).T</span><br><span class="line">user_df = pd.DataFrame(users).T</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>计算用户相似性矩阵<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;计算用户相似性矩阵&quot;&quot;&quot;</span><br><span class="line">similarity_matrix = pd.DataFrame(np.zeros((len(users), len(users))), index=[1, 2, 3, 4, 5], columns=[1, 2, 3, 4, 5])</span><br><span class="line"></span><br><span class="line"># 遍历每条用户-物品评分数据</span><br><span class="line">for userID in users:</span><br><span class="line">    for otheruserId in users:</span><br><span class="line">        vec_user = []</span><br><span class="line">        vec_otheruser = []</span><br><span class="line">        if userID != otheruserId:</span><br><span class="line">            for itemId in items:   # 遍历物品-用户评分数据</span><br><span class="line">                itemRatings = items[itemId]        # 这也是个字典  每条数据为所有用户对当前物品的评分</span><br><span class="line">                if userID in itemRatings and otheruserId in itemRatings:  # 说明两个用户都对该物品评过分</span><br><span class="line">                    vec_user.append(itemRatings[userID])</span><br><span class="line">                    vec_otheruser.append(itemRatings[otheruserId])</span><br><span class="line">            # 这里可以获得相似性矩阵(共现矩阵)</span><br><span class="line">            similarity_matrix[userID][otheruserId] = np.corrcoef(np.array(vec_user), np.array(vec_otheruser))[0][1]</span><br><span class="line">            #similarity_matrix[userID][otheruserId] = cosine_similarity(np.array(vec_user), np.array(vec_otheruser))[0][1]</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>计算前n个相似的用户</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;计算前n个相似的用户&quot;&quot;&quot;</span><br><span class="line">n = 2</span><br><span class="line">similarity_users = similarity_matrix[1].sort_values(ascending=False)[:n].index.tolist()    # [2, 3]   也就是用户1和用户2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>计算最终得分<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;计算最终得分&quot;&quot;&quot;</span><br><span class="line">base_score = np.mean(np.array([value for value in users[1].values()]))</span><br><span class="line">weighted_scores = 0.</span><br><span class="line">corr_values_sum = 0.</span><br><span class="line">for user in similarity_users:  # [2, 3]</span><br><span class="line">    corr_value = similarity_matrix[1][user]            # 两个用户之间的相似性</span><br><span class="line">    mean_user_score = np.mean(np.array([value for value in users[user].values()]))    # 每个用户的打分平均值</span><br><span class="line">    weighted_scores += corr_value * (users[user][&#x27;E&#x27;]-mean_user_score)      # 加权分数</span><br><span class="line">    corr_values_sum += corr_value</span><br><span class="line">final_scores = base_score + weighted_scores / corr_values_sum</span><br><span class="line">print(&#x27;用户Alice对物品5的打分: &#x27;, final_scores)</span><br><span class="line">user_df.loc[1][&#x27;E&#x27;] = final_scores</span><br><span class="line">user_df</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3><span id="5-usercf-优缺点">5. UserCF 优缺点</span><a href="#5-usercf-优缺点" class="header-anchor">#</a></h3><p>两大问题：<br>    1. 数据稀疏性。 一个大型的电子商务推荐系统一般有非常多的物品，用户可能买的其中不到1%的物品，不同用户之间买的物品重叠性较低，导致算法无法找到一个用户的邻居，即偏好相似的用户。这导致UserCF不适用于那些正反馈获取较困难的应用场景(如酒店预订， 大件商品购买等低频应用)<br>    2. 算法扩展性。 基于用户的协同过滤需要维护用户相似度矩阵以便快速的找出Topn相似用户， 该矩阵的存储开销非常大，存储空间随着用户数量的增加而增加，不适合用户数据量大的情况使用。</p>
+<h3><span id="6-算法评估">6. 算法评估</span><a href="#6-算法评估" class="header-anchor">#</a></h3><ol>
+<li>召回率<br>对用户u推荐N个物品记为$R(u)$, 令用户u在测试集上喜欢的物品集合为$T(u)$， 那么召回率定义为： $$ \operatorname{Recall}=\frac{\sum_{u}|R(u) \cap T(u)|}{\sum_{u}|T(u)|} $$ 这个意思就是说， 在用户真实购买或者看过的影片里面， 我模型真正预测出了多少， 这个考察的是模型推荐的一个全面性。</li>
+<li>准确率<br> 准确率定义为： $$ \operatorname{Precision}=\frac{\sum_{u} \mid R(u) \cap T(u)|}{\sum_{u}|R(u)|} $$ 这个意思再说， 在我推荐的所有物品中， 用户真正看的有多少， 这个考察的是我模型推荐的一个准确性。 为了提高准确率， 模型需要把非常有把握的才对用户进行推荐， 所以这时候就减少了推荐的数量， 而这往往就损失了全面性， 真正预测出来的会非常少，所以实际应用中应该综合考虑两者的平衡。</li>
+<li>覆盖率<br>覆盖率反映了推荐算法发掘长尾的能力， 覆盖率越高， 说明推荐算法越能将长尾中的物品推荐给用户。 $$ \text { Coverage }=\frac{\left|\bigcup_{u \in U} R(u)\right|}{|I|} $$</li>
+<li>新颖度<br>用户推荐列表中物品的平均流行度度量推荐结果的新颖度。 如果推荐出的物品都很热门， 说明推荐的新颖度较低。 由于物品的流行度分布呈长尾分布， 所以为了流行度的平均值更加稳定， 在计算平均流行度时对每个物品的流行度取对数。</li>
+</ol>
+<h3><span id="7协同过滤算法的问题分析">7.协同过滤算法的问题分析</span><a href="#7协同过滤算法的问题分析" class="header-anchor">#</a></h3><p>协同过滤算法存在的问题之一就是泛化能力弱， 即协同过滤无法将两个物品相似的信息推广到其他物品的相似性上。 导致的问题是热门物品具有很强的头部效应， 容易跟大量物品产生相似， 而尾部物品由于特征向量稀疏， 导致很少被推荐。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/article/RS/" rel="prev" title="RS">
+      <i class="fa fa-chevron-left"></i> RS
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/article/MF/" rel="next" title="MF">
+      MF <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1. 协调过滤算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2. 相似性度量方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3. 基于用户的协同过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">4. 编程实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">5. UserCF 优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">6. 算法评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">7.协同过滤算法的问题分析</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hzx</p>
+  <div class="site-description" itemprop="description">代码千万行，注释第一行。</br>编程不规范，同事两行泪。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzx</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">2.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33:20</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"superSample":2,"width":125,"height":125,"position":"left","hOffset":30,"vOffset":20},"mobile":{"show":true,"scale":0.05},"react":{"opacityDefault":1,"opacityOnHover":0}});</script></body>
+</html>
